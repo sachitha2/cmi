@@ -1,5 +1,14 @@
 <?php
+require_once("../db.php");
+require_once("../../methods/DB.class.php");
+require_once("../../methods/Main.class.php");
+$DB = new DB;
+$DB->conn = $conn;
+$main = new Main;
 session_start();
+$id = $_GET['id'];
+$data = $DB->select("area","WHERE id = $id");
+print_r($data);
 ?>
 
 <div><a href="area.php"><img src="../assets/images/back.png" width="30" height="30"></a></div><br>
@@ -11,7 +20,7 @@ session_start();
      
       <div class="form-group" id="editArea">
         <label for="formGroupExampleInput2">Enter Area ID</label>
-        <input type="number" class="form-control" id="area" placeholder="Enter area" required>
+        <input type="text" class="form-control" value="<?php echo($data[0]['name']) ?>" id="area" placeholder="Enter area" required>
         <label id="msg"></label><br>
       	<button type="button" class="btn btn-primary btn-lg" onClick="editAreaPageLoader(area.value)">Edit</button>
       </div>

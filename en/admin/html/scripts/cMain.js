@@ -531,6 +531,44 @@ function delCostType(id){
 		ajax.send("id="+id);
 	}
 		}
+function delCustomer(id){	
+	var r = confirm("Are you sure want to delete this!");
+	if(r == true){
+		showModal();
+		var ajax = _ajax();
+		ajax.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+//	   	 		alert(this.responseText);
+				ajaxCommonGetFromNet('subPages/viewCustomers.php','cStage');
+				hideModal();
+			}
+	  }
+
+		ajax.open("POST", "../workers/customer.del.php", true);
+		ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		ajax.send("id="+id);
+	}
+		}
+///TODO HERE
+function delPackItems(id){	
+	var r = confirm("Are you sure want to delete this!");
+	if(r == true){
+		showModal();
+		var ajax = _ajax();
+		ajax.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+//	   	 		alert(this.responseText);
+				ajaxCommonGetFromNet('subPages/loadPackData.php.php?id=','cStage');
+				hideModal();
+			}
+	  }
+
+		ajax.open("POST", "../workers/packItem.del.php", true);
+		ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		ajax.send("id="+id);
+	}
+		}
+///TODO HERE
 /////deleters
 
 
@@ -596,3 +634,37 @@ function fastCustomer(){
 		ajax.send();
 	
 }
+
+function fastCustomerItemadd(){
+	showModal();
+	var ajax = _ajax();
+		ajax.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+//	   	 		alert(this.responseText);
+//				ajaxCommonGetFromNet('subPages/fastCustomer.php','cStage');
+				document.getElementById("cStage").innerHTML = this.responseText;
+				
+				//load Bill
+				ajaxCommonGetFromNet("../workers/","output");
+				hideModal();
+			}
+	  }
+
+		ajax.open("POST", "subPages/fastCustomer.php", true);
+		ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		ajax.send();
+}
+
+
+
+////load editing forms
+	function loadEditFormsArea(value,id){
+		if(value != 0){
+			ajaxCommonGetFromNet("subPages/editArea.php?id="+value,"cStage");
+		}
+		
+		
+	}
+
+
+////load editing forms
