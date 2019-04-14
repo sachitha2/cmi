@@ -8,7 +8,7 @@ $main = new Main;
 session_start();
 $id = $_GET['id'];
 $data = $DB->select("area","WHERE id = $id");
-print_r($data);
+//print_r($data);
 ?>
 
 <div><a href="area.php"><img src="../assets/images/back.png" width="30" height="30"></a></div><br>

@@ -12,7 +12,7 @@ $DB = new DB;
 $DB->conn = $conn;
 $main = new Main;
 $area = $DB->select("area","");
-print_r($area);
+//print_r($area);
 ?>
 <?php $main->b("area.php") ?>
 	<h2>Select a area to edit</h2>
