@@ -665,6 +665,38 @@ function fastCustomerItemadd(){
 		
 		
 	}
+function loadEditFormsUser(value,id){
+		if(value != 0){
+//			alert("testing chatson");
+			ajaxCommonGetFromNet("subPages/editUser.php?id="+value,"cStage");
+		}
+		
+		
+	}
 
 
 ////load editing forms
+
+
+
+///edit functioins
+///this is edit save area
+function editSaveArea(){
+	
+}
+function editSaveUser(){
+	alert("edit user");
+}
+function editSavePack(){
+	alert("edit pack");
+}
+function editSaveItem(){
+	alert("edit Item");
+}
+function editSaveItemType(){
+	alert("edit Item Type");
+}
+function editSaveCostType(){
+	alert("edit Cost Type");
+}
+///edit functioins

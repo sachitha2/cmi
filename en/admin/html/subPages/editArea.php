@@ -19,10 +19,10 @@ $data = $DB->select("area","WHERE id = $id");
 	<form>
      
       <div class="form-group" id="editArea">
-        <label for="formGroupExampleInput2">Enter Area ID</label>
+<!--        <label for="formGroupExampleInput2">Enter Area ID</label>-->
         <input type="text" class="form-control" value="<?php echo($data[0]['name']) ?>" id="area" placeholder="Enter area" required>
         <label id="msg"></label><br>
-      	<button type="button" class="btn btn-primary btn-lg" onClick="editAreaPageLoader(area.value)">Edit</button>
+      	<button type="button" class="btn btn-primary btn-lg" onClick="editSaveArea()">Save</button>
       </div>
       
     </form>  
