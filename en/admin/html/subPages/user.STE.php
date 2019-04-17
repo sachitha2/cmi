@@ -12,7 +12,7 @@ $DB = new DB;
 $DB->conn = $conn;
 $main = new Main;
 $user = $DB->select("user","");
-print_r($user);
+//print_r($user);
 ?>
 <?php $main->b("user.php") ?>
 	<h2>Select a user to edit</h2>

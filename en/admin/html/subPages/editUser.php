@@ -9,13 +9,13 @@ session_start();
 $id = $_GET['id'];
 $user = $DB->select("user","WHERE id = $id");
 $userData = $DB->select("userdata","WHERE id = $id");
-print_r($user);
-print_r($userData);
+//print_r($user);
+//print_r($userData);
 $main->b("user.php");
 include("../../workers/readSesson.worker.php");
 ?>
 	<h2>Edit User</h2>
-	<form>
+	
      
       <div class="form-group" id="editArea">
         <div>Enter your name</div>
@@ -48,7 +48,7 @@ include("../../workers/readSesson.worker.php");
 		<div><input class="form-control" type="password" id="newPassAgain" name="pass" placeholder="new password again" onKeyPress="enterAddUser(event)"></div>
 		<div id="passMatching"></div>
 		<div id="msg"></div>
-		<div><button type="text"  class="btn btn-primary btn-lg" onclick="addUser()">Create the account</button></div>
+		<div><button type="text"  class="btn btn-primary btn-lg" onclick="editSaveUser()">Create the account</button></div>
       </div>
       
-    </form>  
+   

@@ -681,11 +681,80 @@ function loadEditFormsUser(value,id){
 
 ///edit functioins
 ///this is edit save area
-function editSaveArea(){
-	
+function editSaveArea(area,id){
+	if(area.length != 0){
+					///ajax part
+					loadingModal();
+					showModal();
+					var xmlhttp = new XMLHttpRequest();
+        			xmlhttp.onreadystatechange = function() {
+        			if (this.readyState === 4 && this.status == 200) {
+							document.getElementById("msg").innerHTML  =  this.responseText;
+							emt("area");
+							hideModal();
+           				}
+        			};
+        			xmlhttp.open("GET", "../workers/area.edit.php?id="+id+"&area="+area, true);//generating  get method link
+        			xmlhttp.send();
+					////ajax part
+		}else{
+			document.getElementById("msg").innerHTML = "Enter valid area";
+		}
 }
 function editSaveUser(){
-	alert("edit user");
+			alert("edit user");
+			var password = document.getElementById('newPass').value;
+			var pass = document.getElementById('newPassAgain').value;
+			var oldPass = document.getElementById('oldPass').value;
+			var name = document.getElementById('name').value;
+			var nic = document.getElementById('nic').value;
+			var dob =document.getElementById('dob').value;
+			var tp = document.getElementById('tp').value;
+			var userName = document.getElementById('userName').value;
+			var d = new Date();
+			var year = d.getFullYear().toString();
+			var month =  d.getMonth() + 1;
+			var months = month.toString();
+			var day = d.getDate().toString();
+			var date = year+"/"+months+"/"+day;
+			var type = document.getElementById('type').value; 
+	
+		if(name == ""){
+			msg("msg","Enter name");
+		}
+		else if(tp.length != 10 ){
+			msg("msg","Enter a valid telephone number");
+		}
+		else if (pass != password){
+			msg("msg","your password doesn't match");
+		}
+
+		else{
+			data = {'name':name, 'nic':nic, 'password':password,'oldPass':oldPass, 'tp':tp, 'dob':dob, 'date':date, 'type':type ,'userName':userName};
+			console.log(data);
+			
+			var ajax = _ajax();
+			ajax.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+				emt("name");
+				emt("nic");
+				emt("dob");
+				emt("tp");
+				emt("newPass");
+				emt("oldPass");
+				emt("newPassAgain");
+				emt("userName");
+				msg("msg",this.responseText);
+				
+			}
+	  }
+
+		ajax.open("POST", "../workers/user.edit.php", true);
+		ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		ajax.send("data="+(JSON.stringify(data)));
+			alert("password matchings");
+			
+		}
 }
 function editSavePack(){
 	alert("edit pack");

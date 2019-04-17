@@ -390,6 +390,10 @@ require_once("db.php");
 			ajax.onreadystatechange = function() {
 				if (this.readyState == 4 && this.status == 200) {
 	    		alert(this.responseText);
+				emt("name");
+				emt("address");
+				emt("nic");
+				emt("tp");
 				msg.innerHTML = " Account Created successfully"
 				}
 	  		}

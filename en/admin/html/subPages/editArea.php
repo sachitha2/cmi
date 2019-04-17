@@ -22,7 +22,7 @@ $data = $DB->select("area","WHERE id = $id");
 <!--        <label for="formGroupExampleInput2">Enter Area ID</label>-->
         <input type="text" class="form-control" value="<?php echo($data[0]['name']) ?>" id="area" placeholder="Enter area" required>
         <label id="msg"></label><br>
-      	<button type="button" class="btn btn-primary btn-lg" onClick="editSaveArea()">Save</button>
+      	<button type="button" class="btn btn-primary btn-lg" onClick="editSaveArea(area.value,<?php echo($id) ?>)">Save</button>
       </div>
       
     </form>  
