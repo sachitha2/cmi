@@ -57,6 +57,7 @@ $main = new Main;
 <!--     		<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/deleteArea.php','cStage')">Delete</button>-->
      		<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/viewPacks.php','cStage')">View</button>
      		<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/addItemsToPack.php','cStage')">Add Items to pack</button>
+     		<button type="button" class="btn btn-primary btn-lg" >PDF</button>
 	</div>
 
       <!-- ############ PAGE END-->

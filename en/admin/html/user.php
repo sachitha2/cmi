@@ -57,6 +57,7 @@ $main = new Main;
      		<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/user.STE.php','cStage')">Edit</button>
 <!--     		<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/deleteArea.php','cStage')">Delete</button>-->
      		<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/viewUsers.php','cStage')">View</button>
+     		<button type="button" class="btn btn-primary btn-lg" >PDF</button>
 	</div>
       <!-- ############ PAGE END-->
 
