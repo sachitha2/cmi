@@ -702,7 +702,7 @@ function editSaveArea(area,id){
 		}
 }
 function editSaveUser(){
-			alert("edit user");
+			
 			var password = document.getElementById('newPass').value;
 			var pass = document.getElementById('newPassAgain').value;
 			var oldPass = document.getElementById('oldPass').value;
@@ -719,11 +719,30 @@ function editSaveUser(){
 			var date = year+"/"+months+"/"+day;
 			var type = document.getElementById('type').value; 
 	
-		if(name == ""){
+		if(password == ""){
+			msg("msg","Password can not be blank");
+		}
+		else if(pass == ""){
+			msg("msg","Retype pass word cann not be blank");
+		}
+		else if(oldPass == ""){
+			msg("msg","Old  password cann not be blank");
+		}
+		else if(name == ""){
 			msg("msg","Enter name");
+		}
+	///TODO Idcard validation
+//		else if(nic.length != 9 || nic.length == 12){
+//			msg("msg","Retype pass word cann not be blank");
+//		}
+		else if(dob == ""){
+			msg("msg","Enter a valid Birth day");
 		}
 		else if(tp.length != 10 ){
 			msg("msg","Enter a valid telephone number");
+		}
+		else if(userName == ""){
+			msg("msg","User name can not be blank");
 		}
 		else if (pass != password){
 			msg("msg","your password doesn't match");
@@ -752,7 +771,7 @@ function editSaveUser(){
 		ajax.open("POST", "../workers/user.edit.php", true);
 		ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 		ajax.send("data="+(JSON.stringify(data)));
-			alert("password matchings");
+			//alert("password matchings");
 			
 		}
 }
