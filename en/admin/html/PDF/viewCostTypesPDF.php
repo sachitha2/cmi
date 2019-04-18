@@ -5,10 +5,13 @@ $Date = date("Y-m-d");
 
 //Connecting Database
 require_once('../db.php');
+
 require_once('../../methods/DB.class.php');
+require_once('../../methods/Main.class.php');
+
+$main = new Main;
 $DB = new DB;
 $DB->conn = $conn;
-// End
 
 $arr = $DB->select("costtype","");
 
@@ -39,11 +42,7 @@ foreach ($arr as $data) {
 	
 }
 
-$pdf->ln(5);
-$pdf->SetFont('Times','',10);
-$pdf->Cell(190,10,"Powered by Infini solutions - http://infinisolutionslk.com",'','',"C");
-$pdf->ln(5);
-$pdf->Cell(190,10,"077-1466460",'','',"C");
+$main->pdfFooter($pdf);
 
 $pdf->Output('',"Cost Types(".$Date.').pdf',true);
 

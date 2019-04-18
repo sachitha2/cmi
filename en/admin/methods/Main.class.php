@@ -240,6 +240,15 @@ class Main{
 		</div>
 		<?php
 	}
+	public function pdfFooter($pdf,$Orientation){
+		
+			$pdf->ln(5);
+			$pdf->SetFont('Times','',10);
+			$pdf->Cell('',10,"Powered by Infini solutions - http://infinisolutionslk.com",'','',"C");
+			$pdf->ln(5);
+			$pdf->Cell(275,10,"077-1466460",'','',"C");
+		
+	}
 	
 }
 
