@@ -673,6 +673,12 @@ function loadEditFormsUser(value,id){
 		
 		
 	}
+function loadEditFormsPack(id){
+		if(id != 0){
+//			alert("testing chatson");
+			ajaxCommonGetFromNet("subPages/editPack.php?id="+id,"cStage");
+		}
+}
 
 
 ////load editing forms
@@ -776,7 +782,24 @@ function editSaveUser(){
 		}
 }
 function editSavePack(){
-	alert("edit pack");
+	if(pack.length != 0){
+					///ajax part
+					loadingModal();
+					showModal();
+					var xmlhttp = new XMLHttpRequest();
+        			xmlhttp.onreadystatechange = function() {
+        			if (this.readyState === 4 && this.status == 200) {
+							document.getElementById("msg").innerHTML  =  this.responseText;
+							emt("pack");
+							hideModal();
+           				}
+        			};
+        			xmlhttp.open("GET", "../workers/pack.edit.php?id="+id+"&pack="+pack, true);//generating  get method link
+        			xmlhttp.send();
+					////ajax part
+		}else{
+			document.getElementById("msg").innerHTML = "Enter valid pack";
+		}
 }
 function editSaveItem(){
 	alert("edit Item");
