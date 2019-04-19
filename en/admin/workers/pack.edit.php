@@ -4,8 +4,9 @@ require_once("db.php");
 require_once("../methods/DB.class.php");
 $DB = new DB;
 $DB->conn = $conn;
-$id = $_POST['id'];
+$id = $_GET['id'];
+$name = $_GET['name'];
 //echo($area);
 echo($id);
-$DB->delete("pack","where id = $id");
+$conn->query("UPDATE pack SET name = '$name' WHERE pack.id = $id;");
 ?>
