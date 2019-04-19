@@ -1,6 +1,7 @@
 <?php
 
 require('fpdf.php');
+date_default_timezone_set("Asia/Kolkata");
 $Date = date("Y-m-d");
 
 //Connecting Database
@@ -18,7 +19,7 @@ $arr = $DB->select("item","");
 $pdf = new FPDF('P','mm','A4');
 $pdf->AddPage("p",'A4');
 $pdf->SetFont('Times','B',18);
-$pdf->Cell(190,10,"Items(".$Date.')','','',"C");
+$pdf->Cell('',10,"Items(".$Date.')','','',"C");
 
 $pdf->ln(20);
 $pdf->SetFont('Times','B',15);
@@ -35,8 +36,7 @@ foreach ($arr as $data) {
 	$pdf->ln(6);
 	//$pdf->Cell(50,10,'','','',"L");
 	$pdf->Cell(30,6,$data['id'],'1','',"L");
-	$item = $DB->getItemNameByStockId($data['id'],0);
-	$pdf->Cell(160,6,$item,'1','',"L");
+	$pdf->Cell(160,6,$DB->getItemNameByStockId($data['id'],0),'1','',"L");
 	//$pdf->Cell(50,10,'','','',"L");
 	
 }

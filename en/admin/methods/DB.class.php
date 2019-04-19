@@ -114,5 +114,24 @@ class DB{
 		
 	}	
 	
+	function getCostTypeByTypeId($id,$d = 1){
+		
+		$sql = "SELECT * FROM `cost` WHERE `id` = $id";
+	  	$result = $this->conn->query($sql);
+	  	while($row = mysqli_fetch_assoc($result)){
+			
+			$sqlCostType = "SELECT * FROM `costtype` WHERE `id` = ".$row['costTypeId']."";
+			$resultCostType = $this->conn->query($sqlCostType);
+			$rowItn = mysqli_fetch_assoc($resultCostType);
+		  	$name =$rowItn['costtype'];
+	  	}
+		if($d == 0){
+			return($name);
+		}else{
+			echo($name);
+		}
+		
+	}
+	
 }
 
