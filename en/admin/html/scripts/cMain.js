@@ -41,6 +41,7 @@ function loadingModal(){
 }
 
 function addArea(area){
+		area = document.getElementById("area").value;
 		if(area.length != 0){
 					///ajax part
 					loadingModal();
@@ -679,8 +680,24 @@ function loadEditFormsPack(id){
 			ajaxCommonGetFromNet("subPages/editPack.php?id="+id,"cStage");
 		}
 }
-
-
+function loadEditFormsItem(id){
+		if(id != 0){
+//			alert("Item");
+			ajaxCommonGetFromNet("subPages/editItem.php?id="+id,"cStage");
+		}
+}
+function loadEditFormsItemType(id){
+		if(id != 0){
+//			alert("Item");
+			ajaxCommonGetFromNet("subPages/editItemType.php?id="+id,"cStage");
+		}
+}
+function loadEditFormsCostType(id){
+		if(id != 0){
+//			alert("Cost Type");
+			ajaxCommonGetFromNet("subPages/editCostType.php?id="+id,"cStage");
+		}
+}
 ////load editing forms
 
 
@@ -781,7 +798,7 @@ function editSaveUser(){
 			
 		}
 }
-function editSavePack(){
+function editSavePack(pack,id){
 	if(pack.length != 0){
 					///ajax part
 					loadingModal();
@@ -801,13 +818,67 @@ function editSavePack(){
 			document.getElementById("msg").innerHTML = "Enter valid pack";
 		}
 }
-function editSaveItem(){
-	alert("edit Item");
+function editSaveItem(item,id){
+	//	alert("edit Item");
+	if(item.length != 0){
+					///ajax part
+					loadingModal();
+					showModal();
+					var xmlhttp = new XMLHttpRequest();
+        			xmlhttp.onreadystatechange = function() {
+        			if (this.readyState === 4 && this.status == 200) {
+							document.getElementById("msg").innerHTML  =  this.responseText;
+							emt("item");
+							hideModal();
+           				}
+        			};
+        			xmlhttp.open("GET", "../workers/item.edit.php?id="+id+"&item="+item, true);//generating  get method link
+        			xmlhttp.send();
+					////ajax part
+		}else{
+			document.getElementById("msg").innerHTML = "Enter valid item";
+		}
 }
-function editSaveItemType(){
-	alert("edit Item Type");
+function editSaveItemType(itemType,id){
+	//	alert("edit Item");
+	if(itemType.length != 0){
+					///ajax part
+					loadingModal();
+					showModal();
+					var xmlhttp = new XMLHttpRequest();
+        			xmlhttp.onreadystatechange = function() {
+        			if (this.readyState === 4 && this.status == 200) {
+							document.getElementById("msg").innerHTML  =  this.responseText;
+							emt("itemType");
+							hideModal();
+           				}
+        			};
+        			xmlhttp.open("GET", "../workers/itemType.edit.php?id="+id+"&itemType="+itemType, true);//generating  get method link
+        			xmlhttp.send();
+					////ajax part
+		}else{
+			document.getElementById("msg").innerHTML = "Enter valid item";
+		}
 }
-function editSaveCostType(){
-	alert("edit Cost Type");
+function editSaveCostType(costType,id){
+	//	alert("edit Item");
+	if(costType.length != 0){
+					///ajax part
+					loadingModal();
+					showModal();
+					var xmlhttp = new XMLHttpRequest();
+        			xmlhttp.onreadystatechange = function() {
+        			if (this.readyState === 4 && this.status == 200) {
+							document.getElementById("msg").innerHTML  =  this.responseText;
+							emt("costType");
+							hideModal();
+           				}
+        			};
+        			xmlhttp.open("GET", "../workers/costType.edit.php?id="+id+"&costType="+costType, true);//generating  get method link
+        			xmlhttp.send();
+					////ajax part
+		}else{
+			document.getElementById("msg").innerHTML = "Enter valid item";
+		}
 }
 ///edit functioins

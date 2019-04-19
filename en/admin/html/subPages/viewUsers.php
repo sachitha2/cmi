@@ -36,7 +36,7 @@ $DB->conn = $conn;?>
 					<td><?php echo($data['dob']) ?></td>
 					<td><?php echo($data['regdate']) ?></td>
 					<td><?php echo($data['nic']) ?></td>
-					<td><button type="button" class="btn btn-md btn-primary">Edit</button></td>
+					<td><button type="button" class="btn btn-md btn-primary" onClick="loadEditFormsUser(<?php echo($data['id']) ?>,81)">Edit</button></td>
 					<td><button onclick="delUser(<?php echo($data['id']) ?>)" type="button" class="btn btn-md btn-danger ">X</button></td>
 				</tr>
 				

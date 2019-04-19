@@ -22,7 +22,7 @@ $main->b("costType.php");
 <table class="table table-hover table-bordered table-striped table-dark">
   <thead class="thead-dark">
     <tr>
-      <th scope="col" width="10">#</th>
+      <th scope="col" width="10">ID</th>
       <th scope="col">Cost Types</th>
       <th scope="col">Date</th>
       <th scope="col" width="50"></th>
@@ -39,7 +39,7 @@ $main->b("costType.php");
 					<td scope="row"><?php echo($data['id']) ?></td>
 					<td><?php echo($data['costtype'])?></td>
 					<td><?php echo($data['date'])?></td>
-					<td><button type="button" class="btn btn-md btn-primary">Edit</button></td>
+					<td><button type="button" class="btn btn-md btn-primary" onClick="loadEditFormsCostType(<?php echo($data['id']) ?>)">Edit</button></td>
 					<td><button onClick="delCostType(<?php echo($data['id']) ?>)" type="button" class="btn btn-md btn-danger ">X</button></td>
 					
 				</tr>

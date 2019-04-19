@@ -37,7 +37,7 @@ $main->b("item.php");
 				<tr>
 					<td scope="row"><?php echo($data['id']) ?></td>
 					<td><?php $DB->getItemNameByStockId($data['id'])?></td>
-					<td><button type="button" class="btn btn-md btn-primary">Edit</button></td>
+					<td><button type="button" class="btn btn-md btn-primary" onClick="loadEditFormsItem(<?php echo($data['id']) ?>)">Edit</button></td>
 					<td><button onClick="delItem(<?php echo($data['id']) ?>)" type="button" class="btn btn-md btn-danger ">X</button></td>
 					
 				</tr>

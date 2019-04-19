@@ -5,8 +5,13 @@ require_once("../methods/DB.class.php");
 $DB = new DB;
 $DB->conn = $conn;
 $id = $_GET['id'];
-$name = $_GET['name'];
+$pack = $_GET['pack'];
 //echo($area);
-echo($id);
-$conn->query("UPDATE pack SET name = '$name' WHERE pack.id = $id;");
+if($DB->isAvailable("pack","WHERE name = '$pack'") == 0 ){
+	$conn->query("UPDATE pack SET name = '$pack' WHERE pack.id = $id;");
+	echo("Done");
+}else{
+	echo("It is already available");
+}
+
 ?>
