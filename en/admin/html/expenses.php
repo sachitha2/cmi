@@ -111,6 +111,8 @@ $main = new Main;
 		
 		<br>
 		<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/addExpenses.php','cStage')">Create</button>
+		<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/viewExpensesMain.php','cStage')">View</button>
+		
 		</div>
       	<!-- ############ PAGE END-->
 
