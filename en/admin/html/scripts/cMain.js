@@ -882,3 +882,11 @@ function editSaveCostType(costType,id){
 		}
 }
 ///edit functioins
+
+
+/////printer 
+
+
+
+/////printer
+
