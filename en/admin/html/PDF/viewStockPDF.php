@@ -25,13 +25,13 @@ $pdf->ln(20);
 $pdf->SetFont('Times','B',15);
 
 $pdf->Cell(15,10,'#','1','',"L");
-$pdf->Cell(30,10,'Item','1','',"L");
-$pdf->Cell(20,10,'Amount','1','',"L");
-$pdf->Cell(20,10,'Buying Price','1','',"L");
-$pdf->Cell(20,10,'Selling Price','1','',"L");
-$pdf->Cell(25,10,'MFD','1','',"L");
-$pdf->Cell(25,10,'ExDate','1','',"L");
-$pdf->Cell(20,10,'Days to Expire','1','',"L");
+$pdf->Cell(40,10,'Item','1','',"L");
+$pdf->Cell(22,10,'Amount','1','',"L");
+$pdf->Cell(40,10,'Buying Price','1','',"L");
+$pdf->Cell(40,10,'Selling Price','1','',"L");
+$pdf->Cell(24,10,'MFD','1','',"L");
+$pdf->Cell(24,10,'ExDate','1','',"L");
+$pdf->Cell(40,10,'Days to Expire','1','',"L");
 $pdf->Cell(30,10,'Profit','1','',"L");
 
 $pdf->SetFont('Times','',12);
@@ -42,15 +42,20 @@ foreach ($arr as $data) {
 	$pdf->ln(6);
 	
 	$pdf->Cell(15,6,$data['id'],'1','',"L");
-	$pdf->Cell(30,6,$DB->getItemNameByStockId($data['itemid'],0),'1','',"L");
-	$pdf->Cell(20,6,$data['amount'],'1','',"L");
-	$pdf->Cell(20,6,$data['bprice'],'1','',"L");
-	$pdf->Cell(20,6,$data['sprice'],'1','',"L");
-	$pdf->Cell(25,6,$data['mfd'],'1','',"L");
-	$pdf->Cell(25,6,$data['exdate'],'1','',"L");
-	//$expDate = date_create($data['exdate']);
-	$pdf->Cell(20,6,date_diff($data['exdate'],$Date),'1','',"L");
-	$pdf->Cell(30,6,$data['sprice'] - $data['bprice'],'1','',"L");
+	$pdf->Cell(40,6,$DB->getItemNameByStockId($data['itemid'],0),'1','',"L");
+	$pdf->Cell(22,6,$data['amount'],'1','',"R");
+	$pdf->Cell(40,6,$data['bprice'],'1','',"R");
+	$pdf->Cell(40,6,$data['sprice'],'1','',"R");
+	$pdf->Cell(24,6,$data['mfd'],'1','',"L");
+	$pdf->Cell(24,6,$data['exdate'],'1','',"L");
+	$expDate = date_create($data['exdate']);
+	$curDate=date_create($Date);
+	$diff=date_diff($expDate,$curDate);
+	//$T = gettype($diff);
+	$array =  (array) $diff;
+	//print_r($diff);
+	$pdf->Cell(40,6,($array['days']),'1','',"R");
+	$pdf->Cell(30,6,$data['sprice'] - $data['bprice'],'1','',"R");
 	
 }
 
