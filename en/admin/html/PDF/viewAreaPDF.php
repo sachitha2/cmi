@@ -1,6 +1,7 @@
 <?php
 
 require('fpdf.php');
+date_default_timezone_set("Asia/Kolkata");
 $Date = date("Y-m-d");
 
 //Connecting Database
