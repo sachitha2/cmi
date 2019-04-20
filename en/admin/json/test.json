@@ -1,0 +1,19 @@
+
+
+{
+    "data":
+        {
+            "id":[10,10],
+            "item":["Soap","valnila"],
+            "QTY":[100,250],
+            "price":[1500,25],
+            "total":[2500,1458],
+            "r":[10,25]
+        
+        },
+    "mainData":{
+        "total":25000,
+        "msg":"Hello sam how are u"
+    }
+
+}
