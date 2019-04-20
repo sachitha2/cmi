@@ -12,14 +12,14 @@ $DB = new DB;
 $DB->conn = $conn;
 $main = new Main;
 $itemType = $DB->select("item_type","");
-print_r($itemType);
+//print_r($itemType);
 ?>
 <?php $main->b("itemType.php") ?>
 	<h2>Select a Item Type to edit</h2>
 	
 	<div>
 		
-    		<select class="form-control" id="idAreaList" onChange="/*loadEditFormsArea(this.value,81)*/">
+    		<select class="form-control" id="idAreaList" onChange="loadEditFormsItemType(this.value,81)">
   				<option value="0">Select a Item Type</option>
   				<?php
 					foreach($itemType as $data){

@@ -12,14 +12,14 @@ $DB = new DB;
 $DB->conn = $conn;
 $main = new Main;
 $costType = $DB->select("costtype","");
-print_r($costType);
+//print_r($costType);
 ?>
 <?php $main->b("costType.php") ?>
 	<h2>This is CostType STE</h2>
 	
 	<div>
 		
-    		<select class="form-control" id="idAreaList" onChange="/*loadEditFormsArea(this.value,81)*/">
+    		<select class="form-control" id="idAreaList" onChange="loadEditFormsCostType(this.value)">
   				<option value="0">Select a cost type</option>
   				<?php
 					foreach($costType as $data){

@@ -12,19 +12,19 @@ $DB = new DB;
 $DB->conn = $conn;
 $main = new Main;
 $item = $DB->select("item","");
-print_r($item);
+//print_r($item);
 ?>
 <?php $main->b("item.php") ?>
 	<h2>Select Item to edit</h2>
 	
 	<div>
 		
-    		<select class="form-control" id="idAreaList" onChange="/*loadEditFormsArea(this.value,81)*/">
+    		<select class="form-control" id="idAreaList" onChange="loadEditFormsItem(this.value)">
   				<option value="0">Select a Item</option>
   				<?php
 					foreach($item as $data){
 						?>
-						<option value="<?php echo($data['id']) ?>"><?php echo($data['name']) ?></option>
+						<option value="<?php echo($data['id']) ?>"> <?php $DB->getItemNameByStockId($data['id']) ?></option>
 						<?php
 					}
 	

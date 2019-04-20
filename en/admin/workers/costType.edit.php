@@ -4,8 +4,13 @@ require_once("db.php");
 require_once("../methods/DB.class.php");
 $DB = new DB;
 $DB->conn = $conn;
-$id = $_POST['id'];
-//echo($area);
-echo($id);
-$DB->delete("pack","where id = $id");
+$costType = $_GET['costType'];
+$id = $_GET['id'];
+if($DB->isAvailable("costtype","WHERE costtype = '$costType'") == 0 ){
+	$conn->query("UPDATE costtype SET costtype = '$costType' WHERE costtype.id = $id;");
+	echo("Done");
+}else{
+	echo("It is already available");
+}
+
 ?>
