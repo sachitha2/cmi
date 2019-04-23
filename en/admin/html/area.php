@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once("../methods/Main.class.php");
 $main = new Main;
 ?>

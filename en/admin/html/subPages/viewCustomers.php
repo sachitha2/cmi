@@ -19,7 +19,7 @@ $DB->conn = $conn;?>
 <table class="table table-hover table-bordered table-striped table-dark">
   <thead class="thead-dark">
     <tr>
-      <th id="id" scope="col" width="10">#</th>
+      <th id="id" scope="col" width="10">ID</th>
       <th id="item" scope="col" onDblClick="itemMenuInStock()">Name</th>
       <th id="amount" scope="col">TP</th>
       <th id="bPrice" scope="col">Address</th>

@@ -9,17 +9,14 @@ $DB->conn = $conn;?>
 <script>$('#myModal').modal('show')</script>
 <?php $main->b("stock.php") ?>
 <?php
-	include("../../workers/readSesson.worker.php");
+	$main->createSettionError("This is a sess");
+	$main->readSessionError();
 ?>
 <!-- Button trigger modal -->
-
-
-
-	
 <table class="table table-hover table-bordered table-striped table-dark">
   <thead class="thead-dark">
     <tr>
-      <th id="id" scope="col" width="10">#</th>
+      <th id="id" scope="col" width="10">ID</th>
       <th id="item" scope="col" onDblClick="itemMenuInStock()">Item</th>
       <th id="amount" scope="col">Amount</th>
       <th id="bPrice" scope="col">Buying Price</th>

@@ -80,7 +80,55 @@ function addArea(area){
 		  
 	}
 
+function addCustomer(){
+	
+	var name = document.getElementById('name').value;
+	var address = document.getElementById('address').value;
+	var nic = document.getElementById('nic').value;
+	var tp = document.getElementById('tp').value;
+	var area = document.getElementById('area').value;
+	var d = new Date();
+	var year = d.getFullYear().toString();
+	var month =  d.getMonth() + 1;
+	var months = month.toString();
+	var day = d.getDate().toString();
+	var date = year+"/"+months+"/"+day;
+	var agent = document.getElementById('agent').value;
 
+	data = {'name':name , 'address':address, 'nic':nic, 'tp':tp, 'area':area, 'date':date, 'agent':agent };
+		////Valida ting data 
+		msg = document.getElementById("msg");
+		if(name.length == "" ){
+			msg.innerHTML = "Insert name"
+		}
+		
+		else if(address.length == ""){
+			msg.innerHTML = " Insert Address"
+		}
+		else if(tp.length != 10){
+			msg.innerHTML = " Insert Telephone number"
+		}
+		else{
+			
+			msg.innerHTML = "";
+			var ajax = _ajax();
+			ajax.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+	    		alert(this.responseText);
+				emt("name");
+				emt("address");
+				emt("nic");
+				emt("tp");
+				msg.innerHTML = " Account Created successfully"
+				}
+	  		}
+
+			ajax.open("POST", "../workers/customerInsert.worker.php", true);
+			ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+			ajax.send("data="+(JSON.stringify(data)));
+		
+			}
+}
 
 
 function _ajax() {
@@ -601,6 +649,14 @@ function enterAddItemsToStock(e) {
 	  x = document.getElementById("itemId").value;
 	  ajaxCommonGetFromNet('subPages/addStockForm.php?id='+x,'cStage');}
 }
+
+function enterEditCustomer(e,id) {
+  if (e.which == 13) { 
+	  
+	  loadEditFormsCustomer(id);
+	  }
+}
+
 /////Enter key events
 
 
@@ -696,6 +752,14 @@ function loadEditFormsCostType(id){
 		if(id != 0){
 //			alert("Cost Type");
 			ajaxCommonGetFromNet("subPages/editCostType.php?id="+id,"cStage");
+		}
+}
+
+function loadEditFormsCustomer(id){
+		if(id != 0){
+			ajaxCommonGetFromNet("subPages/editCustomer.php?id="+id,"cStage");
+		}else{
+			msg("msg","");
 		}
 }
 ////load editing forms
