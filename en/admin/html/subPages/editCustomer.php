@@ -7,7 +7,7 @@ $main = new Main;
 $DB = new DB;
 $DB->conn = $conn;
 $arr = $DB->select("customer","WHERE nic LIKE '$idCardN'");
-print_r($arr);
+//print_r($arr);
 $main->b("customer.php");
 ?>
 <h1>Edit customer data - <?php echo($idCardN) ?></h1>
@@ -21,24 +21,36 @@ $main->b("customer.php");
 		<div>Telephone</div>
 		<div><input type="text" class="form-control" name="tp" value="<?php echo($arr[0]['tp']) ?>" id="tp"></div>
 		<div>your area</div>
-		<div><select name="area" id="area" class="form-control" >
+		<div>
+		<select name="area" id="area" class="form-control" >
 			<?php
-		$queryForSelection = $conn->query("SELECT * FROM area");
-		while ($row = mysqli_fetch_assoc($queryForSelection)) {
-		 	echo "<option class='form-control' value='{$row['id']}'>".$row['name']."</option>";
-		 } 
-
+					$areaArr = $DB->select("area","");
+					foreach($areaArr as $areaData){
+						if($arr[0]['areaid'] == $areaData['id']){	?>
+							<option value="<?php echo($areaData['id']) ?>" selected><?php echo($areaData['name']) ?></option>
+					<?php	}else{ ?>
+							<option value="<?php echo($areaData['id']) ?>"><?php echo($areaData['name']) ?></option>
+						<?php }
+						?>
+						
+						<?php
+					}
 
 		?>
-		</select></div>
+		</select>
+		</div>
 		<div>Agent name</div>
 		<div>
 			<select class="form-control" name="agent" id="agent">
 				<?php
-					$queryForAgentSelection = $conn->query("SELECT * FROM user WHERE type = 2 ;");
-					while ($rowAgent = mysqli_fetch_assoc($queryForAgentSelection)) {
-
-						echo "<option value='{$rowAgent['id']}'>".$rowAgent['username']."</option>";
+				
+					$agentArr = $DB->select("user","WHERE type = 2");
+					print_r($agentArr);
+					foreach ($agentArr as $agentData) {
+							?>
+<!--							<option value=""><?php //echo($agentData[]) ?></option>-->
+							<?php
+//						echo "<option value='{$rowAgent['id']}'>".$rowAgent['username']."</option>";
 					}
 				?>
 			</select>
@@ -52,7 +64,12 @@ $main->b("customer.php");
 							if($arr[0]['status'] == 1){ ?>
 								<option value='Active' selected>Active</option>
 								<option value='Inactive'>Inactive</option>
-							<?php }
+							<?php }else{
+								?>
+								<option value='Active'>Active</option>
+								<option value='Inactive' selected>Inactive</option>
+								<?php
+							}
 						?>
 						
 					
