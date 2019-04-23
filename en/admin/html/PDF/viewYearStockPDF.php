@@ -3,6 +3,7 @@
 require('fpdf.php');
 date_default_timezone_set("Asia/Kolkata");
 $Date = date("Y-m-d");
+$year = date("F", strtotime('y'));
 
 //Connecting Database
 require_once('../db.php');
@@ -14,12 +15,12 @@ $main = new Main;
 $DB = new DB;
 $DB->conn = $conn;
 
-$arr = $DB->select('stock','WHERE status = 1');
+$arr = $DB->select('stock','WHERE (status = 1 && YEAR(adate) = YEAR(CURDATE()))');
 
 $pdf = new FPDF('L','mm','A4');
 $pdf->AddPage("L",'A4');
 $pdf->SetFont('Times','B',18);
-$pdf->Cell('',10,"Stock(".$Date.')','','',"C");
+$pdf->Cell('',10,"Stock(".$year.')','','',"C");
 
 $pdf->ln(20);
 $pdf->SetFont('Times','B',15);
@@ -61,7 +62,7 @@ foreach ($arr as $data) {
 
 $main->pdfFooter($pdf);
 
-$pdf->Output('',"Stock(".$Date.').pdf',true);
+$pdf->Output('',"Stock(".$year.').pdf',true);
 
 //Cell(float w [, float h [, string txt [, mixed border [, int ln [, string align [, boolean fill [, mixed link]]]]]]])
 
