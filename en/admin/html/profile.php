@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once("../methods/Main.class.php");
 $main = new Main;
 ?>
@@ -6,7 +7,7 @@ $main = new Main;
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>CMS - Customer</title>
+  <title>CMS - Profile</title>
   <meta name="description" content="cms" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimal-ui" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -31,40 +32,28 @@ $main = new Main;
   <link rel="stylesheet" href="../assets/styles/app.css" type="text/css" />
   <!-- endbuild -->
   <link rel="stylesheet" href="../assets/styles/font.css" type="text/css" />
+   <script src="scripts/cMain.js"></script> 
 </head>
 <body>
+
   <div class="app" id="app">
 
 <!-- ############ LAYOUT START-->
 
-  <?php   $main->menuBar()  ?>
+  <?php $main->menuBar(s) ?>
   <!-- / -->
   
   <!-- content -->
   <div id="content" class="app-content box-shadow-z0" role="main">
     <?php $main->modal() ?> 
     <?php $main->topBar() ?>
-    <div class="app-footer">
-      <div class="p-2 text-xs">
-        <div class="pull-right text-muted py-1">
-          &copy; 2019 CMS. All Rights Reserved<span class="hidden-xs-down"> | Powered by <a href="http://infinisolutionslk.com/" target="_blank">Infini Solutions</a></span>
-          <a ui-scroll-to="content"><i class="fa fa-long-arrow-up p-x-sm"></i></a>
-        </div>
-      </div>
-    </div>
     <div ui-view class="app-body" id="view">
-	  <?php $main->modal() ?>
+		<?php $main->modal() ?>
       <!-- ############ PAGE START-->
-	  <h1>Customer</h1>
+	 <h1>Profile </h1>
     <div class="container h-100" id="cStage">
-    		<div>
-    			Customers according to area chart will be Available here
-    		</div>
-    		
-  			<a href="createCustomer.php"><button type="button" class="btn btn-primary btn-lg">Find</button></a>
-     		<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/customers.STE.php','cStage')">Edit</button>
-     		<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/deleteArea.php','cStage')">Delete</button>
-     		<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/viewCustomers.php','cStage')">View</button>
+  			<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/viewHistory.php','cStage')">History</button>
+     		
 	</div>
 
       <!-- ############ PAGE END-->
@@ -101,12 +90,13 @@ $main = new Main;
   <script src="scripts/ui-toggle-class.js"></script>
 
   <script src="scripts/app.js"></script>
-  <script src="scripts/cMain.js"></script>
+  
 
   <!-- ajax -->
   <script src="../libs/jquery/jquery-pjax/jquery.pjax.js"></script>
   <script src="scripts/ajax.js"></script>
 <!-- endbuild -->
-
+  
+  <script src="../libs/main.js"></script>
 </body>
 </html>

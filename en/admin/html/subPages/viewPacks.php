@@ -8,14 +8,9 @@ $DB->conn = $conn;
 $main = new Main;
 $main->b("pack.php");
 
-?>
-<script>$('#myModal').modal('show')</script>
 
-<?php
-	include("../../workers/readSesson.worker.php");
-?>
-<!-- Button trigger modal -->
 
+if($DB->nRow("pack","") != 0){ ?>
 
 
 	
@@ -46,3 +41,16 @@ $main->b("pack.php");
 		?>
   </tbody>
 </table>
+
+
+<?php
+	
+}else{
+		?>
+			<div class="alert alert-danger" align="center">
+  				<strong>No Data Available!</strong>  <br>
+  				
+  			</div>
+		<?php
+}
+?>

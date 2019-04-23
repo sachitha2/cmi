@@ -132,6 +132,31 @@ class DB{
 		}
 		
 	}
-	
+	function Histry($msg){
+		
+	}
+	function getAreaById($id,$d = 1){
+		$sql = "SELECT * FROM area WHERE id = $id";
+	  	$result = $this->conn->query($sql);
+	  	$row = mysqli_fetch_assoc($result);
+		$name = $row['name'];	  	
+		if($d == 0){
+			return($name);
+		}else{
+			echo($name);
+		}
+	}
+	function getAgentById($id,$d = 1){
+///TODO
+//		$sql = "SELECT * FROM area WHERE id = $id";
+//	  	$result = $this->conn->query($sql);
+//	  	$row = mysqli_fetch_assoc($result);
+//		$name = $row['name'];	  	
+//		if($d == 0){
+//			return($name);
+//		}else{
+//			echo($name);
+//		}
+	}
 }
 

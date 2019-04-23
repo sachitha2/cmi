@@ -13,15 +13,15 @@ $DB->conn = $conn;?>
 ?>
 <!-- Button trigger modal -->
 
-
-
+<?php
+	if($DB->nRow("customer","") != 0){	?>
 	
-<table class="table table-hover table-bordered table-striped table-dark">
+			<table class="table table-hover table-bordered table-striped table-dark">
   <thead class="thead-dark">
     <tr>
       <th id="id" scope="col" width="10">ID</th>
       <th id="item" scope="col" onDblClick="itemMenuInStock()">Name</th>
-      <th id="amount" scope="col">TP</th>
+      <th id="amount" scope="col">TP Number</th>
       <th id="bPrice" scope="col">Address</th>
       <th id="sPrice" scope="col">Reg.Date</th>
       <th id="mfd" scope="col">NIC</th>
@@ -46,7 +46,7 @@ $DB->conn = $conn;?>
 					<td><?php echo($data['address']) ?></td>
 					<td><?php echo($data['regdate']) ?></td>
 					<td><?php echo($data['nic']) ?></td>
-					<td><?php echo($data['areaid']) ?></td>
+					<td><?php $DB->getAreaById($data['areaid'])?></td>
 
 					<td><button type="button" class="btn btn-md btn-primary">Edit</button></td>
 					<td><button onClick="delCustomer(<?php echo($data['id']) ?>)" type="button" class="btn btn-md btn-danger ">X</button></td>
@@ -57,3 +57,11 @@ $DB->conn = $conn;?>
 		?>
   </tbody>
 </table>
+	
+	<?php
+		
+	}
+	else{
+		$main->noDataAvailable();
+	}
+?>

@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once("../db.php");
 require_once("../../methods/DB.class.php");
 $DB = new DB;
@@ -6,6 +7,10 @@ $DB->conn = $conn;?>
 <div><a href="user.php"><img src="../assets/images/back.png" width="30" height="30"></a></div><br>
 	
 	
+	
+<?php
+if($DB->nRow("user","") != 0){ ?>
+
 <table class="table table-hover table-bordered table-striped table-dark">
   <thead class="thead-dark">
     <tr>
@@ -45,3 +50,17 @@ $DB->conn = $conn;?>
 		?>
   </tbody>
 </table>
+
+
+<?php
+	
+}
+else{
+		?>
+			<div class="alert alert-danger" align="center">
+  				<strong>No Data Available!</strong>  <br>
+  				
+  			</div>
+		<?php
+}
+?>

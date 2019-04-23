@@ -264,6 +264,21 @@ class Main{
 	public function createSettionError($msg){
 		$_SESSION["error"] = array("s"=>1,"msg"=>"$msg");
 	}
-	
+	public function noDataAvailable(){
+		?>
+			<div class="alert alert-danger" align="center">
+  				<strong>No Data Available!</strong>  <br>
+  				
+  			</div>
+		<?php		
+	}
+	public function Msgwarning($msg){
+		?>
+			<div class="alert alert-danger" align="center">
+  				<strong><?php echo($msg) ?></strong>  <br>
+  				
+  			</div>
+		<?php
+	}
 }
 ?>

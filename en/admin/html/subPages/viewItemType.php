@@ -10,14 +10,9 @@ $DB->conn = $conn;
 $main = new Main;
 $main->b("itemType.php");
 
-?>
-<?php
-	include("../../workers/readSesson.worker.php");
-?>
-<!-- Button trigger modal -->
-
-
-
+if($DB->nRow("item_type","") != 0){
+	?>
+	
 	
 <table class="table table-hover table-bordered table-striped table-dark">
   <thead class="thead-dark">
@@ -46,3 +41,8 @@ $main->b("itemType.php");
 		?>
   </tbody>
 </table>
+	<?php
+}else{
+	$main->noDataAvailable();
+}
+?>

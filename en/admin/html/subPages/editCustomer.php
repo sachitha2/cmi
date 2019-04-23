@@ -17,7 +17,7 @@ $main->b("customer.php");
 		<div>Address</div>
 		<div><input type="text" class="form-control" name="address" id="address" value="<?php echo($arr[0]['address']) ?>"></div>
 		<div>NIC</div>
-		<div><input type="text" class="form-control" name="nic" id="nic" value="<?php echo $_GET['id']; ?>"></div>
+		<div><input type="text" class="form-control" name="nic" id="nic" value="<?php echo $_GET['id']; ?>" readonly></div>
 		<div>Telephone</div>
 		<div><input type="text" class="form-control" name="tp" value="<?php echo($arr[0]['tp']) ?>" id="tp"></div>
 		<div>your area</div>
@@ -43,23 +43,26 @@ $main->b("customer.php");
 		<div>
 			<select class="form-control" name="agent" id="agent">
 				<?php
-				
 					$agentArr = $DB->select("user","WHERE type = 2");
-					print_r($agentArr);
-					foreach ($agentArr as $agentData) {
-							?>
-<!--							<option value=""><?php //echo($agentData[]) ?></option>-->
-							<?php
-//						echo "<option value='{$rowAgent['id']}'>".$rowAgent['username']."</option>";
+					foreach($agentArr as $agentData){
+						if($arr[0]['agentid'] == $agentData['id']){	?>
+							<option value="<?php echo($agentData['id']) ?>" selected><?php echo($agentData['username']) ?></option>
+					<?php	}else{ ?>
+							<option value="<?php echo($agentData['id']) ?>"><?php echo($agentData['username']) ?></option>
+						<?php }
+						?>
+						
+						<?php
 					}
-				?>
+
+		?>
 			</select>
 		</div>
 		
 		<!--	Status	-->
 		<div>Status</div>
 		<div>
-			<select class="form-control" name="agent" id="agent">
+			<select class="form-control" name="status" id="status">
 						<?php
 							if($arr[0]['status'] == 1){ ?>
 								<option value='Active' selected>Active</option>
@@ -78,6 +81,6 @@ $main->b("customer.php");
 		<!--	Status	-->
 		<div id="msg"> </div>
 		<br>
-		<div><button class="btn btn-primary btn-lg"s type="button" onclick="alert('Done')">Save Changes</button></div>
+		<div><button class="btn btn-primary btn-lg"s type="button" onclick="editSaveCustomer()">Save Changes</button></div>
 		
 	</form>

@@ -130,7 +130,47 @@ function addCustomer(){
 			}
 }
 
+function additemsToFastCustomerBill(billId){
+	
+	
+	var itemId = document.getElementById('itemId').value;
+	var qty = document.getElementById('qty').value;
+	var d = new Date();
+	var year = d.getFullYear().toString();
+	var month =  d.getMonth() + 1;
+	var months = month.toString();
+	var day = d.getDate().toString();
+	var date = year+"/"+months+"/"+day;
 
+	data = {'itemId':itemId , 'qty':qty, 'date':date,'billNumber':billId };
+		////Valida ting data 
+		
+		if(itemId.length == "" ){
+			alert("enter item id");
+		}
+		
+		else if(qty.length == ""){
+			alert("enter qty");
+		}
+		else{
+			///TODO
+			var ajax = _ajax();
+			ajax.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+//	    		alert(this.responseText);
+				ajaxCommonGetFromNet("subPages/billTemplate.php","output");
+				emt("qty");
+				emt("itemId");
+				document.getElementById('itemId').focus;
+				}
+	  		}
+			ajax.open("POST", "../workers/fastbillInsert.worker.php", true);
+			ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+			ajax.send("data="+(JSON.stringify(data)));
+		
+			}
+
+}
 function _ajax() {
 		var xmlhttp;
 		try{
@@ -656,6 +696,12 @@ function enterEditCustomer(e,id) {
 	  loadEditFormsCustomer(id);
 	  }
 }
+function enteradditemsToFastCustomerBill(e,billId) {
+  if (e.which == 13) { 
+	  
+	  additemsToFastCustomerBill(billId);
+	  }
+}
 
 /////Enter key events
 
@@ -945,6 +991,57 @@ function editSaveCostType(costType,id){
 			document.getElementById("msg").innerHTML = "Enter valid item";
 		}
 }
+function editSaveCustomer(){
+	alert("edit save customer");
+	var name = document.getElementById('name').value;
+	var address = document.getElementById('address').value;
+	var nic = document.getElementById('nic').value;
+	var tp = document.getElementById('tp').value;
+	var area = document.getElementById('area').value;
+	var d = new Date();
+	var year = d.getFullYear().toString();
+	var month =  d.getMonth() + 1;
+	var months = month.toString();
+	var day = d.getDate().toString();
+	var date = year+"/"+months+"/"+day;
+	var agent = document.getElementById('agent').value;
+	var s = document.getElementById('status').value;
+
+	data = {'name':name , 'address':address, 'nic':nic, 'tp':tp, 'area':area, 'date':date, 'agent':agent,'s':s};
+		////Valida ting data 
+		msg = document.getElementById("msg");
+		if(name.length == "" ){
+			msg.innerHTML = "Insert name"
+		}
+		
+		else if(address.length == ""){
+			msg.innerHTML = " Insert Address"
+		}
+		else if(tp.length != 10){
+			msg.innerHTML = " Insert Telephone number"
+		}
+		else{
+			
+			msg.innerHTML = "";
+			var ajax = _ajax();
+			ajax.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+	    		alert(this.responseText);
+				emt("name");
+				emt("address");
+				emt("nic");
+				emt("tp");
+				msg.innerHTML = " Account Created successfully"
+				}
+	  		}
+
+			ajax.open("POST", "../workers/customer.edit.php", true);
+			ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+			ajax.send("data="+(JSON.stringify(data)));
+		
+			}
+}
+
 ///edit functioins
 
 

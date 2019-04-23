@@ -33,11 +33,6 @@ $customer = $DB->select("customer","");
 				?>
 			</datalist>
    			
-   		
-   		
-    		
-    	
-		
 		
 	</div>
 	
