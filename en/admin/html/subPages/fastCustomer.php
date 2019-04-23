@@ -9,17 +9,14 @@ $main = new Main;
 $tmpBillId = $_SESSION['bill']['id'];
 ?>
 <?php $main->b("sell.php") ?>
-	<div style="width: 100%;background-color: ;height: 400px;" id="output">
+<br>
+	<div style="width: 50%;background-color:;float: right;overflow:scroll " id="output">
 		
 		
 		
 	</div>
-	<div style="width: 100%;background-color: ;height: 200px;" id="input">
-		
-		
-		
-	</div>
-	<div style="width: 100%;background-color: #8a8282;height: auto;position: sticky;bottom: 0px;" id="input">
+	
+	<div style="width: 50%;background-color: #8a8282;height: auto;position: relative;bottom: 0px;left: 0px;" id="input">
 		
 <!--		<input type="number" id="item"  class="form-control">-->
 			<input list="colors" name="color" id="itemId" class="form-control"  placeholder="Item Id"  >

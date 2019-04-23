@@ -153,11 +153,12 @@ function additemsToFastCustomerBill(billId){
 			alert("enter qty");
 		}
 		else{
-			///TODO
+			showModal();
 			var ajax = _ajax();
 			ajax.onreadystatechange = function() {
 				if (this.readyState == 4 && this.status == 200) {
 //	    		alert(this.responseText);
+				hideModal();
 				ajaxCommonGetFromNet("subPages/billTemplate.php","output");
 				emt("qty");
 				emt("itemId");
@@ -658,6 +659,28 @@ function delPackItems(id){
 	}
 		}
 ///TODO HERE
+
+
+function delFastBillData(id){
+	//alert(id);//fastBillData.del.php
+	var r = confirm("Are you sure want to delete this!");
+	if(r == true){
+		showModal();
+		var ajax = _ajax();
+		ajax.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+//	   	 		alert(this.responseText);
+//				ajaxCommonGetFromNet('subPages/loadPackData.php.php?id=','cStage');
+				ajaxCommonGetFromNet("subPages/billTemplate.php","output");
+				hideModal();
+			}
+	  }
+
+		ajax.open("POST", "../workers/fastBillData.del.php", true);
+		ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		ajax.send("id="+id);
+	}
+}
 /////deleters
 
 

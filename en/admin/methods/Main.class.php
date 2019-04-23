@@ -2,7 +2,7 @@
 class Main{
 	public function b($url){
 		?>
-		<div><a href="<?php echo($url) ?>"><img src="../assets/images/back.png" width="30" height="30"></a></div><br>
+		<div style="z-index: 1000"><a href="<?php echo($url) ?>"><img src="../assets/images/back.png" width="30" height="30"></a></div><br>
 		<?php
 	}
 	

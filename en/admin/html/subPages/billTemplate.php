@@ -26,7 +26,6 @@ if($_SESSION['bill']['s']  == 1){ ?>
       <th scope="col">Unit price</th>
       <th scope="col">Price</th>
       <th scope="col" width="50"></th>
-      <th scope="col" width="50"></th>
     </tr>
   </thead>
   <tbody>
@@ -41,8 +40,7 @@ if($_SESSION['bill']['s']  == 1){ ?>
 							<td><?php echo($billData['amount']) ?></td>
 							<td><?php echo($billData['uprice']) ?></td>
 							<td><?php echo($billData['amount'] * $billData['uprice']) ?></td>
-							<td><button type="button" class="btn btn-md btn-primary">Edit</button></td>
-							<td><button onclick="delArea(80)" type="button" class="btn btn-md btn-danger ">X</button></td>
+							<td><button onclick="delFastBillData(<?php echo($billData['id']) ?>)" type="button" class="btn btn-md btn-danger ">X</button></td>
 					
 						</tr>
 						<?php
