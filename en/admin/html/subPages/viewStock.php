@@ -9,8 +9,12 @@ $DB->conn = $conn;
 	$main->b("stock.php") ;
 	$main->createSettionError("This is a sess");
 	$main->readSessionError();
-
-if($DB->nRow("stock","") != 0){
+	if(isset($_GET['data'])){
+		$logic = "";
+	}else{
+		$logic = "";
+	}
+if($DB->nRow("stock",$logic) != 0){
 	?>
 	
 <table class="table table-hover table-bordered table-striped table-dark">
@@ -18,7 +22,7 @@ if($DB->nRow("stock","") != 0){
     <tr>
       <th id="id" scope="col" width="10">ID</th>
       <th id="item" scope="col" onDblClick="itemMenuInStock()">Item</th>
-      <th id="amount" scope="col">Amount</th>
+      <th id="amount" scope="col" onDblClick="ajaxCommonGetFromNet('subPages/menu.amountInStock.php','amount');">Amount</th>
       <th id="rAmount" scope="col">R.Amount</th>
       <th id="bPrice" scope="col">BP</th>
       <th id="sPrice" scope="col">SP</th>
@@ -34,7 +38,7 @@ if($DB->nRow("stock","") != 0){
   <tbody>
     
     <?php
-			$arr = $DB->select("stock","");
+			$arr = $DB->select("stock",$logic);
 //	  		print_r($arr);
 			foreach($arr as $data){
 				?>
