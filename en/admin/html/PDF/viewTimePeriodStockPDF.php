@@ -4,6 +4,11 @@ require('fpdf.php');
 date_default_timezone_set("Asia/Kolkata");
 $Date = date("Y-m-d");
 
+$from = htmlspecialchars($_GET["from"]);
+$to = htmlspecialchars($_GET["to"]);
+
+$timePeriod = $from.' to '.$to;
+
 //Connecting Database
 require_once('../db.php');
 
@@ -14,12 +19,12 @@ $main = new Main;
 $DB = new DB;
 $DB->conn = $conn;
 
-$arr = $DB->select('stock','WHERE status = 1');
+$arr = $DB->select('stock',"WHERE (status = 1 && adate >= '".$from."' && adate <= '".$to."')");
 
 $pdf = new FPDF('L','mm','A4');
 $pdf->AddPage("L",'A4');
 $pdf->SetFont('Times','B',18);
-$pdf->Cell('',10,"Stock(".$Date.')','','',"C");
+$pdf->Cell('',10,"Stock(".$timePeriod.')','','',"C");
 
 $pdf->ln(20);
 $pdf->SetFont('Times','B',15);
@@ -54,18 +59,14 @@ foreach ($arr as $data) {
 	//$T = gettype($diff);
 	$array =  (array) $diff;
 	//print_r($diff);
-	if($curDate > $expDate){
-		$pdf->Cell(37,6,("-".$array['days']),'1','',"R");
-	}else{
-		$pdf->Cell(37,6,($array['days']),'1','',"R");
-	}
+	$pdf->Cell(37,6,($array['days']),'1','',"R");
 	$pdf->Cell(35,6,$data['sprice'] - $data['bprice'],'1','',"R");
 	
 }
 
 $main->pdfFooter($pdf);
 
-$pdf->Output('',"Stock(".$Date.').pdf',true);
+$pdf->Output('',"Stock(".$timePeriod.').pdf',true);
 
 //Cell(float w [, float h [, string txt [, mixed border [, int ln [, string align [, boolean fill [, mixed link]]]]]]])
 

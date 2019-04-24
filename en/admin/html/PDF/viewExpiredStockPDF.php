@@ -14,12 +14,12 @@ $main = new Main;
 $DB = new DB;
 $DB->conn = $conn;
 
-$arr = $DB->select('stock','WHERE status = 1');
+$arr = $DB->select('stock','WHERE (status = 1 && exdate <= CURDATE())');
 
 $pdf = new FPDF('L','mm','A4');
 $pdf->AddPage("L",'A4');
 $pdf->SetFont('Times','B',18);
-$pdf->Cell('',10,"Stock(".$Date.')','','',"C");
+$pdf->Cell('',10,"Expired Stock(".$Date.')','','',"C");
 
 $pdf->ln(20);
 $pdf->SetFont('Times','B',15);
@@ -59,13 +59,14 @@ foreach ($arr as $data) {
 	}else{
 		$pdf->Cell(37,6,($array['days']),'1','',"R");
 	}
+	
 	$pdf->Cell(35,6,$data['sprice'] - $data['bprice'],'1','',"R");
 	
 }
 
 $main->pdfFooter($pdf);
 
-$pdf->Output('',"Stock(".$Date.').pdf',true);
+$pdf->Output('',"Expired Stock(".$Date.').pdf',true);
 
 //Cell(float w [, float h [, string txt [, mixed border [, int ln [, string align [, boolean fill [, mixed link]]]]]]])
 

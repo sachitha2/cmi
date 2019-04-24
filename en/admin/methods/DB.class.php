@@ -94,7 +94,6 @@ class DB{
 		
 	}
 	
-	
 	function getItemNameByStockId($id,$d = 1){
 		///note chatson this is item
 		$sql = "SELECT * FROM `item` WHERE `id` = $id";
