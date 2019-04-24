@@ -61,7 +61,11 @@ foreach ($arr as $data) {
 	//$T = gettype($diff);
 	$array =  (array) $diff;
 	//print_r($diff);
-	$pdf->Cell(37,6,($array['days']),'1','',"R");
+	if($curDate > $expDate){
+		$pdf->Cell(37,6,("-".$array['days']),'1','',"R");
+	}else{
+		$pdf->Cell(37,6,($array['days']),'1','',"R");
+	}
 	$pdf->Cell(35,6,$data['sprice'] - $data['bprice'],'1','',"R");
 	
 }
