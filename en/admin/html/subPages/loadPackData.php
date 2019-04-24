@@ -47,7 +47,6 @@ $arr = $DB->select("pack","where id = $packId");
 				<?php
 			}else{
 				$main->noDataAvailable();
-				echo("no daata");
 			}
 		?>
 		

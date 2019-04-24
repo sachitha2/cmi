@@ -92,7 +92,7 @@ function addPackItems(pId){
 		var ajax = _ajax();
 			ajax.onreadystatechange = function() {
 				if (this.readyState == 4 && this.status == 200) {
-	    			msg("msg",this.responseText);
+	    			alert(this.responseText);
 					emt("itemId");
 					emt("qty");
 					hideModal();
