@@ -12,7 +12,8 @@ $arr = $DB->select("pack","");
 	<h2>Select Pack To Add Items</h2>
 		<div class="form-group">
   			<label for="sel1">Select :</label>
-  			<select class="form-control" id="sel1" onChange="ajaxCommonGetFromNet('subPages/loadPackData.php?id='+this.value,'packData')">
+  			<select class="form-control" id="sel1" onChange="if(this.value != 0){ajaxCommonGetFromNet('subPages/loadPackData.php?id='+this.value,'packData')}">
+   				<option value="0">Select a Pack</option>	
     			<?php
 			foreach($arr as $data){
 				?>

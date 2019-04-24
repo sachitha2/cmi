@@ -16,27 +16,32 @@ $arr = $DB->select("pack","where id = $packId");
 		<table class="table table-hover table-bordered table-striped table-dark">
   			<thead class="thead-dark">
     			<tr>
-      				<th scope="col" width="10">#</th>
+      				<th scope="col" width="10">ID</th>
       				<th scope="col">Item</th>
+      				<th scope="col">QTY</th>
       				<th scope="col" width="50"></th>
       				<th scope="col" width="50"></th>
     			</tr>
   			</thead>
   			<tbody>
-    			<tr>
-					<td scope="row">42</td>
-					<td>test</td>
-					<td><button type="button" class="btn btn-md btn-primary">Edit</button></td>
-					<td><button onclick="delArea()" type="button" class="btn btn-md btn-danger ">X</button></td>
+   				<?php
+					$packDataArr = $DB->select("packitems","WHERE pid = $packId");
+					foreach($packDataArr as $packData){
+//						print_r($packData);
+						?>
+						
+						<tr>
+							<td scope="row"><?php echo($packData['id']) ?></td>
+							<td><?php $DB->getItemNameByStockId($packData['itemid']) ?></td>
+							<td><?php echo($packData['amount']) ?></td>
+							<td><button type="button" class="btn btn-md btn-primary">Edit</button></td>
+							<td><button onclick="delArea()" type="button" class="btn btn-md btn-danger ">X</button></td>
 					
-				</tr>
-				<tr>
-					<td scope="row">43</td>
-					<td>hello</td>
-					<td><button type="button" class="btn btn-md btn-primary">Edit</button></td>
-					<td><button onclick="delArea()" type="button" class="btn btn-md btn-danger ">X</button></td>
-					
-				</tr>
+						</tr>
+						<?php
+					}
+				
+				?>
 			</tbody>
 		</table>
 	</div>

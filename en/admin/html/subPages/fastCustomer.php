@@ -10,13 +10,13 @@ $tmpBillId = $_SESSION['bill']['id'];
 ?>
 <?php $main->b("sell.php") ?>
 <br>
-	<div style="width: 50%;background-color:;float: right;overflow:scroll " id="output">
+	<div style="width: 50%;background-color:#E3373A;float: right;overflow:scroll;color: white" id="output">
 		
 		
 		
 	</div>
 	
-	<div style="width: 50%;background-color: #8a8282;height: auto;position: relative;bottom: 0px;left: 0px;" id="input">
+	<div style="width: 50%;background-color: #8a8282;height: auto;position: sticky;bottom: 0px;left: 0px;" id="input">
 		
 <!--		<input type="number" id="item"  class="form-control">-->
 			<input list="colors" name="color" id="itemId" class="form-control"  placeholder="Item Id"  >
