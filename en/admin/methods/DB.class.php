@@ -158,5 +158,24 @@ class DB{
 //			echo($name);
 //		}
 	}
+public	function itemList($DB){
+	?>
+	<input list="colors" name="color" id="itemId" class="form-control"  placeholder="Item Id"  >
+			<datalist id="colors">
+				
+    			<?php
+					$arrItem = $DB->select("item","");
+					foreach($arrItem as $data){
+						?>
+						<option value="<?php echo($data['id']) ?>"><?php $DB->getItemNameByStockId($data['id']) ?></option>
+						
+						<?php
+					}
+	
+				?>
+			</datalist>
+	
+	<?php
+}
 }
 

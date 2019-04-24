@@ -10,29 +10,16 @@ $tmpBillId = $_SESSION['bill']['id'];
 ?>
 <?php $main->b("sell.php") ?>
 <br>
-	<div style="width: 50%;background-color:#E3373A;float: right;overflow:scroll;color: white" id="output">
+	<div style="width: 55%;background-color:#E3373A;float: right;color: white;position: relative!important;bottom: : 0px;" id="output">
 		
 		
 		
 	</div>
 	
-	<div style="width: 50%;background-color: #8a8282;height: auto;position: sticky;bottom: 0px;left: 0px;" id="input">
+	<div style="width: 40%;height: 70% !important;background-color: #1F3CC1;height: 70%;float: left;color: white;" id="input">
 		
 <!--		<input type="number" id="item"  class="form-control">-->
-			<input list="colors" name="color" id="itemId" class="form-control"  placeholder="Item Id"  >
-			<datalist id="colors">
-				
-    			<?php
-					$arrItem = $DB->select("item","");
-					foreach($arrItem as $data){
-						?>
-						<option value="<?php echo($data['id']) ?>"><?php $DB->getItemNameByStockId($data['id']) ?></option>
-						
-						<?php
-					}
-	
-				?>
-			</datalist>
+			<?php $DB->itemList($DB) ?>
 		<input type="number" id="qty" placeholder="QTY" class="form-control" onKeyPress="enteradditemsToFastCustomerBill(event,<?php echo($tmpBillId) ?>)">
 		<input type="button" value="Next" class="btn btn-primary btn-lg" style="width: 100%" onClick="additemsToFastCustomerBill(<?php echo($tmpBillId) ?>)">
 		<input type="button" value="Finish" class="btn btn-danger btn-lg" style="width: 100%">

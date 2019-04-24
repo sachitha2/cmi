@@ -79,7 +79,34 @@ function addArea(area){
 		}
 		  
 	}
+function addPackItems(pId){
+	var itemId = gValue("itemId");
+	var qty = gValue("qty");
+	if(itemId == ""){
+		msg("msg","Enter Item Id");
+	}else if(qty == ""){
+		msg("msg","Enter QTY");
+	}else{
+		data = {'itemId':itemId,'qty':qty,'pId':pId};
+		showModal();
+		var ajax = _ajax();
+			ajax.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+	    			msg("msg",this.responseText);
+					emt("itemId");
+					emt("qty");
+					hideModal();
+					ajaxCommonGetFromNet('subPages/loadPackData.php?id='+pId,'packData');
+				}
+	  		}
 
+			ajax.open("POST", "../workers/packItemsInsert.worker.php", true);
+			ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+			ajax.send("data="+(JSON.stringify(data)));
+	}
+	console.log("Item idd is : " + itemId);
+	console.log("qty is : " + qty);
+}
 function addCustomer(){
 	
 	var name = document.getElementById('name').value;
@@ -640,7 +667,7 @@ function delCustomer(id){
 	}
 		}
 ///TODO HERE
-function delPackItems(id){	
+function delPackItems(id,packId){	
 	var r = confirm("Are you sure want to delete this!");
 	if(r == true){
 		showModal();
@@ -648,7 +675,7 @@ function delPackItems(id){
 		ajax.onreadystatechange = function() {
 			if (this.readyState == 4 && this.status == 200) {
 //	   	 		alert(this.responseText);
-				ajaxCommonGetFromNet('subPages/loadPackData.php.php?id=','cStage');
+				ajaxCommonGetFromNet('subPages/loadPackData.php?id='+packId,'packData');
 				hideModal();
 			}
 	  }
@@ -725,7 +752,11 @@ function enteradditemsToFastCustomerBill(e,billId) {
 	  additemsToFastCustomerBill(billId);
 	  }
 }
-
+function enterAddPackitems(e,packId) {
+  if (e.which == 13) { 
+	  addPackItems(packId);
+	  }
+}
 /////Enter key events
 
 
@@ -1074,3 +1105,7 @@ function editSaveCustomer(){
 
 /////printer
 
+function gValue(id){
+	var value = document.getElementById(id).value;
+	return value;
+}

@@ -31,6 +31,52 @@ $main = new Main;
   <link rel="stylesheet" href="../assets/styles/app.css" type="text/css" />
   <!-- endbuild -->
   <link rel="stylesheet" href="../assets/styles/font.css" type="text/css" />
+   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript">
+	  
+	  function nOfCustomersInAreas(){
+//		  			var xmlhttp = new XMLHttpRequest();
+//        			xmlhttp.onreadystatechange = function() {
+//        			if (this.readyState === 4 && this.status == 200) {
+//							document.getElementById("msg").innerHTML  =  this.responseText;
+//							emt("area");
+//							hideModal();
+//           				}
+//        			};
+//        			xmlhttp.open("GET", "../workers/addArea.worker.php?area="+area, true);//generating  get method link
+//        			xmlhttp.send();
+	  }
+	  
+	  
+	  google.charts.load('current', {packages: ['corechart', 'bar']});
+google.charts.setOnLoadCallback(drawMultSeries);
+
+function drawMultSeries() {
+      var data = google.visualization.arrayToDataTable([
+        ['Area', 'Active', 'Inactive'],
+        ['New York City, NY', 8175000, 8008000],
+        ['Los Angeles, CA', 3792000, 3694000],
+        ['Chicago, IL', 2695000, 2896000],
+        ['Houston, TX', 2099000, 1953000],
+        ['Philadelphia, PA', 1526000, 1517000]
+      ]);
+
+      var options = {
+        title: 'Number of customers according to area',
+        chartArea: {width: '50%'},
+        hAxis: {
+          title: 'Total Population',
+          minValue: 0
+        },
+        vAxis: {
+          title: 'Area'
+        }
+      };
+
+      var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+      chart.draw(data, options);
+    }
+  </script>
 </head>
 <body>
   <div class="app" id="app">
@@ -44,21 +90,14 @@ $main = new Main;
   <div id="content" class="app-content box-shadow-z0" role="main">
     <?php $main->modal() ?> 
     <?php $main->topBar() ?>
-    <div class="app-footer">
-      <div class="p-2 text-xs">
-        <div class="pull-right text-muted py-1">
-          &copy; 2019 CMS. All Rights Reserved<span class="hidden-xs-down"> | Powered by <a href="http://infinisolutionslk.com/" target="_blank">Infini Solutions</a></span>
-          <a ui-scroll-to="content"><i class="fa fa-long-arrow-up p-x-sm"></i></a>
-        </div>
-      </div>
-    </div>
+    <?php $main->copyRight() ?>
     <div ui-view class="app-body" id="view">
 	  <?php $main->modal() ?>
       <!-- ############ PAGE START-->
 	  <h1>Customer</h1>
     <div class="container h-100" id="cStage">
     		<div>
-    			Customers according to area chart will be Available here
+    			<div id="chart_div"></div>
     		</div>
     		
   			<a href="createCustomer.php"><button type="button" class="btn btn-primary btn-lg">Find</button></a>
@@ -106,6 +145,10 @@ $main = new Main;
   <!-- ajax -->
   <script src="../libs/jquery/jquery-pjax/jquery.pjax.js"></script>
   <script src="scripts/ajax.js"></script>
+  
+    
+  
+      
 <!-- endbuild -->
 
 </body>
