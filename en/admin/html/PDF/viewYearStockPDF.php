@@ -3,7 +3,7 @@
 require('fpdf.php');
 date_default_timezone_set("Asia/Kolkata");
 $Date = date("Y-m-d");
-$year = date("F", strtotime('y'));
+$year = date("Y");
 
 //Connecting Database
 require_once('../db.php');
@@ -38,6 +38,10 @@ $pdf->Cell(35,10,'Profit','1','',"L");
 $pdf->SetFont('Times','',12);
 $pdf->ln(4);
 
+$totAmount = 0;
+$totProfit = 0;
+$totPrice = 0;
+
 foreach ($arr as $data) {
 	
 	$pdf->ln(6);
@@ -60,9 +64,24 @@ foreach ($arr as $data) {
 	}else{
 		$pdf->Cell(37,6,($array['days']),'1','',"R");
 	}
-	$pdf->Cell(35,6,$data['sprice'] - $data['bprice'],'1','',"R");
+	$pdf->Cell(35,6,($data['sprice'] - $data['bprice'])*$data['amount'],'1','',"R");
+	
+	$totAmount += $data['amount'];
+	$totProfit += ($data['sprice'] - $data['bprice'])*$data['amount'];
+	$totPrice += $data['amount']*$data['sprice'];
 	
 }
+
+$pdf->ln(6);
+$pdf->SetFont('Times','B',12);
+$pdf->Cell(60,6,'Total Amount','1','',"L");
+$pdf->Cell(25,6,$totAmount,'1','',"R");
+$pdf->Cell(155,6,'Total Profit','1','',"L");
+$pdf->Cell(35,6,$totProfit,'1','',"R");
+
+$pdf->ln(10);
+$pdf->SetFont('Times','B',16);
+$pdf->Cell('',6,'Total Price = '.$totPrice,'','',"L");
 
 $main->pdfFooter($pdf);
 

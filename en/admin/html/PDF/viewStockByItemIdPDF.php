@@ -4,11 +4,6 @@ require('fpdf.php');
 date_default_timezone_set("Asia/Kolkata");
 $Date = date("Y-m-d");
 
-$from = htmlspecialchars($_GET["from"]);
-$to = htmlspecialchars($_GET["to"]);
-
-$timePeriod = $from.' to '.$to;
-
 //Connecting Database
 require_once('../db.php');
 
@@ -19,12 +14,14 @@ $main = new Main;
 $DB = new DB;
 $DB->conn = $conn;
 
-$arr = $DB->select('stock',"WHERE (status = 1 && adate >= '".$from."' && adate <= '".$to."')");
+$itemId = htmlspecialchars($_GET["itemId"]);
+
+$arr = $DB->select('stock','WHERE (status = 1 && itemid = '.$itemId.')');
 
 $pdf = new FPDF('L','mm','A4');
 $pdf->AddPage("L",'A4');
 $pdf->SetFont('Times','B',18);
-$pdf->Cell('',10,"Stock(".$timePeriod.')','','',"C");
+$pdf->Cell('',10,"Stock by Item ID (".$Date.')','','',"C");
 
 $pdf->ln(20);
 $pdf->SetFont('Times','B',15);
@@ -89,7 +86,7 @@ $pdf->Cell('',6,'Total Price = '.$totPrice,'','',"L");
 
 $main->pdfFooter($pdf);
 
-$pdf->Output('',"Stock(".$timePeriod.').pdf',true);
+$pdf->Output('',"Stock by Item ID(".$Date.').pdf',true);
 
 //Cell(float w [, float h [, string txt [, mixed border [, int ln [, string align [, boolean fill [, mixed link]]]]]]])
 
