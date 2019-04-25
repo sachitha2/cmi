@@ -184,7 +184,7 @@ function additemsToFastCustomerBill(billId){
 			var ajax = _ajax();
 			ajax.onreadystatechange = function() {
 				if (this.readyState == 4 && this.status == 200) {
-//	    		alert(this.responseText);
+	    		msg("msg",this.responseText);
 				hideModal();
 				ajaxCommonGetFromNet("subPages/billTemplate.php","output");
 				emt("qty");
