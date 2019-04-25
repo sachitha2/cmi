@@ -4,6 +4,7 @@ require_once("../methods/Main.class.php");
 require_once("../methods/DB.class.php");
 $main = new Main;
 $DB = new DB;
+$DB->conn = $conn;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -47,7 +48,14 @@ $DB = new DB;
   <div id="content" class="app-content box-shadow-z0" role="main">
     <?php $main->modal() ?> 
     <?php $main->topBar() ?>
-   
+   <?php
+//	echo($DB->nRow("area"," "));
+//	if(1 == 1){
+//		$main->Msgwarning("Add data to Area and User tables");
+//	}
+	
+	echo($DB->nRow('area',' '));
+	?>
     <div ui-view class="app-body" id="view">
 		<div class="container h-100" id="cStage">
  			<h1>Insert a Customer</h1>
@@ -57,7 +65,7 @@ $DB = new DB;
 		<div>Address</div>
 		<div><input type="text" class="form-control" name="address" id="address"></div>
 		<div>NIC</div>
-		<div><input type="text" class="form-control" name="nic" id="nic" value="<?php echo $_GET['id']; ?>"></div>
+		<div><input type="text" class="form-control" name="nic" id="nic" value="<?php echo $_GET['id']; ?>" readonly></div>
 		<div>Telephone</div>
 		<div><input type="text" class="form-control" name="tp" id="tp"></div>
 		<div>your area</div>

@@ -8,8 +8,8 @@ class DB{
 	  
    }
 	
-	function select($table,$logic){
-		 $sql = "SELECT * FROM {$table} {$logic}"; 
+	function select($table,$logic,$cols = " * "){
+		 $sql = "SELECT $cols FROM {$table} {$logic}"; 
 		 $result = $this->conn->query($sql);
 		 
 		 $ar = array();
