@@ -10,6 +10,7 @@ $DB->conn = $conn;
 	$main->createSettionError("This is a sess");
 	$main->readSessionError();
 	if(isset($_GET['data'])){
+		
 		$logic = "";
 	}else{
 		$logic = "";
@@ -23,13 +24,13 @@ if($DB->nRow("stock",$logic) != 0){
       <th id="id" scope="col" width="10">ID</th>
       <th id="item" scope="col" onDblClick="itemMenuInStock()">Item</th>
       <th id="amount" scope="col" onDblClick="ajaxCommonGetFromNet('subPages/menu.amountInStock.php','amount');">Amount</th>
-      <th id="rAmount" scope="col">R.Amount</th>
-      <th id="bPrice" scope="col">BP</th>
-      <th id="sPrice" scope="col">SP</th>
-      <th id="mfd" scope="col">MFD</th>
-      <th id="exDate" scope="col">ExDate</th>
-      <th id="dTe" scope="col">DtE</th>
-      <th id="profit" scope="col">Profit</th>
+      <th id="rAmount" scope="col"  onDblClick="ajaxCommonGetFromNet('subPages/menu.rAmountInStock.php','rAmount');">R.Amount</th>
+      <th id="bPrice" scope="col"  onDblClick="ajaxCommonGetFromNet('subPages/menu.BPInStock.php','bPrice');">BP</th>
+      <th id="sPrice" scope="col"  onDblClick="ajaxCommonGetFromNet('subPages/menu.SPInStock.php','sPrice');">SP</th>
+      <th id="mfd" scope="col"   onDblClick="ajaxCommonGetFromNet('subPages/menu.MFDInStock.php','mfd');">MFD</th>
+      <th id="exDate" scope="col"    onDblClick="ajaxCommonGetFromNet('subPages/menu.EXDInStock.php','exDate');">ExDate</th>
+      <th id="dTe" scope="col"    onDblClick="ajaxCommonGetFromNet('subPages/menu.DtEInStock.php','dTe');">DtE</th>
+      <th id="profit" scope="col" onDblClick="ajaxCommonGetFromNet('subPages/menu.profitInStock.php','profit');">Profit</th>
       
 <!--  <th scope="col" width="50"></th>
       <th scope="col" width="50"></th>-->

@@ -757,6 +757,52 @@ function enterAddPackitems(e,packId) {
 	  addPackItems(packId);
 	  }
 }
+function enterStockShortByItem(e) {
+  if (e.which == 13) { 
+	  alert("on key press in short stock by item id");
+	  }
+}
+///TODO
+function enterStockShortByAmount(e) {
+  if (e.which == 13) { 
+	  alert("on key press in short stock by Amount");
+	  }
+}
+function enterStockShortByRAmount(e) {
+  if (e.which == 13) { 
+	  alert("on key press in short stock by R.Amount");
+	  }
+}
+function enterStockShortByBP(e) {
+  if (e.which == 13) { 
+	  alert("on key press in short stock by BP");
+	  }
+}
+function enterStockShortBySP(e) {
+  if (e.which == 13) { 
+	  alert("on key press in short stock by BP");
+	  }
+}
+function enterStockShortByMFD(e) {
+  if (e.which == 13) { 
+	  alert("on key press in short stock by MFD");
+	  }
+}
+function enterStockShortByExDate(e) {
+  if (e.which == 13) { 
+	  alert("on key press in short stock by ExDate");
+	  }
+}
+function enterStockShortByDtE(e) {
+  if (e.which == 13) { 
+	  alert("on key press in short stock by DtE");
+	  }
+}
+function enterStockShortByProfit(e) {
+  if (e.which == 13) { 
+	  alert("on key press in short stock by Profit");
+	  }
+}
 /////Enter key events
 
 

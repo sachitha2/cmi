@@ -5,7 +5,9 @@ require_once("../../methods/Main.class.php");
 $DB = new DB;
 $DB->conn = $conn;
 $main = new Main;
-$DB->itemList($DB,"enterStockShortByItem(event)");
 ?>
+
+    <input type="date"  class="form-control"  id="exdFrom">
+    <input type="date"  class="form-control"  id="exdTo">
 	
 	

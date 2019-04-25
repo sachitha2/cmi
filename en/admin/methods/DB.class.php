@@ -157,9 +157,9 @@ class DB{
 //			echo($name);
 //		}
 	}
-public	function itemList($DB){
+public	function itemList($DB,$onKey = ""){
 	?>
-	<input list="colors" name="color" id="itemId" class="form-control"  placeholder="Item Id"  >
+	<input list="colors" name="color" id="itemId" class="form-control"  placeholder="Item Id"  onKeyPress="<?php echo($onKey) ?>">
 			<datalist id="colors">
 				
     			<?php
