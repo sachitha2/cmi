@@ -157,12 +157,20 @@ class DB{
 //			echo($name);
 //		}
 	}
-public	function itemList($DB,$onKey = ""){
+public	function itemList($DB,$onKey = "",$extra = ""){
 	?>
 	<input list="colors" name="color" id="itemId" class="form-control"  placeholder="Item Id"  onKeyPress="<?php echo($onKey) ?>">
 			<datalist id="colors">
+				<?php
+						if($extra != ""){
+							?>
+								<option value="0"><?php echo($extra) ?></option>
+							<?php
+						}
+				?>
 				
     			<?php
+						
 					$arrItem = $DB->select("item","");
 					foreach($arrItem as $data){
 						?>

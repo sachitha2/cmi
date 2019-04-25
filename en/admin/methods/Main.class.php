@@ -280,5 +280,39 @@ class Main{
   			</div>
 		<?php
 	}
+	public function ckTACked($A,$B){
+		if($A == $B){
+			?>
+			checked
+			<?php
+		}		
+	}
+	public function stockSqlLgc($x){
+		if($x == "dayToday"){
+			$logic = " AND adate = curdate()";
+		}
+		else if($x == "dayWeek"){
+			$logic = " AND WEEK(adate) = WEEK(curdate()) AND MONTH(adate) = MONTH(curdate()) AND YEAR(adate) = YEAR(curdate())";
+		}
+		else if($x == "dayMonth"){
+			$logic = " AND MONTH(adate) = MONTH(curdate()) AND YEAR(adate) = YEAR(curdate())";
+		}
+		else if($x == "dayLMonth"){
+//			$logic = " AND MONTH(adate) = MONTH(curdate()) AND YEAR(adate) = YEAR(curdate())";
+			$logic = " AND MONTH(adate) = MONTH(CURRENT_DATE - INTERVAL 1 MONTH) AND YEAR(adate) = YEAR(CURRENT_DATE - INTERVAL 1 MONTH) ";
+		}
+		else if($x == "dayYear"){
+//			$logic = " AND MONTH(adate) = MONTH(curdate()) AND YEAR(adate) = YEAR(curdate())";
+			$logic = " AND  YEAR(adate) = YEAR(CURRENT_DATE)";
+		}
+		else if($x == "dayCustom"){
+//			$logic = " AND MONTH(adate) = MONTH(curdate()) AND YEAR(adate) = YEAR(curdate())";
+			$logic = " ";
+		}
+		else{
+			$logic = " ";
+		}
+		return( $logic);
+	}
 }
 ?>

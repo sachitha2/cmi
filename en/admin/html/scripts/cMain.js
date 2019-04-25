@@ -757,20 +757,62 @@ function enterAddPackitems(e,packId) {
 	  addPackItems(packId);
 	  }
 }
-function enterStockShortByItem(e) {
+function enterStockShortByItem(e,id) { //this is mode 
   if (e.which == 13) { 
-	  alert("on key press in short stock by item id");
+	  if(id == ""){
+		  alert("Enter a item id");
+	  }else{
+		  	console.log(readStockMenu());
+		  	var menu = readStockMenu();
+		    data = {'mode':'itemId','id':id,'status':0,"day":""};
+		  	data.status = menu.status;
+		  	data.day = menu.day;
+		  	console.log(data);
+	  		ajaxCommonGetFromNet('subPages/viewStock.php?data='+JSON.stringify(data),'cStage');
+	  }
 	  }
 }
 ///TODO
-function enterStockShortByAmount(e) {
+function enterStockShortByAmount(e,less,great,amount) {
   if (e.which == 13) { 
-	  alert("on key press in short stock by Amount");
+	  		if(amount != ""){
+				console.log(readStockMenu());
+		  		var menu = readStockMenu();
+	  			if(less == 1){
+					GL = ' <= ';
+				}else{
+					GL = ' >= ';
+				}
+		    	data = {'mode':'amount','GL':GL,'amount':amount,'status':0,"day":""};
+		  		data.status = menu.status;
+		  		data.day = menu.day;
+		  		console.log(data);
+	  			ajaxCommonGetFromNet('subPages/viewStock.php?data='+JSON.stringify(data),'cStage');
+//	  			alert("on key press in short stock by Amount");
+	  			console.log("enterStockShortByAmount less - " + less+"greater "+great + " amount " + amount);	
+			}
+	  		
 	  }
 }
 function enterStockShortByRAmount(e) {
   if (e.which == 13) { 
-	  alert("on key press in short stock by R.Amount");
+	  
+	  if(amount != ""){
+				console.log(readStockMenu());
+		  		var menu = readStockMenu();
+	  			if(less == 1){
+					GL = ' <= ';
+				}else{
+					GL = ' >= ';
+				}
+		    	data = {'mode':'rAmount','GL':GL,'rAmount':amount,'status':0,"day":""};
+		  		data.status = menu.status;
+		  		data.day = menu.day;
+		  		console.log(data);
+	  			ajaxCommonGetFromNet('subPages/viewStock.php?data='+JSON.stringify(data),'cStage');
+//	  			alert("on key press in short stock by Amount");
+	  			console.log("enterStockShortByAmount less - " + less+"greater "+great + " amount " + amount);	
+			}
 	  }
 }
 function enterStockShortByBP(e) {
@@ -813,7 +855,16 @@ function itemMenuInStock(){
 	ajaxCommonGetFromNet("subPages/menu.itemInStock.php","item");
 //	document.getElementById("item").innerHTML = "hello sam";
 }
-
+function stockDefaultMenu() { //this is mode 
+		  	console.log(readStockMenu());
+		  	var menu = readStockMenu();
+		    data = {'mode':'default','status':0,"day":""};
+		  	data.status = menu.status;
+		  	data.day = menu.day;
+		  	console.log(data);
+	  		ajaxCommonGetFromNet('subPages/viewStock.php?data='+JSON.stringify(data),'cStage');
+	  
+}
 ////menu bars
 
 
@@ -1154,4 +1205,38 @@ function editSaveCustomer(){
 function gValue(id){
 	var value = document.getElementById(id).value;
 	return value;
+}
+function rChecked(id){
+	var value = document.getElementById(id).checked;
+	return value;
+}
+function readStockMenu(){
+	var data = {'status':0,'day':'today'};
+	////reading status radio btns
+	if(rChecked("s1") == 1){
+		data.status = 1;
+	}else{
+		data.status = 0;
+	}
+	////reading day radio btns
+	if(rChecked("dayToday") == 1){
+		data.day = "dayToday";
+	}
+	else if(rChecked("dayWeek") == 1){
+		data.day = "dayWeek";
+	}
+	else if(rChecked("dayMonth") == 1){
+		data.day = "dayMonth";
+	}
+	else if(rChecked("dayLMonth") == 1){
+		data.day = "dayLMonth";
+	}
+	else if(rChecked("dayYear") == 1){
+		data.day = "dayYear";
+	}
+	else{
+		data.day = "dayCustom";
+	}
+	return data;
+	
 }
