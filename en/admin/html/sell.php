@@ -46,7 +46,7 @@ $main = new Main;
   <div id="content" class="app-content box-shadow-z0" role="main">
     <?php $main->modal() ?> 
     <?php $main->topBar() ?>
-    <div ui-view class="app-body" id="view">
+    <div ui-view class="app-body" id="view" style="overflow: hidden">
 		<?php $main->modal() ?>
       <!-- ############ PAGE START-->
 	 <h1>Sell</h1>

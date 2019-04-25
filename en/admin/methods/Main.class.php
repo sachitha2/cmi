@@ -2,7 +2,7 @@
 class Main{
 	public function b($url){
 		?>
-		<div><a href="<?php echo($url) ?>"><img src="../assets/images/back.png" width="30" height="30"></a></div><br>
+		<div style="z-index: 1000"><a href="<?php echo($url) ?>"><img src="../assets/images/back.png" width="30" height="30"></a></div><br>
 		<?php
 	}
 	
@@ -249,7 +249,70 @@ class Main{
 			$pdf->Cell('',10,"077-1466460",'','',"C");
 		
 	}
-	
-}
+	public function readSessionError(){
+		?>
+		<?php 
+//			$_SESSION["error"] = array("s"=>1,"msg"=>"Session msg will be available here in worker 123 ");
+			if($_SESSION["error"]['s'] == 1){?>
+				<div class="alert alert-success">
+  					<strong>Success!</strong> <?php echo($_SESSION["error"]['msg']);  ?>
+				</div>	
 
+		<?php
+			}
+	}
+	public function createSettionError($msg){
+		$_SESSION["error"] = array("s"=>1,"msg"=>"$msg");
+	}
+	public function noDataAvailable(){
+		?>
+			<div class="alert alert-danger" align="center">
+  				<strong>No Data Available!</strong>  <br>
+  				
+  			</div>
+		<?php		
+	}
+	public function Msgwarning($msg){
+		?>
+			<div class="alert alert-danger" align="center">
+  				<strong><?php echo($msg) ?></strong>  <br>
+  				
+  			</div>
+		<?php
+	}
+	public function ckTACked($A,$B){
+		if($A == $B){
+			?>
+			checked
+			<?php
+		}		
+	}
+	public function stockSqlLgc($x){
+		if($x == "dayToday"){
+			$logic = " AND adate = curdate()";
+		}
+		else if($x == "dayWeek"){
+			$logic = " AND WEEK(adate) = WEEK(curdate()) AND MONTH(adate) = MONTH(curdate()) AND YEAR(adate) = YEAR(curdate())";
+		}
+		else if($x == "dayMonth"){
+			$logic = " AND MONTH(adate) = MONTH(curdate()) AND YEAR(adate) = YEAR(curdate())";
+		}
+		else if($x == "dayLMonth"){
+//			$logic = " AND MONTH(adate) = MONTH(curdate()) AND YEAR(adate) = YEAR(curdate())";
+			$logic = " AND MONTH(adate) = MONTH(CURRENT_DATE - INTERVAL 1 MONTH) AND YEAR(adate) = YEAR(CURRENT_DATE - INTERVAL 1 MONTH) ";
+		}
+		else if($x == "dayYear"){
+//			$logic = " AND MONTH(adate) = MONTH(curdate()) AND YEAR(adate) = YEAR(curdate())";
+			$logic = " AND  YEAR(adate) = YEAR(CURRENT_DATE)";
+		}
+		else if($x == "dayCustom"){
+//			$logic = " AND MONTH(adate) = MONTH(curdate()) AND YEAR(adate) = YEAR(curdate())";
+			$logic = " ";
+		}
+		else{
+			$logic = " ";
+		}
+		return( $logic);
+	}
+}
 ?>

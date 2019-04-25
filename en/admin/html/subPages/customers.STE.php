@@ -18,36 +18,21 @@ $customer = $DB->select("customer","");
 	<h2>Select customer to edit</h2>
 	
 	<div>
-			<label for="color">Customer Idcard number</label>
-			<input list="colors" name="color">
+			<label for="color">Enter Customer idcard number or name</label>
+			<input list="colors" name="color" class="form-control" style="width: 200px" onKeyPress="enterEditCustomer(event,this.value)">
 			<datalist id="colors">
-				<option value="Green">dd</option>
-    			<option value="Red">sam</option>
-    			<option value="Blue">sam</option>
-    			<option value="Yellow">sam</option>
-    			<option value="Orange">sam</option>
-    			<option value="Purple">sam</option>
-    			<option value="Black">sam</option>
-    			<option value="White">sam</option>
-    			<option value="Gray">sam</option>
-    			<option value="Plaid">sam</option>
-			</datalist>
-   		
-   		
-   		
-    		<select class="form-control" id="idAreaList" onChange="loadEditFormscustomer(this.value)">
-  				<option value="0">Select a customer</option>
-  				<?php
+				
+    			<?php
 					foreach($customer as $data){
 						?>
-						<option value="<?php echo($data['id']) ?>"> <?php $DB->getcustomerNameByStockId($data['id']) ?></option>
+						<option value="<?php echo($data['nic']) ?>"><?php echo($data['name']) ?><?php // $DB->getcustomerNameByStockId($data['id']) ?></option>
+						
 						<?php
 					}
 	
 				?>
-			</select>
-    	
-		
+			</datalist>
+   			
 		
 	</div>
 	

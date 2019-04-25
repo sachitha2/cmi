@@ -15,7 +15,7 @@ print_r($_GET);
 $DB->conn = $conn;
 //$postData = json_decode($_POST['data'], true); 
 //print_r($postData);
-$conn->query("INSERT INTO `stock` (`id`, `itemid`, `bprice`, `sprice`, `amount`, `adate`, `mfd`, `exdate`, `status`) VALUES (NULL, '$id', '$bPrice', '$sPrice', '$amount', curdate(), '$mfd', '$exDate', '1');");
+$conn->query("INSERT INTO `stock` (`id`, `itemid`, `bprice`, `sprice`, `amount`,`ramount`, `adate`, `mfd`, `exdate`, `status`) VALUES (NULL, '$id', '$bPrice', '$sPrice', '$amount','$amount', curdate(), '$mfd', '$exDate', '1');");
 //$DB->insert($table,$col,$val);
 
 $conn->close();
