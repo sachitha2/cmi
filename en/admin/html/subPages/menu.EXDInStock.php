@@ -7,7 +7,7 @@ $DB->conn = $conn;
 $main = new Main;
 ?>
 
-    <input type="date"  class="form-control"  id="exdFrom">
-    <input type="date"  class="form-control"  id="exdTo">
+    <input type="date"  class="form-control"  id="exdFrom" >
+    <input type="date"  class="form-control"  id="exdTo" onChange="enterStockShortByExDate(exdFrom.value,this.value)">
 	
 	

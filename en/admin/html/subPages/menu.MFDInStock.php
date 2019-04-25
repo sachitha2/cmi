@@ -8,6 +8,6 @@ $main = new Main;
 ?>
 
     <input type="date"  class="form-control"  id="mfdFrom">
-    <input type="date"  class="form-control"  id="mfdTo">
+    <input type="date"  class="form-control"  id="mfdTo" onChange="enterStockShortByMFD(mfdFrom.value,this.value)">
 	
 	

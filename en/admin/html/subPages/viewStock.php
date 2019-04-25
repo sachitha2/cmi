@@ -6,16 +6,19 @@ require_once("../../methods/Main.class.php");
 $DB = new DB;
 $main = new Main;
 $DB->conn = $conn;
+date_default_timezone_set("Asia/Kolkata");
+$Date = date("Y-m-d");
 	$main->b("stock.php") ;
 	$main->createSettionError("This is a sess");
 	$main->readSessionError();
 	$status = 1;
 	$day = "dayMonth";
+	$title = "";
 	if(isset($_GET['data'])){
 		$dataArr = json_decode($_GET['data'],true);
-		echo("<br>");
-		print_r($dataArr);
-		echo("<br>");
+//		echo("<br>");
+//		print_r($dataArr);
+//		echo("<br>");
 		
 		if($dataArr['mode'] == "itemId"){
 			////////////////////////////////////////////
@@ -52,7 +55,7 @@ $DB->conn = $conn;
 			////////////////////////////////////////////
 			//SQL AMOUNT LOGIC START
 			////////////////////////////////////////////
-				echo("amount");
+//				echo("amount");
 				$status = $dataArr['status'];
 				$day = $dataArr['day'];
 				$dayLogic = $main->stockSqlLgc($day);
@@ -63,9 +66,90 @@ $DB->conn = $conn;
 			//SQL AMOUNT LOGIC END
 			/////////////////////////////////////////////
 		}
-		else if($dataArr['mode'] == "amount"){
-			$logic = "WHERE status  = 1";
+		else if($dataArr['mode'] == "rAmount"){
+			////////////////////////////////////////////
+			//SQL R_AMOUNT LOGIC START
+			////////////////////////////////////////////
+//				echo("Ramount");
+				$status = $dataArr['status'];
+				$day = $dataArr['day'];
+				$dayLogic = $main->stockSqlLgc($day);
+				$logic = "WHERE status  = $status ";
+				$logic .= "AND ramount".$dataArr['GL']." ".$dataArr['rAmount'];
+				$logic .= $dayLogic;
+			/////////////////////////////////////////////
+			//SQL R_AMOUNT LOGIC END
+			/////////////////////////////////////////////
 		}
+		else if($dataArr['mode'] == "BP"){
+			////////////////////////////////////////////
+			//SQL BUYING_PRICE LOGIC START
+			////////////////////////////////////////////
+//				echo("\nBP\n");
+				$status = $dataArr['status'];
+				$day = $dataArr['day'];
+				$dayLogic = $main->stockSqlLgc($day);
+				$logic = "WHERE status  = $status ";
+				$logic .= "AND bprice".$dataArr['GL']." ".$dataArr['BP'];
+				$logic .= $dayLogic;
+			/////////////////////////////////////////////
+			//SQL BUYING_PRICE LOGIC END
+			/////////////////////////////////////////////
+		}
+		else if($dataArr['mode'] == "SP"){
+			////////////////////////////////////////////
+			//SQL SELLING_PRICE LOGIC START
+			////////////////////////////////////////////
+//				echo("\nSP\n");
+				$status = $dataArr['status'];
+				$day = $dataArr['day'];
+				$dayLogic = $main->stockSqlLgc($day);
+				$logic = "WHERE status  = $status ";
+				$logic .= "AND sprice".$dataArr['GL']." ".$dataArr['SP'];
+				$logic .= $dayLogic;
+			/////////////////////////////////////////////
+			//SQL SELLING_PRICE LOGIC END
+			/////////////////////////////////////////////
+		}
+		else if($dataArr['mode'] == "MFD"){
+			////////////////////////////////////////////
+			//SQL MFD LOGIC START
+			////////////////////////////////////////////
+//				echo("\nMFD\n");
+				$status = $dataArr['status'];
+				$logic = "WHERE status  = $status ";
+				$logic .= "AND mfd BETWEEN '".$dataArr['from']."' AND '".$dataArr['to']."'";
+			/////////////////////////////////////////////
+			//SQL MFD LOGIC END
+			/////////////////////////////////////////////
+		}
+		else if($dataArr['mode'] == "ExDate"){
+			////////////////////////////////////////////
+			//SQL ExDate LOGIC START
+			////////////////////////////////////////////
+//				echo("\nExDate\n");
+				$status = $dataArr['status'];
+				$logic = "WHERE status  = $status ";
+				$logic .= "AND exdate BETWEEN '".$dataArr['from']."' AND '".$dataArr['to']."'";
+			/////////////////////////////////////////////
+			//SQL ExDate LOGIC END
+			/////////////////////////////////////////////
+		}
+		else if($dataArr['mode'] == "ADate"){
+			////////////////////////////////////////////
+			//SQL ExDate LOGIC START
+			////////////////////////////////////////////
+//				echo("\nADate\n");
+				$status = $dataArr['status'];
+				$logic = "WHERE status  = $status ";
+				$logic .= "AND adate BETWEEN '".$dataArr['from']."' AND '".$dataArr['to']."'";
+			/////////////////////////////////////////////
+			//SQL ExDate LOGIC END
+			/////////////////////////////////////////////
+		}
+//		else if($dataArr['mode'] == "amount"){
+//			$logic = "WHERE status  = 1";
+//		}
 		
 	}else{
 		$logic = "WHERE status  = 1 AND MONTH(adate) = MONTH(curdate()) AND YEAR(adate) = YEAR(curdate())";
@@ -73,7 +157,7 @@ $DB->conn = $conn;
 	}
 
 	$logic .= " ORDER BY stock.adate DESC";
-	echo("<br>");
+//	echo("<br>");
 	echo($logic);
 	
 ?>
@@ -103,7 +187,7 @@ $DB->conn = $conn;
 </div>
 <br>
 
-<h1 align="center">Title of the table</h1>
+<h1 align="center"><?php echo($title) ?></h1>
 <?php
 if($DB->nRow("stock",$logic) != 0){
 	?>
@@ -119,9 +203,9 @@ if($DB->nRow("stock",$logic) != 0){
       <th id="sPrice" scope="col"  onDblClick="ajaxCommonGetFromNet('subPages/menu.SPInStock.php','sPrice');">SP</th>
       <th id="mfd" scope="col"   onDblClick="ajaxCommonGetFromNet('subPages/menu.MFDInStock.php','mfd');">MFD</th>
       <th id="exDate" scope="col"    onDblClick="ajaxCommonGetFromNet('subPages/menu.EXDInStock.php','exDate');">ExDate</th>
-      <th id="" scope="col"    onDblClick="">ADate</th>
-      <th id="dTe" scope="col"    onDblClick="ajaxCommonGetFromNet('subPages/menu.DtEInStock.php','dTe');">DtE</th>
-      <th id="profit" scope="col" onDblClick="ajaxCommonGetFromNet('subPages/menu.profitInStock.php','profit');">Profit</th>
+      <th id="aDate" scope="col"    onDblClick="ajaxCommonGetFromNet('subPages/menu.ADateInStock.php','aDate');">ADate</th>
+      <th id="dTe" scope="col"    onDblClick="/*ajaxCommonGetFromNet('subPages/menu.DtEInStock.php','dTe');*/">DtE</th>
+      <th id="profit" scope="col" onDblClick="/*ajaxCommonGetFromNet('subPages/menu.profitInStock.php','profit');*/">Profit</th>
       
 <!--  <th scope="col" width="50"></th>
       <th scope="col" width="50"></th>-->
@@ -150,8 +234,22 @@ if($DB->nRow("stock",$logic) != 0){
 					<td><?php echo($data['mfd']) ?></td>
 					<td><?php echo($data['exdate']) ?></td>
 					<td><?php echo($data['adate']) ?></td>
-					<td>100</td>
-					<td><?php echo($data['sprice'] - $data['bprice']  ) ?></td>
+					<td>
+						<?php
+							$expDate = date_create($data['exdate']);
+							$curDate=date_create($Date);
+							$diff=date_diff($expDate,$curDate);
+							$dte =  (array) $diff;
+							//print_r($diff);
+							if($curDate > $expDate){
+								echo("-".$dte['days']);
+							}else{
+								echo($dte['days']);
+							}
+						?>
+						
+					</td>
+					<td><?php echo(($data['sprice'] - $data['bprice']) * $data['amount']  ) ?></td>
 <!--
 					<td><button type="button" class="btn btn-md btn-primary">Edit</button></td>
 					<td><button onClick="delArea()" type="button" class="btn btn-md btn-danger ">X</button></td>
@@ -166,5 +264,6 @@ if($DB->nRow("stock",$logic) != 0){
 	<?php
 }else{
 	$main->noDataAvailable();
-}
+}			  
+$conn->close();
 ?>

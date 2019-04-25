@@ -8,10 +8,10 @@ $main = new Main;
 ?>
 
 	<div class="radio">
-      <label><input type="radio" name="optradio" checked>Less-than</label>
+      <label><input type="radio" name="optradio" checked id="lessIBP">Less-than</label>
     </div>
     <div class="radio">
-      <label><input type="radio" name="optradio">Greater than</label>
+      <label><input type="radio" name="optradio" id="greatIBP">Greater than</label>
     </div>
-    <input type="number" placeholder="Enter amount"  class="form-control" onKeyPress="enterStockShortByBP(event)">
+    <input type="number" placeholder="Enter amount"  class="form-control" onKeyPress="enterStockShortByBP(event,lessIBP.checked,greatIBP.checked,this.value)">
 	

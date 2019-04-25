@@ -772,7 +772,6 @@ function enterStockShortByItem(e,id) { //this is mode
 	  }
 	  }
 }
-///TODO
 function enterStockShortByAmount(e,less,great,amount) {
   if (e.which == 13) { 
 	  		if(amount != ""){
@@ -794,7 +793,7 @@ function enterStockShortByAmount(e,less,great,amount) {
 	  		
 	  }
 }
-function enterStockShortByRAmount(e) {
+function enterStockShortByRAmount(e,less,great,amount) {
   if (e.which == 13) { 
 	  
 	  if(amount != ""){
@@ -815,36 +814,97 @@ function enterStockShortByRAmount(e) {
 			}
 	  }
 }
-function enterStockShortByBP(e) {
+function enterStockShortByBP(e,less,great,BP) {
   if (e.which == 13) { 
-	  alert("on key press in short stock by BP");
+	  if(BP != ""){
+				console.log(readStockMenu());
+		  		var menu = readStockMenu();
+	  			if(less == 1){
+					GL = ' <= ';
+				}else{
+					GL = ' >= ';
+				}
+		    	data = {'mode':'BP','GL':GL,'BP':BP,'status':0,"day":""};
+		  		data.status = menu.status;
+		  		data.day = menu.day;
+		  		console.log(data);
+	  			ajaxCommonGetFromNet('subPages/viewStock.php?data='+JSON.stringify(data),'cStage');
+//	  			alert("on key press in short stock by Amount");
+	  			console.log("enterStockShortByAmount less - " + less+"greater "+great + " amount " + BP);	
+			}
 	  }
 }
-function enterStockShortBySP(e) {
-  if (e.which == 13) { 
-	  alert("on key press in short stock by BP");
+function enterStockShortBySP(e,less,great,SP) {
+  if (e.which == 13) {  
+	  	  if(SP != ""){
+				console.log(readStockMenu());
+		  		var menu = readStockMenu();
+	  			if(less == 1){
+					GL = ' <= ';
+				}else{
+					GL = ' >= ';
+				}
+		    	data = {'mode':'SP','GL':GL,'SP':SP,'status':0,"day":""};
+		  		data.status = menu.status;
+		  		data.day = menu.day;
+		  		console.log(data);
+	  			ajaxCommonGetFromNet('subPages/viewStock.php?data='+JSON.stringify(data),'cStage');
+//	  			alert("on key press in short stock by Amount");
+	  			console.log("enterStockShortByAmount less - " + less+"greater "+great + " amount " + SP);	
+			}
 	  }
 }
-function enterStockShortByMFD(e) {
-  if (e.which == 13) { 
-	  alert("on key press in short stock by MFD");
-	  }
+function enterStockShortByMFD(from,to) {
+				console.log(readStockMenu());
+		  		var menu = readStockMenu();
+		    	data = {'mode':'MFD','from':from,'to':to,'status':0,"day":""};
+		  		data.status = menu.status;
+		  		data.day = menu.day;
+		  		console.log(data);
+	  			ajaxCommonGetFromNet('subPages/viewStock.php?data='+JSON.stringify(data),'cStage');
 }
-function enterStockShortByExDate(e) {
-  if (e.which == 13) { 
-	  alert("on key press in short stock by ExDate");
-	  }
+function enterStockShortByExDate(from,to) {
+  				console.log(readStockMenu());
+		  		var menu = readStockMenu();
+		    	data = {'mode':'ExDate','from':from,'to':to,'status':0,"day":""};
+		  		data.status = menu.status;
+		  		data.day = menu.day;
+		  		console.log(data);
+	  			ajaxCommonGetFromNet('subPages/viewStock.php?data='+JSON.stringify(data),'cStage');
+}
+function enterStockShortByADate(from,to) {
+  				console.log(readStockMenu());
+		  		var menu = readStockMenu();
+		    	data = {'mode':'ADate','from':from,'to':to,'status':0,"day":""};
+		  		data.status = menu.status;
+		  		data.day = menu.day;
+		  		console.log(data);
+	  			ajaxCommonGetFromNet('subPages/viewStock.php?data='+JSON.stringify(data),'cStage');
 }
 function enterStockShortByDtE(e) {
   if (e.which == 13) { 
 	  alert("on key press in short stock by DtE");
 	  }
 }
-function enterStockShortByProfit(e) {
-  if (e.which == 13) { 
-	  alert("on key press in short stock by Profit");
-	  }
-}
+//function enterStockShortByProfit(e,profit,less) {
+//  if (e.which == 13) { 
+//	 	if(profit != ""){
+//				console.log(readStockMenu());
+//		  		var menu = readStockMenu();
+//	  			if(less == 1){
+//					GL = ' <= ';
+//				}else{
+//					GL = ' >= ';
+//				}
+//		    	data = {'mode':'profit','GL':GL,'profit':profit,'status':0,"day":""};
+//		  		data.status = menu.status;
+//		  		data.day = menu.day;
+//		  		console.log(data);
+//	  			ajaxCommonGetFromNet('subPages/viewStock.php?data='+JSON.stringify(data),'cStage');
+////	  			alert("on key press in short stock by Amount");
+//			}
+//	  }
+//}
 /////Enter key events
 
 
