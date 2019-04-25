@@ -48,18 +48,33 @@ $DB->conn = $conn;
   <div id="content" class="app-content box-shadow-z0" role="main">
     <?php $main->modal() ?> 
     <?php $main->topBar() ?>
-   <?php
-//	echo($DB->nRow("area"," "));
-//	if(1 == 1){
-//		$main->Msgwarning("Add data to Area and User tables");
-//	}
-	
-	echo($DB->nRow('area',' '));
-	?>
+  
     <div ui-view class="app-body" id="view">
 		<div class="container h-100" id="cStage">
+			
+			
  			<h1>Insert a Customer</h1>
-  			<form>
+ 			
+ 			 	<?php
+//					echo($DB->nRow("area"," "));
+//					if(1 == 1){
+//						$main->Msgwarning("Add data to Area and User tables");
+//						}
+					$x = 0;
+					if($DB->nRow('area',' ') == 0){
+						$main->Msgwarning("No data Found in Area Table");
+					}else{
+						$x++;
+					}
+	  				if($DB->nRow('user',' WHERE type = 2') == 0){
+						$main->Msgwarning("No data Found in User Table");
+					}else{
+						$x++;
+					}
+	  
+	  				if($x == 2){
+						?>
+						<form>
 		<div>Name</div>
 		<div><input type="text" class="form-control" name="name" id="name"></div>
 		<div>Address</div>
@@ -96,6 +111,10 @@ $DB->conn = $conn;
 		<div><button class="btn btn-primary btn-lg"s type="button" onclick="addCustomer();">Create my account</button></div>
 		
 	</form>
+						<?php
+					}
+					?>
+  			
 	
 	<!---new form--->
 	 
