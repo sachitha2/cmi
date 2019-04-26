@@ -32,6 +32,34 @@ $main = new Main;
   <!-- endbuild -->
   <link rel="stylesheet" href="../assets/styles/font.css" type="text/css" />
    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+   <script type="text/javascript">
+      google.charts.load('current', {'packages':['bar']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+		  var areaCustomers = [
+          ['Area', 'Active', 'Inactive'],
+          ['Galgamuwa', 1000, 4580,],
+          ['2015', 1170, 460,],
+          ['2016', 660, 1120,],
+          ['2016', 660, 1120,],
+          ['2016', 660, 1120,],
+        ];
+		  areaCustomers[1][2] = 350;
+        var data = google.visualization.arrayToDataTable(areaCustomers);
+
+        var options = {
+          chart: {
+            title: 'Number of customers',
+            subtitle: 'Number of customers according to Area',
+          }
+        };
+
+        var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
+
+        chart.draw(data, google.charts.Bar.convertOptions(options));
+      }
+    </script>
   <script type="text/javascript">
 	  
 	  function nOfCustomersInAreas(){
@@ -48,34 +76,6 @@ $main = new Main;
 	  }
 	  
 	  
-	  google.charts.load('current', {packages: ['corechart', 'bar']});
-google.charts.setOnLoadCallback(drawMultSeries);
-
-function drawMultSeries() {
-      var data = google.visualization.arrayToDataTable([
-        ['Area', 'Active', 'Inactive'],
-        ['New York City, NY', 8175000, 8008000],
-        ['Los Angeles, CA', 3792000, 3694000],
-        ['Chicago, IL', 2695000, 2896000],
-        ['Houston, TX', 2099000, 1953000],
-        ['Philadelphia, PA', 1526000, 1517000]
-      ]);
-
-      var options = {
-        title: 'Number of customers according to area',
-        chartArea: {width: '50%'},
-        hAxis: {
-          title: 'Total Population',
-          minValue: 0
-        },
-        vAxis: {
-          title: 'Area'
-        }
-      };
-
-      var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
-      chart.draw(data, options);
-    }
   </script>
 </head>
 <body>
@@ -97,7 +97,7 @@ function drawMultSeries() {
 	  <h1>Customer</h1>
     <div class="container h-100" id="cStage">
     		<div>
-    			<div id="chart_div"></div>
+    			<div id="columnchart_material" style="width: 100%; height: 500px;"></div>
     		</div>
     		
   			<a href="createCustomer.php"><button type="button" class="btn btn-primary btn-lg">Find</button></a>
