@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 26, 2019 at 06:07 AM
+-- Generation Time: Apr 26, 2019 at 11:17 AM
 -- Server version: 10.1.31-MariaDB
 -- PHP Version: 7.2.4
 
@@ -59,8 +59,14 @@ CREATE TABLE `cost` (
 --
 
 INSERT INTO `cost` (`cost`, `purpose`, `date`, `id`, `costTypeId`) VALUES
-(1000, 'cha', '2019-04-20', 1, 1),
-(200, 'cha', '2019-03-20', 2, 1);
+(788, 'cha', '2019-04-26', 1, 1),
+(2500, 'cha', '2019-03-20', 3, 1),
+(2500, 'cha', '2019-04-16', 4, 1),
+(500, 'cha', '2019-04-25', 5, 1),
+(500, 'cha', '2019-04-25', 6, 1),
+(500, 'cha', '2019-04-25', 7, 1),
+(2500, 'sam', '2019-04-26', 8, 1),
+(258, 'Stock', '2019-04-26', 9, 1);
 
 -- --------------------------------------------------------
 
@@ -73,6 +79,14 @@ CREATE TABLE `costtype` (
   `costtype` varchar(50) NOT NULL,
   `date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `costtype`
+--
+
+INSERT INTO `costtype` (`id`, `costtype`, `date`) VALUES
+(1, 'Stock', '2019-04-26'),
+(2, 'sam', '2019-04-26');
 
 -- --------------------------------------------------------
 
@@ -315,10 +329,27 @@ INSERT INTO `stock` (`id`, `itemid`, `bprice`, `sprice`, `amount`, `ramount`, `a
 (22, 21, 100, 100, 250, 250, '2019-04-25', '2019-01-02', '2019-01-01', 0),
 (23, 22, 158, 1587, 258, 258, '2019-05-02', '2019-01-01', '2019-01-01', 1),
 (24, 25, 500, 4580, 580, 580, '2018-04-25', '2019-01-01', '2019-01-01', 1),
-(25, 21, 1000, 1500, 250, 250, '2019-04-25', '2019-01-01', '2019-07-25', 1),
+(25, 21, 1000, 1500, 250, 250, '2019-04-25', '2019-01-01', '2019-07-25', 0),
 (26, 25, 500, 4580, 580, 580, '2019-03-31', '2019-01-01', '2019-01-01', 1),
 (27, 25, 500, 4580, 580, 580, '2019-01-25', '2019-01-01', '2019-01-01', 1),
 (28, 25, 500, 4580, 580, 580, '2018-12-25', '2019-01-01', '2019-01-01', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `stockdistribution`
+--
+
+CREATE TABLE `stockdistribution` (
+  `id` bigint(15) NOT NULL,
+  `dealId` bigint(15) NOT NULL,
+  `agentid` int(3) NOT NULL,
+  `stockid` int(11) NOT NULL,
+  `customerid` int(11) NOT NULL,
+  `date` date NOT NULL,
+  `time` time NOT NULL,
+  `status` int(1) NOT NULL COMMENT '0 = returned ,1 = soled '
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -456,6 +487,12 @@ ALTER TABLE `stock`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `stockdistribution`
+--
+ALTER TABLE `stockdistribution`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `user`
 --
 ALTER TABLE `user`
@@ -481,13 +518,13 @@ ALTER TABLE `area`
 -- AUTO_INCREMENT for table `cost`
 --
 ALTER TABLE `cost`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `costtype`
 --
 ALTER TABLE `costtype`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `customer`
@@ -554,6 +591,12 @@ ALTER TABLE `purchaseditems`
 --
 ALTER TABLE `stock`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+
+--
+-- AUTO_INCREMENT for table `stockdistribution`
+--
+ALTER TABLE `stockdistribution`
+  MODIFY `id` bigint(15) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `user`

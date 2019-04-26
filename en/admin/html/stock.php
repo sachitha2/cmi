@@ -31,6 +31,48 @@ $main = new Main;
   <link rel="stylesheet" href="../assets/styles/app.css" type="text/css" />
   <!-- endbuild -->
   <link rel="stylesheet" href="../assets/styles/font.css" type="text/css" />
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript">
+	  
+//	  function stockMonthStockDataChart(){
+//		  var ajax = _ajax();
+//			ajax.onreadystatechange = function() {
+//				if (this.readyState == 4 && this.status == 200) {
+//					
+////					 alert(this.responseText);
+//					var jsonThisMandLM = JSON.parse(this.responseText);
+//	  
+//	  
+//      google.charts.load('current', {'packages':['bar']});
+//      google.charts.setOnLoadCallback(drawChart);
+//
+//      function drawChart() {
+//        var data = google.visualization.arrayToDataTable([
+//          ['ITEM TYPE', 'Soled', 'Expired','Returned'],
+//          ['A', 1000, 400,10],
+//          ['B', 1170, 460,10],
+//          ['B', 660, 1120,10],
+//          ['B', 660, 1120,10],
+//          ['B', 660, 1120,10],
+//          ['B', 660, 1120,10],
+//          ['B', 660, 1120,10],
+//          ['B', 1030, 540,10]
+//        ]);
+//
+//        var options = {
+//          chart: {
+//            title: 'Stock Distribution',
+//            subtitle: '',
+//          }
+//        };
+//
+//        var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
+//
+//        chart.draw(data, google.charts.Bar.convertOptions(options));
+//      }
+//		  
+//		  }
+    </script>
 </head>
 <body>
   <div class="app" id="app">
@@ -49,6 +91,13 @@ $main = new Main;
       <!-- ############ PAGE START-->
 	  <h1>Stock</h1>
     <div class="container h-100" id="cStage">
+    		<div id="columnchart_material" style="width: 100%; height: 500px;"></div>
+    		<br>
+    		<br>
+    		
+    		
+    		
+    		
   			<button type="button" class="btn btn-primary btn-lg"  onClick="ajaxCommonGetFromNet('subPages/addStock.php','cStage')">Add</button>
 <!--
     		
@@ -60,6 +109,10 @@ $main = new Main;
      		<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/deleteArea.php','cStage')">Delete</button>
 -->
      		<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/viewStock.php','cStage')">View</button>
+     		
+     		
+     		
+     		
 	</div>
 
 
