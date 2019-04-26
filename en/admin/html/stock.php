@@ -143,7 +143,7 @@ $main = new Main;
 	  
       google.charts.load('current', {'packages':['bar']});
       google.charts.setOnLoadCallback(drawChart);
-
+					
       function drawChart() {
 		  var charData = [
           ['ITEM TYPE', 'Soled', 'Expired','Returned'],
@@ -152,9 +152,11 @@ $main = new Main;
 		  console.log(jsonData['ItemType'].length);
 		  console.log(typeof arrLen);
 		  
+		  
 		  for(x = 0;x<arrLen;x++){
 			  const newArtists = [jsonData['ItemType'][x],jsonData['soled'][x],jsonData['expired'][x],jsonData['returned'][x]];
 			  charData.push(newArtists);
+			  
 		  }
 		  console.log(charData);
         var data = google.visualization.arrayToDataTable(charData);
@@ -186,7 +188,11 @@ $main = new Main;
 //					 alert(this.responseText);
 					var jsonData = JSON.parse(this.responseText);
 					console.log("today Stock distrybution" + jsonData);
-					
+					todayList = document.getElementById("todayList");
+					var arrLen = jsonData['ItemType'].length;
+					for(x = 0;x<arrLen;x++){
+			  			todayList.innerHTML += "<li class='list-group-item d-flex justify-content-between align-items-center'>"+jsonData['ItemType'][x]+" <span class='badge badge-primary badge-pill'>"+jsonData['soled'][x]+"</span></li>" ;
+		  			}
 					}}
 			ajax.open("GET", "../json/stockDistrybutionTodayTotal.json.php", true);
 			ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
@@ -240,31 +246,35 @@ $main = new Main;
   			
      		
      		<div class="card-deck mb-3 text-center" style="padding-bottom: 50px;padding-top: 50px;">
-    <div class="card mb-4 shadow-sm">
-      <div class="card-header">
-        <h4 class="my-0 font-weight-normal">Today </h4>
-      </div>
-      <div class="card-body" id="piechartToday">
-      	55
-      </div>
-    </div>
-    <div class="card mb-4 shadow-sm">
-      <div class="card-header">
-        <h4 class="my-0 font-weight-normal">This Week </h4>
-      </div>
-      <div class="card-body" id="piechartWeek">
-        55
-      </div>
-    </div>
-    <div class="card mb-4 shadow-sm" >
-      <div class="card-header">
-        <h4 class="my-0 font-weight-normal">This Month </h4>
-      </div>
-      <div class="card-body">
-        55
-      </div>
-    </div>
-  </div>
+    			<div class="card mb-4 shadow-sm">
+      				<div class="card-header">
+        				<h4 class="my-0 font-weight-normal">Today </h4>
+      				</div>
+      				<div class="card-body" >
+      						<ul class="list-group" style="width: 300px;" id="todayList">
+  
+    							
+								
+							</ul>
+      				</div>
+    			</div>
+    			<div class="card mb-4 shadow-sm">
+      				<div class="card-header">
+        				<h4 class="my-0 font-weight-normal">Today </h4>
+      				</div>
+      				<div class="card-body" >
+      						
+      				</div>
+    			</div>
+    			<div class="card mb-4 shadow-sm">
+      				<div class="card-header">
+        				<h4 class="my-0 font-weight-normal">Today </h4>
+      				</div>
+      				<div class="card-body" >
+      						
+      				</div>
+    			</div>
+  			</div>
      		
 	</div>
 
