@@ -38,7 +38,7 @@ $DB->conn = $conn;?>
 				?>
 				<tr>
 					<td scope="row"><?php echo($data['id']) ?></td>
-					<td><?php echo($data['name'])?></td>
+					<td><?php echo($data['purpose'])?></td>
 					<td><button type="button" class="btn btn-md btn-primary" onClick="loadEditFormsexpenses(<?php echo($data['id']) ?>,81)">Edit</button></td>
 					<td><button onClick="delexpenses(<?php echo($data['id']) ?>)" type="button" class="btn btn-md btn-danger ">X</button></td>
 					
