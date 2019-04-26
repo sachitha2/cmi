@@ -19,7 +19,7 @@ $arr = $DB->select("costtype","");
 $pdf = new FPDF('P','mm','A4');
 $pdf->AddPage("p",'A4');
 $pdf->SetFont('Times','B',18);
-$pdf->Cell('',10,"Expenses Sort By Cost Type (".$Date.')','','',"C");
+$pdf->Cell('',10,"Today's Sort By Cost Type (".$Date.')','','',"C");
 
 $pdf->ln(20);
 $pdf->SetFont('Times','B',15);
@@ -52,7 +52,7 @@ $pdf->Cell(85,6,$totalCost,'1','',"R");
 
 $main->pdfFooter($pdf);
 
-$pdf->Output('',"Expenses Sort by Cost Type(".$Date.').pdf',true);
+$pdf->Output('',"Today Expenses Sort by Cost Type(".$Date.').pdf',true);
 
 //Cell(float w [, float h [, string txt [, mixed border [, int ln [, string align [, boolean fill [, mixed link]]]]]]])
 
