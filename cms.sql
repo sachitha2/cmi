@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 17, 2019 at 04:41 PM
+-- Generation Time: Apr 26, 2019 at 06:07 AM
 -- Server version: 10.1.31-MariaDB
 -- PHP Version: 7.2.4
 
@@ -38,13 +38,7 @@ CREATE TABLE `area` (
 --
 
 INSERT INTO `area` (`id`, `name`) VALUES
-(105, 'Rajanganaya'),
-(106, 'Hello hello pure'),
-(107, 'Maho'),
-(109, 'Thambuththegama'),
-(110, 'Galgamuwa'),
-(111, 'Anuradhapura'),
-(112, 'Saliyapura');
+(2, 'Galgamuwa');
 
 -- --------------------------------------------------------
 
@@ -60,6 +54,14 @@ CREATE TABLE `cost` (
   `costTypeId` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `cost`
+--
+
+INSERT INTO `cost` (`cost`, `purpose`, `date`, `id`, `costTypeId`) VALUES
+(1000, 'cha', '2019-04-20', 1, 1),
+(200, 'cha', '2019-03-20', 2, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -71,19 +73,6 @@ CREATE TABLE `costtype` (
   `costtype` varchar(50) NOT NULL,
   `date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `costtype`
---
-
-INSERT INTO `costtype` (`id`, `costtype`, `date`) VALUES
-(4, 'sds', '2019-03-26'),
-(5, 'test', '2019-03-26'),
-(18, 'k', '2019-03-28'),
-(19, 'k', '2019-03-28'),
-(20, 'k', '2019-03-28'),
-(21, 't', '2019-03-28'),
-(22, 'cost type 1', '2019-03-28');
 
 -- --------------------------------------------------------
 
@@ -103,15 +92,6 @@ CREATE TABLE `customer` (
   `status` int(1) NOT NULL COMMENT '1=active,0=not active'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `customer`
---
-
-INSERT INTO `customer` (`id`, `name`, `address`, `tp`, `regdate`, `areaid`, `nic`, `agentid`, `status`) VALUES
-(137, 'sacfv', 'vsd', '0715591137', '2019-03-07', 38, '983142079v', 1, 1),
-(138, 'sam hello', '101,Jayalanda,Mahagalkadawala', '0715591138', '2019-03-31', 108, '983152044x', 1, 0),
-(139, 'sachitha', 'No 101,Jayalanda,Mahagalkadawala', '0715591137', '2019-04-14', 105, '983142044v', 16, 1);
-
 -- --------------------------------------------------------
 
 --
@@ -119,16 +99,37 @@ INSERT INTO `customer` (`id`, `name`, `address`, `tp`, `regdate`, `areaid`, `nic
 --
 
 CREATE TABLE `deals` (
-  `id` int(11) NOT NULL,
+  `id` bigint(15) NOT NULL,
   `date` date NOT NULL,
   `time` time NOT NULL,
   `fdate` date NOT NULL,
-  `ftime` int(11) NOT NULL,
+  `ftime` time NOT NULL,
   `tprice` int(100) NOT NULL,
   `rprice` int(100) NOT NULL,
   `status` int(1) NOT NULL,
   `ni` int(11) NOT NULL COMMENT 'number of installment',
   `cid` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `deals`
+--
+
+INSERT INTO `deals` (`id`, `date`, `time`, `fdate`, `ftime`, `tprice`, `rprice`, `status`, `ni`, `cid`) VALUES
+(1, '2019-04-10', '39:00:00', '2019-04-05', '37:00:00', 2500, 350, 0, 5, 10);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `histry`
+--
+
+CREATE TABLE `histry` (
+  `id` int(15) NOT NULL,
+  `date` date NOT NULL,
+  `time` time NOT NULL,
+  `task` text NOT NULL,
+  `userId` int(2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -139,7 +140,7 @@ CREATE TABLE `deals` (
 
 CREATE TABLE `installment` (
   `id` int(11) NOT NULL,
-  `dealid` int(11) NOT NULL,
+  `dealid` bigint(15) NOT NULL,
   `installmentid` int(11) NOT NULL,
   `payment` int(100) NOT NULL,
   `time` time NOT NULL,
@@ -176,8 +177,9 @@ CREATE TABLE `item` (
 --
 
 INSERT INTO `item` (`id`, `itemTypeId`, `name`, `sDate`, `status`) VALUES
-(17, 25, 'Test', '2019-03-28', 1),
-(18, 25, 'item2', '2019-04-14', 1);
+(21, 32, 'A', '2019-04-24', 1),
+(22, 32, 'B', '2019-04-24', 1),
+(25, 32, 'C', '2019-04-24', 1);
 
 -- --------------------------------------------------------
 
@@ -197,11 +199,7 @@ CREATE TABLE `item_type` (
 --
 
 INSERT INTO `item_type` (`id`, `name`, `date`, `status`) VALUES
-(25, 'Test', '2019-03-28', 1),
-(26, 'A', '2019-04-14', 1),
-(27, 'B', '2019-04-14', 1),
-(28, 'C', '2019-04-14', 1),
-(29, 'D', '2019-04-14', 1);
+(32, 'TYPE', '2019-04-24', 1);
 
 -- --------------------------------------------------------
 
@@ -233,8 +231,8 @@ CREATE TABLE `pack` (
 --
 
 INSERT INTO `pack` (`id`, `name`, `cdate`) VALUES
-(45, 'Gold', '2019-04-14'),
-(46, 'Silver', '2019-04-14');
+(48, 'Gold', '2019-04-24'),
+(49, 'Silver', '2019-04-24');
 
 -- --------------------------------------------------------
 
@@ -244,17 +242,22 @@ INSERT INTO `pack` (`id`, `name`, `cdate`) VALUES
 
 CREATE TABLE `packitems` (
   `id` int(11) NOT NULL,
-  `pid` int(11) NOT NULL,
+  `pid` bigint(15) NOT NULL,
   `itemid` int(11) NOT NULL,
-  `amount` int(11) NOT NULL
+  `amount` int(11) NOT NULL,
+  `status` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `packitems`
 --
 
-INSERT INTO `packitems` (`id`, `pid`, `itemid`, `amount`) VALUES
-(1, 43, 1, 10);
+INSERT INTO `packitems` (`id`, `pid`, `itemid`, `amount`, `status`) VALUES
+(2, 40, 21, 1000, 1),
+(4, 10, 10, 10, 1),
+(14, 49, 25, 250, 1),
+(16, 49, 22, 258, 1),
+(17, 49, 21, 258, 1);
 
 -- --------------------------------------------------------
 
@@ -272,6 +275,17 @@ CREATE TABLE `purchaseditems` (
   `type` int(1) NOT NULL COMMENT '1=for from pack,2=for extra'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `purchaseditems`
+--
+
+INSERT INTO `purchaseditems` (`id`, `dealid`, `itemid`, `amount`, `uprice`, `stockid`, `type`) VALUES
+(15, 10, 20, 20, 50, 10, 1),
+(37, 10, 21, 200, 50, 10, 1),
+(38, 10, 21, 100, 50, 10, 1),
+(39, 10, 21, 2, 50, 10, 1),
+(40, 0, 0, 0, 50, 10, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -284,6 +298,7 @@ CREATE TABLE `stock` (
   `bprice` int(100) NOT NULL,
   `sprice` int(100) NOT NULL,
   `amount` int(100) NOT NULL,
+  `ramount` int(11) NOT NULL,
   `adate` date NOT NULL,
   `mfd` date NOT NULL,
   `exdate` date NOT NULL,
@@ -294,13 +309,16 @@ CREATE TABLE `stock` (
 -- Dumping data for table `stock`
 --
 
-INSERT INTO `stock` (`id`, `itemid`, `bprice`, `sprice`, `amount`, `adate`, `mfd`, `exdate`, `status`) VALUES
-(9, 17, 250, 300, 250, '2019-03-28', '2019-03-29', '2019-03-28', 1),
-(10, 17, 150, 250, 250, '2019-04-06', '2019-04-19', '2019-04-25', 1),
-(11, 17, 250, 150, 250, '2019-04-13', '2019-01-01', '2019-01-01', 1),
-(12, 17, 250, 450, 350, '2019-04-14', '2019-01-01', '2019-01-01', 1),
-(13, 18, 350, 400, 250, '2019-04-14', '2019-01-01', '2019-01-01', 1),
-(14, 18, 250, 500, 1500, '2019-04-14', '2027-12-31', '2019-12-01', 1);
+INSERT INTO `stock` (`id`, `itemid`, `bprice`, `sprice`, `amount`, `ramount`, `adate`, `mfd`, `exdate`, `status`) VALUES
+(20, 22, 200, 300, 250, 250, '2019-04-24', '2019-01-01', '2021-05-29', 1),
+(21, 22, 450, 480, 200, 200, '2019-04-24', '2019-01-01', '2019-01-01', 1),
+(22, 21, 100, 100, 250, 250, '2019-04-25', '2019-01-02', '2019-01-01', 0),
+(23, 22, 158, 1587, 258, 258, '2019-05-02', '2019-01-01', '2019-01-01', 1),
+(24, 25, 500, 4580, 580, 580, '2018-04-25', '2019-01-01', '2019-01-01', 1),
+(25, 21, 1000, 1500, 250, 250, '2019-04-25', '2019-01-01', '2019-07-25', 1),
+(26, 25, 500, 4580, 580, 580, '2019-03-31', '2019-01-01', '2019-01-01', 1),
+(27, 25, 500, 4580, 580, 580, '2019-01-25', '2019-01-01', '2019-01-01', 1),
+(28, 25, 500, 4580, 580, 580, '2018-12-25', '2019-01-01', '2019-01-01', 1);
 
 -- --------------------------------------------------------
 
@@ -320,8 +338,8 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `username`, `password`, `type`) VALUES
-(16, 'sam', '0cc175b9c0f1b6a831c399e269772661', 2),
-(17, 'chatson', 'c4ca4238a0b923820dcc509a6f75849b', 1);
+(3, 'sam', 'c4ca4238a0b923820dcc509a6f75849b', 2),
+(4, 'queen', '7694f4a66316e53c8cdd9d9954bd611d', 2);
 
 -- --------------------------------------------------------
 
@@ -344,8 +362,8 @@ CREATE TABLE `userdata` (
 --
 
 INSERT INTO `userdata` (`id`, `name`, `tp`, `dob`, `regdate`, `status`, `nic`) VALUES
-(16, 'Sachitha hirushan', '0715591137', '2019-01-17', '2019-04-14', 1, '983142044v'),
-(17, 'sa', '0715591137', '2007-02-09', '2019-04-14', 1, '983142044v');
+(3, 'Sachitha', '0715591137', '2098-11-09', '2019-04-25', 0, '983142044v'),
+(4, 'Sandali', '0779274111', '1998-08-19', '2019-04-25', 1, '983142044v');
 
 --
 -- Indexes for dumped tables
@@ -375,6 +393,18 @@ ALTER TABLE `costtype`
 ALTER TABLE `customer`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `nic` (`nic`);
+
+--
+-- Indexes for table `deals`
+--
+ALTER TABLE `deals`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `histry`
+--
+ALTER TABLE `histry`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `installment`
@@ -445,25 +475,37 @@ ALTER TABLE `userdata`
 -- AUTO_INCREMENT for table `area`
 --
 ALTER TABLE `area`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=113;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `cost`
 --
 ALTER TABLE `cost`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `costtype`
 --
 ALTER TABLE `costtype`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `customer`
 --
 ALTER TABLE `customer`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=140;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `deals`
+--
+ALTER TABLE `deals`
+  MODIFY `id` bigint(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `histry`
+--
+ALTER TABLE `histry`
+  MODIFY `id` int(15) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `installment`
@@ -475,13 +517,13 @@ ALTER TABLE `installment`
 -- AUTO_INCREMENT for table `item`
 --
 ALTER TABLE `item`
-  MODIFY `id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `item_type`
 --
 ALTER TABLE `item_type`
-  MODIFY `id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `log`
@@ -493,41 +535,37 @@ ALTER TABLE `log`
 -- AUTO_INCREMENT for table `pack`
 --
 ALTER TABLE `pack`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
 
 --
 -- AUTO_INCREMENT for table `packitems`
 --
 ALTER TABLE `packitems`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `purchaseditems`
 --
 ALTER TABLE `purchaseditems`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT for table `stock`
 --
 ALTER TABLE `stock`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+
+--
+-- AUTO_INCREMENT for table `user`
+--
+ALTER TABLE `user`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `userdata`
 --
 ALTER TABLE `userdata`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
-
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `userdata`
---
-ALTER TABLE `userdata`
-  ADD CONSTRAINT `userdata_ibfk_1` FOREIGN KEY (`id`) REFERENCES `user` (`id`);
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
