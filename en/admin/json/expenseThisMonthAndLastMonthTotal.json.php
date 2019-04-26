@@ -1,6 +1,4 @@
 <?php
-/////this is a duplicate
-
 require_once("../html/db.php");
 require_once("../methods/DB.class.php");
 $DB = new DB;
