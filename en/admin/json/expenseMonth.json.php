@@ -19,5 +19,4 @@ $data['costLastM'] = $sqlSumPrevMonthRow['SUM(cost)'];
 $json = json_encode($data);
 // echo("<br>");
 echo($json);
-
 ?>
