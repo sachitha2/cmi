@@ -28,7 +28,8 @@ if($DB->nRow("user","") != 0){ ?>
   <tbody>
     
     <?php
-			$arr = $DB->select("user","CROSS JOIN userdata");
+//			$cols = "`user`.`id`,`user`.`username`, `user`.`type`,`userdata`.`name`,`userdata`.`tp`,`userdata`.`dob`,`userdata`.`regdate`,`userdata`.`status`,`userdata`.`nic`";
+			$arr = $DB->select("user","INNER JOIN `userdata` ON `user`.`id`=`userdata`.`id`");
 //	  		$arr2 = $DB->select("userdata","");
 //	  		print_r($arr);
 			foreach($arr as $data){

@@ -17,7 +17,7 @@ $tmpBillId = $_SESSION['bill']['id'];
 	</div>
 	
 	<div style="width: 40%;height: 70% !important;background-color: #1F3CC1;height: 70%;float: left;color: white;" id="input">
-		
+			<div id="msg"></div>
 <!--		<input type="number" id="item"  class="form-control">-->
 			<?php $DB->itemList($DB) ?>
 		<input type="number" id="qty" placeholder="QTY" class="form-control" onKeyPress="enteradditemsToFastCustomerBill(event,<?php echo($tmpBillId) ?>)">
