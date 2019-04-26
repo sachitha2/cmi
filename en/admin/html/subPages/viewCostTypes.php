@@ -7,15 +7,7 @@ $DB = new DB;
 $DB->conn = $conn;
 $main = new Main;
 $main->b("costType.php");
-
-?>
-<script>$('#myModal').modal('show')</script>
-
-<?php
-	include("../../workers/readSesson.worker.php");
-?>
-<!-- Button trigger modal -->
-
+if($DB->nRow("costtype","") != 0){ ?>
 
 
 	
@@ -48,3 +40,9 @@ $main->b("costType.php");
 		?>
   </tbody>
 </table>
+<?php
+	
+}else{
+	$main->noDataAvailable();
+}
+?>

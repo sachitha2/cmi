@@ -5,20 +5,13 @@ require_once("../../methods/DB.class.php");
 require_once("../../methods/Main.class.php");
 $DB = new DB;
 $DB->conn = $conn;
-
-
 $main = new Main;
 $main->b("item.php");
 
-?>
-<?php
-	include("../../workers/readSesson.worker.php");
-?>
-<!-- Button trigger modal -->
 
-
-
-	
+if($DB->nRow("item","") != 0){
+		?>
+			
 <table class="table table-hover table-bordered table-striped table-dark">
   <thead class="thead-dark">
     <tr>
@@ -46,3 +39,9 @@ $main->b("item.php");
 		?>
   </tbody>
 </table>
+		
+		<?php
+}else{
+	$main->noDataAvailable();
+}
+?>

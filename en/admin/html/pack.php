@@ -33,6 +33,32 @@ $main = new Main;
   <link rel="stylesheet" href="../assets/styles/font.css" type="text/css" />
   
   <script src="scripts/cMain.js"></script>
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+
+        var data = google.visualization.arrayToDataTable([
+          ['Pack', 'Number of Packs per day'],
+          ['Work',     11],
+          ['Eat',      2],
+          ['Commute',  2],
+          ['Watch TV', 2],
+		  ['Watch TV', 2],
+          ['Sleep',    7]
+        ]);
+
+        var options = {
+          title: 'Number of Packs per day'
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+        chart.draw(data, options);
+      }
+    </script>
 </head>
 <body>
   <div class="app" id="app">
@@ -52,12 +78,15 @@ $main = new Main;
       <!-- ############ PAGE START-->
 	 <h1>Pack</h1>
     <div class="container h-100" id="cStage">
+    		<div id="piechart" style="width:100%; height: 500px;padding-bottom: 20px"></div>
   			<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/createAPackName.php','cStage')">Create</button>
      		<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/pack.STE.php','cStage')">Edit</button>
 <!--     		<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/deleteArea.php','cStage')">Delete</button>-->
      		<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/viewPacks.php','cStage')">View</button>
-     		<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/addItemsToPack.php','cStage')">Add Items to pack</button>
+     		<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/selectPack.STE.php','cStage')">View PACK-ITEMS</button>
+     		<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/addItemsToPack.php','cStage')">Add PACK-ITEMS</button>
      		<a href="PDF/viewPacksPDF.php" target="_blank"><button type="button" class="btn btn-primary btn-lg" >PDF</button></a>
+     		<a href="PDF/viewPacksPDF.php" target="_blank"><button type="button" class="btn btn-primary btn-lg" >PACK-ITEMS PDF</button></a>
 	</div>
 
       <!-- ############ PAGE END-->

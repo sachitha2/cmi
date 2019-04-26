@@ -131,6 +131,58 @@ class DB{
 		}
 		
 	}
+	function Histry($msg){
+		
+	}
+	function getAreaById($id,$d = 1){
+		$sql = "SELECT * FROM area WHERE id = $id";
+	  	$result = $this->conn->query($sql);
+	  	$row = mysqli_fetch_assoc($result);
+		$name = $row['name'];	  	
+		if($d == 0){
+			return($name);
+		}else{
+			echo($name);
+		}
+	}
+	function getAgentById($id,$d = 1){
+///TODO
+//		$sql = "SELECT * FROM area WHERE id = $id";
+//	  	$result = $this->conn->query($sql);
+//	  	$row = mysqli_fetch_assoc($result);
+//		$name = $row['name'];	  	
+//		if($d == 0){
+//			return($name);
+//		}else{
+//			echo($name);
+//		}
+	}
+public	function itemList($DB,$onKey = "",$extra = ""){
+	?>
+	<input list="colors" name="color" id="itemId" class="form-control"  placeholder="Item Id"  onKeyPress="<?php echo($onKey) ?>">
+			<datalist id="colors">
+				<?php
+						if($extra != ""){
+							?>
+								<option value="0"><?php echo($extra) ?></option>
+							<?php
+						}
+				?>
+				
+    			<?php
+						
+					$arrItem = $DB->select("item","");
+					foreach($arrItem as $data){
+						?>
+						<option value="<?php echo($data['id']) ?>"><?php $DB->getItemNameByStockId($data['id']) ?></option>
+						
+						<?php
+					}
 	
+				?>
+			</datalist>
+	
+	<?php
+}
 }
 

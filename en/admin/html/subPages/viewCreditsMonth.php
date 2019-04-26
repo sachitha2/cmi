@@ -5,5 +5,8 @@ require_once("../../methods/Main.class.php");
 $DB = new DB;
 $DB->conn = $conn;
 $main = new Main;
-$DB->itemList($DB,"enterStockShortByItem(event,this.value)","SELECT ALL");
 ?>
+<?php $main->b("credits.php") ?>
+	<h2>Month credits</h2>
+	
+	

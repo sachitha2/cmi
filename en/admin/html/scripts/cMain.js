@@ -79,10 +79,126 @@ function addArea(area){
 		}
 		  
 	}
+function addPackItems(pId){
+	var itemId = gValue("itemId");
+	var qty = gValue("qty");
+	if(itemId == ""){
+		msg("msg","Enter Item Id");
+	}else if(qty == ""){
+		msg("msg","Enter QTY");
+	}else{
+		data = {'itemId':itemId,'qty':qty,'pId':pId};
+		showModal();
+		var ajax = _ajax();
+			ajax.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+	    			alert(this.responseText);
+					emt("itemId");
+					emt("qty");
+					hideModal();
+					ajaxCommonGetFromNet('subPages/loadPackData.php?id='+pId,'packData');
+				}
+	  		}
 
+			ajax.open("POST", "../workers/packItemsInsert.worker.php", true);
+			ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+			ajax.send("data="+(JSON.stringify(data)));
+	}
+	console.log("Item idd is : " + itemId);
+	console.log("qty is : " + qty);
+}
+function addCustomer(){
+	
+	var name = document.getElementById('name').value;
+	var address = document.getElementById('address').value;
+	var nic = document.getElementById('nic').value;
+	var tp = document.getElementById('tp').value;
+	var area = document.getElementById('area').value;
+	var d = new Date();
+	var year = d.getFullYear().toString();
+	var month =  d.getMonth() + 1;
+	var months = month.toString();
+	var day = d.getDate().toString();
+	var date = year+"/"+months+"/"+day;
+	var agent = document.getElementById('agent').value;
 
+	data = {'name':name , 'address':address, 'nic':nic, 'tp':tp, 'area':area, 'date':date, 'agent':agent };
+		////Valida ting data 
+		msg = document.getElementById("msg");
+		if(name.length == "" ){
+			msg.innerHTML = "Insert name"
+		}
+		
+		else if(address.length == ""){
+			msg.innerHTML = " Insert Address"
+		}
+		else if(tp.length != 10){
+			msg.innerHTML = " Insert Telephone number"
+		}
+		else{
+			
+			msg.innerHTML = "";
+			var ajax = _ajax();
+			ajax.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+	    		alert(this.responseText);
+				emt("name");
+				emt("address");
+				emt("nic");
+				emt("tp");
+				msg.innerHTML = " Account Created successfully"
+				}
+	  		}
 
+			ajax.open("POST", "../workers/customerInsert.worker.php", true);
+			ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+			ajax.send("data="+(JSON.stringify(data)));
+		
+			}
+}
 
+function additemsToFastCustomerBill(billId){
+	
+	
+	var itemId = document.getElementById('itemId').value;
+	var qty = document.getElementById('qty').value;
+	var d = new Date();
+	var year = d.getFullYear().toString();
+	var month =  d.getMonth() + 1;
+	var months = month.toString();
+	var day = d.getDate().toString();
+	var date = year+"/"+months+"/"+day;
+
+	data = {'itemId':itemId , 'qty':qty, 'date':date,'billNumber':billId };
+		////Valida ting data 
+		
+		if(itemId.length == "" ){
+			alert("enter item id");
+		}
+		
+		else if(qty.length == ""){
+			alert("enter qty");
+		}
+		else{
+			showModal();
+			var ajax = _ajax();
+			ajax.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+//	    		alert(this.responseText);
+				hideModal();
+				ajaxCommonGetFromNet("subPages/billTemplate.php","output");
+				emt("qty");
+				emt("itemId");
+				document.getElementById('itemId').focus;
+				}
+	  		}
+			ajax.open("POST", "../workers/fastbillInsert.worker.php", true);
+			ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+			ajax.send("data="+(JSON.stringify(data)));
+		
+			}
+
+}
 function _ajax() {
 		var xmlhttp;
 		try{
@@ -551,7 +667,7 @@ function delCustomer(id){
 	}
 		}
 ///TODO HERE
-function delPackItems(id){	
+function delPackItems(id,packId){	
 	var r = confirm("Are you sure want to delete this!");
 	if(r == true){
 		showModal();
@@ -559,7 +675,7 @@ function delPackItems(id){
 		ajax.onreadystatechange = function() {
 			if (this.readyState == 4 && this.status == 200) {
 //	   	 		alert(this.responseText);
-				ajaxCommonGetFromNet('subPages/loadPackData.php.php?id=','cStage');
+				ajaxCommonGetFromNet('subPages/loadPackData.php?id='+packId,'packData');
 				hideModal();
 			}
 	  }
@@ -570,6 +686,28 @@ function delPackItems(id){
 	}
 		}
 ///TODO HERE
+
+
+function delFastBillData(id){
+	//alert(id);//fastBillData.del.php
+	var r = confirm("Are you sure want to delete this!");
+	if(r == true){
+		showModal();
+		var ajax = _ajax();
+		ajax.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+//	   	 		alert(this.responseText);
+//				ajaxCommonGetFromNet('subPages/loadPackData.php.php?id=','cStage');
+				ajaxCommonGetFromNet("subPages/billTemplate.php","output");
+				hideModal();
+			}
+	  }
+
+		ajax.open("POST", "../workers/fastBillData.del.php", true);
+		ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		ajax.send("id="+id);
+	}
+}
 /////deleters
 
 
@@ -601,6 +739,172 @@ function enterAddItemsToStock(e) {
 	  x = document.getElementById("itemId").value;
 	  ajaxCommonGetFromNet('subPages/addStockForm.php?id='+x,'cStage');}
 }
+
+function enterEditCustomer(e,id) {
+  if (e.which == 13) { 
+	  
+	  loadEditFormsCustomer(id);
+	  }
+}
+function enteradditemsToFastCustomerBill(e,billId) {
+  if (e.which == 13) { 
+	  
+	  additemsToFastCustomerBill(billId);
+	  }
+}
+function enterAddPackitems(e,packId) {
+  if (e.which == 13) { 
+	  addPackItems(packId);
+	  }
+}
+function enterStockShortByItem(e,id) { //this is mode 
+  if (e.which == 13) { 
+	  if(id == ""){
+		  alert("Enter a item id");
+	  }else{
+		  	console.log(readStockMenu());
+		  	var menu = readStockMenu();
+		    data = {'mode':'itemId','id':id,'status':0,"day":""};
+		  	data.status = menu.status;
+		  	data.day = menu.day;
+		  	console.log(data);
+	  		ajaxCommonGetFromNet('subPages/viewStock.php?data='+JSON.stringify(data),'cStage');
+	  }
+	  }
+}
+function enterStockShortByAmount(e,less,great,amount) {
+  if (e.which == 13) { 
+	  		if(amount != ""){
+				console.log(readStockMenu());
+		  		var menu = readStockMenu();
+	  			if(less == 1){
+					GL = ' <= ';
+				}else{
+					GL = ' >= ';
+				}
+		    	data = {'mode':'amount','GL':GL,'amount':amount,'status':0,"day":""};
+		  		data.status = menu.status;
+		  		data.day = menu.day;
+		  		console.log(data);
+	  			ajaxCommonGetFromNet('subPages/viewStock.php?data='+JSON.stringify(data),'cStage');
+//	  			alert("on key press in short stock by Amount");
+	  			console.log("enterStockShortByAmount less - " + less+"greater "+great + " amount " + amount);	
+			}
+	  		
+	  }
+}
+function enterStockShortByRAmount(e,less,great,amount) {
+  if (e.which == 13) { 
+	  
+	  if(amount != ""){
+				console.log(readStockMenu());
+		  		var menu = readStockMenu();
+	  			if(less == 1){
+					GL = ' <= ';
+				}else{
+					GL = ' >= ';
+				}
+		    	data = {'mode':'rAmount','GL':GL,'rAmount':amount,'status':0,"day":""};
+		  		data.status = menu.status;
+		  		data.day = menu.day;
+		  		console.log(data);
+	  			ajaxCommonGetFromNet('subPages/viewStock.php?data='+JSON.stringify(data),'cStage');
+//	  			alert("on key press in short stock by Amount");
+	  			console.log("enterStockShortByAmount less - " + less+"greater "+great + " amount " + amount);	
+			}
+	  }
+}
+function enterStockShortByBP(e,less,great,BP) {
+  if (e.which == 13) { 
+	  if(BP != ""){
+				console.log(readStockMenu());
+		  		var menu = readStockMenu();
+	  			if(less == 1){
+					GL = ' <= ';
+				}else{
+					GL = ' >= ';
+				}
+		    	data = {'mode':'BP','GL':GL,'BP':BP,'status':0,"day":""};
+		  		data.status = menu.status;
+		  		data.day = menu.day;
+		  		console.log(data);
+	  			ajaxCommonGetFromNet('subPages/viewStock.php?data='+JSON.stringify(data),'cStage');
+//	  			alert("on key press in short stock by Amount");
+	  			console.log("enterStockShortByAmount less - " + less+"greater "+great + " amount " + BP);	
+			}
+	  }
+}
+function enterStockShortBySP(e,less,great,SP) {
+  if (e.which == 13) {  
+	  	  if(SP != ""){
+				console.log(readStockMenu());
+		  		var menu = readStockMenu();
+	  			if(less == 1){
+					GL = ' <= ';
+				}else{
+					GL = ' >= ';
+				}
+		    	data = {'mode':'SP','GL':GL,'SP':SP,'status':0,"day":""};
+		  		data.status = menu.status;
+		  		data.day = menu.day;
+		  		console.log(data);
+	  			ajaxCommonGetFromNet('subPages/viewStock.php?data='+JSON.stringify(data),'cStage');
+//	  			alert("on key press in short stock by Amount");
+	  			console.log("enterStockShortByAmount less - " + less+"greater "+great + " amount " + SP);	
+			}
+	  }
+}
+function enterStockShortByMFD(from,to) {
+				console.log(readStockMenu());
+		  		var menu = readStockMenu();
+		    	data = {'mode':'MFD','from':from,'to':to,'status':0,"day":""};
+		  		data.status = menu.status;
+		  		data.day = menu.day;
+		  		console.log(data);
+	  			ajaxCommonGetFromNet('subPages/viewStock.php?data='+JSON.stringify(data),'cStage');
+}
+function enterStockShortByExDate(from,to) {
+  				console.log(readStockMenu());
+		  		var menu = readStockMenu();
+		    	data = {'mode':'ExDate','from':from,'to':to,'status':0,"day":""};
+		  		data.status = menu.status;
+		  		data.day = menu.day;
+		  		console.log(data);
+	  			ajaxCommonGetFromNet('subPages/viewStock.php?data='+JSON.stringify(data),'cStage');
+}
+function enterStockShortByADate(from,to) {
+  				console.log(readStockMenu());
+		  		var menu = readStockMenu();
+		    	data = {'mode':'ADate','from':from,'to':to,'status':0,"day":""};
+		  		data.status = menu.status;
+		  		data.day = menu.day;
+		  		console.log(data);
+	  			ajaxCommonGetFromNet('subPages/viewStock.php?data='+JSON.stringify(data),'cStage');
+}
+function enterStockShortByDtE(e) {
+  if (e.which == 13) { 
+	  alert("on key press in short stock by DtE");
+	  }
+}
+//function enterStockShortByProfit(e,profit,less) {
+//  if (e.which == 13) { 
+//	 	if(profit != ""){
+//				console.log(readStockMenu());
+//		  		var menu = readStockMenu();
+//	  			if(less == 1){
+//					GL = ' <= ';
+//				}else{
+//					GL = ' >= ';
+//				}
+//		    	data = {'mode':'profit','GL':GL,'profit':profit,'status':0,"day":""};
+//		  		data.status = menu.status;
+//		  		data.day = menu.day;
+//		  		console.log(data);
+//	  			ajaxCommonGetFromNet('subPages/viewStock.php?data='+JSON.stringify(data),'cStage');
+////	  			alert("on key press in short stock by Amount");
+//			}
+//	  }
+//}
 /////Enter key events
 
 
@@ -611,7 +915,16 @@ function itemMenuInStock(){
 	ajaxCommonGetFromNet("subPages/menu.itemInStock.php","item");
 //	document.getElementById("item").innerHTML = "hello sam";
 }
-
+function stockDefaultMenu() { //this is mode 
+		  	console.log(readStockMenu());
+		  	var menu = readStockMenu();
+		    data = {'mode':'default','status':0,"day":""};
+		  	data.status = menu.status;
+		  	data.day = menu.day;
+		  	console.log(data);
+	  		ajaxCommonGetFromNet('subPages/viewStock.php?data='+JSON.stringify(data),'cStage');
+	  
+}
 ////menu bars
 
 
@@ -696,6 +1009,14 @@ function loadEditFormsCostType(id){
 		if(id != 0){
 //			alert("Cost Type");
 			ajaxCommonGetFromNet("subPages/editCostType.php?id="+id,"cStage");
+		}
+}
+
+function loadEditFormsCustomer(id){
+		if(id != 0){
+			ajaxCommonGetFromNet("subPages/editCustomer.php?id="+id,"cStage");
+		}else{
+			msg("msg","");
 		}
 }
 ////load editing forms
@@ -881,6 +1202,57 @@ function editSaveCostType(costType,id){
 			document.getElementById("msg").innerHTML = "Enter valid item";
 		}
 }
+function editSaveCustomer(){
+	alert("edit save customer");
+	var name = document.getElementById('name').value;
+	var address = document.getElementById('address').value;
+	var nic = document.getElementById('nic').value;
+	var tp = document.getElementById('tp').value;
+	var area = document.getElementById('area').value;
+	var d = new Date();
+	var year = d.getFullYear().toString();
+	var month =  d.getMonth() + 1;
+	var months = month.toString();
+	var day = d.getDate().toString();
+	var date = year+"/"+months+"/"+day;
+	var agent = document.getElementById('agent').value;
+	var s = document.getElementById('status').value;
+
+	data = {'name':name , 'address':address, 'nic':nic, 'tp':tp, 'area':area, 'date':date, 'agent':agent,'s':s};
+		////Valida ting data 
+		msg = document.getElementById("msg");
+		if(name.length == "" ){
+			msg.innerHTML = "Insert name"
+		}
+		
+		else if(address.length == ""){
+			msg.innerHTML = " Insert Address"
+		}
+		else if(tp.length != 10){
+			msg.innerHTML = " Insert Telephone number"
+		}
+		else{
+			
+			msg.innerHTML = "";
+			var ajax = _ajax();
+			ajax.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+	    		alert(this.responseText);
+				emt("name");
+				emt("address");
+				emt("nic");
+				emt("tp");
+				msg.innerHTML = " Account Created successfully"
+				}
+	  		}
+
+			ajax.open("POST", "../workers/customer.edit.php", true);
+			ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+			ajax.send("data="+(JSON.stringify(data)));
+		
+			}
+}
+
 ///edit functioins
 
 
@@ -890,3 +1262,41 @@ function editSaveCostType(costType,id){
 
 /////printer
 
+function gValue(id){
+	var value = document.getElementById(id).value;
+	return value;
+}
+function rChecked(id){
+	var value = document.getElementById(id).checked;
+	return value;
+}
+function readStockMenu(){
+	var data = {'status':0,'day':'today'};
+	////reading status radio btns
+	if(rChecked("s1") == 1){
+		data.status = 1;
+	}else{
+		data.status = 0;
+	}
+	////reading day radio btns
+	if(rChecked("dayToday") == 1){
+		data.day = "dayToday";
+	}
+	else if(rChecked("dayWeek") == 1){
+		data.day = "dayWeek";
+	}
+	else if(rChecked("dayMonth") == 1){
+		data.day = "dayMonth";
+	}
+	else if(rChecked("dayLMonth") == 1){
+		data.day = "dayLMonth";
+	}
+	else if(rChecked("dayYear") == 1){
+		data.day = "dayYear";
+	}
+	else{
+		data.day = "dayCustom";
+	}
+	return data;
+	
+}
