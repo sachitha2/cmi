@@ -6,7 +6,7 @@
 
 		$DB = new DB;
 		$DB->conn = $conn;
-		$arr = $DB->select("item","");
+		$arr = $DB->select("costtype","");
 //		print_r($arr);
 		$main->b("expenses.php");
 ?>	
@@ -17,23 +17,14 @@
 		<div>Add Purpose</div>
 		<div><input  class="form-control" type="text" name="purpose" id="purpose" placeholder="purpose"></div>
 		<div>Select Type</div>
-		<input list="browsers" id="costTypeId" class="form-control" style="width: 200px;" name="browser">
+		<input list="browsers" id="costTypeId" class="form-control" style="width: 200px;" name="browser" onKeyPress="enterAddExpenses(event,this.value)">
   		<datalist id="browsers">
     	
     	<?php 
 			foreach($arr as $data){
-				
-				
 				?>
 				<option value="<?php echo($data['id']); ?>">
-				
-					<?php
-						$itemTId = $data['itemTypeId'];
-						$arrItemType = $DB->select("item_type","WHERE id = $itemTId") ?>
-						
-					<?php echo($arrItemType[0]['name']) ;echo(" ".$data['name']); ?>
-					
-					
+					<?php echo($data['costtype']) ;?>
 				</option>
 				<?php
 			}

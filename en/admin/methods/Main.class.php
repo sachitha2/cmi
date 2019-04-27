@@ -1,5 +1,6 @@
 <?php
 /////log out
+
 if(session_id()== '')
 {
    session_start();
@@ -348,6 +349,26 @@ class Main{
 		<div class="card-header" style="margin-bottom: 5px;margin-top: 5px;position: sticky;top: 50px;z-index: 10">
         	<center><h1 class="my-0 font-weight-normal text-info" ><?php echo($title) ?></h1></center>
       	</div>
+		<?php
+	}
+	public function cardHeader($text,$headerId="",$txtId=""){
+		?>
+		<div class="card-header" <?php
+			 if($headerId != ""){
+				 echo("id='$headerId'");
+			 }
+			 
+			 ?> >
+        	<h2 class="my-0 font-weight-normal text-primary" 
+        	<?php
+			 if($txtId != ""){
+				 echo("id='$txtId'");
+			 }
+			 
+			 ?>
+        	
+        	><?php echo($text) ?></h2>
+        </div>
 		<?php
 	}
 }

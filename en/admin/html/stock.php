@@ -303,40 +303,28 @@ $main = new Main;
      		<div class="card-deck mb-3 text-center" >
      			
     			<div class="card mb-4 shadow-sm">
-      				<div class="card-header">
-        				<h2 class="my-0 font-weight-normal text-primary">Today </h2>
-      				</div>
+      				<?php $main->cardHeader("Today") ?>
       				<div class="card-body" >
       						<ul class="list-group" style="width: 100%;align-content: center" id="todayList">	
 							</ul>
       				</div>
-      				<div class="card-header">
-        				<center><h4 class="my-0 font-weight-normal text-primary" id="totalToday"></h4></center>
-      				</div>
+      				<?php $main->cardHeader("","","totalToday") ?>
     			</div>
     			<div class="card mb-4 shadow-sm">
-      				<div class="card-header">
-        				<h2 class="my-0 font-weight-normal text-primary">Week</h2>
-        			</div>
+      				<?php $main->cardHeader("Week") ?>
       				<div class="card-body" >
       						<ul class="list-group" style="width: 100%;align-content: center" id="weekList">	
 							</ul>
       				</div>
-      				<div class="card-header">
-        				<center><h4 class="my-0 font-weight-normal text-primary" id="totalWeek"></h4></center>
-      				</div>
+      				<?php $main->cardHeader("","","totalWeek") ?>
     			</div>
     			<div class="card mb-4 shadow-sm">
-      				<div class="card-header">
-        				<h2 class="my-0 font-weight-normal text-primary">Month </h2>
-      				</div>
+     				<?php $main->cardHeader("Month") ?>
       				<div class="card-body" >
       						<ul class="list-group" style="width: 100%;align-content: center" id="monthList">	
 							</ul>
       				</div>
-      				<div class="card-header">
-        				<center><h4 class="my-0 font-weight-normal text-primary" id="totalMonth"></h4></center>
-      				</div>
+      				<?php $main->cardHeader("","","totalMonth") ?>
     			</div>
   			</div>
      		

@@ -49,6 +49,7 @@ $main = new Main;
 
       				 function drawChart() {
 						 	console.log(jsonThisMandLM);
+						 	msg("TMLMTotal",jsonThisMandLM.costThisM+" / "+jsonThisMandLM.costLastM);
         			 var data = google.visualization.arrayToDataTable([
           				['Task', 'Hours per Day'],
           				['This Month',   jsonThisMandLM.costThisM ],
@@ -85,6 +86,7 @@ $main = new Main;
 
       				 function drawChart() {
 						 	console.log(jsonThisMandLM);
+						 	msg("TWLWTotal",jsonThisMandLM.costThisW+" / "+jsonThisMandLM.costLastW)
         			 var data = google.visualization.arrayToDataTable([
           				['Task', 'Hours per Day'],
           				['This Week',   jsonThisMandLM.costThisW ],
@@ -121,6 +123,7 @@ $main = new Main;
 
       				 function drawChart() {
 						 	console.log(jsonThisMandLM);
+						 	msg("TYTotal",jsonThisMandLM.costThisD+" / "+jsonThisMandLM.costLastD);
         			 var data = google.visualization.arrayToDataTable([
           				['Task', 'Hours per Day'],
           				['Today',   jsonThisMandLM.costThisD ],
@@ -158,21 +161,21 @@ $main = new Main;
 //					 alert(this.responseText);
 					var jsonData = JSON.parse(this.responseText);
 	  				console.log(jsonData);
-					var arrLen = jsonData['type'].length;
+					var arrLen = jsonData['today']['type'].length;
 	  
       google.charts.load('current', {'packages':['bar']});
       google.charts.setOnLoadCallback(drawChart);
 
       function drawChart() {
 		  var charData = [
-          ['COST TYPE', 'Today'],
+          ['COST TYPE', 'Today','Yester Day'],
         ];
 		  
-		  console.log(jsonData['type'].length);
+		  console.log(jsonData['today']['type'].length);
 		  console.log(typeof arrLen);
 		  
 		  for(x = 0;x<arrLen;x++){
-			  const newArtists = [jsonData['type'][x],jsonData['value'][x]];
+			  const newArtists = [jsonData['today']['type'][x],jsonData['today']['value'][x],jsonData['lDay']['value'][x]];
 			  charData.push(newArtists);
 		  }
 		  console.log(charData);
@@ -226,7 +229,8 @@ $main = new Main;
   			<div class="card-header" style="margin-bottom: 5px;margin-top: 5px;">
         		<center><h1 class="my-0 font-weight-normal text-info" >Expenses Summary</h1></center>
       		</div>
- 			<div class="card-deck mb-3 text-center">
+ 			<div class="card-deck mb-3 text-center">  
+ 			
     <div class="card mb-4 shadow-sm">
       <div class="card-header">
         <h4 class="my-0 font-weight-normal text-primary">Today / Yesterday</h4>
@@ -235,7 +239,7 @@ $main = new Main;
       
       </div>
       <div class="card-header">
-      		<center><h4 class="my-0 font-weight-normal text-primary" id="totalToday">0000</h4></center>
+      		<center><h4 class="my-0 font-weight-normal text-primary" id="TYTotal">0000</h4></center>
       </div>
     </div>
     <div class="card mb-4 shadow-sm">
@@ -246,7 +250,7 @@ $main = new Main;
         
       </div>
       <div class="card-header">
-      		<center><h4 class="my-0 font-weight-normal text-primary" id="totalToday">0000</h4></center>
+      		<center><h4 class="my-0 font-weight-normal text-primary" id="TWLWTotal">0000</h4></center>
       </div>
       </div>
     <div class="card mb-4 shadow-sm" >
@@ -257,7 +261,7 @@ $main = new Main;
         
       </div>
       <div class="card-header">
-      	<center><h4 class="my-0 font-weight-normal text-primary" id="totalToday">000</h4></center>
+      	<center><h4 class="my-0 font-weight-normal text-primary" id="TMLMTotal">000</h4></center>
       </div>
     </div>
   </div>

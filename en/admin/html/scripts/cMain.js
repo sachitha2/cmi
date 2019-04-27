@@ -380,7 +380,11 @@ function addExpenses(costTypeid){
 			document.getElementById("msg").innerHTML = "Add cost";
 		}else if(purpose == ""){
 			document.getElementById("msg").innerHTML = "Add purpose";
-		}else{
+		}
+		else if(costTypeid == ""){
+			document.getElementById("msg").innerHTML = "Add cost type id";
+		}
+		else{
 		var d = new Date();
 		var year = d.getFullYear().toString();
 		var month =  d.getMonth() + 1;
@@ -392,7 +396,7 @@ function addExpenses(costTypeid){
 		var ajax = _ajax();
 		ajax.onreadystatechange = function() {
 			if (this.readyState == 4 && this.status == 200) {
-	    	alert(this.responseText);
+	    	msg("msg",this.responseText);
 			emt("cost");	
 			emt("purpose");	
 			emt("costTypeId");
@@ -714,6 +718,15 @@ function delFastBillData(id){
 
 
 ////Enter key events
+function enterAddExpenses(e,costTypeid){
+	if (e.which == 13) {
+//		if(costTypeid != ""){
+//			
+//		} 3
+		addExpenses(costTypeid);
+	}
+}
+
 function enterAddArea(e) {
   area = document.getElementById("area").value;
   if (e.which == 13) {addArea(area); }

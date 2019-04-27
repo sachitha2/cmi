@@ -20,7 +20,7 @@ if($DB->nRow("installment","") != 0){ ?>
       <th scope="col">Payment</th>
       <th scope="col">Date</th>
       <th scope="col">Customer</th>
-      <th scope="col">Customer's Area</th>
+      <th scope="col">Area</th>
     </tr>
   </thead>
   <tbody>
@@ -40,16 +40,12 @@ if($DB->nRow("installment","") != 0){ ?>
 				
 				<?php
 					$arrCustomerDetails = $DB->select("customer","WHERE id = ".$data['cid']);
-					foreach($arrCustomerDetails as $dataCustomerDetails){
+			
+					$customerName = $arrCustomerDetails[0]['name'];
+					$arrAreaDetails = $DB->select("area","WHERE id = ".$arrCustomerDetails[0]['areaid']);
 						
-						$customerName = $dataCustomerDetails['name'];
-						$arrAreaDetails = $DB->select("area","WHERE id = ".$dataCustomerDetails['areaid']);
+					$area = $arrAreaDetails[0]['name'];
 						
-						foreach($arrAreaDetails as $dataAreaDetails){
-							$area = $dataAreaDetails['name'];
-						}
-						
-					}
 				?>
 				
 				<td><?php echo $customerName ?></td>

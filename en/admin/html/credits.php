@@ -50,7 +50,7 @@ $main = new Main;
 	<div class="container h-100" id="cStage">
       <!-- ############ PAGE START-->
 	 
-		<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/viewCreditsToday.php','cStage')">Today</button>
+		<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/viewInstallments.php','cStage')">View</button>
 		<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/viewCreditsWeek.php','cStage')"> Week</button>
 		<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/viewCreditsMonth.php','cStage')"> Month</button>
 		<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/viewCreditsToday.php','cStage')"> Custome Dates</button>
