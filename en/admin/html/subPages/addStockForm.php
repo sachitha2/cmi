@@ -1,24 +1,27 @@
 <?php
 require_once("../db.php");
 require_once("../../methods/DB.class.php");
+require_once("../../methods/Main.class.php");
 $DB = new DB;
+$main = new Main;
 $DB->conn = $conn;
 $item = "sam";
 $item = $_GET['id'];
 
 ?>
 <div><a href="stock.php"><img src="../assets/images/back.png" width="30" height="30"></a></div><br>
-	<h2><Load></Load>  <b><?php echo($DB->getItemNameByStockId($item)) ?></b> to stock</h2>
+	
 	
 
 
 
 <?php
 	
-	if(1 == 1){
+	if($DB->isAvailable("item","WHERE id = $item")){
 			
 			
-			?>	
+			?>
+			<h2> <b><?php echo($DB->getItemNameByStockId($item)) ?></b> to stock</h2>	
 			<br>
 			<label for="">Enter Amount</label>
 			<input class="form-control" type="number" placeholder="Enter Amount"  style="font-size: 20px;color: black;" id="amount" onKeyPress="enterUpdateMainStockItems(event)" required>
@@ -42,7 +45,10 @@ $item = $_GET['id'];
 		<?php
 	}
 else{
-	echo("Item Not Availabel");
+	$main->Msgwarning("Invalid Item");
+	?>
+		<button type="button" class="btn btn-primary btn-lg" onclick="ajaxCommonGetFromNet('subPages/addStock.php','cStage')">Add</button>
+	<?php
 }
 ?>
 <?php $conn->close(); ?>
