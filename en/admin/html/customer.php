@@ -33,25 +33,39 @@ $main = new Main;
   <link rel="stylesheet" href="../assets/styles/font.css" type="text/css" />
    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
    <script type="text/javascript">
+	   	function nOfCustomersInAreas(){
+		  msg("columnchart_material","<center><h1><img src='load.gif'><br>Loading Charts.....</h1></center>");
+		  var ajax = _ajax();
+			ajax.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+					
+//					 alert(this.responseText);
+					var jsonData = JSON.parse(this.responseText);
+	  				console.log(jsonData);
+					var arrLen = jsonData['area'].length;
+	  
       google.charts.load('current', {'packages':['bar']});
       google.charts.setOnLoadCallback(drawChart);
 
       function drawChart() {
-		  var areaCustomers = [
-          ['Area', 'Active', 'Inactive'],
-          ['Galgamuwa', 1000, 4580,],
-          ['2015', 1170, 460,],
-          ['2016', 660, 1120,],
-          ['2016', 660, 1120,],
-          ['2016', 660, 1120,],
+		  var charData = [
+          ['AREA', 'Active', 'Inactive'],
         ];
-		  areaCustomers[1][2] = 350;
-        var data = google.visualization.arrayToDataTable(areaCustomers);
+		  
+		  console.log(jsonData['area'].length);
+		  console.log(typeof arrLen);
+		  
+		  for(x = 0;x<arrLen;x++){
+			  const newArtists = [jsonData['area'][x],jsonData['activeCustomers'][x],jsonData['inactiveCustomers'][x]];
+			  charData.push(newArtists);
+		  }
+		  console.log(charData);
+        var data = google.visualization.arrayToDataTable(charData);
 
         var options = {
           chart: {
-            title: 'Number of customers',
-            subtitle: 'Number of customers according to Area',
+            title: 'Customers - Area',
+            subtitle: '',
           }
         };
 
@@ -59,26 +73,15 @@ $main = new Main;
 
         chart.draw(data, google.charts.Bar.convertOptions(options));
       }
+		  
+		  }}
+			ajax.open("GET", "../json/numberOfCustomersInAreas.json.php", true);
+			ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+			ajax.send();
+			}
     </script>
-  <script type="text/javascript">
-	  
-	  function nOfCustomersInAreas(){
-//		  			var xmlhttp = new XMLHttpRequest();
-//        			xmlhttp.onreadystatechange = function() {
-//        			if (this.readyState === 4 && this.status == 200) {
-//							document.getElementById("msg").innerHTML  =  this.responseText;
-//							emt("area");
-//							hideModal();
-//           				}
-//        			};
-//        			xmlhttp.open("GET", "../workers/addArea.worker.php?area="+area, true);//generating  get method link
-//        			xmlhttp.send();
-	  }
-	  
-	  
-  </script>
 </head>
-<body>
+<body onLoad="nOfCustomersInAreas();">
   <div class="app" id="app">
 
 <!-- ############ LAYOUT START-->
@@ -96,14 +99,19 @@ $main = new Main;
       <!-- ############ PAGE START-->
 	  <h1>Customer</h1>
     <div class="container h-100" id="cStage">
-    		<div>
-    			<div id="columnchart_material" style="width: 100%; height: 500px;"></div>
-    		</div>
+    		
+    			
+    		
     		
   			<a href="createCustomer.php"><button type="button" class="btn btn-primary btn-lg">Find</button></a>
      		<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/customers.STE.php','cStage')">Edit</button>
      		<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/deleteArea.php','cStage')">Delete</button>
      		<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/viewCustomers.php','cStage')">View</button>
+     		
+     		<div class="card-header" style="padding-bottom: 10px;padding-top: 10px;margin-top: 20px;">
+        			<center><h1 class="my-0 font-weight-normal text-info">Customers - Area </h1></center>
+      		</div>
+     		<div id="columnchart_material" style="width: 100%; height: 500px;margin-bottom: 20px;margin-top: 20px;"></div>
 	</div>
 
       <!-- ############ PAGE END-->
