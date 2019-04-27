@@ -6,8 +6,6 @@ $DB = new DB;
 $DB->conn = $conn;?>
 <div><a href="credits.php"><img src="../assets/images/back.png" width="30" height="30"></a></div><br>
 	
-	
-	
 <?php
 if($DB->nRow("installment","") != 0){ ?>
 
@@ -39,17 +37,13 @@ if($DB->nRow("installment","") != 0){ ?>
 				<td><?php echo($data['date']) ?></td>
 				
 				<?php
+		
 					$arrCustomerDetails = $DB->select("customer","WHERE id = ".$data['cid']);
-					foreach($arrCustomerDetails as $dataCustomerDetails){
-						
-						$customerName = $dataCustomerDetails['name'];
-						$arrAreaDetails = $DB->select("area","WHERE id = ".$dataCustomerDetails['areaid']);
-						
-						foreach($arrAreaDetails as $dataAreaDetails){
-							$area = $dataAreaDetails['name'];
-						}
-						
-					}
+					$customerName = $arrCustomerDetails[0]['name'];
+			
+					$arrAreaDetails = $DB->select("area","WHERE id = ".$arrCustomerDetails[0]['areaid']);
+					$area = $arrAreaDetails[0]['name'];
+					
 				?>
 				
 				<td><?php echo $customerName ?></td>
@@ -69,7 +63,6 @@ else{
 ?>
 			<div class="alert alert-danger" align="center">
   				<strong>No Data Available!</strong>  <br>
-  				
   			</div>
 <?php
 }
