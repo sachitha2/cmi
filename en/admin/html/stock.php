@@ -297,7 +297,7 @@ $main = new Main;
     		
     		
   				<div class="card-header" style="padding-bottom: 10px;padding-top: 10px;margin-bottom: 20px;">
-        			<center><h1 class="my-0 font-weight-normal text-info">Stock Summary - Item Type </h1></center>
+        			<center><h1 class="my-0 font-weight-normal text-info">Stock Summary - Item Type [Soled] </h1></center>
       			</div>
      		
      		<div class="card-deck mb-3 text-center" >

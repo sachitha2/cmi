@@ -144,9 +144,61 @@ $main = new Main;
 		
 	}
 
+		
+		
+		
+		
+		/////column chart
+		function todayExpenseColumnChart(){
+		  msg("columnchart_material","<center><h1><img src='load.gif'><br>Loading Charts.....</h1></center>");
+		  var ajax = _ajax();
+			ajax.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+					
+//					 alert(this.responseText);
+					var jsonData = JSON.parse(this.responseText);
+	  				console.log(jsonData);
+					var arrLen = jsonData['type'].length;
+	  
+      google.charts.load('current', {'packages':['bar']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+		  var charData = [
+          ['COST TYPE', 'Today'],
+        ];
+		  
+		  console.log(jsonData['type'].length);
+		  console.log(typeof arrLen);
+		  
+		  for(x = 0;x<arrLen;x++){
+			  const newArtists = [jsonData['type'][x],jsonData['value'][x]];
+			  charData.push(newArtists);
+		  }
+		  console.log(charData);
+        var data = google.visualization.arrayToDataTable(charData);
+
+        var options = {
+          chart: {
+            title: 'Today Expense According to Expense Type',
+            subtitle: '',
+          }
+        };
+
+        var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
+
+        chart.draw(data, google.charts.Bar.convertOptions(options));
+      }
+		  
+		  }}
+			ajax.open("GET", "../json/todayExpensesByCostType.json.php", true);
+			ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+			ajax.send();
+			}
+		/////column chart
     </script>
 </head>
-<body onLoad="chartThisMandLMonth();chartThisWandLWeek();chartTDandYDay()">
+<body onLoad="chartThisMandLMonth();chartThisWandLWeek();chartTDandYDay();todayExpenseColumnChart()">
   <div class="app" id="app">
 
 <!-- ############ LAYOUT START-->
@@ -172,31 +224,40 @@ $main = new Main;
 			<br>
 			<br>
   			<div class="card-header" style="margin-bottom: 5px;margin-top: 5px;">
-        		<center><h4 class="my-0 font-weight-normal text-primary" >Expenses Summary</h4></center>
+        		<center><h1 class="my-0 font-weight-normal text-info" >Expenses Summary</h1></center>
       		</div>
  			<div class="card-deck mb-3 text-center">
     <div class="card mb-4 shadow-sm">
       <div class="card-header">
-        <h4 class="my-0 font-weight-normal">Today / Yesterday</h4>
+        <h4 class="my-0 font-weight-normal text-primary">Today / Yesterday</h4>
       </div>
       <div class="card-body" id="piechartToday">
       
       </div>
+      <div class="card-header">
+      		<center><h4 class="my-0 font-weight-normal text-primary" id="totalToday">0000</h4></center>
+      </div>
     </div>
     <div class="card mb-4 shadow-sm">
       <div class="card-header">
-        <h4 class="my-0 font-weight-normal">This Week / Last Week</h4>
+        <h4 class="my-0 font-weight-normal text-primary">This Week / Last Week</h4>
       </div>
       <div class="card-body" id="piechartWeek">
         
       </div>
-    </div>
+      <div class="card-header">
+      		<center><h4 class="my-0 font-weight-normal text-primary" id="totalToday">0000</h4></center>
+      </div>
+      </div>
     <div class="card mb-4 shadow-sm" >
       <div class="card-header">
-        <h4 class="my-0 font-weight-normal">This Month / Last Month</h4>
+        <h4 class="my-0 font-weight-normal text-primary">This Month / Last Month</h4>
       </div>
       <div class="card-body" id="piechartMonth">
         
+      </div>
+      <div class="card-header">
+      	<center><h4 class="my-0 font-weight-normal text-primary" id="totalToday">000</h4></center>
       </div>
     </div>
   </div>

@@ -10,22 +10,43 @@ $DB = new DB;
 $DB->conn = $conn;
 $arr = $DB->select("costtype","");
 
-$totalCost = 0;
+/////This month
+$totalCostThisMonth = 0;
 $x = 0;
 
 foreach ($arr as $data) {
 	
 	$costArr = $DB->select("cost","WHERE (costTypeId = ".$data['id']." && MONTH(date) = MONTH(CURDATE()) && YEAR(date) = YEAR(CURDATE()))","SUM(cost)");
 	
-	$costArray['type'][$x] = $data['costtype'];
-	$costArray['value'][$x] = (int)$costArr[0]['SUM(cost)'];
+	$costArray['tMonth']['type'][$x] = $data['costtype'];
+	$costArray['tMonth']['value'][$x] = (int)$costArr[0]['SUM(cost)'];
 	
-	$totalCost +=  (int)$costArr[0]['SUM(cost)'];
+	$totalCostThisMonth +=  (int)$costArr[0]['SUM(cost)'];
 	$x++;
 	
 }
 
-$costArray['Total'] = $totalCost;
+$costArray['tMonth']['Total'] = $totalCostThisMonth;
+/////This month
+
+/////Last month
+$totalCostLastMonth = 0;
+$x = 0;
+
+foreach ($arr as $data) {
+	
+	$costArr = $DB->select("cost","WHERE (costTypeId = ".$data['id']." && MONTH(date) = MONTH(CURDATE()) - 1 && YEAR(date) = YEAR(CURDATE()))","SUM(cost)");
+	
+	$costArray['lMonth']['type'][$x] = $data['costtype'];
+	$costArray['lMonth']['value'][$x] = (int)$costArr[0]['SUM(cost)'];
+	
+	$totalCostLastMonth +=  (int)$costArr[0]['SUM(cost)'];
+	$x++;
+	
+}
+
+$costArray['lMonth']['Total'] = $totalCostLastMonth;
+/////Last month
 $json = json_encode($costArray);
 echo($json);
 ?>
