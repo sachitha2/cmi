@@ -49,7 +49,7 @@ $main = new Main;
     <div ui-view class="app-body" id="view">
 
       <!-- ############ PAGE START-->
-	 <h1>This is Income content</h1>
+	 	<?php $main->head("Income") ?>
 
       <!-- ############ PAGE END-->
 

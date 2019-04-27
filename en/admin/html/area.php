@@ -40,7 +40,7 @@ $main = new Main;
 
 <!-- ############ LAYOUT START-->
 
-  <?php $main->menuBar(s) ?>
+  <?php $main->menuBar() ?>
   <!-- / -->
   
   <!-- content -->
@@ -50,7 +50,7 @@ $main = new Main;
     <div ui-view class="app-body" id="view">
 		<?php $main->modal() ?>
       <!-- ############ PAGE START-->
-	 <h1>Area </h1>
+        <?php $main->head("Area") ?>
     <div class="container h-100" id="cStage">
   			<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/addArea.php','cStage')">Add</button>
      		<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/area.STE.php','cStage')">Edit</button>

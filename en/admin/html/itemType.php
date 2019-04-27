@@ -52,7 +52,7 @@ $main = new Main;
     <div ui-view class="app-body" id="view">
 		<?php $main->modal() ?>
       <!-- ############ PAGE START-->
-	 <h1>Item Type</h1>
+	 	<?php $main->head("Item Type") ?>
 	<div class="container h-100" id="cStage">
   			<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/insertItemType.php','cStage')">Add</button>
      		<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/itemType.STE.php','cStage')">Edit</button>

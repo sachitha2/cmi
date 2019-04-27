@@ -97,7 +97,7 @@ $main = new Main;
     <div ui-view class="app-body" id="view">
 	  <?php $main->modal() ?>
       <!-- ############ PAGE START-->
-	  <h1>Customer</h1>
+	  <?php $main->head("Customer") ?>
     <div class="container h-100" id="cStage">
     		
     			

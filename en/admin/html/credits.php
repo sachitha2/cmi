@@ -46,7 +46,7 @@ $main = new Main;
     <?php $main->modal() ?> 
     <?php $main->topBar() ?>
     <div ui-view class="app-body" id="view">
-    <h1>Credits</h1>
+    	<?php $main->head("Credits") ?>
 	<div class="container h-100" id="cStage">
       <!-- ############ PAGE START-->
 	 

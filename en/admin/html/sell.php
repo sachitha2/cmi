@@ -38,8 +38,8 @@ $main = new Main;
   <div class="app" id="app">
 
 <!-- ############ LAYOUT START-->
-
-  <?php $main->menuBar(s) ?>
+	
+  <?php $main->menuBar() ?>
   <!-- / -->
   
   <!-- content -->
@@ -49,7 +49,7 @@ $main = new Main;
     <div ui-view class="app-body" id="view" style="overflow: hidden">
 		<?php $main->modal() ?>
       <!-- ############ PAGE START-->
-	 <h1>Sell</h1>
+    	<h1>Sales</h1>
     <div class="container h-100" id="cStage">
   			<button  type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/sellCustomer.php','cStage')">Customer</button>
   			<button  type="button" class="btn btn-primary btn-lg" onClick="fastCustomer()">Fast Customer</button>

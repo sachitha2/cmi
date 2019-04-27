@@ -266,7 +266,7 @@ $main = new Main;
     <div ui-view class="app-body" id="view">
 		<?php $main->modal() ?>
       <!-- ############ PAGE START-->
-	  <h1>Stock</h1>
+        <?php $main->head("Stock") ?>
     <div class="container h-100" id="cStage">
    		
    		<button type="button" class="btn btn-primary btn-lg"  onClick="ajaxCommonGetFromNet('subPages/addStock.php','cStage')">Add</button>

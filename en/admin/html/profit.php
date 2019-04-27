@@ -73,6 +73,7 @@ $main = new Main;
     <div ui-view class="app-body" id="view">
 
       <!-- ############ PAGE START-->
+      <?php $main->head("Profit") ?>
       <br>
       <br>
 	 
