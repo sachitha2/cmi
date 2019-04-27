@@ -1,4 +1,23 @@
 <?php
+/////log out
+if(session_id()== '')
+{
+   session_start();
+}
+
+$logOutUrl = "../../../L";
+if(!isset($_SESSION['login'])){
+	header("location:$logOutUrl");
+}
+if(!isset($_SESSION['login']['status'])){
+	header("location:$logOutUrl");
+}
+if(isset($_SESSION['login']['status'])){
+	if($_SESSION['login']['status'] == 0){
+		header("location:$logOutUrl");
+	}
+}
+/////log out
 class Main{
 	public function b($url){
 		?>
@@ -210,7 +229,7 @@ class Main{
         	      <img src="../assets/images/a0.jpg" alt="..." class="w-40 img-circle">
         	    </span>
         	    <span class="clear hidden-folded p-x">
-        	      <span class="block _500">CMS - Admin</span>
+        	      <span class="block _500">CMS - <?php echo($_SESSION['login']['user']) ?></span>
         	      <small class="block text-muted"><i class="fa fa-circle text-success m-r-sm"></i>online</small>
         	    </span>
         	</a>

@@ -3,6 +3,7 @@ created 2019/01/23
 By sachitha hirushan
 --->
 <?php 
+	session_start();
 	//Connecting Database
 	include("db.php");
 	// End
@@ -20,7 +21,8 @@ By sachitha hirushan
 	if ($resultCheck<1){
 		//errorMessage = Invalid User Name
 		echo "Invalid User Name";
-		
+		$_SESSION['login']['pass'] = 0;
+		header("location:../../../L");
 	}else{
 		$row = mysqli_fetch_assoc($result);
 		$hashed= md5($Password);
@@ -40,7 +42,7 @@ By sachitha hirushan
 			setcookie($cookie_name, $cookie_value, time() + (86400), "/"); // 86400 = 1 day
 			//echo($_COOKIE['user']);
 			//session_id($_COOKIE['PHPSESSID']); 
-			/*session_start();
+			/*
 			$_SESSION['user']['username']= $UserName; 
 			if($_SESSION['user']['username']== $UserName ){
 				echo "done";
@@ -49,7 +51,11 @@ By sachitha hirushan
 			}
 			*/
 			//echo("pw ok");
+			$_SESSION['login']['pass'] = 1;
+			$_SESSION['login']['status'] = 1;
+			$_SESSION['login']['user'] = $cookie_value;
 			header("location:dashboard.php");
+			
 			/*if (isset($_COOKIE["user"])){
 				echo "done";
 			}*/
@@ -60,6 +66,8 @@ By sachitha hirushan
 			/////redirect user ending
 		}else{
 			echo "Invalid Password";
+			$_SESSION['login']['pass'] = 0;
+			header("location:../../../L");
 		}
 		
 	}

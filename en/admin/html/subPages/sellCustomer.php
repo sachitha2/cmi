@@ -5,7 +5,6 @@ require_once("../../methods/Main.class.php");
 $DB = new DB;
 $DB->conn = $conn;
 $main = new Main;
-session_start();
 $main->b("sell.php");
 ?>
 <h1>Sell customer. this is for special customers</h1>

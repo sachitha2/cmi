@@ -1,9 +1,4 @@
-<?php
-session_start();
 
-?>
-
-	
 	<div><a href="area.php"><img src="../assets/images/back.png" width="30" height="30"></a></div><br>
 	<?php
 	include("../../workers/readSesson.worker.php");

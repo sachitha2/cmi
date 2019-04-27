@@ -1,5 +1,4 @@
 <?php
-session_start();
 include("../db.php");
 require_once("../../methods/Main.class.php");
 require_once("../../methods/DB.class.php");
