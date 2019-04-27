@@ -218,6 +218,16 @@ class Main{
                     <span class="nav-text">Credits</span>
                   </a>
                 </li>
+                <li>
+                  <a onClick="window.location.assign('installments.php')">
+                    <span class="nav-icon">
+                      <i class="material-icons">&#xe870;
+                        <span ui-include="'../assets/images/i_7.svg'"></span>
+                      </i>
+                    </span>
+                    <span class="nav-text">Installments</span>
+                  </a>
+                </li>
             
               </ul>
           </nav>
