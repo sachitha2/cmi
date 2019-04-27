@@ -56,9 +56,17 @@ foreach ($arr as $data) {
 	$customersArray['Last']['activeCustomers'][$x] = $numOfActivesL;
 	$customersArray['Last']['inactiveCustomers'][$x] = $numOfInactivesL;
 	
-	$customersArray['Comparison']['activeIncrement'][$x] = $customersArray['This']['activeCustomers'][$x] - $customersArray['Last']['activeCustomers'][$x];
+	if($numOfActivesL <= 0){
+		$customersArray['Comparison']['activeIncrement'][$x] = NULL;
+	}else{
+		$customersArray['Comparison']['activeIncrement'][$x] = ((($numOfActivesT - $numOfActivesL)/$numOfActivesL)*100)."%";
+	}
 	
-	$customersArray['Comparison']['inactiveIncrement'][$x] = $customersArray['This']['inactiveCustomers'][$x] - $customersArray['Last']['inactiveCustomers'][$x];
+	if($numOfInactivesL <= 0){
+		$customersArray['Comparison']['inactiveIncrement'][$x] = NULL;
+	}else{
+		$customersArray['Comparison']['inactiveIncrement'][$x] = ((($numOfInactivesT - $numOfInactivesL)/$numOfInactivesL)*100)."%";
+	}
 	
 	$x++;
 	
