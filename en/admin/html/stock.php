@@ -79,7 +79,7 @@ $main = new Main;
 			ajax.open("GET", "../json/stockDistrybutionMonthTotal.json.php", true);
 			ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 			ajax.send();
-			setTimeout(stockWeekStockDataChart,10000);
+			setTimeout(stockWeekStockDataChart,30000);
 			}
 	  function stockWeekStockDataChart(){
 		  msg("columnchart_material","<center><h1><img src='load.gif'><br>Loading Charts.....</h1></center>");
@@ -126,7 +126,7 @@ $main = new Main;
 			ajax.open("GET", "../json/stockDistrybutionWeekTotal.json.php", true);
 			ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 			ajax.send();
-			setTimeout(stockTodayStockDataChart,10000);
+			setTimeout(stockTodayStockDataChart,30000);
 			}
 	  
 	  
@@ -178,9 +178,10 @@ $main = new Main;
 			ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 			ajax.send();
 			
-			setTimeout(stockMonthStockDataChart,10000);
+			setTimeout(stockMonthStockDataChart,30000);
 		  }
 	  function stockDTodayData(){
+		  msg("todayList","<center><h5><img src='load.gif' width='120px' height='100px'><br>Loading Charts.....</h5></center>");
 		  var ajax = _ajax();
 			ajax.onreadystatechange = function() {
 				if (this.readyState == 4 && this.status == 200) {
@@ -189,18 +190,68 @@ $main = new Main;
 					var jsonData = JSON.parse(this.responseText);
 					console.log("today Stock distrybution" + jsonData);
 					todayList = document.getElementById("todayList");
+					todayList.innerHTML = "";
 					var arrLen = jsonData['ItemType'].length;
+					toatal = 0
 					for(x = 0;x<arrLen;x++){
-			  			todayList.innerHTML += "<li class='list-group-item d-flex justify-content-between align-items-center'>"+jsonData['ItemType'][x]+" <span class='badge badge-primary badge-pill'>"+jsonData['soled'][x]+"</span></li>" ;
+			  			todayList.innerHTML += "<li style='width:100%' class='list-group-item d-flex justify-content-between align-items-center'>"+jsonData['ItemType'][x]+" <span class='badge badge-primary badge-pill'>"+jsonData['soled'][x]+"</span></li>" ;
+						toatal += jsonData['soled'][x];
 		  			}
+					msg("totalToday",toatal);
 					}}
 			ajax.open("GET", "../json/stockDistrybutionTodayTotal.json.php", true);
 			ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 			ajax.send();
 	  }
+	  function stockDWeekData(){
+		  msg("weekList","<center><h5><img src='load.gif' width='120px' height='100px'><br>Loading Charts.....</h5></center>");
+		  var ajax = _ajax();
+			ajax.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+					
+//					 alert(this.responseText);
+					var jsonData = JSON.parse(this.responseText);
+					console.log("week Stock distrybution" + jsonData);
+					weekList = document.getElementById("weekList");
+					weekList.innerHTML = "";
+					var arrLen = jsonData['ItemType'].length;
+					toatal = 0
+					for(x = 0;x<arrLen;x++){
+			  			weekList.innerHTML += "<li  class='list-group-item d-flex justify-content-between align-items-center'>"+jsonData['ItemType'][x]+" <span class='badge badge-primary badge-pill'>"+jsonData['soled'][x]+"</span></li>" ;
+						toatal += jsonData['soled'][x];
+		  			}
+					msg("totalWeek",toatal);
+					}}
+			ajax.open("GET", "../json/stockDistrybutionWeekTotal.json.php", true);
+			ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+			ajax.send();
+	  }
+	  function stockDMonthData(){
+		  msg("monthList","<center><h5><img src='load.gif' width='120px' height='100px'><br>Loading Charts.....</h5></center>");
+		  var ajax = _ajax();
+			ajax.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+					
+//					 alert(this.responseText);
+					var jsonData = JSON.parse(this.responseText);
+					console.log("month Stock distrybution" + jsonData);
+					monthList = document.getElementById("monthList");
+					monthList.innerHTML = "";
+					var arrLen = jsonData['ItemType'].length;
+					toatal = 0
+					for(x = 0;x<arrLen;x++){
+			  			monthList.innerHTML += "<li  class='list-group-item d-flex justify-content-between align-items-center'>"+jsonData['ItemType'][x]+" <span class='badge badge-primary badge-pill'>"+jsonData['soled'][x]+"</span></li>" ;
+						toatal += jsonData['soled'][x];
+		  			}
+					msg("totalMonth",toatal);
+					}}
+			ajax.open("GET", "../json/stockDistrybutionMonthTotal.json.php", true);
+			ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+			ajax.send();
+	  }
     </script>
 </head>
-<body onLoad="stockMonthStockDataChart();stockDTodayData()">
+<body onLoad="stockMonthStockDataChart();stockDTodayData();stockDWeekData();stockDMonthData()">
   <div class="app" id="app">
 
 <!-- ############ LAYOUT START-->
@@ -230,8 +281,10 @@ $main = new Main;
 -->
      		<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/viewStock.php','cStage')">View</button>
      		
-   		
-    		<div id="columnchart_material" style="width: 100%; height: 500px;padding-top: 50px"></div>
+   			<div class="card-header" style="padding-bottom: 10px;padding-top: 10px;margin-bottom: 5px;margin-top: 20px;">
+        		<center><h1 class="my-0 font-weight-normal text-info">Stock Distribution - Item Type </h1></center>
+      		</div>
+    		<div id="columnchart_material" style="width: 100%; height: 500px;padding-top: 5px"></div>
     			<center>
     				<button onClick="stockTodayStockDataChart()"  class="btn btn-default">Today</button>
     				<button onClick="stockWeekStockDataChart()" class="btn btn-default">Week</button>
@@ -243,35 +296,46 @@ $main = new Main;
     		
     		
     		
-  			
+  				<div class="card-header" style="padding-bottom: 10px;padding-top: 10px;margin-bottom: 20px;">
+        			<center><h1 class="my-0 font-weight-normal text-info">Stock Summary - Item Type </h1></center>
+      			</div>
      		
-     		<div class="card-deck mb-3 text-center" style="padding-bottom: 50px;padding-top: 50px;">
+     		<div class="card-deck mb-3 text-center" >
+     			
     			<div class="card mb-4 shadow-sm">
       				<div class="card-header">
-        				<h4 class="my-0 font-weight-normal">Today </h4>
+        				<h2 class="my-0 font-weight-normal text-primary">Today </h2>
       				</div>
       				<div class="card-body" >
-      						<ul class="list-group" style="width: 300px;" id="todayList">
-  
-    							
-								
+      						<ul class="list-group" style="width: 100%;align-content: center" id="todayList">	
 							</ul>
       				</div>
-    			</div>
-    			<div class="card mb-4 shadow-sm">
       				<div class="card-header">
-        				<h4 class="my-0 font-weight-normal">Today </h4>
-      				</div>
-      				<div class="card-body" >
-      						
+        				<center><h4 class="my-0 font-weight-normal text-primary" id="totalToday"></h4></center>
       				</div>
     			</div>
     			<div class="card mb-4 shadow-sm">
       				<div class="card-header">
-        				<h4 class="my-0 font-weight-normal">Today </h4>
+        				<h2 class="my-0 font-weight-normal text-primary">Week</h2>
+        			</div>
+      				<div class="card-body" >
+      						<ul class="list-group" style="width: 100%;align-content: center" id="weekList">	
+							</ul>
+      				</div>
+      				<div class="card-header">
+        				<center><h4 class="my-0 font-weight-normal text-primary" id="totalWeek"></h4></center>
+      				</div>
+    			</div>
+    			<div class="card mb-4 shadow-sm">
+      				<div class="card-header">
+        				<h2 class="my-0 font-weight-normal text-primary">Month </h2>
       				</div>
       				<div class="card-body" >
-      						
+      						<ul class="list-group" style="width: 100%;align-content: center" id="monthList">	
+							</ul>
+      				</div>
+      				<div class="card-header">
+        				<center><h4 class="my-0 font-weight-normal text-primary" id="totalMonth"></h4></center>
       				</div>
     			</div>
   			</div>
