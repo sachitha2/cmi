@@ -33,35 +33,7 @@ $main = new Main;
   <link rel="stylesheet" href="../assets/styles/font.css" type="text/css" />
   <script src="scripts/cMain.js"></script>
    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-  <script type="text/javascript">
-      google.charts.load('current', {'packages':['bar']});
-      google.charts.setOnLoadCallback(drawChart);
-
-      function drawChart() {
-        var data = google.visualization.arrayToDataTable([
-          ['Year', 'Sales', 'Profit'],
-          ['2014', 1000, 400,],
-          ['2015', 1170, 460,],
-          ['2016', 660, 1120,],
-          ['2016', 660, 1120,],
-          ['2016', 660, 1120,],
-          ['2016', 660, 1120,],
-          ['2016', 660, 1120,],
-          ['2017', 1030, 540,]
-        ]);
-
-        var options = {
-          chart: {
-            title: 'Company Performance',
-            subtitle: 'Sales, Expenses, and Profit: 2014-2017',
-          }
-        };
-
-        var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
-
-        chart.draw(data, google.charts.Bar.convertOptions(options));
-      }
-    </script>
+  
     <script type="text/javascript">
 	function chartThisMandLMonth(){	
 			 
@@ -190,11 +162,18 @@ $main = new Main;
     <div ui-view class="app-body" id="view">
 		<?php $main->modal() ?>
       	<!-- ############ PAGE START-->
-	 	<h1>Expenses</h1>
-		
+		<?php $main->head("Expenses") ?>
      	
      	<div class="container h-100" id="cStage">
-  			
+     		<br>
+			<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/addExpenses.php','cStage')">Create</button>
+			<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/viewExpensesMain.php','cStage')">View</button>
+			<br>
+			<br>
+			<br>
+  			<div class="card-header" style="margin-bottom: 5px;margin-top: 5px;">
+        		<center><h4 class="my-0 font-weight-normal text-primary" >Expenses Summary</h4></center>
+      		</div>
  			<div class="card-deck mb-3 text-center">
     <div class="card mb-4 shadow-sm">
       <div class="card-header">
@@ -227,13 +206,10 @@ $main = new Main;
      		
 		
 		
-		<br>
-		<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/addExpenses.php','cStage')">Create</button>
-		<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/viewExpensesMain.php','cStage')">View</button>
-		<br>
-		<br>
-		<br>
 		
+		<div class="card-header"  style="margin-bottom: 5px;margin-top: 5px;">
+        	<center><h4 class="my-0 font-weight-normal text-primary" > Expenses According To Expense Type</h4></center>
+      	</div>
 		<div id="columnchart_material" style="width: 100%; height: 500px;"></div>
 		</div>
       	<!-- ############ PAGE END-->
