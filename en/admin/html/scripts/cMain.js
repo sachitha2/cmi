@@ -1317,3 +1317,17 @@ function readStockMenu(){
 	return data;
 	
 }
+function fastCustomerFinish(total){
+	showModal();
+	stage = document.getElementById("mainModal");
+	stage.style.opacity = 0.9;
+	stage.style.color = "white";
+	stage.style.background = "black";
+	stage.innerHTML = "<center><h1>Enter Cash Amount<br>Total - "+total+"</h1><input type='number'  placeholder='Enter Cash' class='form-control' style='width:300px;'>";
+	stage.innerHTML += "</center>"
+	
+	
+}
+function fastCustomerBalance(value){
+	
+}
