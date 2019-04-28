@@ -1317,17 +1317,21 @@ function readStockMenu(){
 	return data;
 	
 }
+var fastCustomerBillTotal ;
 function fastCustomerFinish(total){
+	fastCustomerBillTotal = total;
 	showModal();
 	stage = document.getElementById("mainModal");
 	stage.style.opacity = 0.9;
 	stage.style.color = "white";
 	stage.style.background = "black";
-	stage.innerHTML = "<center><h1>Enter Cash Amount<br>Total - "+total+"</h1><input type='number'  placeholder='Enter Cash' class='form-control' style='width:300px;'>";
+	stage.innerHTML = "<center><h1>Enter Cash Amount<br>Total - "+total+"</h1><input type='number' id='cash'  placeholder='Enter Cash' class='form-control' style='width:300px;' onKeyUp='fastCustomerBalance(event)' ><h1>Balnce <strong id='balance'></strong></h1>";
 	stage.innerHTML += "</center>"
 	
 	
 }
-function fastCustomerBalance(value){
-	
+function fastCustomerBalance(e){
+	value = document.getElementById("cash").value;
+	document.getElementById("balance").innerHTML = value - fastCustomerBillTotal ;
+	console.log(value);
 }

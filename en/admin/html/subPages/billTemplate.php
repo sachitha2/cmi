@@ -1,14 +1,32 @@
 <?php
-$totalId = round(microtime(true) * 1000);;
-$_SESSION['bill']['id'] = $totalId;
-$_SESSION['bill']['time'] = "10:02:02 AM";
-$_SESSION['bill']['date'] = "2018-01-25";
-$_SESSION['bill']['s'] = 1;
-
-$tmpBillId = $_SESSION['bill']['id'];
 require_once("../db.php");
 require_once("../../methods/DB.class.php");
 require_once("../../methods/Main.class.php");
+$totalId = round(microtime(true) * 1000);
+
+if(isset($_SESSION['bill'])){
+	
+	
+	if($_SESSION['bill']['s'] == 1){
+		$tmpBillId = $_SESSION['bill']['id'];
+	}else{
+		$_SESSION['bill']['id'] = $totalId;
+		$_SESSION['bill']['time'] = "10:02:02 AM";
+		$_SESSION['bill']['date'] = "2018-01-25";
+		$_SESSION['bill']['s'] = 1;
+		$tmpBillId = $_SESSION['bill']['id'];
+}
+
+}else{
+	echo("bill session not available");
+	$_SESSION['bill']['id'] = 100;
+	$_SESSION['bill']['time'] = "10:02:02 AM";
+	$_SESSION['bill']['date'] = "2018-01-25";
+	$_SESSION['bill']['s'] = 1;
+	$tmpBillId = $_SESSION['bill']['id'];
+	
+}
+
 $DB = new DB;
 $DB->conn = $conn;
 $main = new Main;
