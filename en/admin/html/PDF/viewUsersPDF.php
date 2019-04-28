@@ -19,7 +19,7 @@ $arr = $DB->select("user","CROSS JOIN userdata");
 $pdf = new FPDF('P','mm','A4');
 $pdf->AddPage("p",'A4');
 $pdf->SetFont('Times','B',18);
-$pdf->Cell(190,10,"Users(".$Date.')','','',"C");
+$pdf->Cell("",10,"Users(".$Date.')','','',"C");
 
 $pdf->ln(20);
 $pdf->SetFont('Times','B',15);
