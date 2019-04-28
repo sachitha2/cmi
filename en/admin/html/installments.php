@@ -49,7 +49,7 @@ $main = new Main;
     	<?php $main->head("Installments") ?>
 	<div class="container h-100" id="cStage">
       <!-- ############ PAGE START-->
-	 
+      <button type="button" class="btn btn-primary btn-lg" onclick="ajaxCommonGetFromNet('subPages/viewALLInstallments.php','cStage')">View</button>
 		
       <!-- ############ PAGE END-->
 	</div>

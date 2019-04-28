@@ -18,7 +18,9 @@ $DB->conn = $conn;?>
     <?php
 	  
 	 		if($DB->nRow("area","") != 0){
+				 
 				?>
+				<a target="_blank" href="PDF/viewAreaPDF.php"><button type="button" class="btn btn-primary btn-md" >PDF</button></a>
 				<table class="table table-hover table-bordered table-striped table-dark">
   					<thead class="thead-dark">
     					<tr>

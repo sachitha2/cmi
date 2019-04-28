@@ -14,7 +14,7 @@ $main = new Main;
 $DB = new DB;
 $DB->conn = $conn;
 
-$arr = $DB->select("user","CROSS JOIN userdata");
+$arr = $DB->select("user","INNER JOIN `userdata` ON `user`.`id`=`userdata`.`id`");
 
 $pdf = new FPDF('P','mm','A4');
 $pdf->AddPage("p",'A4');
@@ -35,11 +35,16 @@ $pdf->SetFont('Times','',12);
 $pdf->ln(4);
 
 foreach ($arr as $data) {
-	
+							if($data['type'] == 1 ){
+								$type = "Admin";
+								}else if($data['type'] == 2){
+								$type = "Agent";
+								}
+					
 	$pdf->ln(6);
 	$pdf->Cell(14,6,$data['id'],'1','',"L");
 	$pdf->Cell(40,6,$data['username'],'1','',"L");
-	$pdf->Cell(15,6,$data['type'],'1','',"L");
+	$pdf->Cell(15,6,$type,'1','',"L");
 	$pdf->Cell(50,6,$data['name'],'1','',"L");
 	$pdf->Cell(22,6,$data['dob'],'1','',"L");
 	$pdf->Cell(22,6,$data['regdate'],'1','',"L");
