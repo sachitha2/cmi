@@ -10,7 +10,7 @@ $date = $postData['date'];
 $purpose = $postData['purpose'];
 $costTypeId = $postData['costTId'];
 if($DB->isAvailable("costtype","WHERE id = $costTypeId")){
-	$conn->query("INSERT INTO `cost` (`cost`, `purpose`, `date`, `id`, `costTypeId`) VALUES ('$cost', '$purpose', '$date', NULL, '$costTypeId');");
+	$conn->query("INSERT INTO `cost` (`cost`, `purpose`, `date`, `id`, `costTypeId`) VALUES ('$cost', '$purpose', '".$postData['costDate']."', NULL, '$costTypeId');");
 	echo("Done");
 }else{
 	echo("Cost Type Id Invalid");

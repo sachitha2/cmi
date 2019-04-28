@@ -374,15 +374,18 @@ function addExpenses(costTypeid){
 		
 		var cost = document.getElementById('cost').value;
 		var purpose = document.getElementById('purpose').value;
+	    var da = document.getElementById("costDate").value;
 		console.log(costTypeid);
 
 		if(cost == ""){
-			document.getElementById("msg").innerHTML = "Add cost";
+			msg("msg","Add cost");
 		}else if(purpose == ""){
-			document.getElementById("msg").innerHTML = "Add purpose";
+			msg("msg","Add purpose");
 		}
 		else if(costTypeid == ""){
-			document.getElementById("msg").innerHTML = "Add cost type id";
+			msg("msg","Add cost type id");
+		}else if(da == ""){
+			msg("msg","Enter date");
 		}
 		else{
 		var d = new Date();
@@ -391,7 +394,7 @@ function addExpenses(costTypeid){
 		var months = month.toString();
 		var day = d.getDate().toString();
 		var date = year+"/"+months+"/"+day;
-		data = { 'date':date, 'cost':cost, 'purpose':purpose ,'costTId':costTypeid};
+		data = { 'date':date, 'cost':cost, 'purpose':purpose ,'costTId':costTypeid,'costDate':da};
 		
 		var ajax = _ajax();
 		ajax.onreadystatechange = function() {
@@ -400,6 +403,7 @@ function addExpenses(costTypeid){
 			emt("cost");	
 			emt("purpose");	
 			emt("costTypeId");
+			document.getElementById("costDate").value = date;
 			}
 	  }
 
