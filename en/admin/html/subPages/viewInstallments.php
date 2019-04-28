@@ -1,12 +1,9 @@
 <?php
-
 require_once("../db.php");
 require_once("../../methods/DB.class.php");
 $DB = new DB;
 $DB->conn = $conn;?>
 <div><a href="credits.php"><img src="../assets/images/back.png" width="30" height="30"></a></div><br>
-	
-	
 	
 <?php
 if($DB->nRow("installment","") != 0){ ?>
@@ -20,7 +17,7 @@ if($DB->nRow("installment","") != 0){ ?>
       <th scope="col">Payment</th>
       <th scope="col">Date</th>
       <th scope="col">Customer</th>
-      <th scope="col">Area</th>
+      <th scope="col">Customer's Area</th>
     </tr>
   </thead>
   <tbody>
@@ -39,13 +36,13 @@ if($DB->nRow("installment","") != 0){ ?>
 				<td><?php echo($data['date']) ?></td>
 				
 				<?php
+		
 					$arrCustomerDetails = $DB->select("customer","WHERE id = ".$data['cid']);
-			
 					$customerName = $arrCustomerDetails[0]['name'];
+			
 					$arrAreaDetails = $DB->select("area","WHERE id = ".$arrCustomerDetails[0]['areaid']);
-						
 					$area = $arrAreaDetails[0]['name'];
-						
+					
 				?>
 				
 				<td><?php echo $customerName ?></td>
@@ -65,7 +62,6 @@ else{
 ?>
 			<div class="alert alert-danger" align="center">
   				<strong>No Data Available!</strong>  <br>
-  				
   			</div>
 <?php
 }
