@@ -103,7 +103,7 @@ $main = new Main;
     			
     		
     		
-  			<a href="createCustomer.php"><button type="button" class="btn btn-primary btn-lg">Find</button></a>
+  			<a href="createCustomer.php"><button type="button" class="btn btn-primary btn-lg">Find/Add</button></a>
      		<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/customers.STE.php','cStage')">Edit</button>
      		<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/deleteArea.php','cStage')">Delete</button>
      		<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/viewCustomers.php','cStage')">View</button>
