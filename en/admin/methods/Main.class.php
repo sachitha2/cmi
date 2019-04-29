@@ -1,4 +1,24 @@
 <?php
+/////log out
+
+if(session_id()== '')
+{
+   session_start();
+}
+
+$logOutUrl = "../../../L";
+if(!isset($_SESSION['login'])){
+	header("location:$logOutUrl");
+}
+if(!isset($_SESSION['login']['status'])){
+	header("location:$logOutUrl");
+}
+if(isset($_SESSION['login']['status'])){
+	if($_SESSION['login']['status'] == 0){
+		header("location:$logOutUrl");
+	}
+}
+/////log out
 class Main{
 	public function b($url){
 		?>
@@ -199,6 +219,16 @@ class Main{
                     <span class="nav-text">Credits</span>
                   </a>
                 </li>
+                <li>
+                  <a onClick="window.location.assign('installments.php')">
+                    <span class="nav-icon">
+                      <i class="material-icons">&#xe870;
+                        <span ui-include="'../assets/images/i_7.svg'"></span>
+                      </i>
+                    </span>
+                    <span class="nav-text">Installments</span>
+                  </a>
+                </li>
             
               </ul>
           </nav>
@@ -210,7 +240,7 @@ class Main{
         	      <img src="../assets/images/a0.jpg" alt="..." class="w-40 img-circle">
         	    </span>
         	    <span class="clear hidden-folded p-x">
-        	      <span class="block _500">CMS - Admin</span>
+        	      <span class="block _500">CMS - <?php echo($_SESSION['login']['user']) ?></span>
         	      <small class="block text-muted"><i class="fa fa-circle text-success m-r-sm"></i>online</small>
         	    </span>
         	</a>
@@ -313,6 +343,33 @@ class Main{
 			$logic = " ";
 		}
 		return( $logic);
+	}
+	public function head($title){
+		?>
+		<div class="card-header" style="margin-bottom: 5px;margin-top: 5px;position: sticky;top: 50px;z-index: 10">
+        	<center><h1 class="my-0 font-weight-normal text-info" ><?php echo($title) ?></h1></center>
+      	</div>
+		<?php
+	}
+	public function cardHeader($text,$headerId="",$txtId=""){
+		?>
+		<div class="card-header" <?php
+			 if($headerId != ""){
+				 echo("id='$headerId'");
+			 }
+			 
+			 ?> >
+        	<h2 class="my-0 font-weight-normal text-primary" 
+        	<?php
+			 if($txtId != ""){
+				 echo("id='$txtId'");
+			 }
+			 
+			 ?>
+        	
+        	><?php echo($text) ?></h2>
+        </div>
+		<?php
 	}
 }
 ?>

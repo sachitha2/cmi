@@ -374,28 +374,36 @@ function addExpenses(costTypeid){
 		
 		var cost = document.getElementById('cost').value;
 		var purpose = document.getElementById('purpose').value;
+	    var da = document.getElementById("costDate").value;
 		console.log(costTypeid);
 
 		if(cost == ""){
-			document.getElementById("msg").innerHTML = "Add cost";
+			msg("msg","Add cost");
 		}else if(purpose == ""){
-			document.getElementById("msg").innerHTML = "Add purpose";
-		}else{
+			msg("msg","Add purpose");
+		}
+		else if(costTypeid == ""){
+			msg("msg","Add cost type id");
+		}else if(da == ""){
+			msg("msg","Enter date");
+		}
+		else{
 		var d = new Date();
 		var year = d.getFullYear().toString();
 		var month =  d.getMonth() + 1;
 		var months = month.toString();
 		var day = d.getDate().toString();
 		var date = year+"/"+months+"/"+day;
-		data = { 'date':date, 'cost':cost, 'purpose':purpose ,'costTId':costTypeid};
+		data = { 'date':date, 'cost':cost, 'purpose':purpose ,'costTId':costTypeid,'costDate':da};
 		
 		var ajax = _ajax();
 		ajax.onreadystatechange = function() {
 			if (this.readyState == 4 && this.status == 200) {
-	    	alert(this.responseText);
+	    	msg("msg",this.responseText);
 			emt("cost");	
 			emt("purpose");	
 			emt("costTypeId");
+			document.getElementById("costDate").value = date;
 			}
 	  }
 
@@ -714,6 +722,15 @@ function delFastBillData(id){
 
 
 ////Enter key events
+function enterAddExpenses(e,costTypeid){
+	if (e.which == 13) {
+//		if(costTypeid != ""){
+//			
+//		} 3
+		addExpenses(costTypeid);
+	}
+}
+
 function enterAddArea(e) {
   area = document.getElementById("area").value;
   if (e.which == 13) {addArea(area); }
@@ -1298,5 +1315,19 @@ function readStockMenu(){
 		data.day = "dayCustom";
 	}
 	return data;
+	
+}
+function fastCustomerFinish(total){
+	showModal();
+	stage = document.getElementById("mainModal");
+	stage.style.opacity = 0.9;
+	stage.style.color = "white";
+	stage.style.background = "black";
+	stage.innerHTML = "<center><h1>Enter Cash Amount<br>Total - "+total+"</h1><input type='number'  placeholder='Enter Cash' class='form-control' style='width:300px;'>";
+	stage.innerHTML += "</center>"
+	
+	
+}
+function fastCustomerBalance(value){
 	
 }

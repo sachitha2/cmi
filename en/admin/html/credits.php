@@ -46,11 +46,11 @@ $main = new Main;
     <?php $main->modal() ?> 
     <?php $main->topBar() ?>
     <div ui-view class="app-body" id="view">
-    <h1>Credits</h1>
+    	<?php $main->head("Credits") ?>
 	<div class="container h-100" id="cStage">
       <!-- ############ PAGE START-->
 	 
-		<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/viewCreditsToday.php','cStage')">Today</button>
+		<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/viewInstallments.php','cStage')">View</button>
 		<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/viewCreditsWeek.php','cStage')"> Week</button>
 		<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/viewCreditsMonth.php','cStage')"> Month</button>
 		<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/viewCreditsToday.php','cStage')"> Custome Dates</button>

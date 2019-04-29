@@ -1,5 +1,4 @@
 <?php
-session_start();
 require_once("../db.php");
 require_once("../../methods/DB.class.php");
 require_once("../../methods/Main.class.php");
@@ -22,7 +21,7 @@ $tmpBillId = $_SESSION['bill']['id'];
 			<?php $DB->itemList($DB) ?>
 		<input type="number" id="qty" placeholder="QTY" class="form-control" onKeyPress="enteradditemsToFastCustomerBill(event,<?php echo($tmpBillId) ?>)">
 		<input type="button" value="Next" class="btn btn-primary btn-lg" style="width: 100%" onClick="additemsToFastCustomerBill(<?php echo($tmpBillId) ?>)">
-		<input type="button" value="Finish" class="btn btn-danger btn-lg" style="width: 100%">
+		<input type="button" value="Finish" class="btn btn-danger btn-lg" style="width: 100%" onClick="fastCustomerFinish(2500)">
 		
 	</div>
 	

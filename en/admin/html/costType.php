@@ -50,7 +50,7 @@ $main = new Main;
     <div ui-view class="app-body" id="view">
 		<?php $main->modal() ?>
       <!-- ############ PAGE START-->
-	 <h1>Cost Types</h1>
+	 	<?php $main->head("Cost Type") ?>
     <div class="container h-100" id="cStage">
   			<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/addCostType.php','cStage')">Create</button>
      		<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/costType.STE.php','cStage')">Edit</button>

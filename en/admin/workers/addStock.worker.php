@@ -17,6 +17,11 @@ $DB->conn = $conn;
 //print_r($postData);
 $conn->query("INSERT INTO `stock` (`id`, `itemid`, `bprice`, `sprice`, `amount`,`ramount`, `adate`, `mfd`, `exdate`, `status`) VALUES (NULL, '$id', '$bPrice', '$sPrice', '$amount','$amount', curdate(), '$mfd', '$exDate', '1');");
 //$DB->insert($table,$col,$val);
+$itemName = $DB->getItemNameByStockId($id,0);
+$purpose = "For buy $amount of Item $itemName ($id) at rate of $bPrice";
+$sql = "INSERT INTO `cost` (`cost`, `purpose`, `date`, `id`, `costTypeId`) VALUES ('".$amount * $bPrice."', '$purpose', curdate(), NULL, '1');";
+$conn->query($sql);
+
 
 $conn->close();
 

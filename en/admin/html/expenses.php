@@ -33,40 +33,12 @@ $main = new Main;
   <link rel="stylesheet" href="../assets/styles/font.css" type="text/css" />
   <script src="scripts/cMain.js"></script>
    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-  <script type="text/javascript">
-      google.charts.load('current', {'packages':['bar']});
-      google.charts.setOnLoadCallback(drawChart);
-
-      function drawChart() {
-        var data = google.visualization.arrayToDataTable([
-          ['Year', 'Sales', 'Profit'],
-          ['2014', 1000, 400,],
-          ['2015', 1170, 460,],
-          ['2016', 660, 1120,],
-          ['2016', 660, 1120,],
-          ['2016', 660, 1120,],
-          ['2016', 660, 1120,],
-          ['2016', 660, 1120,],
-          ['2017', 1030, 540,]
-        ]);
-
-        var options = {
-          chart: {
-            title: 'Company Performance',
-            subtitle: 'Sales, Expenses, and Profit: 2014-2017',
-          }
-        };
-
-        var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
-
-        chart.draw(data, google.charts.Bar.convertOptions(options));
-      }
-    </script>
+  
     <script type="text/javascript">
 	function chartThisMandLMonth(){	
 			 
 	   		var ajax = _ajax();
-			ajax.onreadystatechange = function() {
+				ajax.onreadystatechange = function() {
 				if (this.readyState == 4 && this.status == 200) {
 					
 //					 alert(this.responseText);
@@ -77,6 +49,7 @@ $main = new Main;
 
       				 function drawChart() {
 						 	console.log(jsonThisMandLM);
+						 	msg("TMLMTotal",jsonThisMandLM.costThisM+" / "+jsonThisMandLM.costLastM);
         			 var data = google.visualization.arrayToDataTable([
           				['Task', 'Hours per Day'],
           				['This Month',   jsonThisMandLM.costThisM ],
@@ -84,7 +57,7 @@ $main = new Main;
           
         				]);
 						 
-        			var options = {
+        				var options = {
           				title: 'Expenses This Month / Last Month'
         				};
 
@@ -113,6 +86,7 @@ $main = new Main;
 
       				 function drawChart() {
 						 	console.log(jsonThisMandLM);
+						 	msg("TWLWTotal",jsonThisMandLM.costThisW+" / "+jsonThisMandLM.costLastW)
         			 var data = google.visualization.arrayToDataTable([
           				['Task', 'Hours per Day'],
           				['This Week',   jsonThisMandLM.costThisW ],
@@ -149,6 +123,7 @@ $main = new Main;
 
       				 function drawChart() {
 						 	console.log(jsonThisMandLM);
+						 	msg("TYTotal",jsonThisMandLM.costThisD+" / "+jsonThisMandLM.costLastD);
         			 var data = google.visualization.arrayToDataTable([
           				['Task', 'Hours per Day'],
           				['Today',   jsonThisMandLM.costThisD ],
@@ -172,9 +147,168 @@ $main = new Main;
 		
 	}
 
+		
+		
+		
+		
+		/////column chart
+		////Today / yesterday
+		function todayExpenseColumnChart(){
+		  msg("columnchart_material","<center><h1><img src='load.gif'><br>Loading Charts.....</h1></center>");
+		  var ajax = _ajax();
+			ajax.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+					
+//					 alert(this.responseText);
+					var jsonData = JSON.parse(this.responseText);
+	  				console.log(jsonData);
+					var arrLen = jsonData['today']['type'].length;
+	  
+      google.charts.load('current', {'packages':['bar']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+		  var charData = [
+          ['COST TYPE', 'Today','Yester Day'],
+        ];
+		  
+		  console.log(jsonData['today']['type'].length);
+		  console.log(typeof arrLen);
+		  msg("EAETHead","Today / Yesterday");
+		  for(x = 0;x<arrLen;x++){
+			  const newArtists = [jsonData['today']['type'][x],jsonData['today']['value'][x],jsonData['lDay']['value'][x]];
+			  charData.push(newArtists);
+		  }
+		  console.log(charData);
+        var data = google.visualization.arrayToDataTable(charData);
+
+        var options = {
+          chart: {
+            title: 'Today / Yesterday Expense According to Expense Type',
+            subtitle: '',
+          }
+        };
+
+        var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
+
+        chart.draw(data, google.charts.Bar.convertOptions(options));
+      }
+		  
+		  }}
+			ajax.open("GET", "../json/todayExpensesByCostType.json.php", true);
+			ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+			ajax.send();
+			setTimeout(weekExpenseColumnChart,30000);
+			}
+			////Today / Yesterday
+		
+		
+			////This week / Last week
+		function weekExpenseColumnChart(){
+		  msg("columnchart_material","<center><h1><img src='load.gif'><br>Loading Charts.....</h1></center>");
+		  var ajax = _ajax();
+			ajax.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+					
+//					 alert(this.responseText);
+					var jsonData = JSON.parse(this.responseText);
+	  				console.log(jsonData);
+					var arrLen = jsonData['thisWeek']['type'].length;
+	  
+      google.charts.load('current', {'packages':['bar']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+		  var charData = [
+          ['COST TYPE', 'This week','Last week'],
+        ];
+		  
+		  console.log(jsonData['thisWeek']['type'].length);
+		  console.log(typeof arrLen);
+		  msg("EAETHead","This Week / Last Week");
+		  for(x = 0;x<arrLen;x++){
+			  const newArtists = [jsonData['thisWeek']['type'][x],jsonData['thisWeek']['value'][x],jsonData['lastWeek']['value'][x]];
+			  charData.push(newArtists);
+		  }
+		  console.log(charData);
+        var data = google.visualization.arrayToDataTable(charData);
+
+        var options = {
+          chart: {
+            title: 'This Week /Last Week Expense According to Expense Type',
+            subtitle: '',
+          }
+        };
+
+        var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
+
+        chart.draw(data, google.charts.Bar.convertOptions(options));
+      }
+		  
+		  }}
+			ajax.open("GET", "../json/weekExpensesByCostType.json.php", true);
+			ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+			ajax.send();
+			setTimeout(monthExpenseColumnChart,30000);
+			}
+			////this week / Last week
+		
+		
+		////This month / Last month
+		function monthExpenseColumnChart(){
+		  msg("columnchart_material","<center><h1><img src='load.gif'><br>Loading Charts.....</h1></center>");
+		  var ajax = _ajax();
+			ajax.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+					
+//					 alert(this.responseText);
+					var jsonData = JSON.parse(this.responseText);
+	  				console.log(jsonData);
+					var arrLen = jsonData['tMonth']['type'].length;
+	  
+      google.charts.load('current', {'packages':['bar']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+		  var charData = [
+          ['COST TYPE', 'This month','Last month'],
+        ];
+		  
+		  console.log(jsonData['tMonth']['type'].length);
+		  console.log(typeof arrLen);
+		  msg("EAETHead","This Monthk / Last Month");
+		  for(x = 0;x<arrLen;x++){
+			  const newArtists = [jsonData['tMonth']['type'][x],jsonData['tMonth']['value'][x],jsonData['lMonth']['value'][x]];
+			  charData.push(newArtists);
+		  }
+		  console.log(charData);
+        var data = google.visualization.arrayToDataTable(charData);
+
+        var options = {
+          chart: {
+            title: 'This Month /Last Month Expense According to Expense Type',
+            subtitle: '',
+          }
+        };
+
+        var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
+
+        chart.draw(data, google.charts.Bar.convertOptions(options));
+      }
+		  
+		  }}
+			ajax.open("GET", "../json/monthExpensesByCostType.json.php", true);
+			ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+			ajax.send();
+			setTimeout(todayExpenseColumnChart,30000);
+			}
+			////this month / Last month
+		
+		
+		/////column chart
     </script>
 </head>
-<body onLoad="chartThisMandLMonth();chartThisWandLWeek();chartTDandYDay()">
+<body onLoad="chartThisMandLMonth();chartThisWandLWeek();chartTDandYDay();todayExpenseColumnChart()">
   <div class="app" id="app">
 
 <!-- ############ LAYOUT START-->
@@ -190,34 +324,51 @@ $main = new Main;
     <div ui-view class="app-body" id="view">
 		<?php $main->modal() ?>
       	<!-- ############ PAGE START-->
-	 	<h1>Expenses</h1>
-		
+		<?php $main->head("Expenses") ?>
      	
      	<div class="container h-100" id="cStage">
-  			
- 			<div class="card-deck mb-3 text-center">
+     		<br>
+			<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/addExpenses.php','cStage')">Create</button>
+			<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/viewExpensesMain.php','cStage')">View</button>
+			<br>
+			<br>
+			<br>
+  			<div class="card-header" style="margin-bottom: 5px;margin-top: 5px;">
+        		<center><h1 class="my-0 font-weight-normal text-info" >Expenses Summary</h1></center>
+      		</div>
+ 			<div class="card-deck mb-3 text-center">  
+ 			
     <div class="card mb-4 shadow-sm">
       <div class="card-header">
-        <h4 class="my-0 font-weight-normal">Today / Yesterday</h4>
+        <h4 class="my-0 font-weight-normal text-primary">Today / Yesterday</h4>
       </div>
       <div class="card-body" id="piechartToday">
       
       </div>
+      <div class="card-header">
+      		<center><h4 class="my-0 font-weight-normal text-primary" id="TYTotal">0000</h4></center>
+      </div>
     </div>
     <div class="card mb-4 shadow-sm">
       <div class="card-header">
-        <h4 class="my-0 font-weight-normal">This Week / Last Week</h4>
+        <h4 class="my-0 font-weight-normal text-primary">This Week / Last Week</h4>
       </div>
       <div class="card-body" id="piechartWeek">
         
       </div>
-    </div>
+      <div class="card-header">
+      		<center><h4 class="my-0 font-weight-normal text-primary" id="TWLWTotal">0000</h4></center>
+      </div>
+      </div>
     <div class="card mb-4 shadow-sm" >
       <div class="card-header">
-        <h4 class="my-0 font-weight-normal">This Month / Last Month</h4>
+        <h4 class="my-0 font-weight-normal text-primary">This Month / Last Month</h4>
       </div>
       <div class="card-body" id="piechartMonth">
         
+      </div>
+      <div class="card-header">
+      	<center><h4 class="my-0 font-weight-normal text-primary" id="TMLMTotal">000</h4></center>
       </div>
     </div>
   </div>
@@ -227,14 +378,16 @@ $main = new Main;
      		
 		
 		
-		<br>
-		<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/addExpenses.php','cStage')">Create</button>
-		<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/viewExpensesMain.php','cStage')">View</button>
-		<br>
-		<br>
-		<br>
 		
+		<div class="card-header"  style="margin-bottom: 5px;margin-top: 5px;">
+        	<center><h4 class="my-0 font-weight-normal text-primary" > Expenses According To Expense Type [<strong id="EAETHead"></strong>]</h4></center>
+      	</div>
 		<div id="columnchart_material" style="width: 100%; height: 500px;"></div>
+		<center>
+    		<button onclick="todayExpenseColumnChart()" class="btn btn-default">Today</button>
+    		<button onclick="weekExpenseColumnChart()" class="btn btn-default">Week</button>
+    		<button onclick="monthExpenseColumnChart()" class="btn btn-default">Month</button>
+    	</center>
 		</div>
       	<!-- ############ PAGE END-->
 

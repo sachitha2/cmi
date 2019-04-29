@@ -1,5 +1,4 @@
 <?php
-session_start();
 $totalId = round(microtime(true) * 1000);;
 $_SESSION['bill']['id'] = $totalId;
 $_SESSION['bill']['time'] = "10:02:02 AM";

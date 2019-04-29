@@ -1,4 +1,24 @@
 <?php
+////log out
+if(session_id()== '')
+{
+   session_start();
+}
+
+
+$logOutUrl = "../../../L";
+if(!isset($_SESSION['login'])){
+	header("location:$logOutUrl");
+}
+if(!isset($_SESSION['login']['status'])){
+	header("location:$logOutUrl");
+}
+if(isset($_SESSION['login']['status'])){
+	if($_SESSION['login']['status'] == 0){
+		header("location:$logOutUrl");
+	}
+}
+/////log out
 class DB{
 	
 	public $conn;

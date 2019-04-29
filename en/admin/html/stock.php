@@ -34,47 +34,224 @@ $main = new Main;
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
   <script type="text/javascript">
 	  
-//	  function stockMonthStockDataChart(){
-//		  var ajax = _ajax();
-//			ajax.onreadystatechange = function() {
-//				if (this.readyState == 4 && this.status == 200) {
-//					
-////					 alert(this.responseText);
-//					var jsonThisMandLM = JSON.parse(this.responseText);
-//	  
-//	  
-//      google.charts.load('current', {'packages':['bar']});
-//      google.charts.setOnLoadCallback(drawChart);
-//
-//      function drawChart() {
-//        var data = google.visualization.arrayToDataTable([
-//          ['ITEM TYPE', 'Soled', 'Expired','Returned'],
-//          ['A', 1000, 400,10],
-//          ['B', 1170, 460,10],
-//          ['B', 660, 1120,10],
-//          ['B', 660, 1120,10],
-//          ['B', 660, 1120,10],
-//          ['B', 660, 1120,10],
-//          ['B', 660, 1120,10],
-//          ['B', 1030, 540,10]
-//        ]);
-//
-//        var options = {
-//          chart: {
-//            title: 'Stock Distribution',
-//            subtitle: '',
-//          }
-//        };
-//
-//        var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
-//
-//        chart.draw(data, google.charts.Bar.convertOptions(options));
-//      }
-//		  
-//		  }
+	  function stockMonthStockDataChart(){
+		  msg("columnchart_material","<center><h1><img src='load.gif'><br>Loading Charts.....</h1></center>");
+		  var ajax = _ajax();
+			ajax.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+					
+//					 alert(this.responseText);
+					var jsonData = JSON.parse(this.responseText);
+	  				console.log(jsonData);
+					var arrLen = jsonData['ItemType'].length;
+	  
+      google.charts.load('current', {'packages':['bar']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+		  var charData = [
+          ['ITEM TYPE', 'Soled', 'Expired','Returned'],
+        ];
+		  
+		  console.log(jsonData['ItemType'].length);
+		  console.log(typeof arrLen);
+		  
+		  for(x = 0;x<arrLen;x++){
+			  const newArtists = [jsonData['ItemType'][x],jsonData['soled'][x],jsonData['expired'][x],jsonData['returned'][x]];
+			  charData.push(newArtists);
+		  }
+		  console.log(charData);
+        var data = google.visualization.arrayToDataTable(charData);
+
+        var options = {
+          chart: {
+            title: 'Stock Distribution Month',
+            subtitle: '',
+          }
+        };
+
+        var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
+
+        chart.draw(data, google.charts.Bar.convertOptions(options));
+      }
+		  
+		  }}
+			ajax.open("GET", "../json/stockDistrybutionMonthTotal.json.php", true);
+			ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+			ajax.send();
+			setTimeout(stockWeekStockDataChart,30000);
+			}
+	  function stockWeekStockDataChart(){
+		  msg("columnchart_material","<center><h1><img src='load.gif'><br>Loading Charts.....</h1></center>");
+		  var ajax = _ajax();
+			ajax.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+					
+//					 alert(this.responseText);
+					var jsonData = JSON.parse(this.responseText);
+	  				console.log(jsonData);
+					var arrLen = jsonData['ItemType'].length;
+	  
+      google.charts.load('current', {'packages':['bar']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+		  var charData = [
+          ['ITEM TYPE', 'Soled', 'Expired','Returned'],
+        ];
+		  
+		  console.log(jsonData['ItemType'].length);
+		  console.log(typeof arrLen);
+		  
+		  for(x = 0;x<arrLen;x++){
+			  const newArtists = [jsonData['ItemType'][x],jsonData['soled'][x],jsonData['expired'][x],jsonData['returned'][x]];
+			  charData.push(newArtists);
+		  }
+		  console.log(charData);
+        var data = google.visualization.arrayToDataTable(charData);
+
+        var options = {
+          chart: {
+            title: 'Stock Distribution Week',
+            subtitle: '',
+          }
+        };
+
+        var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
+
+        chart.draw(data, google.charts.Bar.convertOptions(options));
+      }
+		  
+		  }}
+			ajax.open("GET", "../json/stockDistrybutionWeekTotal.json.php", true);
+			ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+			ajax.send();
+			setTimeout(stockTodayStockDataChart,30000);
+			}
+	  
+	  
+	  	  function stockTodayStockDataChart(){
+			  msg("columnchart_material","<center><h1><img src='load.gif'><br>Loading Charts.....</h1></center>");
+		  	  var ajax = _ajax();
+			ajax.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+					
+//					 alert(this.responseText);
+					var jsonData = JSON.parse(this.responseText);
+	  				console.log(jsonData);
+					var arrLen = jsonData['ItemType'].length;
+	  
+      google.charts.load('current', {'packages':['bar']});
+      google.charts.setOnLoadCallback(drawChart);
+					
+      function drawChart() {
+		  var charData = [
+          ['ITEM TYPE', 'Soled', 'Expired','Returned'],
+        ];
+		  
+		  console.log(jsonData['ItemType'].length);
+		  console.log(typeof arrLen);
+		  
+		  
+		  for(x = 0;x<arrLen;x++){
+			  const newArtists = [jsonData['ItemType'][x],jsonData['soled'][x],jsonData['expired'][x],jsonData['returned'][x]];
+			  charData.push(newArtists);
+			  
+		  }
+		  console.log(charData);
+        var data = google.visualization.arrayToDataTable(charData);
+
+        var options = {
+          chart: {
+            title: 'Stock Distribution Today',
+            subtitle: '',
+          }
+        };
+
+        var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
+
+        chart.draw(data, google.charts.Bar.convertOptions(options));
+      }
+		  
+		  }}
+			ajax.open("GET", "../json/stockDistrybutionTodayTotal.json.php", true);
+			ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+			ajax.send();
+			
+			setTimeout(stockMonthStockDataChart,30000);
+		  }
+	  function stockDTodayData(){
+		  msg("todayList","<center><h5><img src='load.gif' width='120px' height='100px'><br>Loading Charts.....</h5></center>");
+		  var ajax = _ajax();
+			ajax.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+					
+//					 alert(this.responseText);
+					var jsonData = JSON.parse(this.responseText);
+					console.log("today Stock distrybution" + jsonData);
+					todayList = document.getElementById("todayList");
+					todayList.innerHTML = "";
+					var arrLen = jsonData['ItemType'].length;
+					toatal = 0
+					for(x = 0;x<arrLen;x++){
+			  			todayList.innerHTML += "<li style='width:100%' class='list-group-item d-flex justify-content-between align-items-center'>"+jsonData['ItemType'][x]+" <span class='badge badge-primary badge-pill'>"+jsonData['soled'][x]+"</span></li>" ;
+						toatal += jsonData['soled'][x];
+		  			}
+					msg("totalToday",toatal);
+					}}
+			ajax.open("GET", "../json/stockDistrybutionTodayTotal.json.php", true);
+			ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+			ajax.send();
+	  }
+	  function stockDWeekData(){
+		  msg("weekList","<center><h5><img src='load.gif' width='120px' height='100px'><br>Loading Charts.....</h5></center>");
+		  var ajax = _ajax();
+			ajax.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+					
+//					 alert(this.responseText);
+					var jsonData = JSON.parse(this.responseText);
+					console.log("week Stock distrybution" + jsonData);
+					weekList = document.getElementById("weekList");
+					weekList.innerHTML = "";
+					var arrLen = jsonData['ItemType'].length;
+					toatal = 0
+					for(x = 0;x<arrLen;x++){
+			  			weekList.innerHTML += "<li  class='list-group-item d-flex justify-content-between align-items-center'>"+jsonData['ItemType'][x]+" <span class='badge badge-primary badge-pill'>"+jsonData['soled'][x]+"</span></li>" ;
+						toatal += jsonData['soled'][x];
+		  			}
+					msg("totalWeek",toatal);
+					}}
+			ajax.open("GET", "../json/stockDistrybutionWeekTotal.json.php", true);
+			ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+			ajax.send();
+	  }
+	  function stockDMonthData(){
+		  msg("monthList","<center><h5><img src='load.gif' width='120px' height='100px'><br>Loading Charts.....</h5></center>");
+		  var ajax = _ajax();
+			ajax.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+					
+//					 alert(this.responseText);
+					var jsonData = JSON.parse(this.responseText);
+					console.log("month Stock distrybution" + jsonData);
+					monthList = document.getElementById("monthList");
+					monthList.innerHTML = "";
+					var arrLen = jsonData['ItemType'].length;
+					toatal = 0
+					for(x = 0;x<arrLen;x++){
+			  			monthList.innerHTML += "<li  class='list-group-item d-flex justify-content-between align-items-center'>"+jsonData['ItemType'][x]+" <span class='badge badge-primary badge-pill'>"+jsonData['soled'][x]+"</span></li>" ;
+						toatal += jsonData['soled'][x];
+		  			}
+					msg("totalMonth",toatal);
+					}}
+			ajax.open("GET", "../json/stockDistrybutionMonthTotal.json.php", true);
+			ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+			ajax.send();
+	  }
     </script>
 </head>
-<body>
+<body onLoad="stockMonthStockDataChart();stockDTodayData();stockDWeekData();stockDMonthData()">
   <div class="app" id="app">
 
 <!-- ############ LAYOUT START-->
@@ -89,16 +266,10 @@ $main = new Main;
     <div ui-view class="app-body" id="view">
 		<?php $main->modal() ?>
       <!-- ############ PAGE START-->
-	  <h1>Stock</h1>
+        <?php $main->head("Stock") ?>
     <div class="container h-100" id="cStage">
-    		<div id="columnchart_material" style="width: 100%; height: 500px;"></div>
-    		<br>
-    		<br>
-    		
-    		
-    		
-    		
-  			<button type="button" class="btn btn-primary btn-lg"  onClick="ajaxCommonGetFromNet('subPages/addStock.php','cStage')">Add</button>
+   		
+   		<button type="button" class="btn btn-primary btn-lg"  onClick="ajaxCommonGetFromNet('subPages/addStock.php','cStage')">Add</button>
 <!--
     		
     		<br>
@@ -110,8 +281,52 @@ $main = new Main;
 -->
      		<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/viewStock.php','cStage')">View</button>
      		
+   			<div class="card-header" style="padding-bottom: 10px;padding-top: 10px;margin-bottom: 5px;margin-top: 20px;">
+        		<center><h1 class="my-0 font-weight-normal text-info">Stock Distribution - Item Type </h1></center>
+      		</div>
+    		<div id="columnchart_material" style="width: 100%; height: 500px;padding-top: 5px"></div>
+    			<center>
+    				<button onClick="stockTodayStockDataChart()"  class="btn btn-default">Today</button>
+    				<button onClick="stockWeekStockDataChart()" class="btn btn-default">Week</button>
+    				<button onClick="stockMonthStockDataChart()" class="btn btn-default">Month</button>
+    			</center>
+    		<br>
+    		<br>
+    		
+    		
+    		
+    		
+  				<div class="card-header" style="padding-bottom: 10px;padding-top: 10px;margin-bottom: 20px;">
+        			<center><h1 class="my-0 font-weight-normal text-info">Stock Summary - Item Type [Soled] </h1></center>
+      			</div>
      		
-     		
+     		<div class="card-deck mb-3 text-center" >
+     			
+    			<div class="card mb-4 shadow-sm">
+      				<?php $main->cardHeader("Today") ?>
+      				<div class="card-body" >
+      						<ul class="list-group" style="width: 100%;align-content: center" id="todayList">	
+							</ul>
+      				</div>
+      				<?php $main->cardHeader("","","totalToday") ?>
+    			</div>
+    			<div class="card mb-4 shadow-sm">
+      				<?php $main->cardHeader("Week") ?>
+      				<div class="card-body" >
+      						<ul class="list-group" style="width: 100%;align-content: center" id="weekList">	
+							</ul>
+      				</div>
+      				<?php $main->cardHeader("","","totalWeek") ?>
+    			</div>
+    			<div class="card mb-4 shadow-sm">
+     				<?php $main->cardHeader("Month") ?>
+      				<div class="card-body" >
+      						<ul class="list-group" style="width: 100%;align-content: center" id="monthList">	
+							</ul>
+      				</div>
+      				<?php $main->cardHeader("","","totalMonth") ?>
+    			</div>
+  			</div>
      		
 	</div>
 

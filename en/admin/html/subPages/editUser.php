@@ -5,7 +5,6 @@ require_once("../../methods/Main.class.php");
 $DB = new DB;
 $DB->conn = $conn;
 $main = new Main;
-session_start();
 $id = $_GET['id'];
 $user = $DB->select("user","WHERE id = $id");
 $userData = $DB->select("userdata","WHERE id = $id");

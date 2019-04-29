@@ -1,5 +1,4 @@
 <?php
-session_start();
 require_once("../db.php");
 require_once("../../methods/DB.class.php");
 $DB = new DB;
@@ -10,7 +9,7 @@ $DB->conn = $conn;?>
 	
 <?php
 if($DB->nRow("user","") != 0){ ?>
-
+<a href="PDF/viewUsersPDF.php" target="_blank"><button type="button" class="btn btn-primary btn-md" >PDF</button></a>
 <table class="table table-hover table-bordered table-striped table-dark">
   <thead class="thead-dark">
     <tr>
@@ -37,7 +36,19 @@ if($DB->nRow("user","") != 0){ ?>
 				<tr>
 					<td><?php echo($data['id']) ?></td>
 					<td><?php echo($data['username']) ?></td>
-					<td><?php echo($data['type']) ?></td>
+					<td>
+						
+						<?php 
+
+						if($data['type'] == 1 ){
+								echo("Admin");
+						}else if($data['type'] == 2){
+							echo("Agent");
+						}
+					
+					
+					
+					?></td>
 					<td><?php echo($data['name']) ?></td>
 					<td><?php echo($data['dob']) ?></td>
 					<td><?php echo($data['regdate']) ?></td>

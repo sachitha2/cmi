@@ -51,13 +51,13 @@ $main = new Main;
     <div ui-view class="app-body" id="view">
 		<?php $main->modal() ?>
       <!-- ############ PAGE START-->
-	 <h1>User</h1>
+      	<?php $main->head("User") ?>
     <div class="container h-100" id="cStage">
   			<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/createUser.php','cStage')">Add</button>
      		<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/user.STE.php','cStage')">Edit</button>
 <!--     		<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/deleteArea.php','cStage')">Delete</button>-->
      		<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/viewUsers.php','cStage')">View</button>
-     		<a href="PDF/viewUsersPDF.php" target="_blank"><button type="button" class="btn btn-primary btn-lg" >PDF</button></a>
+     		
 	</div>
       <!-- ############ PAGE END-->
 

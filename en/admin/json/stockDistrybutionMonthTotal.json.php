@@ -13,14 +13,18 @@ $x = 0;
 foreach($itemTypeArr as $data){
 	$finalArr['ItemType'][$x] = $data['name'];
 	$itemId = $data['id'];
-	$stockArr = $DB->select("stock","WHERE itemid = $itemId AND adate = curdate()","SUM(amount)");
-	$finalArr['soled'][$x] = (int)$stockArr[0]['SUM(amount)'];
+	$stockArr = $DB->select("stock","WHERE itemid = $itemId AND MONTH(adate) = MONTH(curdate()) AND YEAR(adate) = YEAR(curdate()) ","SUM(amount) , SUM(ramount)");
+//	print_r($stockArr);
+	$amount = (int)($stockArr[0]['SUM(amount)']);
+	$rAmoutn = (int)($stockArr[0]['SUM(ramount)']);
+	$difference = $amount - $rAmoutn;
+	$finalArr['soled'][$x] = (int)$difference;
 	///TODO 
 	$finalArr['expired'][$x] = 1;
 	$finalArr['returned'][$x] = 2;
 	$x++;
 }
-$finalArr['comment'] = "Today Stock Data";
+$finalArr['comment'] = "Month Stock Data";
 $json = json_encode($finalArr);
 echo($json);
 ?>

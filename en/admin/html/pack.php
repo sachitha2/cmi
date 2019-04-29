@@ -76,7 +76,7 @@ $main = new Main;
     <div ui-view class="app-body" id="view">
 		<?php $main->modal() ?>
       <!-- ############ PAGE START-->
-	 <h1>Pack</h1>
+      	<?php $main->head("Pack") ?>
     <div class="container h-100" id="cStage">
     		<div id="piechart" style="width:100%; height: 500px;padding-bottom: 20px"></div>
   			<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/createAPackName.php','cStage')">Create</button>

@@ -1,3 +1,15 @@
+<?php
+	session_start();
+	if(isset($_SESSION['login']['status'])){
+		
+	
+		if($_SESSION['login']['status'] == 1){
+			header("location:../en/admin/html/dashboard.php");
+		}
+	}
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -52,7 +64,16 @@
 							<i class="fa fa-lock"></i>
 						</span>
 					</div>
-
+					<div align="center" style="width: 100%;color: white">
+						<?php
+							if(isset($_SESSION['login'])){
+								if($_SESSION['login']['pass'] == 0){
+									echo("Login Error");
+								}
+							}
+						?>
+					
+					</div>
 					<div class="container-login100-form-btn p-t-10">
 						<button class="login100-form-btn">
 							Login
