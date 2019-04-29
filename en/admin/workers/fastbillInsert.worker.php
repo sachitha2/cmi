@@ -1,4 +1,4 @@
-<?php
+	<?php
 require_once("db.php");
 require_once("../methods/DB.class.php");
 $DB = new DB;

@@ -19,7 +19,7 @@ if(isset($_SESSION['bill'])){
 
 }else{
 	echo("bill session not available");
-	$_SESSION['bill']['id'] = 100;
+	$_SESSION['bill']['id'] = $totalId;
 	$_SESSION['bill']['time'] = "10:02:02 AM";
 	$_SESSION['bill']['date'] = "2018-01-25";
 	$_SESSION['bill']['s'] = 1;

@@ -1325,7 +1325,7 @@ function fastCustomerFinish(total){
 	stage.style.opacity = 0.9;
 	stage.style.color = "white";
 	stage.style.background = "black";
-	stage.innerHTML = "<center><h1>Enter Cash Amount<br>Total - "+total+"</h1><input type='number' id='cash'  placeholder='Enter Cash' class='form-control' style='width:300px;' onKeyUp='fastCustomerBalance(event)' ><h1>Balnce <strong id='balance'></strong></h1>";
+	stage.innerHTML = "<center><h1>Enter Cash Amount<br>Total - "+total+"</h1><input type='number' id='cash'  placeholder='Enter Cash' class='form-control' style='width:300px;' onKeyUp='fastCustomerBalance(event)' ><h1>Balnce <strong id='balance'></strong></h1><button onclick='finishBill()'>Finish Bill</button><div id='out' ></div>";
 	stage.innerHTML += "</center>"
 	
 	
@@ -1334,4 +1334,32 @@ function fastCustomerBalance(e){
 	value = document.getElementById("cash").value;
 	document.getElementById("balance").innerHTML = value - fastCustomerBillTotal ;
 	console.log(value);
+}
+function finishBill(){
+			alert("finish bill");
+	////get bill data json
+			var ajax = _ajax();
+			ajax.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+	    			alert(this.responseText);
+					sendBill(this.responseText);
+				}
+	  		}
+
+			ajax.open("POST", "../json/getBillData.json.php", true);
+			ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+			ajax.send();
+}
+function sendBill(data){
+			var ajax = _ajax();
+			ajax.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+	    		msg("out",this.responseText);
+				//setTimeout(fastCustomer,20000);	
+				}
+	  		}
+
+			ajax.open("GET", "http://localhost/POS/example/interface/windows-usb.php?data="+data, true);
+			ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+			ajax.send();
 }
