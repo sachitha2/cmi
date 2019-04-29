@@ -5,7 +5,31 @@ require_once("../../methods/Main.class.php");
 $DB = new DB;
 $DB->conn = $conn;
 $main = new Main;
-$tmpBillId = $_SESSION['bill']['id'];
+$totalId = round(microtime(true) * 1000);
+
+if(isset($_SESSION['bill'])){
+	
+	
+	if($_SESSION['bill']['s'] == 1){
+		$tmpBillId = $_SESSION['bill']['id'];
+	}else{
+		$_SESSION['bill']['id'] = $totalId;
+		$_SESSION['bill']['time'] = "10:02:02 AM";
+		$_SESSION['bill']['date'] = "2018-01-25";
+		$_SESSION['bill']['s'] = 1;
+		$tmpBillId = $_SESSION['bill']['id'];
+}
+
+}else{
+	echo("bill session not available");
+	$_SESSION['bill']['id'] = 100;
+	$_SESSION['bill']['time'] = "10:02:02 AM";
+	$_SESSION['bill']['date'] = "2018-01-25";
+	$_SESSION['bill']['s'] = 1;
+	$tmpBillId = $_SESSION['bill']['id'];
+	
+}
+
 ?>
 <?php $main->b("sell.php") ?>
 <br>
@@ -16,6 +40,7 @@ $tmpBillId = $_SESSION['bill']['id'];
 	</div>
 	
 	<div style="width: 40%;height: 70% !important;background-color: ;height: 70%;float: left;color: black;" id="input">
+			<h1>Bill id <?php echo($tmpBillId) ?></h1>
 			<div id="msg"></div>
 <!--		<input type="number" id="item"  class="form-control">-->
 			<?php //$DB->itemList($DB) ?>
