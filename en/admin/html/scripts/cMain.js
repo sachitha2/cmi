@@ -1356,10 +1356,11 @@ function sendBill(data){
 				if (this.readyState == 4 && this.status == 200) {
 	    		msg("out",this.responseText);
 				//setTimeout(fastCustomer,20000);	
+					fastCustomer();
 				}
 	  		}
 
-			ajax.open("GET", "http://localhost/POS/example/interface/windows-usb.php?data="+data, true);
+			ajax.open("GET", "http://localhost/CMIPrinter/example/interface/windows-usb.php?data="+data, true);
 			ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 			ajax.send();
 }
