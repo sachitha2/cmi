@@ -97,8 +97,8 @@ class DB{
 		return($result);
 	}
 	
-	function nRow($table,$logic){
-		$sql = "SELECT * FROM {$table} {$logic}"; 
+	function nRow($table,$logic,$col = "*"){
+		$sql = "SELECT $col FROM {$table} {$logic}"; 
 		$result = $this->conn->query($sql);
 		return(mysqli_num_rows($result));
 	}	
