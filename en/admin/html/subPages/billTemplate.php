@@ -10,7 +10,13 @@ $tmpBillId = $_SESSION['bill']['id'];
 if($_SESSION['bill']['s']  == 1){ ?>
 	<h1 align="center">Bill - <?php echo($tmpBillId) ?></h1>
 	<h2 align="center">Date <?php echo(date("y-m-d")) ?></h2>
-	<h2 align="center">Total <?php echo(25000) ?></h2>
+	<h2 align="center">Total <?php 
+		$total = $DB->select("purchaseditems","where dealid = $tmpBillId","SUM(amount * uprice)");
+	
+	
+		echo($total[0]['SUM(amount * uprice)'])
+		
+		?></h2>
 <table class="table table-hover table-bordered table-striped table-dark">
   <thead class="thead-dark">
     <tr>
