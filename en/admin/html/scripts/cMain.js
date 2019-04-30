@@ -1338,7 +1338,8 @@ function fastCustomerBalance(e){
 function finishBill(cash){
 //			alert("finish bill");
 	////get bill data json
-			var ajax = _ajax();
+	if(cash != ""){
+		var ajax = _ajax();
 			ajax.onreadystatechange = function() {
 				if (this.readyState == 4 && this.status == 200) {
 	    			//alert(this.responseText);
@@ -1349,6 +1350,8 @@ function finishBill(cash){
 			ajax.open("POST", "../json/getBillData.json.php", true);
 			ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 			ajax.send("cash="+cash);
+	}
+			
 }
 function sendBill(data){
 			var ajax = _ajax();
