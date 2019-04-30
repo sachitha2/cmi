@@ -76,40 +76,9 @@ if(isset($_GET['id'])){
   
   <!-- content -->
   <div id="content" class="app-content box-shadow-z0" role="main">
-    <div class="app-header white box-shadow" style="background-color: #8A8282">
-        <div class="navbar navbar-toggleable-sm flex-row align-items-center">
-            <!-- Open side - Naviation on mobile -->
-            <a data-toggle="modal" data-target="#aside" class="hidden-lg-up mr-3">
-              <i class="material-icons">&#xe5d2;</i>
-            </a>
-            <!-- / -->
-        
-            <!-- Page title - Bind to $state's title -->
-            <div class="mb-0 h5 no-wrap" ng-bind="$state.current.data.title" id="pageTitle"></div>
-        
-            <!-- navbar right -->
-            <ul class="nav navbar-nav ml-auto flex-row">
-              <li class="nav-item dropdown">
-                <a class="nav-link p-0 clear" href="profile.php">
-                  <span class="avatar w-32">
-                    <img src="../assets/images/logo.png" alt="...">
-                    <i class="on b-white bottom"></i>
-                  </span>
-                </a>
-                <div ui-include="'../views/blocks/dropdown.user.html'"></div>
-              </li>
-            </ul>
-            <!-- / navbar right -->
-        </div>
-    </div>
-    <div class="app-footer">
-      <div class="p-2 text-xs">
-        <div class="pull-right text-muted py-1">
-          &copy; 2019 CMS. All Rights Reserved<span class="hidden-xs-down"> | Powered by <a href="http://infinisolutionslk.com/" target="_blank">Infini Solutions</a></span>
-          <a ui-scroll-to="content"><i class="fa fa-long-arrow-up p-x-sm"></i></a>
-        </div>
-      </div>
-    </div>
+    
+    <?php $main->modal() ?> 
+    <?php $main->topBar() ?>
     <div ui-view class="app-body" id="view">
 		
       <!-- ############ PAGE START-->
