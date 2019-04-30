@@ -1338,6 +1338,7 @@ function fastCustomerBalance(e){
 function finishBill(cash){
 //			alert("finish bill");
 	////get bill data json
+	alert(cash);
 	if(cash != ""){
 		var ajax = _ajax();
 			ajax.onreadystatechange = function() {
@@ -1359,7 +1360,7 @@ function sendBill(data){
 				if (this.readyState == 4 && this.status == 200) {
 	    		msg("out",this.responseText);
 				//setTimeout(fastCustomer,20000);	
-					fastCustomer();
+//					fastCustomer();
 				}
 	  		}
 
