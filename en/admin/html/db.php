@@ -3,7 +3,7 @@ $servername = "localhost";
 $username = "cmsUser";
 $password = "m0!2@j{Rqno&";
 $dbname = "shopProject";
-
+//Hi sam
 // Create connection
 $conn = new mysqli($servername, $username, $password,$dbname);
 
