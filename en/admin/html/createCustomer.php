@@ -82,8 +82,11 @@ if(isset($_GET['id'])){
     <div ui-view class="app-body" id="view">
 		
       <!-- ############ PAGE START-->
+      	<?php $main->modal() ?>
+      <!-- ############ PAGE START-->
+        <?php $main->head("Area") ?>
 	  <div class="container h-100" id="cStage">
- 			<h1>Find a Customer</h1>
+ 			
   			<form action="createCustomer.php" method="get">
      
       		<div class="form-group">

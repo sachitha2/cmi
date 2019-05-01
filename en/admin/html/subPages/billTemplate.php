@@ -37,7 +37,7 @@ if($_SESSION['bill']['s']  == 1){ ?>
 						?>
 						<tr>
 							<td scope="row"><?php echo($x) ?></td>
-							<td><?php echo($billData['itemid']) ?></td>
+							<td><?php $DB->getItemNameByStockId($billData['itemid']) ?></td>
 							<td><?php echo($billData['amount']) ?></td>
 							<td><?php echo($billData['uprice']) ?></td>
 							<td><?php echo($billData['amount'] * $billData['uprice']) ?></td>

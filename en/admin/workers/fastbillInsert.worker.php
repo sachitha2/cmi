@@ -21,8 +21,12 @@ if($str_arr[0] == "P" || $str_arr[0] == "p"){
 		////////////////////////////////
 		///Pack available START
 		////////////////////////////////
+			$packSize = $DB->nRow("packitems","where pid = $itemId");
+			echo("<br>");
+			echo("Pack Size ".$packSize);
+			echo("<br>");
 		
-		if($DB->nRow("packitems","where pid = $itemId") != 0){
+		if($packSize != 0){
 			///////////////////////////////////////////////////////////
 			///Pack Items available START
 			///////////////////////////////////////////////////////////
@@ -30,25 +34,101 @@ if($str_arr[0] == "P" || $str_arr[0] == "p"){
 			
 			$arrPackItems = $DB->select("packitems","where pid = $itemId");
 //			print_r($arrPackItems);
-			
-			$packItemsInStock = false;
+			$packItemsInStock = 0;
 			foreach($arrPackItems as $dataPackItems){
 				$stockItemsForPack = $DB->select("stock","WHERE itemid = ".$dataPackItems['itemid']." AND status = 1 "," SUM(amount),SUM(ramount)");
-				
-				if($stockItemsForPack[0]['SUM(amount)'] == "" || $stockItemsForPack[0]['SUM(amount)'] < $dataPackItems['amount'] * $qty){
-					echo("empty");
-					$packItemsInStock = false;
-					break;
-				}
-				echo("<br>");
 				print_r($stockItemsForPack);
-				echo("<br>");
+				echo($dataPackItems['amount'] * $qty);
+				if( $stockItemsForPack[0]['SUM(ramount)'] > $dataPackItems['amount'] * $qty){
+					echo("<br>");
+					echo("stock amount ".$stockItemsForPack[0]['SUM(amount)']);
+					echo("<br>");
+					
+					$packItemsInStock++;
+				}
+				
 				
 			}
-			if($packItemsInStock == false){
+			if($packItemsInStock != $packSize){
 				echo("Pack Items not available in the stock");
 			}else{
-				////TODO
+				echo("TODO Main");
+				///////////////////////////////////////////////////////////
+				///////////////////////////////////////////////////////////
+				///////////////////////////////////////////////////////////
+				///////////////////////////////////////////////////////////
+				///////////////////////////////////////////////////////////
+				///////////////////////////////////////////////////////////
+				///TODO 
+				///TODO
+				///TODO
+				///TODO
+				///TODO
+				$arrPackItems = $DB->select("packitems","where pid = $itemId");
+				foreach($arrPackItems as $dataPackItemsMain){
+					echo("<br>");
+					print_r($dataPackItemsMain);
+					echo("<br>");
+					echo("item id - ".$dataPackItemsMain['itemid']);
+					
+					
+					
+					$arrStockRowOne = $DB->select("stock","WHERE itemid = ".$dataPackItemsMain['itemid']." AND status = 1 ORDER BY stock.adate DESC");
+//					echo($arrStockRowOne[0]['ramount']);
+					if($arrStockRowOne[0]['ramount'] >= $qty){
+						////////////////////////////////////////////////////
+						///First row enought START
+						////////////////////////////////////////////////////
+						echo("<br>");
+						echo("First row is enough ");
+						echo("<br>");
+						
+						
+						////update stock
+						$sql = "UPDATE stock SET ramount = ramount - $qty WHERE stock.id = ".$arrStockRowOne[0]['id'];
+						$conn->query($sql);
+				
+						////update purchased items
+				
+						$sql = "INSERT INTO purchaseditems (id, dealid, itemid, amount, uprice, stockid, type) VALUES (NULL, '$billNumber', '".$dataPackItemsMain['itemid']."', '$qty', '".$arrStockRowOne[0]['bprice']."', '".$arrStockRowOne[0]['id']."', '1');";
+				
+						$conn->query($sql);
+				
+				
+						/////updating stock status 
+				
+						if($arrStockRowOne[0]['ramount'] == $qty){
+					
+							$sql = "UPDATE stock SET status = '0' WHERE stock.id = ".$arrStockRowOne[0]['id'].";";
+							$conn->query($sql);
+						}
+						///TODO 
+						////Stock distrybution table updating
+						
+						
+						
+						
+						
+						
+						
+						
+						////////////////////////////////////////////////////
+						///First row enought END
+						////////////////////////////////////////////////////
+						
+					}else{
+						
+					}
+					
+					
+				}
+				///////////////////////////////////////////////////////////
+				///////////////////////////////////////////////////////////
+				///////////////////////////////////////////////////////////
+				///////////////////////////////////////////////////////////
+				///////////////////////////////////////////////////////////
+				///////////////////////////////////////////////////////////
+				///////////////////////////////////////////////////////////
 			}
 			
 			
