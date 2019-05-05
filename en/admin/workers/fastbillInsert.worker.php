@@ -39,7 +39,7 @@ if($str_arr[0] == "P" || $str_arr[0] == "p"){
 				$stockItemsForPack = $DB->select("stock","WHERE itemid = ".$dataPackItems['itemid']." AND status = 1 "," SUM(amount),SUM(ramount)");
 				print_r($stockItemsForPack);
 				echo($dataPackItems['amount'] * $qty);
-				if( $stockItemsForPack[0]['SUM(ramount)'] > $dataPackItems['amount'] * $qty){
+				if( $stockItemsForPack[0]['SUM(ramount)'] >= $dataPackItems['amount'] * $qty){
 					echo("<br>");
 					echo("stock amount ".$stockItemsForPack[0]['SUM(amount)']);
 					echo("<br>");
@@ -117,7 +117,101 @@ if($str_arr[0] == "P" || $str_arr[0] == "p"){
 						////////////////////////////////////////////////////
 						
 					}else{
+						echo("first row is not enough");
+						//////////////////////////////////////////////////////
+						//////////////////////////////////////////////////////
+						//////////////////////////////////////////////////////
+						//////////////////////////////////////////////////////
+						//////////////////////////////////////////////////////
+						//////////////////////////////////////////////////////
+						//////////////////////////////////////////////////////
+						//////////////////////////////////////////////////////
 						
+						//////////////////////////////
+				///Multiple attempts need START
+				//////////////////////////////
+				$arrMultipleAttempts = $DB->select("stock","WHERE itemid = ".$dataPackItemsMain['itemid']." AND status = 1 ORDER BY stock.adate DESC");
+				foreach($arrMultipleAttempts as $dataMultipleAttempts){
+					/////checking adding is finished or not
+					if($qty != 0){
+						/////////////////////////////////////
+						///A row is enouh START
+						/////////////////////////////////////
+						if($dataMultipleAttempts['ramount'] >= $qty){
+							
+							/////update stock
+							$sql = "UPDATE stock SET ramount = ramount - $qty WHERE stock.id = ".$dataMultipleAttempts['id'];
+							$conn->query($sql);
+						
+							/////update customer bill side
+							$sql = "INSERT INTO purchaseditems (id, dealid, itemid, amount, uprice, stockid, type) VALUES (NULL, '$billNumber', '".$dataPackItemsMain['itemid']."', '$qty', '".$dataMultipleAttempts['bprice']."', '".$dataMultipleAttempts['id']."', '1');";
+				
+							$conn->query($sql);
+							$qty = 0;
+							/////////////////////////////////////
+							///A row is enouh END
+							/////////////////////////////////////
+						
+						}else{
+							/////////////////////////////////////
+							///A row is Not enouh START
+							/////////////////////////////////////
+							$qty -= $dataMultipleAttempts['ramount'];
+							
+							
+							/////update stock
+							$sql = "UPDATE stock SET ramount = ramount - ".$dataMultipleAttempts['ramount']." WHERE stock.id = ".$dataMultipleAttempts['id'];
+							$conn->query($sql);
+							
+							//////update customer bill side
+							$sql = "INSERT INTO purchaseditems (id, dealid, itemid, amount, uprice, stockid, type) VALUES (NULL, '$billNumber', '".$dataPackItemsMain['itemid']."', '".$dataMultipleAttempts['ramount']."', '".$dataMultipleAttempts['bprice']."', '".$dataMultipleAttempts['id']."', '1');";
+							$conn->query($sql);
+							
+							///updating stock status
+							$sql = "UPDATE stock SET status = '0' WHERE stock.id = ".$dataMultipleAttempts['id'].";";
+							$conn->query($sql);
+							/////////////////////////////////////
+							///A row is Not enouh END
+							/////////////////////////////////////
+						}
+					}
+				}
+				//////////////////////////////
+				///Multiple attempts need END
+				//////////////////////////////
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						////////////////////////////////////////////////////////
+						////////////////////////////////////////////////////////
+						////////////////////////////////////////////////////////
+						////////////////////////////////////////////////////////
+						////////////////////////////////////////////////////////
+						////////////////////////////////////////////////////////
+						////////////////////////////////////////////////////////
+						////////////////////////////////////////////////////////
+						////////////////////////////////////////////////////////
+						////////////////////////////////////////////////////////
 					}
 					
 					
