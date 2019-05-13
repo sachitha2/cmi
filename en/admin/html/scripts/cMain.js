@@ -1320,13 +1320,26 @@ function readStockMenu(){
 var fastCustomerBillTotal ;
 function fastCustomerFinish(total){
 	fastCustomerBillTotal = total;
-	showModal();
-	stage = document.getElementById("mainModal");
-	stage.style.opacity = 0.9;
-	stage.style.color = "white";
-	stage.style.background = "black";
-	stage.innerHTML = "<center><h1>Enter Cash Amount<br>Total - "+total+"</h1><input type='number' id='cash'  placeholder='Enter Cash' class='form-control' style='width:300px;' onKeyUp='fastCustomerBalance(event)' ><h1>Balnce <strong id='balance'></strong></h1><button onclick='finishBill(cash.value)'>Finish Bill</button><div id='out' ></div>";
-	stage.innerHTML += "</center>"
+	
+			var ajax = _ajax();
+			ajax.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+	    		alert(this.responseText);
+					stage = document.getElementById("mainModal");
+					stage.style.opacity = 0.9;
+					stage.style.color = "white";
+					stage.style.background = "black";
+					stage.innerHTML = "<center><h1>Enter Cash Amount<br>Total - "+total+"</h1><input type='number' id='cash'  placeholder='Enter Cash' class='form-control' style='width:300px;' onKeyUp='fastCustomerBalance(event)' ><h1>Balnce <strong id='balance'></strong></h1><button onclick='finishBill(cash.value)'>Finish Bill</button><div id='out' ></div>";
+					stage.innerHTML += "</center>"
+				}
+	  		}
+
+			ajax.open("POST", "../subPages/fastCustomerFinishBill.php", true);
+			ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+			ajax.send();
+	
+	
+	
 	
 	
 }
