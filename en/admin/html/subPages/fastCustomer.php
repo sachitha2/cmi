@@ -46,7 +46,7 @@ if(isset($_SESSION['bill'])){
 			<?php //$DB->itemList($DB) ?>
 			
 			
-			<input list="colors" name="color" id="itemId" class="form-control"  placeholder="Item Id"  onKeyPress="">
+			<input list="colors" name="color" id="itemId" class="form-control"  placeholder="Item Id" autofocus  onKeyPress="">
 			<datalist id="colors">
 				
     			<?php

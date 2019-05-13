@@ -5,7 +5,7 @@ require_once("../../methods/Main.class.php");
 $DB = new DB;
 $DB->conn = $conn;
 $main = new Main;
-$main->b("area.php");
+$main->b("agent.php");
 	include("../../workers/readSesson.worker.php");
 ?>
 <!-- Button trigger modal -->
@@ -17,7 +17,7 @@ $main->b("area.php");
     
     <?php
 	  
-	 		if($DB->nRow("area","") != 0){
+	 		if($DB->nRow("agent","") != 0){
 				 
 				?>
 				<a target="_blank" href="PDF/viewAreaPDF.php"><button type="button" class="btn btn-primary btn-md" >PDF</button></a>
@@ -25,6 +25,9 @@ $main->b("area.php");
   					<thead class="thead-dark">
     					<tr>
       						<th scope="col" width="10">ID</th>
+      						<th scope="col">Name</th>
+      						<th scope="col">Nic</th>
+      						<th scope="col">Address</th>
       						<th scope="col">Area</th>
       						<th scope="col" width="50"></th>
       						<th scope="col" width="50"></th>
@@ -33,14 +36,18 @@ $main->b("area.php");
   					<tbody>
 				<?php
 			
-			$arr = $DB->select("area","");
+			$arr = $DB->select("agent","");
+//			print_r	($arr);
 			foreach($arr as $data){
 				?>
 				<tr>
 					<td scope="row"><?php echo($data['id']) ?></td>
 					<td><?php echo($data['name'])?></td>
+					<td><?php echo($data['nic'])?></td>
+					<td><?php echo($data['address'])?></td>
+					<td><?php $DB->getAreaById($data['areaId'])?></td>
 					<td><button type="button" class="btn btn-md btn-primary" onClick="loadEditFormsArea(<?php echo($data['id']) ?>,81)">Edit</button></td>
-					<td><button onClick="delArea(<?php echo($data['id']) ?>)" type="button" class="btn btn-md btn-danger ">X</button></td>
+					<td><button onClick="delAgent(<?php echo($data['id']) ?>)" type="button" class="btn btn-md btn-danger ">X</button></td>
 					
 				</tr>
 				<?php

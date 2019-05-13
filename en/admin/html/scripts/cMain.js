@@ -544,6 +544,28 @@ function addItem(){
 
 
 /////deleters
+function delAgent(id){	
+	var r = confirm("Are you sure want to delete this!");
+	if(r == true){
+		showModal();
+		var ajax = _ajax();
+		ajax.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+//	   	 		alert(this.responseText);
+				ajaxCommonGetFromNet('subPages/viewAgent.php','cStage');
+				hideModal();
+			}
+	  }
+
+		ajax.open("POST", "../workers/agent.del.php", true);
+		ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		ajax.send("id="+id);
+	}
+		}
+
+
+
+
 function delArea(id){	
 	var r = confirm("Are you sure want to delete this!");
 	if(r == true){
@@ -996,6 +1018,15 @@ function fastCustomerItemadd(){
 		
 		
 	}
+
+
+function loadEditFormsAgent(value){
+		if(value != 0){
+			ajaxCommonGetFromNet("subPages/editAgent.php?id="+value,"cStage");
+		}
+		
+		
+	}
 function loadEditFormsUser(value,id){
 		if(value != 0){
 //			alert("testing chatson");
@@ -1320,21 +1351,21 @@ function readStockMenu(){
 var fastCustomerBillTotal ;
 function fastCustomerFinish(total){
 	fastCustomerBillTotal = total;
-	
+			showModal();
+			stage = document.getElementById("mainModal");
+			stage.style.opacity = 0.9;
+			stage.style.color = "white";
+			stage.style.background = "black";
 			var ajax = _ajax();
 			ajax.onreadystatechange = function() {
 				if (this.readyState == 4 && this.status == 200) {
-	    		alert(this.responseText);
-					stage = document.getElementById("mainModal");
-					stage.style.opacity = 0.9;
-					stage.style.color = "white";
-					stage.style.background = "black";
-					stage.innerHTML = "<center><h1>Enter Cash Amount<br>Total - "+total+"</h1><input type='number' id='cash'  placeholder='Enter Cash' class='form-control' style='width:300px;' onKeyUp='fastCustomerBalance(event)' ><h1>Balnce <strong id='balance'></strong></h1><button onclick='finishBill(cash.value)'>Finish Bill</button><div id='out' ></div>";
-					stage.innerHTML += "</center>"
+//	    		alert(this.responseText);
+					stage.innerHTML = "<br><br><button onclick='hideModal()' class='btn btn-danger btn-lg'>HIDE</button>"
+					stage.innerHTML += this.responseText;
 				}
 	  		}
 
-			ajax.open("POST", "../subPages/fastCustomerFinishBill.php", true);
+			ajax.open("POST", "subPages/fastCustomerFinishBill.php", true);
 			ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 			ajax.send();
 	
@@ -1344,8 +1375,9 @@ function fastCustomerFinish(total){
 	
 }
 function fastCustomerBalance(e){
+	var total = document.getElementById("total").value;
 	value = document.getElementById("cash").value;
-	document.getElementById("balance").innerHTML = value - fastCustomerBillTotal ;
+	document.getElementById("balance").innerHTML = value - total ;
 	console.log(value);
 }
 function finishBill(cash){
