@@ -51,7 +51,7 @@ $main = new Main;
       <!-- ############ PAGE START-->
         <?php $main->head("Agent") ?>
     <div class="container h-100" id="cStage">
-  			<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/addArea.php','cStage')">Add</button>
+  			<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/addAgent.php','cStage')">Add</button>
      		<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/agent.STE.php','cStage')">Edit</button>
 <!--     		<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/deleteArea.php','cStage')">Delete</button>-->
      		<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/viewAgent.php','cStage')">View</button>

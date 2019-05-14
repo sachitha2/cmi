@@ -61,6 +61,51 @@ function addArea(area){
 			document.getElementById("msg").innerHTML = "Enter valid area";
 		}
 	}
+function addAgent(){
+		var agent = {};
+		agent.Name = document.getElementById("aName").value;
+		agent.NIC = document.getElementById("aNIC").value;
+		agent.AreaId = document.getElementById("aArea").value;
+		agent.Address = document.getElementById("aAddress").value;
+		
+		console.log(agent);
+		
+	
+		if(agent.Name == ""){
+			msg("msg","Enter agent name");
+			
+		}else if(agent.NIC == ""){
+			msg("msg","Enter agent NIC ");
+			
+		}
+		else if(agent.Address == ""){
+			msg("msg","Enter agent Address ");
+			
+		}
+		else if(agent.AreaId == 0){
+			msg("msg","Select a Area");
+			
+		}else{
+			msg("msg","");
+					///ajax part
+					loadingModal();
+					showModal();
+					var xmlhttp = new XMLHttpRequest();
+        			xmlhttp.onreadystatechange = function() {
+        			if (this.readyState === 4 && this.status == 200) {
+							document.getElementById("msg").innerHTML  =  this.responseText;
+							emt("aName");
+							emt("aAddress");
+							emt("aNIC");
+							///TODO area slector
+							hideModal();
+           				}
+        			};
+        			xmlhttp.open("GET", "../workers/addAgent.worker.php?data="+JSON.stringify(agent), true);//generating  get method link
+        			xmlhttp.send();
+					////ajax part
+		}
+	}
 	  function editAreaPageLoader(area){
 		if(area.length != 0){
 					///ajax part
@@ -753,6 +798,9 @@ function enterAddExpenses(e,costTypeid){
 	}
 }
 
+function enterAddAgent(e) {
+  if (e.which == 13) {addAgent(); }
+}
 function enterAddArea(e) {
   area = document.getElementById("area").value;
   if (e.which == 13) {addArea(area); }
