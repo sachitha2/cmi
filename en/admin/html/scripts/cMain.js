@@ -1141,6 +1141,49 @@ function editSaveArea(area,id){
 			document.getElementById("msg").innerHTML = "Enter valid area";
 		}
 }
+function editSaveAgent(id){
+	var agent = {};
+	agent.name = document.getElementById("aName").value;
+	agent.nic = document.getElementById("aNIC").value;
+	agent.areaId = document.getElementById("aArea").value;
+	agent.address = document.getElementById("aAddress").value;
+	agent.id = id;
+	console.log(agent);
+	if(agent.name == ""){
+			msg("msg","Enter agent name");
+			
+		}else if(agent.nic == ""){
+			msg("msg","Enter agent NIC ");
+			
+		}
+		else if(agent.address == ""){
+			msg("msg","Enter agent Address ");
+			
+		}
+		else if(agent.areaId == 0){
+			msg("msg","Select a Area");
+			
+		}else{
+			msg("msg","");
+					///ajax part
+					showModal();
+					var xmlhttp = new XMLHttpRequest();
+        			xmlhttp.onreadystatechange = function() {
+        			if (this.readyState === 4 && this.status == 200) {
+							document.getElementById("msg").innerHTML  =  this.responseText;
+							emt("aName");
+							emt("aNIC");
+							emt("aAddress");
+							hideModal();
+           				}
+        			};
+        			xmlhttp.open("GET", "../workers/agent.edit.php?data="+JSON.stringify(agent), true);//generating  get method link
+        			xmlhttp.send();
+//					////ajax part
+		
+		}
+
+}
 function editSaveUser(){
 			
 			var password = document.getElementById('newPass').value;

@@ -62,5 +62,5 @@ $data = $DB->select("agent","WHERE id = $id");
 		</div>
 	
 <label id="msg"></label><br>
-      	<button type="button" class="btn btn-primary btn-lg" onClick="editSaveArea(agent.value,<?php echo($id) ?>)">Save</button>
+      	<button type="button" class="btn btn-primary btn-lg" onClick="editSaveAgent(<?php echo($data[0]['id']) ?>)">Save</button>
       </div>
