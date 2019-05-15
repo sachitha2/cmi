@@ -8,11 +8,11 @@ $postData = json_decode($_POST['data'], true);
 $itemId = $postData['itemId'];
 $qty = $postData['qty'];
 $billNumber = $postData['billNumber'];
-echo($billNumber);
+//echo($billNumber);
 /////Selecting the pack and item from input
 // use of explode 
 $str_arr = explode ("-",$postData['itemId']);
-print_r($str_arr);
+//print_r($str_arr);
 $itemId = $str_arr[1];
 if($str_arr[0] == "P" || $str_arr[0] == "p"){
 	/////This is pack
@@ -22,27 +22,27 @@ if($str_arr[0] == "P" || $str_arr[0] == "p"){
 		///Pack available START
 		////////////////////////////////
 			$packSize = $DB->nRow("packitems","where pid = $itemId");
-			echo("<br>");
-			echo("Pack Size ".$packSize);
-			echo("<br>");
+//			echo("<br>");
+//			echo("Pack Size ".$packSize);
+//			echo("<br>");
 		
 		if($packSize != 0){
 			///////////////////////////////////////////////////////////
 			///Pack Items available START
 			///////////////////////////////////////////////////////////
-			echo("Pack items  available");
+//			echo("Pack items  available");
 			
 			$arrPackItems = $DB->select("packitems","where pid = $itemId");
 //			print_r($arrPackItems);
 			$packItemsInStock = 0;
 			foreach($arrPackItems as $dataPackItems){
 				$stockItemsForPack = $DB->select("stock","WHERE itemid = ".$dataPackItems['itemid']." AND status = 1 "," SUM(amount),SUM(ramount)");
-				print_r($stockItemsForPack);
-				echo($dataPackItems['amount'] * $qty);
+//				print_r($stockItemsForPack);
+//				echo($dataPackItems['amount'] * $qty);
 				if( $stockItemsForPack[0]['SUM(ramount)'] >= $dataPackItems['amount'] * $qty){
-					echo("<br>");
-					echo("stock amount ".$stockItemsForPack[0]['SUM(amount)']);
-					echo("<br>");
+//					echo("<br>");
+//					echo("stock amount ".$stockItemsForPack[0]['SUM(amount)']);
+//					echo("<br>");
 					
 					$packItemsInStock++;
 				}
@@ -50,9 +50,12 @@ if($str_arr[0] == "P" || $str_arr[0] == "p"){
 				
 			}
 			if($packItemsInStock != $packSize){
-				echo("Pack Items not available in the stock");
+				?>
+				<div class="alert alert-danger">
+  					<strong>!</strong> Pack Items Not Available in Stock </div>
+				<?php
 			}else{
-				echo("TODO Main");
+//				echo("TODO Main");
 				///////////////////////////////////////////////////////////
 				///////////////////////////////////////////////////////////
 				///////////////////////////////////////////////////////////
@@ -230,13 +233,19 @@ if($str_arr[0] == "P" || $str_arr[0] == "p"){
 			///Pack Items available END
 			///////////////////////////////////////////////////////////
 		}else{
-			echo("pack items not available");
+				?>
+				<div class="alert alert-danger">
+  					<strong>!</strong> Pack Items Not Available in Stock </div>
+				<?php
 		}
 		////////////////////////////////
 		///Pack available END
 		////////////////////////////////
 	}else{
-		echo("pack  not available");
+				?>
+				<div class="alert alert-danger">
+  					<strong>!</strong> Pack  Not Available </div>
+				<?php
 		
 	}
 	////checking Availability of pack
@@ -350,8 +359,13 @@ else if($str_arr[0] == "I" || $str_arr[0] == "i"){
 			////Stock Available END
 			///////////////////////////////////////////////////
 			}else{
-				echo("<BR>OUT OF STOCK <BR>");
-				echo("Available stock amount is " . $arrStockTotal[0]['SUM(ramount)']);
+				?>
+				<div class="alert alert-danger">
+  					<strong>!</strong> Pack Items Not Available in Stock </div>
+  					<div class="alert alert-success">
+  					<strong>! Available Amount</strong> <?php echo($arrStockTotal[0]['SUM(ramount)']); ?> </div>
+				<?php
+				
 				}
 			///////////////////////////////////////////////////
 			////OUT OF STOCK CHECKING END
