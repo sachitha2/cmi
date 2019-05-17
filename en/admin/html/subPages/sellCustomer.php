@@ -8,7 +8,7 @@ $main = new Main;
 $main->b("sell.php");
 $customer = $DB->select("customer","");
 ?>
-			<input list="colors" name="color" class="form-control" style="width: 200px" onKeyPress="enterEditCustomer(event,this.value)">
+			<input list="colors" name="color" id="idCard" class="form-control" style="width: 200px" onKeyPress="enterCheckCustomerForMakeBill(event,this.value)">
 			<datalist id="colors">
 				
     			<?php
@@ -21,3 +21,4 @@ $customer = $DB->select("customer","");
 	
 				?>
 			</datalist>
+			<div id="msg"></div>

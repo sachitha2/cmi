@@ -40,7 +40,7 @@ if(isset($_SESSION['bill'])){
 	</div>
 	
 	<div style="width: 40%;height: 70% !important;background-color: ;height: 70%;float: left;color: black;" id="input">
-			<h1>Cash Customer</h1>
+			<h1>Credit Customer</h1>
 			<h1>Bill id <?php echo($tmpBillId) ?></h1>
 			<div id="msg"></div>
 <!--		<input type="number" id="item"  class="form-control">-->

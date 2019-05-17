@@ -1,12 +1,17 @@
 // JavaScript Document
-function ajaxCommonGetFromNet(phpFileName, outPutStage,x){
+function ajaxCommonGetFromNet(phpFileName, outPutStage,x,loading = true){
 //			 if(navigator.onLine){
-					loadingModal();
-					showModal();
+					if(loading){
+						loadingModal();
+						showModal();
+					}
+					
 					var xmlhttp = new XMLHttpRequest();
         			xmlhttp.onreadystatechange = function() {
         			if (this.readyState === 4 && this.status == 200) {
-        					hideModal();
+        					if(loading){
+								hideModal();
+							}
 							if(x == 1){
 								return(this.responseText);
 								
@@ -225,16 +230,17 @@ function additemsToFastCustomerBill(billId){
 			alert("enter qty");
 		}
 		else{
-			showModal();
+			//loading logo
+			document.getElementById("output").innerHTML = "<center><img src='load.gif' class='lImg'><h1 style='color:black'>Loading...Please wait</h1></center>";
 			var ajax = _ajax();
 			ajax.onreadystatechange = function() {
 				if (this.readyState == 4 && this.status == 200) {
 	    		msg("msg",this.responseText);
-				hideModal();
-				ajaxCommonGetFromNet("subPages/billTemplate.php","output");
+				ajaxCommonGetFromNet("subPages/billTemplate.php","output",0,false);
 				emt("qty");
 				emt("itemId");
-				document.getElementById('itemId').focus;
+				document.getElementById("itemId").focus();
+				document.getElementById("itemId").select();
 				}
 	  		}
 			ajax.open("POST", "../workers/fastbillInsert.worker.php", true);
@@ -541,7 +547,39 @@ function addStock(amount,id,bPrice,sPrice,exDate,mfd){
 }
 ////stock
 
+////check customer for make bill
+function CheckCustomerForMakeBill(idCard){
+			
+			if(idCard != ""){
+				
+				
+				data = { 'idCard':idCard };
+		
+				var ajax = _ajax();
+				ajax.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+//	   	 			alert(this.responseText);
+					emt("idCard");
+					jsonData = JSON.parse(this.responseText);
+					console.log(this.responseText);
+					if(jsonData.s == 1){
+//						alert("next url");
+						creditCustomer();
+					}else{
+						msg("msg",jsonData.msg);
+					}
+				}
+	  			}
 
+				ajax.open("POST", "../workers/checkCustomerForMakeBill.worker.php", true);
+				ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+				ajax.send("data="+(JSON.stringify(data)));
+			}else{
+				msg("msg","Enter idCard Number");
+			}
+			}
+
+////check customer for make bill
 ////Item
 function addItem(){
 		console.log("this is add item");
@@ -801,6 +839,29 @@ function enterAddExpenses(e,costTypeid){
 function enterAddAgent(e) {
   if (e.which == 13) {addAgent(); }
 }
+function enterCheckCustomerForMakeBill(e,idCard) {
+  if (e.which == 13) {
+//  		console.log(idCard);
+	  	CheckCustomerForMakeBill(idCard);
+  }
+}
+function enterAddStock(e,amount,item,bPrice,sPrice,exDate,mfd) {
+  if (e.which == 13) {
+  addStock(amount,item,bPrice,sPrice,exDate,mfd);
+  }
+}
+function enterNext(e,nextInput) {
+  if (e.which == 13) {
+	  document.getElementById(nextInput).focus();
+	  document.getElementById(nextInput).select();
+  }
+}
+function enterfinishBill(e,cash) {
+  if (e.which == 13) {
+  finishBill(cash);
+  }
+}
+
 function enterAddArea(e) {
   area = document.getElementById("area").value;
   if (e.which == 13) {addArea(area); }
@@ -1031,6 +1092,28 @@ function fastCustomer(){
 	  }
 
 		ajax.open("POST", "subPages/fastCustomer.php", true);
+		ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		ajax.send();
+	
+}
+
+
+function creditCustomer(){
+	showModal();
+	var ajax = _ajax();
+		ajax.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+//	   	 		alert(this.responseText);
+//				ajaxCommonGetFromNet('subPages/fastCustomer.php','cStage');
+				document.getElementById("cStage").innerHTML = this.responseText;
+				
+				//load Bill
+				ajaxCommonGetFromNet("subPages/billTemplate.php","output");
+				hideModal();
+			}
+	  }
+
+		ajax.open("POST", "subPages/creditCustomer.php", true);
 		ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 		ajax.send();
 	
@@ -1453,6 +1536,9 @@ function fastCustomerFinish(total){
 //	    		alert(this.responseText);
 					stage.innerHTML = "<br><br><button onclick='hideModal()' class='btn btn-danger btn-lg'>HIDE</button>"
 					stage.innerHTML += this.responseText;
+					
+					document.getElementById("cash").focus();
+					document.getElementById("cash").select();
 				}
 	  		}
 
@@ -1474,7 +1560,6 @@ function fastCustomerBalance(e){
 function finishBill(cash){
 //			alert("finish bill");
 	////get bill data json
-	alert(cash);
 	if(cash != ""){
 		var ajax = _ajax();
 			ajax.onreadystatechange = function() {
@@ -1487,6 +1572,8 @@ function finishBill(cash){
 			ajax.open("POST", "../json/getBillData.json.php", true);
 			ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 			ajax.send("cash="+cash);
+	}else{
+		alert("Enter cash");
 	}
 			
 }
@@ -1494,7 +1581,7 @@ function sendBill(data){
 			var ajax = _ajax();
 			ajax.onreadystatechange = function() {
 				if (this.readyState == 4 && this.status == 200) {
-	    		msg("out",this.responseText);
+//	    			msg("out",this.responseText);
 				//setTimeout(fastCustomer,20000);	
 					fastCustomer();
 				}

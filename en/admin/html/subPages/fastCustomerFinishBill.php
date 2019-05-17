@@ -18,7 +18,8 @@ $total = $DB->select("purchaseditems","where dealid = $tmpBillId","SUM(amount * 
 	
 	<input type="number" disabled value="<?php echo($total[0]['SUM(amount * uprice)']) ?>" class='form-control' style='width:300px;' id="total">
 	<h1><br>Cash </h1>
-	<input type='number' id='cash' autofocus  placeholder='Enter Cash' class='form-control' style='width:300px;' onKeyUp='fastCustomerBalance(event)' ><h1>Balance <strong id='balance'></strong></h1>
+	<input type='number' id='cash' autofocus  placeholder='Enter Cash' class='form-control' style='width:300px;' onKeyUp='fastCustomerBalance(event)'  onKeyPress="enterfinishBill(event,this.value)"
+	><h1>Balance <strong id='balance'></strong></h1>
 	<button onclick='finishBill(cash.value)' class="btn btn-primary btn-lg">Finish Bill</button>
 	<div id='out' ></div>
 </center>

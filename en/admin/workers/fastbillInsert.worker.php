@@ -67,8 +67,16 @@ if($str_arr[0] == "P" || $str_arr[0] == "p"){
 				///TODO
 				///TODO
 				///TODO
+				
 				$arrPackItems = $DB->select("packitems","where pid = $itemId");
 				foreach($arrPackItems as $dataPackItemsMain){
+					
+					$tmpQty = $dataPackItems['amount'] * $qty;
+					echo(".......................................................\n");
+					echo("tmp qty $tmpQty");
+					echo(".......................................................\n");
+					echo("");
+					echo(".......................................................\n");
 					echo("<br>");
 					print_r($dataPackItemsMain);
 					echo("<br>");
@@ -78,7 +86,7 @@ if($str_arr[0] == "P" || $str_arr[0] == "p"){
 					
 					$arrStockRowOne = $DB->select("stock","WHERE itemid = ".$dataPackItemsMain['itemid']." AND status = 1 ORDER BY stock.adate DESC");
 //					echo($arrStockRowOne[0]['ramount']);
-					if($arrStockRowOne[0]['ramount'] >= $qty){
+					if($arrStockRowOne[0]['ramount'] >= $tmpQty){
 						////////////////////////////////////////////////////
 						///First row enought START
 						////////////////////////////////////////////////////
@@ -88,19 +96,19 @@ if($str_arr[0] == "P" || $str_arr[0] == "p"){
 						
 						
 						////update stock
-						$sql = "UPDATE stock SET ramount = ramount - $qty WHERE stock.id = ".$arrStockRowOne[0]['id'];
+						$sql = "UPDATE stock SET ramount = ramount - $tmpQty WHERE stock.id = ".$arrStockRowOne[0]['id'];
 						$conn->query($sql);
 				
 						////update purchased items
 				
-						$sql = "INSERT INTO purchaseditems (id, dealid, itemid, amount, uprice, stockid, type) VALUES (NULL, '$billNumber', '".$dataPackItemsMain['itemid']."', '$qty', '".$arrStockRowOne[0]['bprice']."', '".$arrStockRowOne[0]['id']."', '1');";
+						$sql = "INSERT INTO purchaseditems (id, dealid, itemid, amount, uprice, stockid, type) VALUES (NULL, '$billNumber', '".$dataPackItemsMain['itemid']."', '$tmpQty', '".$arrStockRowOne[0]['bprice']."', '".$arrStockRowOne[0]['id']."', '1');";
 				
 						$conn->query($sql);
 				
 				
 						/////updating stock status 
 				
-						if($arrStockRowOne[0]['ramount'] == $qty){
+						if($arrStockRowOne[0]['ramount'] == $tmpQty){
 					
 							$sql = "UPDATE stock SET status = '0' WHERE stock.id = ".$arrStockRowOne[0]['id'].";";
 							$conn->query($sql);
@@ -136,21 +144,21 @@ if($str_arr[0] == "P" || $str_arr[0] == "p"){
 				$arrMultipleAttempts = $DB->select("stock","WHERE itemid = ".$dataPackItemsMain['itemid']." AND status = 1 ORDER BY stock.adate DESC");
 				foreach($arrMultipleAttempts as $dataMultipleAttempts){
 					/////checking adding is finished or not
-					if($qty != 0){
+					if($tmpQty != 0){
 						/////////////////////////////////////
 						///A row is enouh START
 						/////////////////////////////////////
-						if($dataMultipleAttempts['ramount'] >= $qty){
+						if($dataMultipleAttempts['ramount'] >= $tmpQty){
 							
 							/////update stock
-							$sql = "UPDATE stock SET ramount = ramount - $qty WHERE stock.id = ".$dataMultipleAttempts['id'];
+							$sql = "UPDATE stock SET ramount = ramount - $tmpQty WHERE stock.id = ".$dataMultipleAttempts['id'];
 							$conn->query($sql);
 						
 							/////update customer bill side
-							$sql = "INSERT INTO purchaseditems (id, dealid, itemid, amount, uprice, stockid, type) VALUES (NULL, '$billNumber', '".$dataPackItemsMain['itemid']."', '$qty', '".$dataMultipleAttempts['bprice']."', '".$dataMultipleAttempts['id']."', '1');";
+							$sql = "INSERT INTO purchaseditems (id, dealid, itemid, amount, uprice, stockid, type) VALUES (NULL, '$billNumber', '".$dataPackItemsMain['itemid']."', '$tmpQty', '".$dataMultipleAttempts['bprice']."', '".$dataMultipleAttempts['id']."', '1');";
 				
 							$conn->query($sql);
-							$qty = 0;
+							$tmpQty = 0;
 							/////////////////////////////////////
 							///A row is enouh END
 							/////////////////////////////////////
@@ -159,7 +167,7 @@ if($str_arr[0] == "P" || $str_arr[0] == "p"){
 							/////////////////////////////////////
 							///A row is Not enouh START
 							/////////////////////////////////////
-							$qty -= $dataMultipleAttempts['ramount'];
+							$tmpQty -= $dataMultipleAttempts['ramount'];
 							
 							
 							/////update stock
