@@ -7,26 +7,26 @@ $DB->conn = $conn;
 $main = new Main;
 $totalId = round(microtime(true) * 1000);
 
-if(isset($_SESSION['bill'])){
+if(isset($_SESSION['credit']['bill'])){
 	
 	
-	if($_SESSION['bill']['s'] == 1){
-		$tmpBillId = $_SESSION['bill']['id'];
+	if($_SESSION['credit']['bill']['s'] == 1){
+		$tmpBillId = $_SESSION['credit']['bill']['id'];
 	}else{
-		$_SESSION['bill']['id'] = $totalId;
-		$_SESSION['bill']['time'] = "10:02:02 AM";
-		$_SESSION['bill']['date'] = "2018-01-25";
-		$_SESSION['bill']['s'] = 1;
-		$tmpBillId = $_SESSION['bill']['id'];
+		$_SESSION['credit']['bill']['id'] = $totalId;
+		$_SESSION['credit']['bill']['time'] = "10:02:02 AM";
+		$_SESSION['credit']['bill']['date'] = "2018-01-25";
+		$_SESSION['credit']['bill']['s'] = 1;
+		$tmpBillId = $_SESSION['credit']['bill']['id'];
 }
 
 }else{
-	echo("bill session not available");
-	$_SESSION['bill']['id'] = $totalId;
-	$_SESSION['bill']['time'] = "10:02:02 AM";
-	$_SESSION['bill']['date'] = "2018-01-25";
-	$_SESSION['bill']['s'] = 1;
-	$tmpBillId = $_SESSION['bill']['id'];
+//	echo("bill session not available");
+	$_SESSION['credit']['bill']['id'] = $totalId;
+	$_SESSION['credit']['bill']['time'] = "10:02:02 AM";
+	$_SESSION['credit']['bill']['date'] = "2018-01-25";
+	$_SESSION['credit']['bill']['s'] = 1;
+	$tmpBillId = $_SESSION['credit']['bill']['id'];
 	
 }
 
@@ -74,8 +74,8 @@ if(isset($_SESSION['bill'])){
 			
 			
 			
-		<input type="number" id="qty" placeholder="QTY" class="form-control" onKeyPress="enteradditemsToFastCustomerBill(event,<?php echo($tmpBillId) ?>)">
-		<input type="button" value="Next" class="btn btn-primary btn-lg" style="width: 100%" onClick="additemsToFastCustomerBill(<?php echo($tmpBillId) ?>)">
+		<input type="number" id="qty" placeholder="QTY" class="form-control" onKeyPress="enterAdditemsToCreditCustomerBill(event,<?php echo($tmpBillId) ?>)">
+		<input type="button" value="Next" class="btn btn-primary btn-lg" style="width: 100%" onClick="additemsToCreditCustomerBill(<?php echo($tmpBillId) ?>)">
 		<?php 
 			
 			$total = $DB->select("purchaseditems","where dealid = $tmpBillId","SUM(amount * uprice)");

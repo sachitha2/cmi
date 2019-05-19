@@ -250,6 +250,53 @@ function additemsToFastCustomerBill(billId){
 			}
 
 }
+
+
+function additemsToCreditCustomerBill(billId){
+	
+	
+	var itemId = document.getElementById('itemId').value;
+	var qty = document.getElementById('qty').value;
+	var d = new Date();
+	var year = d.getFullYear().toString();
+	var month =  d.getMonth() + 1;
+	var months = month.toString();
+	var day = d.getDate().toString();
+	var date = year+"/"+months+"/"+day;
+
+	data = {'itemId':itemId , 'qty':qty, 'date':date,'billNumber':billId };
+		////Valida ting data 
+		
+		if(itemId.length == "" ){
+			alert("enter item id");
+		}
+		
+		else if(qty.length == ""){
+			alert("enter qty");
+		}
+		else{
+			//loading logo
+			document.getElementById("output").innerHTML = "<center><img src='load.gif' class='lImg'><h1 style='color:black'>Loading...Please wait</h1></center>";
+			var ajax = _ajax();
+			ajax.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+	    		msg("msg",this.responseText);
+				ajaxCommonGetFromNet("subPages/creditCustomerBillTemplate.php","output",0,false);
+				emt("qty");
+				emt("itemId");
+				document.getElementById("itemId").focus();
+				document.getElementById("itemId").select();
+				}
+	  		}
+			ajax.open("POST", "../workers/fastbillInsert.worker.php", true);
+			ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+			ajax.send("data="+(JSON.stringify(data)));
+		
+			}
+
+}
+
+
 function _ajax() {
 		var xmlhttp;
 		try{
@@ -900,6 +947,14 @@ function enteradditemsToFastCustomerBill(e,billId) {
 	  additemsToFastCustomerBill(billId);
 	  }
 }
+
+function enterAdditemsToCreditCustomerBill(e,billId){
+	if (e.which == 13) { 
+	  
+	  additemsToCreditCustomerBill(billId);
+	  }
+}
+
 function enterAddPackitems(e,packId) {
   if (e.which == 13) { 
 	  addPackItems(packId);
@@ -1108,7 +1163,7 @@ function creditCustomer(){
 				document.getElementById("cStage").innerHTML = this.responseText;
 				
 				//load Bill
-				ajaxCommonGetFromNet("subPages/billTemplate.php","output");
+				ajaxCommonGetFromNet("subPages/creditCustomerBillTemplate.php","output");
 				hideModal();
 			}
 	  }

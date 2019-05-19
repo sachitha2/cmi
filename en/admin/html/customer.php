@@ -107,6 +107,7 @@ $main = new Main;
      		<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/customers.STE.php','cStage')">Edit</button>
      		<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/deleteArea.php','cStage')">Delete</button>
      		<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/viewCustomers.php','cStage')">View</button>
+     		<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/searchCustomers.php','cStage')">Search</button>
      		
      		<div class="card-header" style="padding-bottom: 10px;padding-top: 10px;margin-top: 20px;">
         			<center><h1 class="my-0 font-weight-normal text-info">Customers - Area </h1></center>
