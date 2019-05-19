@@ -875,13 +875,12 @@ function delFastBillData(id){
 		ajax.onreadystatechange = function() {
 			if (this.readyState == 4 && this.status == 200) {
 //	   	 		alert(this.responseText);
-//				ajaxCommonGetFromNet('subPages/loadPackData.php.php?id=','cStage');
 				ajaxCommonGetFromNet("subPages/billTemplate.php","output");
 				hideModal();
 			}
 	  }
 
-		ajax.open("POST", "../workers/fastBillData.del.php", true);
+		ajax.open("POST", "../workers/fastBillData.del.php?id="+id, true);
 		ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 		ajax.send("id="+id);
 	}
@@ -1664,9 +1663,30 @@ function sendBill(data){
 			ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 			ajax.send();
 }
+function creditsCustomerFinish(){
+			showModal();
+			stage = document.getElementById("mainModal");
+			stage.style.opacity = 0.9;
+			stage.style.color = "white";
+			stage.style.background = "black";
+			var ajax = _ajax();
+			ajax.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+//	    		alert(this.responseText);
+					stage.innerHTML = "<br><br><button onclick='hideModal()' class='btn btn-danger btn-lg'>HIDE</button>"
+					stage.innerHTML += this.responseText;
+					
+					document.getElementById("cash").focus();
+					document.getElementById("cash").select();
+				}
+	  		}
 
+			ajax.open("POST", "subPages/creditCustomerFinishBill.php", true);
+			ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+			ajax.send();
+}
 
-////image uploading part
+//image uploading part
 
 $(document).ready(function(){
  $(document).on('change', '#file', function(){
@@ -1707,4 +1727,7 @@ $(document).ready(function(){
   }
  });
 });
-////image uploading part
+
+
+
+//image uploading part

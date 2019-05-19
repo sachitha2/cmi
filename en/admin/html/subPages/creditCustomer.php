@@ -84,7 +84,7 @@ if(isset($_SESSION['credit']['bill'])){
 			
 		
 		?>
-		<input type="button" value="Finish" class="btn btn-danger btn-lg" style="width: 100%" onClick="fastCustomerFinish(<?php echo($total[0]['SUM(amount * uprice)']) ?>)">
+		<input type="button" value="Finish" class="btn btn-danger btn-lg" style="width: 100%" onClick="creditsCustomerFinish(<?php echo($total[0]['SUM(amount * uprice)']) ?>)">
 		
 	</div>
 	
