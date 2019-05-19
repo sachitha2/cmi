@@ -6,11 +6,6 @@ $DB = new DB;
 $main = new Main;
 $DB->conn = $conn;
 
-$nic = $_GET['nic'];
 
-$customer = $DB->select("customer","where nic like '$nic';");
-
-
-
-print_r($customer);
 ?>
+<h1>This  is customer Remainders</h1>

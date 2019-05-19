@@ -676,39 +676,40 @@ body{
                 <div class="side-bar">
                     <div class="user-info">
                        	<?php
-							$customer = $DB->select("customer","WHERE nic LIKE '{$_GET['id']}' ","img");
+							$customer = $DB->select("customer","WHERE nic LIKE '{$_GET['id']}' ");
 							
 						?>
                        
                         <img class="img-profile img-circle img-responsive center-block" src="<?php echo($customer[0]['img']); ?>" alt="">
                         <ul class="meta list list-unstyled">
-                            <li class="name">Sachitha Hirushan
-                                <label class="label label-info">488</label>
+                            <li class="name"><?php echo($customer[0]['name']) ?><br>
+                                <label class="label label-info"><?php echo($customer[0]['id']) ?></label>
                             </li>
-                            <li class="email"><a href="#">shpsachitha@gmail.com</a></li>
-                            <li class="activity">Last logged in: Today at 2:18pm</li>
+<!--                            <li class="email"><a href="#">shpsachitha@gmail.com</a></li>-->
+                            <li class="activity">Registered Date: <?php echo($customer[0]['regdate']) ?></li>
                         </ul>
                     </div>
                     <nav class="side-menu">
                         <ul class="nav">
-                            <li><a href="#"><span class="fa fa-user"></span> Profile</a></li>
-                            <li><a href="#"><span class="fa fa-cog"></span> Settings</a></li>
-                            <li class="active"><a href="#"><span class="fa fa-credit-card"></span> Billing</a></li>
-                            <li><a href="#"><span class="fa fa-envelope"></span> Messages</a></li>
+                            <li onClick='ajaxCommonGetFromNet("subPages/customerProfile.php?nic=<?php echo($_GET['id']) ?>","customerStage");'><a href="#"><span class="fa fa-user"></span> Profile</a></li>
+<!--                            <li><a href="#"><span class="fa fa-cog"></span> Settings</a></li>-->
+                            <li onClick='ajaxCommonGetFromNet("subPages/customerBilling.php?nic=<?php echo($_GET['id']) ?>","customerStage");'><a href="#"><span class="fa fa-credit-card"></span> Billing</a></li>
+<!--                            <li class="active" ><a href="#" ><span class="fa fa-envelope"></span> Messages</a></li>-->
 
-                            <li><a href="user-drive.html"><span class="fa fa-th"></span> Drive</a></li>
-                            <li><a href="#"><span class="fa fa-clock-o"></span> Reminders</a></li>
+<!--                            <li><a href="user-drive.html"><span class="fa fa-th"></span> Drive</a></li>-->
+                            <li  onClick='ajaxCommonGetFromNet("subPages/customerReminders.php","customerStage");'><a href="#"><span class="fa fa-clock-o"></span> Reminders</a></li>
                         </ul>
                     </nav>
                 </div>
 
                 <div class="content-panel">
                     <div class="content-header-wrapper">
-                        <h2 class="title">My Drive</h2>
+                        <h2 class="title">Customer Profile</h2>
                         
                     </div>
                     <div class="content-utilities">
                         
+<!--
                         <div class="actions">
                             <div class="btn-group">
                                 <button class="btn btn-default dropdown-toggle" data-toggle="dropdown" type="button" aria-expanded="false">All Items <span class="caret"></span></button>
@@ -734,8 +735,10 @@ body{
                                 <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Delete"><i class="fa fa-trash-o"></i></button>
                             </div>
                         </div>
+-->
                     </div>
-                    <div class="drive-wrapper drive-grid-view">
+                    <div id="customerStage">
+                    	<div class="drive-wrapper drive-grid-view" >
                         <div class="grid-items-wrapper">
                             
                             
@@ -762,9 +765,8 @@ body{
                                 </div>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="drive-wrapper drive-list-view">
+                    	</div>
+                    	<div class="drive-wrapper drive-list-view">
                         <div class="table-responsive drive-items-table-wrapper">
                             <table class="table">
                                 <thead>
@@ -794,6 +796,10 @@ body{
                             </table>
                         </div>
                     </div>
+                    </div>
+                    
+
+                    
                 </div>
             </div>
         </section>

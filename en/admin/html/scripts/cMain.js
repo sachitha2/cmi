@@ -1688,6 +1688,7 @@ $(document).ready(function(){
   else
   {
    form_data.append("file", document.getElementById('file').files[0]);
+   form_data.append("cid", document.getElementById("nic").value);
    $.ajax({
     url:"../workers/customerImageUpload.php",
     method:"POST",
