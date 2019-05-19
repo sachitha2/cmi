@@ -157,10 +157,19 @@ function addPackItems(pId){
 	console.log("Item idd is : " + itemId);
 	console.log("qty is : " + qty);
 }
+
+
+
 function addCustomer(){
 	
 	var name = document.getElementById('name').value;
 	var address = document.getElementById('address').value;
+	
+	var dob = document.getElementById('dob').value;
+	var route = document.getElementById('route').value;
+	
+	
+	
 	var nic = document.getElementById('nic').value;
 	var tp = document.getElementById('tp').value;
 	var area = document.getElementById('area').value;
@@ -171,8 +180,14 @@ function addCustomer(){
 	var day = d.getDate().toString();
 	var date = year+"/"+months+"/"+day;
 	var agent = document.getElementById('agent').value;
+	
+	///convertingimage in to base 64
+	
+	var image = "NULL";
+	
+	
 
-	data = {'name':name , 'address':address, 'nic':nic, 'tp':tp, 'area':area, 'date':date, 'agent':agent };
+	data = {'name':name , 'address':address, 'nic':nic, 'tp':tp, 'area':area, 'date':date, 'agent':agent ,'dob':dob,'route':route,'image':image};
 		////Valida ting data 
 		msg = document.getElementById("msg");
 		if(name.length == "" ){
@@ -191,12 +206,15 @@ function addCustomer(){
 			var ajax = _ajax();
 			ajax.onreadystatechange = function() {
 				if (this.readyState == 4 && this.status == 200) {
-	    		alert(this.responseText);
-				emt("name");
-				emt("address");
-				emt("nic");
-				emt("tp");
-				msg.innerHTML = " Account Created successfully"
+//	    		alert(this.responseText);
+//				emt("name");
+//				emt("address");
+////				emt("nic");
+//				emt("tp");
+//				emt("route");
+					ajaxCommonGetFromNet('subPages/uploadImageForCustomer.php?id='+nic,'cStage');
+//				window.location.assign('createCustomer.php');
+//				msg.innerHTML = " Account Created successfully"
 				}
 	  		}
 
@@ -1646,3 +1664,46 @@ function sendBill(data){
 			ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 			ajax.send();
 }
+
+
+////image uploading part
+
+$(document).ready(function(){
+ $(document).on('change', '#file', function(){
+  var name = document.getElementById("file").files[0].name;
+  var form_data = new FormData();
+  var ext = name.split('.').pop().toLowerCase();
+  if(jQuery.inArray(ext, ['gif','png','jpg','jpeg']) == -1) 
+  {
+   alert("Invalid Image File");
+  }
+  var oFReader = new FileReader();
+  oFReader.readAsDataURL(document.getElementById("file").files[0]);
+  var f = document.getElementById("file").files[0];
+  var fsize = f.size||f.fileSize;
+  if(fsize > 2000000)
+  {
+   alert("Image File Size is very big");
+  }
+  else
+  {
+   form_data.append("file", document.getElementById('file').files[0]);
+   $.ajax({
+    url:"../workers/customerImageUpload.php",
+    method:"POST",
+    data: form_data,
+    contentType: false,
+    cache: false,
+    processData: false,
+    beforeSend:function(){
+     $('#uploaded_image').html("<label class='text-success'>Image Uploading...</label>");
+    },   
+    success:function(data)
+    {
+     $('#uploaded_image').html(data);
+    }
+   });
+  }
+ });
+});
+////image uploading part

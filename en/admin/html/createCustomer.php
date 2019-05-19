@@ -84,7 +84,7 @@ if(isset($_GET['id'])){
       <!-- ############ PAGE START-->
       	<?php $main->modal() ?>
       <!-- ############ PAGE START-->
-        <?php $main->head("Area") ?>
+        <?php $main->head("Customer") ?>
 	  <div class="container h-100" id="cStage">
  			
   			<form action="createCustomer.php" method="get">

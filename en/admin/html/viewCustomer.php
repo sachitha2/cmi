@@ -675,7 +675,12 @@ body{
             <div class="module-inner">
                 <div class="side-bar">
                     <div class="user-info">
-                        <img class="img-profile img-circle img-responsive center-block" src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="">
+                       	<?php
+							$customer = $DB->select("customer","WHERE nic LIKE '{$_GET['id']}' ","img");
+							
+						?>
+                       
+                        <img class="img-profile img-circle img-responsive center-block" src="<?php echo($customer[0]['img']); ?>" alt="">
                         <ul class="meta list list-unstyled">
                             <li class="name">Sachitha Hirushan
                                 <label class="label label-info">488</label>
