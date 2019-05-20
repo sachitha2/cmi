@@ -6,7 +6,7 @@ $main = new Main;
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>CMS - Sells</title>
+  <title>CMI - Agent</title>
   <meta name="description" content="cms" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimal-ui" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -38,7 +38,7 @@ $main = new Main;
   <div class="app" id="app">
 
 <!-- ############ LAYOUT START-->
-	
+
   <?php $main->menuBar() ?>
   <!-- / -->
   
@@ -46,13 +46,16 @@ $main = new Main;
   <div id="content" class="app-content box-shadow-z0" role="main">
     <?php $main->modal() ?> 
     <?php $main->topBar() ?>
-    <div ui-view class="app-body" id="view" style="overflow: hidden">
+    <div ui-view class="app-body" id="view">
 		<?php $main->modal() ?>
       <!-- ############ PAGE START-->
-    	<h1>Sales</h1>
+        <?php $main->head("Agent") ?>
     <div class="container h-100" id="cStage">
-  			<button  type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/sellCustomer.php','cStage')">Credit</button>
-  			<button  type="button" class="btn btn-primary btn-lg" onClick="fastCustomer()">Cash</button>
+  			<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/addAgent.php','cStage')">Add</button>
+     		<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/agent.STE.php','cStage')">Edit</button>
+<!--     		<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/deleteArea.php','cStage')">Delete</button>-->
+     		<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/viewAgent.php','cStage')">View</button>
+     	
 	</div>
 
       <!-- ############ PAGE END-->

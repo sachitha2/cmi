@@ -76,13 +76,21 @@ $DB->conn = $conn;
 						?>
 						<form>
 		<div>Name</div>
-		<div><input type="text" class="form-control" name="name" id="name"></div>
+		<div><input type="text" class="form-control" name="name" id="name" placeholder="Enter Name"></div>
 		<div>Address</div>
-		<div><input type="text" class="form-control" name="address" id="address"></div>
+		<div><input type="text" class="form-control" name="address" id="address" placeholder="Enter Address"></div>
 		<div>NIC</div>
 		<div><input type="text" class="form-control" name="nic" id="nic" value="<?php echo $_GET['id']; ?>" readonly></div>
 		<div>Telephone</div>
-		<div><input type="text" class="form-control" name="tp" id="tp"></div>
+		<div><input type="text" class="form-control" name="tp" id="tp" placeholder="Enter Telephone Number"></div>
+		
+		<div>Date of Birth</div>
+		<div><input type="date" class="form-control" name="dob" id="dob" style="width: 200px"></div>
+		
+		
+		<div>Route</div>
+		<div><textarea id="route" placeholder="Enter Route" class="form-control"></textarea></div>
+		
 		<div>your area</div>
 		<div><select name="area" id="area" class="form-control" >
 			<?php
@@ -106,9 +114,15 @@ $DB->conn = $conn;
 				?>
 			</select>
 		</div>
+<!--
+		<div>Select Image</div>
+		<input id="inputFileToLoad" type="file" onchange="encodeImageFileAsURL();" />
+		<div id="imgTest" style="width: 100px;height: auto"><img src="" id="img" width="100"></div>
+-->
+		
 		<div id="msg"> </div>
 		<br>
-		<div><button class="btn btn-primary btn-lg"s type="button" onclick="addCustomer();">Create my account</button></div>
+		<div><button class="btn btn-primary btn-lg" type="button" onclick="addCustomer();">Next</button></div>
 		
 	</form>
 						<?php

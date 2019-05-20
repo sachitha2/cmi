@@ -25,7 +25,7 @@ if(isset($_SESSION['bill'])){
 //		echo("<br>");
 //		print_r($data);
 //		echo("<br>");
-		$arr['data']['id'][$x] = $data['id'];
+		$arr['data']['id'][$x] = $x + 1;
 		$arr['data']['item'][$x] = $DB->getItemNameByStockId($data['itemid'],0);
 		$arr['data']['QTY'][$x] = $data['amount'];
 		$arr['data']['price'][$x] = $data['uprice'];

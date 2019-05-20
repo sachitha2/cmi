@@ -141,6 +141,11 @@ class Main{
                         <span class="nav-text">Cost Type</span>
                       </a>
                     </li>
+                    <li>
+                      <a onClick="window.location.assign('agent.php')">
+                        <span class="nav-text">Agent</span>
+                      </a>
+                    </li>
                   </ul>
                 </li>
             

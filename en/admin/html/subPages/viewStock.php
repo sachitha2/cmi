@@ -157,7 +157,7 @@ $Date = date("Y-m-d");
 
 	$logic .= " ORDER BY stock.adate DESC";
 //	echo("<br>");
-	echo($logic);
+//	echo($logic);
 	
 ?>
 

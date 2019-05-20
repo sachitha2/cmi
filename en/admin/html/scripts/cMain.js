@@ -1,12 +1,17 @@
 // JavaScript Document
-function ajaxCommonGetFromNet(phpFileName, outPutStage,x){
+function ajaxCommonGetFromNet(phpFileName, outPutStage,x,loading = true){
 //			 if(navigator.onLine){
-					loadingModal();
-					showModal();
+					if(loading){
+						loadingModal();
+						showModal();
+					}
+					
 					var xmlhttp = new XMLHttpRequest();
         			xmlhttp.onreadystatechange = function() {
         			if (this.readyState === 4 && this.status == 200) {
-        					hideModal();
+        					if(loading){
+								hideModal();
+							}
 							if(x == 1){
 								return(this.responseText);
 								
@@ -61,6 +66,51 @@ function addArea(area){
 			document.getElementById("msg").innerHTML = "Enter valid area";
 		}
 	}
+function addAgent(){
+		var agent = {};
+		agent.Name = document.getElementById("aName").value;
+		agent.NIC = document.getElementById("aNIC").value;
+		agent.AreaId = document.getElementById("aArea").value;
+		agent.Address = document.getElementById("aAddress").value;
+		
+		console.log(agent);
+		
+	
+		if(agent.Name == ""){
+			msg("msg","Enter agent name");
+			
+		}else if(agent.NIC == ""){
+			msg("msg","Enter agent NIC ");
+			
+		}
+		else if(agent.Address == ""){
+			msg("msg","Enter agent Address ");
+			
+		}
+		else if(agent.AreaId == 0){
+			msg("msg","Select a Area");
+			
+		}else{
+			msg("msg","");
+					///ajax part
+					loadingModal();
+					showModal();
+					var xmlhttp = new XMLHttpRequest();
+        			xmlhttp.onreadystatechange = function() {
+        			if (this.readyState === 4 && this.status == 200) {
+							document.getElementById("msg").innerHTML  =  this.responseText;
+							emt("aName");
+							emt("aAddress");
+							emt("aNIC");
+							///TODO area slector
+							hideModal();
+           				}
+        			};
+        			xmlhttp.open("GET", "../workers/addAgent.worker.php?data="+JSON.stringify(agent), true);//generating  get method link
+        			xmlhttp.send();
+					////ajax part
+		}
+	}
 	  function editAreaPageLoader(area){
 		if(area.length != 0){
 					///ajax part
@@ -107,10 +157,19 @@ function addPackItems(pId){
 	console.log("Item idd is : " + itemId);
 	console.log("qty is : " + qty);
 }
+
+
+
 function addCustomer(){
 	
 	var name = document.getElementById('name').value;
 	var address = document.getElementById('address').value;
+	
+	var dob = document.getElementById('dob').value;
+	var route = document.getElementById('route').value;
+	
+	
+	
 	var nic = document.getElementById('nic').value;
 	var tp = document.getElementById('tp').value;
 	var area = document.getElementById('area').value;
@@ -121,8 +180,14 @@ function addCustomer(){
 	var day = d.getDate().toString();
 	var date = year+"/"+months+"/"+day;
 	var agent = document.getElementById('agent').value;
+	
+	///convertingimage in to base 64
+	
+	var image = "NULL";
+	
+	
 
-	data = {'name':name , 'address':address, 'nic':nic, 'tp':tp, 'area':area, 'date':date, 'agent':agent };
+	data = {'name':name , 'address':address, 'nic':nic, 'tp':tp, 'area':area, 'date':date, 'agent':agent ,'dob':dob,'route':route,'image':image};
 		////Valida ting data 
 		msg = document.getElementById("msg");
 		if(name.length == "" ){
@@ -141,12 +206,15 @@ function addCustomer(){
 			var ajax = _ajax();
 			ajax.onreadystatechange = function() {
 				if (this.readyState == 4 && this.status == 200) {
-	    		alert(this.responseText);
-				emt("name");
-				emt("address");
-				emt("nic");
-				emt("tp");
-				msg.innerHTML = " Account Created successfully"
+//	    		alert(this.responseText);
+//				emt("name");
+//				emt("address");
+////				emt("nic");
+//				emt("tp");
+//				emt("route");
+					ajaxCommonGetFromNet('subPages/uploadImageForCustomer.php?id='+nic,'cStage');
+//				window.location.assign('createCustomer.php');
+//				msg.innerHTML = " Account Created successfully"
 				}
 	  		}
 
@@ -180,16 +248,17 @@ function additemsToFastCustomerBill(billId){
 			alert("enter qty");
 		}
 		else{
-			showModal();
+			//loading logo
+			document.getElementById("output").innerHTML = "<center><img src='load.gif' class='lImg'><h1 style='color:black'>Loading...Please wait</h1></center>";
 			var ajax = _ajax();
 			ajax.onreadystatechange = function() {
 				if (this.readyState == 4 && this.status == 200) {
 	    		msg("msg",this.responseText);
-				hideModal();
-				ajaxCommonGetFromNet("subPages/billTemplate.php","output");
+				ajaxCommonGetFromNet("subPages/billTemplate.php","output",0,false);
 				emt("qty");
 				emt("itemId");
-				document.getElementById('itemId').focus;
+				document.getElementById("itemId").focus();
+				document.getElementById("itemId").select();
 				}
 	  		}
 			ajax.open("POST", "../workers/fastbillInsert.worker.php", true);
@@ -199,6 +268,53 @@ function additemsToFastCustomerBill(billId){
 			}
 
 }
+
+
+function additemsToCreditCustomerBill(billId){
+	
+	
+	var itemId = document.getElementById('itemId').value;
+	var qty = document.getElementById('qty').value;
+	var d = new Date();
+	var year = d.getFullYear().toString();
+	var month =  d.getMonth() + 1;
+	var months = month.toString();
+	var day = d.getDate().toString();
+	var date = year+"/"+months+"/"+day;
+
+	data = {'itemId':itemId , 'qty':qty, 'date':date,'billNumber':billId };
+		////Valida ting data 
+		
+		if(itemId.length == "" ){
+			alert("enter item id");
+		}
+		
+		else if(qty.length == ""){
+			alert("enter qty");
+		}
+		else{
+			//loading logo
+			document.getElementById("output").innerHTML = "<center><img src='load.gif' class='lImg'><h1 style='color:black'>Loading...Please wait</h1></center>";
+			var ajax = _ajax();
+			ajax.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+	    		msg("msg",this.responseText);
+				ajaxCommonGetFromNet("subPages/creditCustomerBillTemplate.php","output",0,false);
+				emt("qty");
+				emt("itemId");
+				document.getElementById("itemId").focus();
+				document.getElementById("itemId").select();
+				}
+	  		}
+			ajax.open("POST", "../workers/fastbillInsert.worker.php", true);
+			ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+			ajax.send("data="+(JSON.stringify(data)));
+		
+			}
+
+}
+
+
 function _ajax() {
 		var xmlhttp;
 		try{
@@ -496,7 +612,39 @@ function addStock(amount,id,bPrice,sPrice,exDate,mfd){
 }
 ////stock
 
+////check customer for make bill
+function CheckCustomerForMakeBill(idCard){
+			
+			if(idCard != ""){
+				
+				
+				data = { 'idCard':idCard };
+		
+				var ajax = _ajax();
+				ajax.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+//	   	 			alert(this.responseText);
+					emt("idCard");
+					jsonData = JSON.parse(this.responseText);
+					console.log(this.responseText);
+					if(jsonData.s == 1){
+//						alert("next url");
+						creditCustomer();
+					}else{
+						msg("msg",jsonData.msg);
+					}
+				}
+	  			}
 
+				ajax.open("POST", "../workers/checkCustomerForMakeBill.worker.php", true);
+				ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+				ajax.send("data="+(JSON.stringify(data)));
+			}else{
+				msg("msg","Enter idCard Number");
+			}
+			}
+
+////check customer for make bill
 ////Item
 function addItem(){
 		console.log("this is add item");
@@ -544,6 +692,28 @@ function addItem(){
 
 
 /////deleters
+function delAgent(id){	
+	var r = confirm("Are you sure want to delete this!");
+	if(r == true){
+		showModal();
+		var ajax = _ajax();
+		ajax.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+//	   	 		alert(this.responseText);
+				ajaxCommonGetFromNet('subPages/viewAgent.php','cStage');
+				hideModal();
+			}
+	  }
+
+		ajax.open("POST", "../workers/agent.del.php", true);
+		ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		ajax.send("id="+id);
+	}
+		}
+
+
+
+
 function delArea(id){	
 	var r = confirm("Are you sure want to delete this!");
 	if(r == true){
@@ -705,13 +875,12 @@ function delFastBillData(id){
 		ajax.onreadystatechange = function() {
 			if (this.readyState == 4 && this.status == 200) {
 //	   	 		alert(this.responseText);
-//				ajaxCommonGetFromNet('subPages/loadPackData.php.php?id=','cStage');
 				ajaxCommonGetFromNet("subPages/billTemplate.php","output");
 				hideModal();
 			}
 	  }
 
-		ajax.open("POST", "../workers/fastBillData.del.php", true);
+		ajax.open("POST", "../workers/fastBillData.del.php?id="+id, true);
 		ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 		ajax.send("id="+id);
 	}
@@ -729,6 +898,32 @@ function enterAddExpenses(e,costTypeid){
 //		} 3
 		addExpenses(costTypeid);
 	}
+}
+
+function enterAddAgent(e) {
+  if (e.which == 13) {addAgent(); }
+}
+function enterCheckCustomerForMakeBill(e,idCard) {
+  if (e.which == 13) {
+//  		console.log(idCard);
+	  	CheckCustomerForMakeBill(idCard);
+  }
+}
+function enterAddStock(e,amount,item,bPrice,sPrice,exDate,mfd) {
+  if (e.which == 13) {
+  addStock(amount,item,bPrice,sPrice,exDate,mfd);
+  }
+}
+function enterNext(e,nextInput) {
+  if (e.which == 13) {
+	  document.getElementById(nextInput).focus();
+	  document.getElementById(nextInput).select();
+  }
+}
+function enterfinishBill(e,cash) {
+  if (e.which == 13) {
+  finishBill(cash);
+  }
 }
 
 function enterAddArea(e) {
@@ -769,6 +964,14 @@ function enteradditemsToFastCustomerBill(e,billId) {
 	  additemsToFastCustomerBill(billId);
 	  }
 }
+
+function enterAdditemsToCreditCustomerBill(e,billId){
+	if (e.which == 13) { 
+	  
+	  additemsToCreditCustomerBill(billId);
+	  }
+}
+
 function enterAddPackitems(e,packId) {
   if (e.which == 13) { 
 	  addPackItems(packId);
@@ -966,6 +1169,28 @@ function fastCustomer(){
 	
 }
 
+
+function creditCustomer(){
+	showModal();
+	var ajax = _ajax();
+		ajax.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+//	   	 		alert(this.responseText);
+//				ajaxCommonGetFromNet('subPages/fastCustomer.php','cStage');
+				document.getElementById("cStage").innerHTML = this.responseText;
+				
+				//load Bill
+				ajaxCommonGetFromNet("subPages/creditCustomerBillTemplate.php","output");
+				hideModal();
+			}
+	  }
+
+		ajax.open("POST", "subPages/creditCustomer.php", true);
+		ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		ajax.send();
+	
+}
+
 function fastCustomerItemadd(){
 	showModal();
 	var ajax = _ajax();
@@ -992,6 +1217,15 @@ function fastCustomerItemadd(){
 	function loadEditFormsArea(value,id){
 		if(value != 0){
 			ajaxCommonGetFromNet("subPages/editArea.php?id="+value,"cStage");
+		}
+		
+		
+	}
+
+
+function loadEditFormsAgent(value){
+		if(value != 0){
+			ajaxCommonGetFromNet("subPages/editAgent.php?id="+value,"cStage");
 		}
 		
 		
@@ -1061,6 +1295,49 @@ function editSaveArea(area,id){
 		}else{
 			document.getElementById("msg").innerHTML = "Enter valid area";
 		}
+}
+function editSaveAgent(id){
+	var agent = {};
+	agent.name = document.getElementById("aName").value;
+	agent.nic = document.getElementById("aNIC").value;
+	agent.areaId = document.getElementById("aArea").value;
+	agent.address = document.getElementById("aAddress").value;
+	agent.id = id;
+	console.log(agent);
+	if(agent.name == ""){
+			msg("msg","Enter agent name");
+			
+		}else if(agent.nic == ""){
+			msg("msg","Enter agent NIC ");
+			
+		}
+		else if(agent.address == ""){
+			msg("msg","Enter agent Address ");
+			
+		}
+		else if(agent.areaId == 0){
+			msg("msg","Select a Area");
+			
+		}else{
+			msg("msg","");
+					///ajax part
+					showModal();
+					var xmlhttp = new XMLHttpRequest();
+        			xmlhttp.onreadystatechange = function() {
+        			if (this.readyState === 4 && this.status == 200) {
+							document.getElementById("msg").innerHTML  =  this.responseText;
+							emt("aName");
+							emt("aNIC");
+							emt("aAddress");
+							hideModal();
+           				}
+        			};
+        			xmlhttp.open("GET", "../workers/agent.edit.php?data="+JSON.stringify(agent), true);//generating  get method link
+        			xmlhttp.send();
+//					////ajax part
+		
+		}
+
 }
 function editSaveUser(){
 			
@@ -1320,19 +1597,36 @@ function readStockMenu(){
 var fastCustomerBillTotal ;
 function fastCustomerFinish(total){
 	fastCustomerBillTotal = total;
-	showModal();
-	stage = document.getElementById("mainModal");
-	stage.style.opacity = 0.9;
-	stage.style.color = "white";
-	stage.style.background = "black";
-	stage.innerHTML = "<center><h1>Enter Cash Amount<br>Total - "+total+"</h1><input type='number' id='cash'  placeholder='Enter Cash' class='form-control' style='width:300px;' onKeyUp='fastCustomerBalance(event)' ><h1>Balnce <strong id='balance'></strong></h1><button onclick='finishBill(cash.value)'>Finish Bill</button><div id='out' ></div>";
-	stage.innerHTML += "</center>"
+			showModal();
+			stage = document.getElementById("mainModal");
+			stage.style.opacity = 0.9;
+			stage.style.color = "white";
+			stage.style.background = "black";
+			var ajax = _ajax();
+			ajax.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+//	    		alert(this.responseText);
+					stage.innerHTML = "<br><br><button onclick='hideModal()' class='btn btn-danger btn-lg'>HIDE</button>"
+					stage.innerHTML += this.responseText;
+					
+					document.getElementById("cash").focus();
+					document.getElementById("cash").select();
+				}
+	  		}
+
+			ajax.open("POST", "subPages/fastCustomerFinishBill.php", true);
+			ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+			ajax.send();
+	
+	
+	
 	
 	
 }
 function fastCustomerBalance(e){
+	var total = document.getElementById("total").value;
 	value = document.getElementById("cash").value;
-	document.getElementById("balance").innerHTML = value - fastCustomerBillTotal ;
+	document.getElementById("balance").innerHTML = value - total ;
 	console.log(value);
 }
 function finishBill(cash){
@@ -1350,6 +1644,8 @@ function finishBill(cash){
 			ajax.open("POST", "../json/getBillData.json.php", true);
 			ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 			ajax.send("cash="+cash);
+	}else{
+		alert("Enter cash");
 	}
 			
 }
@@ -1357,7 +1653,7 @@ function sendBill(data){
 			var ajax = _ajax();
 			ajax.onreadystatechange = function() {
 				if (this.readyState == 4 && this.status == 200) {
-	    		msg("out",this.responseText);
+//	    			msg("out",this.responseText);
 				//setTimeout(fastCustomer,20000);	
 					fastCustomer();
 				}
@@ -1367,3 +1663,71 @@ function sendBill(data){
 			ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 			ajax.send();
 }
+function creditsCustomerFinish(){
+			showModal();
+			stage = document.getElementById("mainModal");
+			stage.style.opacity = 0.9;
+			stage.style.color = "white";
+			stage.style.background = "black";
+			var ajax = _ajax();
+			ajax.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+//	    		alert(this.responseText);
+					stage.innerHTML = "<br><br><button onclick='hideModal()' class='btn btn-danger btn-lg'>HIDE</button>"
+					stage.innerHTML += this.responseText;
+					
+					document.getElementById("cash").focus();
+					document.getElementById("cash").select();
+				}
+	  		}
+
+			ajax.open("POST", "subPages/creditCustomerFinishBill.php", true);
+			ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+			ajax.send();
+}
+
+//image uploading part
+
+$(document).ready(function(){
+ $(document).on('change', '#file', function(){
+  var name = document.getElementById("file").files[0].name;
+  var form_data = new FormData();
+  var ext = name.split('.').pop().toLowerCase();
+  if(jQuery.inArray(ext, ['gif','png','jpg','jpeg']) == -1) 
+  {
+   alert("Invalid Image File");
+  }
+  var oFReader = new FileReader();
+  oFReader.readAsDataURL(document.getElementById("file").files[0]);
+  var f = document.getElementById("file").files[0];
+  var fsize = f.size||f.fileSize;
+  if(fsize > 2000000)
+  {
+   alert("Image File Size is very big");
+  }
+  else
+  {
+   form_data.append("file", document.getElementById('file').files[0]);
+   form_data.append("cid", document.getElementById("nic").value);
+   $.ajax({
+    url:"../workers/customerImageUpload.php",
+    method:"POST",
+    data: form_data,
+    contentType: false,
+    cache: false,
+    processData: false,
+    beforeSend:function(){
+     $('#uploaded_image').html("<label class='text-success'>Image Uploading...</label>");
+    },   
+    success:function(data)
+    {
+     $('#uploaded_image').html(data);
+    }
+   });
+  }
+ });
+});
+
+
+
+//image uploading part
