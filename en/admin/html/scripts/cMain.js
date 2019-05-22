@@ -636,7 +636,7 @@ function CheckCustomerForMakeBill(idCard){
 					console.log(this.responseText);
 					if(jsonData.s == 1){
 //						alert("next url");
-						creditCustomer();
+						creditCustomer(idCard);
 					}else{
 						msg("msg",jsonData.msg);
 					}
@@ -1177,7 +1177,7 @@ function fastCustomer(){
 }
 
 
-function creditCustomer(){
+function creditCustomer(idCard){
 	showModal();
 	var ajax = _ajax();
 		ajax.onreadystatechange = function() {
@@ -1192,7 +1192,7 @@ function creditCustomer(){
 			}
 	  }
 
-		ajax.open("POST", "subPages/creditCustomer.php", true);
+		ajax.open("POST", "subPages/creditCustomer.php?idCard="+idCard, true);
 		ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 		ajax.send();
 	

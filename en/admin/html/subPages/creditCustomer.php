@@ -41,6 +41,9 @@ if(isset($_SESSION['credit']['bill'])){
 	
 	<div style="width: 40%;height: 70% !important;background-color: ;height: 70%;float: left;color: black;" id="input">
 			<h1>Credit Customer</h1>
+			<input readonly type="text" value="<?php echo($_GET['idCard']) ?>" id="idCard"  class="form-control" >
+			
+			
 			<h1>Bill id <?php echo($tmpBillId) ?></h1>
 			<div id="msg"></div>
 <!--		<input type="number" id="item"  class="form-control">-->

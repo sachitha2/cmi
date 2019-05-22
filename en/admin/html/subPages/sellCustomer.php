@@ -8,6 +8,7 @@ $main = new Main;
 $main->b("sell.php");
 $customer = $DB->select("customer","");
 ?>
+			<h1>Select Customer</h1>
 			<input list="colors" name="color" id="idCard" class="form-control" style="width: 200px" onKeyPress="enterCheckCustomerForMakeBill(event,this.value)">
 			<datalist id="colors">
 				
