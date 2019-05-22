@@ -580,6 +580,9 @@ function addStock(amount,id,bPrice,sPrice,exDate,mfd){
 			vSPrice = document.getElementById("sPrice").value;
 			vEXDate = document.getElementById("exDate").value;
 			vmfd = document.getElementById("mfd").value;
+			mPrice = document.getElementById("mPrice").value;	
+				
+		
 	
 			if(vAmount == ""){
 				document.getElementById("msg").innerHTML = "Enter Amount";
@@ -613,7 +616,7 @@ function addStock(amount,id,bPrice,sPrice,exDate,mfd){
 					hideModal();
            		}
         	};
-        	xmlhttp.open("GET", "../workers/addStock.worker.php?amount="+amount+"&id="+id+"&bPrice="+bPrice+"&exDate="+exDate+"&sPrice="+sPrice+"&mfd="+mfd, true);//generating  get method link
+        	xmlhttp.open("GET", "../workers/addStock.worker.php?amount="+amount+"&id="+id+"&bPrice="+bPrice+"&exDate="+exDate+"&sPrice="+sPrice+"&mfd="+mfd+"&mPrice="+mPrice, true);//generating  get method link
         	xmlhttp.send();
 }
 }
@@ -1656,6 +1659,31 @@ function finishBill(cash){
 	}
 			
 }
+
+
+function finishBillCreditCustomer(cash){
+//			alert("finish bill");
+	////get bill data json
+	if(cash != ""){
+		var ajax = _ajax();
+			ajax.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+	    			//alert(this.responseText);
+					sendBill(this.responseText);
+				}
+	  		}
+
+			ajax.open("POST", "../json/getBillData.json.php", true);
+			ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+			ajax.send("cash="+cash);
+	}else{
+		alert("Enter cash");
+	}
+			
+}
+
+
+
 function sendBill(data){
 			var ajax = _ajax();
 			ajax.onreadystatechange = function() {

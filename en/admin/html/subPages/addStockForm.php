@@ -32,9 +32,15 @@ $item = $_GET['id'];
 			<input class="form-control" type="date"    onKeyPress="enterNext(event,'mfd')"  style="font-size: 20px;color: black;width: 200px" id="exDate" required>
 			
 			<label>MFD</label>
-			<input class="form-control" type="date"  style="font-size: 20px;color: black;width: 200px" id="mfd"  onKeyPress="enterNext(event,'bPrice')"  required>
+			<input class="form-control" type="date"  style="font-size: 20px;color: black;width: 200px" id="mfd"  onKeyPress="enterNext(event,'mPrice')"  required>
+			
+			
+			<label for="">Market Price</label>
+			<input class="form-control" type="number"   onKeyPress="enterNext(event,'bPrice')"  placeholder="Market Price" style="font-size: 20px;color: black;" id="mPrice" required>
 			<br>
-			<br>
+			
+			
+			
 			
 			<label for="">Buying Price</label>
 			<input class="form-control" type="number"   onKeyPress="enterNext(event,'sPrice')"  placeholder="Buying price" style="font-size: 20px;color: black;" id="bPrice" required>
