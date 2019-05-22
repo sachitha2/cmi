@@ -92,7 +92,7 @@ $DB->conn = $conn;
 		<div><textarea id="route" placeholder="Enter Route" class="form-control"></textarea></div>
 		
 		<div>your area</div>
-		<div><select name="area" id="area" class="form-control" >
+		<div><select name="area" id="area" class="form-control"  style="width: 200px">
 			<?php
 		$queryForSelection = $conn->query("SELECT * FROM area");
 		while ($row = mysqli_fetch_assoc($queryForSelection)) {
@@ -102,9 +102,9 @@ $DB->conn = $conn;
 
 		?>
 		</select></div>
-		<div>Agent name</div>
+		<div>Staf Agent name</div>
 		<div>
-			<select class="form-control" name="agent" id="agent">
+			<select class="form-control" name="agent" id="agent"  style="width: 200px">
 				<?php
 					$queryForAgentSelection = $conn->query("SELECT * FROM user WHERE type = 2 ;");
 					while ($rowAgent = mysqli_fetch_assoc($queryForAgentSelection)) {
@@ -114,6 +114,21 @@ $DB->conn = $conn;
 				?>
 			</select>
 		</div>
+		
+		<div>Agent name</div>
+		<div>
+			<select class="form-control" name="areaAgent" id="areaAgent"  style="width: 200px">
+				<?php
+					$queryForAgentSelection = $conn->query("SELECT * FROM agent");
+					while ($rowAgent = mysqli_fetch_assoc($queryForAgentSelection)) {
+
+						echo "<option value='{$rowAgent['id']}'>".$rowAgent['name']."</option>";
+					}
+				?>
+			</select>
+		</div>
+		
+		
 <!--
 		<div>Select Image</div>
 		<input id="inputFileToLoad" type="file" onchange="encodeImageFileAsURL();" />

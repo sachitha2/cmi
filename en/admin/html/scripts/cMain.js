@@ -72,6 +72,7 @@ function addAgent(){
 		agent.NIC = document.getElementById("aNIC").value;
 		agent.AreaId = document.getElementById("aArea").value;
 		agent.Address = document.getElementById("aAddress").value;
+		agent.tp = document.getElementById("aTp").value;
 		
 		console.log(agent);
 		
@@ -90,7 +91,11 @@ function addAgent(){
 		else if(agent.AreaId == 0){
 			msg("msg","Select a Area");
 			
-		}else{
+		}else if(agent.tp == ""){
+			msg("msg","Enter Agent Telephone Number");
+		}
+	
+		else{
 			msg("msg","");
 					///ajax part
 					loadingModal();
@@ -102,6 +107,7 @@ function addAgent(){
 							emt("aName");
 							emt("aAddress");
 							emt("aNIC");
+							emt("aTp");
 							///TODO area slector
 							hideModal();
            				}
@@ -181,13 +187,14 @@ function addCustomer(){
 	var date = year+"/"+months+"/"+day;
 	var agent = document.getElementById('agent').value;
 	
+	var areaAgent = document.getElementById('areaAgent').value;
 	///convertingimage in to base 64
 	
 	var image = "NULL";
 	
 	
 
-	data = {'name':name , 'address':address, 'nic':nic, 'tp':tp, 'area':area, 'date':date, 'agent':agent ,'dob':dob,'route':route,'image':image};
+	data = {'name':name , 'address':address, 'nic':nic, 'tp':tp, 'area':area, 'date':date, 'agent':agent ,'dob':dob,'route':route,'image':image,'areaAgent':areaAgent};
 		////Valida ting data 
 		msg = document.getElementById("msg");
 		if(name.length == "" ){

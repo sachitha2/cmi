@@ -19,6 +19,13 @@ $DB->conn = $conn;
 		<div>
 			<input type="text" name="aName" class="form-control" placeholder="Like  - Sachitha Hirushan" value="" id="aName">
 		</div>  
+		
+		<div>Agent Telephone Number</div>
+		<div>
+			<input type="text" name="aTp" class="form-control" placeholder="Like  - 0715591137" value="" id="aTp" maxlength="10">
+		</div>
+		
+		
 	<div>Agent NIC</div>
 		<div>
 			<input type="text" name="aNIC" class="form-control" placeholder="Like  -983142044v" value="" id="aNIC">

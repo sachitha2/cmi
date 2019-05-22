@@ -31,7 +31,10 @@ $agent = $DB->select("agent","");
 				?>
 			</select>
     	
+		<?php
+			print_r($agent);
 		
+		?>
 		
 	</div>
 	

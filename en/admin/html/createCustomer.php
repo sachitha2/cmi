@@ -21,7 +21,7 @@ if(isset($_GET['id'])){
 //		header("Location:insertcustomer.php?id={$nic}");
 //	}
 	else{
-		header("Location:insertcustomer.php?id=$nic");
+		header("Location:insertCustomer.php?id=$nic");
 	}
 
 	
