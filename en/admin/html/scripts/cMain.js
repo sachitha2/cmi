@@ -936,6 +936,14 @@ function enterfinishBill(e,cash) {
   }
 }
 
+function enterfinishBillCreditCustomer(e,cash){
+	if (e.which == 13) {
+  finishBillCreditCustomer(cash);
+  }
+}
+
+
+
 function enterAddArea(e) {
   area = document.getElementById("area").value;
   if (e.which == 13) {addArea(area); }
@@ -1661,7 +1669,7 @@ function finishBill(cash){
 }
 
 
-function finishBillCreditCustomer(cash){
+function finishBillCreditCustomer(cash,installments){
 //			alert("finish bill");
 	////get bill data json
 	if(cash != ""){
@@ -1673,9 +1681,9 @@ function finishBillCreditCustomer(cash){
 				}
 	  		}
 
-			ajax.open("POST", "../json/getBillData.json.php", true);
+			ajax.open("POST", "../json/getBillDataCreditCustomer.json.php", true);
 			ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-			ajax.send("cash="+cash);
+			ajax.send("cash="+cash+"&installments="+installments);
 	}else{
 		alert("Enter cash");
 	}

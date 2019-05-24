@@ -7,6 +7,20 @@ $DB->conn = $conn;
 $main = new Main;
 $totalId = round(microtime(true) * 1000);
 
+
+//get CID
+$cidSql = $DB->select("customer","WHERE nic like '{$_GET['idCard']}'","id");
+$cid = $cidSql[0]['id'];
+//print_r($cid);
+
+
+
+$sql = "INSERT INTO deals (id, date, time, fdate, ftime, tprice, rprice, status, ni, cid) VALUES ($totalId, curdate(), curtime(),curdate(), curtime(), '0', '0', '0', '4', '$cid');";
+
+
+
+
+
 if(isset($_SESSION['credit']['bill'])){
 	
 	
@@ -18,6 +32,11 @@ if(isset($_SESSION['credit']['bill'])){
 		$_SESSION['credit']['bill']['date'] = "2018-01-25";
 		$_SESSION['credit']['bill']['s'] = 1;
 		$tmpBillId = $_SESSION['credit']['bill']['id'];
+		
+		//Create a deal
+		$conn->query($sql);
+		
+		
 }
 
 }else{
@@ -27,6 +46,10 @@ if(isset($_SESSION['credit']['bill'])){
 	$_SESSION['credit']['bill']['date'] = "2018-01-25";
 	$_SESSION['credit']['bill']['s'] = 1;
 	$tmpBillId = $_SESSION['credit']['bill']['id'];
+	
+	
+	//Create a deal
+	$conn->query($sql);
 	
 }
 

@@ -20,13 +20,13 @@ $total = $DB->select("purchaseditems","where dealid = $tmpBillId","SUM(amount * 
 	
 	<br><br>
 	<h1>Number of Installments</h1>
-	<input type="number" value="4" placeholder="Enter Number of installments" class='form-control' style='width:300px;' >
+	<input type="number" value="4" id="install" placeholder="Enter Number of installments" class='form-control' style='width:300px;' >
 	
 	
 	
 	<h1><br>Cash </h1>
-	<input type='number' id='cash' autofocus  placeholder='Enter Cash' class='form-control' style='width:300px;' onKeyUp='fastCustomerBalance(event)'  onKeyPress="enterfinishBill(event,this.value)"
+	<input type='number' id='cash' autofocus  placeholder='Enter Cash' class='form-control' style='width:300px;' onKeyUp='fastCustomerBalance(event)'  onKeyPress="enterfinishBillCreditCustomer(event,this.value,install.value)"
 	><h1>Balance <strong id='balance'></strong></h1>
-	<button onclick='finishBill(cash.value)' class="btn btn-primary btn-lg">Finish Bill</button>
+	<button onclick='finishBillCreditCustomer(cash.value,install.value)' class="btn btn-primary btn-lg">Finish Bill</button>
 	<div id='out' ></div>
 </center>

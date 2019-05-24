@@ -72,15 +72,15 @@ if($str_arr[0] == "P" || $str_arr[0] == "p"){
 				foreach($arrPackItems as $dataPackItemsMain){
 					
 					$tmpQty = $dataPackItems['amount'] * $qty;
-					echo(".......................................................\n");
-					echo("tmp qty $tmpQty");
-					echo(".......................................................\n");
-					echo("");
-					echo(".......................................................\n");
-					echo("<br>");
-					print_r($dataPackItemsMain);
-					echo("<br>");
-					echo("item id - ".$dataPackItemsMain['itemid']);
+//					echo(".......................................................\n");
+//					echo("tmp qty $tmpQty");
+//					echo(".......................................................\n");
+//					echo("");
+//					echo(".......................................................\n");
+//					echo("<br>");
+//					print_r($dataPackItemsMain);
+//					echo("<br>");
+//					echo("item id - ".$dataPackItemsMain['itemid']);
 					
 					
 					
@@ -90,9 +90,9 @@ if($str_arr[0] == "P" || $str_arr[0] == "p"){
 						////////////////////////////////////////////////////
 						///First row enought START
 						////////////////////////////////////////////////////
-						echo("<br>");
-						echo("First row is enough ");
-						echo("<br>");
+//						echo("<br>");
+//						echo("First row is enough ");
+//						echo("<br>");
 						
 						
 						////update stock
@@ -128,7 +128,7 @@ if($str_arr[0] == "P" || $str_arr[0] == "p"){
 						////////////////////////////////////////////////////
 						
 					}else{
-						echo("first row is not enough");
+//						echo("first row is not enough");
 						//////////////////////////////////////////////////////
 						//////////////////////////////////////////////////////
 						//////////////////////////////////////////////////////
@@ -266,7 +266,7 @@ else if($str_arr[0] == "I" || $str_arr[0] == "i"){
 //		echo("item available");
 		/////checking stock availability 
 		$arrStockTotal = $DB->select("stock","WHERE itemid = $itemId AND status = 1 "," SUM(amount),SUM(ramount)");
-		print_r($arrStockTotal);
+//		print_r($arrStockTotal);
 		if($arrStockTotal[0]['SUM(ramount)'] >= $qty){
 			///////////////////////////////////////////////////
 			////OUT OF STOCK CHECKING START
@@ -275,7 +275,7 @@ else if($str_arr[0] == "I" || $str_arr[0] == "i"){
 			////Stock Available Start
 			///////////////////////////////////////////////////
 			$arrStockRowOne = $DB->select("stock","WHERE itemid = $itemId AND status = 1 ORDER BY stock.adate DESC");
-			echo($arrStockRowOne[0]['ramount']);
+//			echo($arrStockRowOne[0]['ramount']);
 			if($arrStockRowOne[0]['ramount'] >= $qty){
 				//////////////////////////////////
 				///First row is enough for the task START

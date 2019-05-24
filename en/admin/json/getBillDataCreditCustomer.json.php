@@ -7,10 +7,22 @@ if(isset($_POST['cash'])){
 $cash = $_POST['cash'];
 $DB = new DB;
 $DB->conn = $conn;
-if(isset($_SESSION['bill'])){
+if(isset($_SESSION['credit']['bill'])){
+	
+	///make installments
+		
+	
+	
+	
+	
+	///make installments
+	
+	
+	
+	
 //	echo("session available");
 	///bill id
-	$billid = $_SESSION['bill']['id'];
+	$billid = $_SESSION['credit']['bill']['id'];
 //	echo("<br>bill id $billid<br>");
 	$billData = $DB->select("purchaseditems","where dealid = $billid");
 //	print_r($billData);
@@ -38,7 +50,7 @@ if(isset($_SESSION['bill'])){
 	$arr['data']['mainData']['total'] = $total[0]['SUM(amount * uprice)'];
 	$arr['data']['mainData']['balance'] = $cash -  $total[0]['SUM(amount * uprice)'];
 	$json = json_encode($arr);
-	$_SESSION['bill']['s'] = 0;
+	$_SESSION['credit']['bill']['s'] = 0;
 	echo($json);
 }
 else{
