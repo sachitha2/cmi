@@ -101,7 +101,7 @@ if($str_arr[0] == "P" || $str_arr[0] == "p"){
 				
 						////update purchased items
 				
-						$sql = "INSERT INTO purchaseditems (id, dealid, itemid, amount, uprice, stockid, type) VALUES (NULL, '$billNumber', '".$dataPackItemsMain['itemid']."', '$tmpQty', '".$arrStockRowOne[0]['bprice']."', '".$arrStockRowOne[0]['id']."', '1');";
+						$sql = "INSERT INTO purchaseditems (id, dealid, itemid, amount, uprice, stockid, type,cc) VALUES (NULL, '$billNumber', '".$dataPackItemsMain['itemid']."', '$tmpQty', '".$arrStockRowOne[0]['bprice']."', '".$arrStockRowOne[0]['id']."', '1','2');";
 				
 						$conn->query($sql);
 				
@@ -155,7 +155,7 @@ if($str_arr[0] == "P" || $str_arr[0] == "p"){
 							$conn->query($sql);
 						
 							/////update customer bill side
-							$sql = "INSERT INTO purchaseditems (id, dealid, itemid, amount, uprice, stockid, type) VALUES (NULL, '$billNumber', '".$dataPackItemsMain['itemid']."', '$tmpQty', '".$dataMultipleAttempts['bprice']."', '".$dataMultipleAttempts['id']."', '1');";
+							$sql = "INSERT INTO purchaseditems (id, dealid, itemid, amount, uprice, stockid, type,cc) VALUES (NULL, '$billNumber', '".$dataPackItemsMain['itemid']."', '$tmpQty', '".$dataMultipleAttempts['bprice']."', '".$dataMultipleAttempts['id']."', '1','2');";
 				
 							$conn->query($sql);
 							$tmpQty = 0;
@@ -175,7 +175,7 @@ if($str_arr[0] == "P" || $str_arr[0] == "p"){
 							$conn->query($sql);
 							
 							//////update customer bill side
-							$sql = "INSERT INTO purchaseditems (id, dealid, itemid, amount, uprice, stockid, type) VALUES (NULL, '$billNumber', '".$dataPackItemsMain['itemid']."', '".$dataMultipleAttempts['ramount']."', '".$dataMultipleAttempts['bprice']."', '".$dataMultipleAttempts['id']."', '1');";
+							$sql = "INSERT INTO purchaseditems (id, dealid, itemid, amount, uprice, stockid, type,cc) VALUES (NULL, '$billNumber', '".$dataPackItemsMain['itemid']."', '".$dataMultipleAttempts['ramount']."', '".$dataMultipleAttempts['bprice']."', '".$dataMultipleAttempts['id']."', '1','2');";
 							$conn->query($sql);
 							
 							///updating stock status
@@ -287,7 +287,7 @@ else if($str_arr[0] == "I" || $str_arr[0] == "i"){
 				
 				////update purchased items
 				
-				$sql = "INSERT INTO purchaseditems (id, dealid, itemid, amount, uprice, stockid, type) VALUES (NULL, '$billNumber', '$itemId', '$qty', '".$arrStockRowOne[0]['bprice']."', '".$arrStockRowOne[0]['id']."', '2');";
+				$sql = "INSERT INTO purchaseditems (id, dealid, itemid, amount, uprice, stockid, type,cc) VALUES (NULL, '$billNumber', '$itemId', '$qty', '".$arrStockRowOne[0]['bprice']."', '".$arrStockRowOne[0]['id']."', '2','2');";
 				
 				$conn->query($sql);
 				
@@ -326,7 +326,7 @@ else if($str_arr[0] == "I" || $str_arr[0] == "i"){
 							$conn->query($sql);
 						
 							/////update customer bill side
-							$sql = "INSERT INTO purchaseditems (id, dealid, itemid, amount, uprice, stockid, type) VALUES (NULL, '$billNumber', '$itemId', '$qty', '".$dataMultipleAttempts['bprice']."', '".$dataMultipleAttempts['id']."', '2');";
+							$sql = "INSERT INTO purchaseditems (id, dealid, itemid, amount, uprice, stockid, type,cc) VALUES (NULL, '$billNumber', '$itemId', '$qty', '".$dataMultipleAttempts['bprice']."', '".$dataMultipleAttempts['id']."', '2','2');";
 				
 							$conn->query($sql);
 							$qty = 0;
@@ -346,7 +346,7 @@ else if($str_arr[0] == "I" || $str_arr[0] == "i"){
 							$conn->query($sql);
 							
 							//////update customer bill side
-							$sql = "INSERT INTO purchaseditems (id, dealid, itemid, amount, uprice, stockid, type) VALUES (NULL, '$billNumber', '$itemId', '".$dataMultipleAttempts['ramount']."', '".$dataMultipleAttempts['bprice']."', '".$dataMultipleAttempts['id']."', '2');";
+							$sql = "INSERT INTO purchaseditems (id, dealid, itemid, amount, uprice, stockid, type,cc) VALUES (NULL, '$billNumber', '$itemId', '".$dataMultipleAttempts['ramount']."', '".$dataMultipleAttempts['bprice']."', '".$dataMultipleAttempts['id']."', '2','2');";
 							$conn->query($sql);
 							
 							///updating stock status
