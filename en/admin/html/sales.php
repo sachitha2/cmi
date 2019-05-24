@@ -49,13 +49,11 @@ $main = new Main;
     <div ui-view class="app-body" id="view">
 		<?php $main->modal() ?>
       <!-- ############ PAGE START-->
-        <?php $main->head("Area") ?>
+        <?php $main->head("Sales") ?>
     <div class="container h-100" id="cStage">
-  			<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/addArea.php','cStage')">Add</button>
-     		<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/area.STE.php','cStage')">Edit</button>
-<!--     		<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/deleteArea.php','cStage')">Delete</button>-->
-     		<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/viewArea.php','cStage')">View</button>
-     	
+		<!--  	This is sales stage		-->
+			
+		<!--  	This is sales stage		-->
 	</div>
 
       <!-- ############ PAGE END-->
