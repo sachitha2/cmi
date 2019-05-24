@@ -8,7 +8,7 @@ $data = json_decode($data,true);
 //print_r($data);
 
 if($DB->nRow("agent"," WHERE nic LIKE '".$data['NIC']."'") == 0){
-	$sql = "INSERT INTO agent (id, name, nic, address, areaId) VALUES (NULL, '".$data['Name']."', '".$data['NIC']."', '".$data['Address']."', '".$data['AreaId']."');";
+	$sql = "INSERT INTO agent (id, name, nic, address, areaId,tp) VALUES (NULL, '".$data['Name']."', '".$data['NIC']."', '".$data['Address']."', '".$data['AreaId']."','{$data['tp']}');";
 	$conn->query($sql);
 	echo("done");
 }

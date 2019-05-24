@@ -1,45 +1,12 @@
 <?php
-require_once("db.php");
-require_once("../methods/DB.class.php");
 require_once("../methods/Main.class.php");
-$DB = new DB;
-$DB->conn = $conn;
 $main = new Main;
-
-if(isset($_GET['id'])){
-	$nic = $_GET['id'];
-	$sql = "SELECT * FROM customer WHERE nic LIKE '$nic'";
-	$query = $conn->query($sql);
-	$numberOfRow = mysqli_num_rows($query);
-	$numberOfid = strlen($nic);
-	echo $numberOfid;
-
-	if($numberOfRow == 1){
-		header("Location:viewCustomer.php?id=$nic");
-	}
-//	else if(($numberOfid == 10) || ($numberOfid == 12)){
-//		header("Location:insertcustomer.php?id={$nic}");
-//	}
-	else{
-		header("Location:insertCustomer.php?id=$nic");
-	}
-
-	
-
-
-}
-
-
-
 ?>
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>CMS - Customer</title>
+  <title>CMS - Area</title>
   <meta name="description" content="cms" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimal-ui" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -64,55 +31,30 @@ if(isset($_GET['id'])){
   <link rel="stylesheet" href="../assets/styles/app.css" type="text/css" />
   <!-- endbuild -->
   <link rel="stylesheet" href="../assets/styles/font.css" type="text/css" />
+   <script src="scripts/cMain.js"></script> 
 </head>
 <body>
+
   <div class="app" id="app">
 
 <!-- ############ LAYOUT START-->
 
-  <!-- aside -->
   <?php $main->menuBar() ?>
   <!-- / -->
   
   <!-- content -->
   <div id="content" class="app-content box-shadow-z0" role="main">
-    
     <?php $main->modal() ?> 
     <?php $main->topBar() ?>
     <div ui-view class="app-body" id="view">
-		
+		<?php $main->modal() ?>
       <!-- ############ PAGE START-->
-      	<?php $main->modal() ?>
-      <!-- ############ PAGE START-->
-        <?php $main->head("Customer") ?>
-	  <div class="container h-100" id="cStage">
- 			
-  			<form action="createCustomer.php" method="get">
-     
-      		<div class="form-group">
-        	<label for="formGroupExampleInput2">ENTER NIC</label>
-        	<input type="text" class="form-control"  name="id" id="nic" placeholder="Enter NIC" required="" list="customersList">
-        	
-			<datalist id="customersList">
-				
-    			<?php
-					$customer = $DB->select("customer","");
-					foreach($customer as $data){
-						?>
-						<option value="<?php echo($data['nic']) ?>"><?php echo($data['name']) ?><?php // $DB->getcustomerNameByStockId($data['id']) ?></option>
-						
-						<?php
-					}
-	
-				?>
-			</datalist>
-        	
-      		</div>
-      		<label id="msg"></label><br>
-      		<input type="submit"  class="btn btn-primary btn-lg" name="submit" value="Find">
-    	</form>
-	  </div>
-
+        <?php $main->head("Sales") ?>
+    <div class="container h-100" id="cStage">
+		<!--  	This is sales stage		-->
+			
+		<!--  	This is sales stage		-->
+	</div>
 
       <!-- ############ PAGE END-->
 
@@ -148,28 +90,13 @@ if(isset($_GET['id'])){
   <script src="scripts/ui-toggle-class.js"></script>
 
   <script src="scripts/app.js"></script>
-  <script src="scripts/cMain.js"></script>
+  
 
   <!-- ajax -->
   <script src="../libs/jquery/jquery-pjax/jquery.pjax.js"></script>
   <script src="scripts/ajax.js"></script>
 <!-- endbuild -->
-
+  
+  <script src="../libs/main.js"></script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

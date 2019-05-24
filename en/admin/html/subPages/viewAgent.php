@@ -46,7 +46,7 @@ $main->b("agent.php");
 					<td><?php echo($data['nic'])?></td>
 					<td><?php echo($data['address'])?></td>
 					<td><?php $DB->getAreaById($data['areaId'])?></td>
-					<td><button type="button" class="btn btn-md btn-primary" onClick="loadEditFormsArea(<?php echo($data['id']) ?>,81)">Edit</button></td>
+					<td><button type="button" class="btn btn-md btn-primary" onClick="loadEditFormsAgent(<?php echo($data['id']) ?>,81)">Edit</button></td>
 					<td><button onClick="delAgent(<?php echo($data['id']) ?>)" type="button" class="btn btn-md btn-danger ">X</button></td>
 					
 				</tr>
@@ -65,7 +65,7 @@ $main->b("agent.php");
   				
   			</div>
   			<div align="center">
-  				<button type="button" class="btn btn-primary btn-lg" onclick="ajaxCommonGetFromNet('subPages/addArea.php','cStage')">Add</button>	
+  				<button type="button" class="btn btn-primary btn-lg" onclick="ajaxCommonGetFromNet('subPages/addAgent.php','cStage')">Add</button>	
   			</div>
 		  <?php
 	  }

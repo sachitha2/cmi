@@ -15,7 +15,7 @@ $agent = $DB->select("agent","");
 //print_r($agent);
 ?>
 <?php $main->b("agent.php") ?>
-	<h2>Select a area to edit</h2>
+	<h2>Select a Agent to edit</h2>
 	
 	<div>
 		
@@ -31,7 +31,10 @@ $agent = $DB->select("agent","");
 				?>
 			</select>
     	
+		<?php
+//			print_r($agent);
 		
+		?>
 		
 	</div>
 	

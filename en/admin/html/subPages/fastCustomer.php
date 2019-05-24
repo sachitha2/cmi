@@ -18,6 +18,9 @@ if(isset($_SESSION['bill'])){
 		$_SESSION['bill']['date'] = "2018-01-25";
 		$_SESSION['bill']['s'] = 1;
 		$tmpBillId = $_SESSION['bill']['id'];
+		
+		
+		
 }
 
 }else{

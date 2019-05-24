@@ -72,6 +72,7 @@ function addAgent(){
 		agent.NIC = document.getElementById("aNIC").value;
 		agent.AreaId = document.getElementById("aArea").value;
 		agent.Address = document.getElementById("aAddress").value;
+		agent.tp = document.getElementById("aTp").value;
 		
 		console.log(agent);
 		
@@ -90,7 +91,11 @@ function addAgent(){
 		else if(agent.AreaId == 0){
 			msg("msg","Select a Area");
 			
-		}else{
+		}else if(agent.tp == ""){
+			msg("msg","Enter Agent Telephone Number");
+		}
+	
+		else{
 			msg("msg","");
 					///ajax part
 					loadingModal();
@@ -102,6 +107,7 @@ function addAgent(){
 							emt("aName");
 							emt("aAddress");
 							emt("aNIC");
+							emt("aTp");
 							///TODO area slector
 							hideModal();
            				}
@@ -181,13 +187,14 @@ function addCustomer(){
 	var date = year+"/"+months+"/"+day;
 	var agent = document.getElementById('agent').value;
 	
+	var areaAgent = document.getElementById('areaAgent').value;
 	///convertingimage in to base 64
 	
 	var image = "NULL";
 	
 	
 
-	data = {'name':name , 'address':address, 'nic':nic, 'tp':tp, 'area':area, 'date':date, 'agent':agent ,'dob':dob,'route':route,'image':image};
+	data = {'name':name , 'address':address, 'nic':nic, 'tp':tp, 'area':area, 'date':date, 'agent':agent ,'dob':dob,'route':route,'image':image,'areaAgent':areaAgent};
 		////Valida ting data 
 		msg = document.getElementById("msg");
 		if(name.length == "" ){
@@ -573,6 +580,9 @@ function addStock(amount,id,bPrice,sPrice,exDate,mfd){
 			vSPrice = document.getElementById("sPrice").value;
 			vEXDate = document.getElementById("exDate").value;
 			vmfd = document.getElementById("mfd").value;
+			mPrice = document.getElementById("mPrice").value;	
+				
+		
 	
 			if(vAmount == ""){
 				document.getElementById("msg").innerHTML = "Enter Amount";
@@ -606,7 +616,7 @@ function addStock(amount,id,bPrice,sPrice,exDate,mfd){
 					hideModal();
            		}
         	};
-        	xmlhttp.open("GET", "../workers/addStock.worker.php?amount="+amount+"&id="+id+"&bPrice="+bPrice+"&exDate="+exDate+"&sPrice="+sPrice+"&mfd="+mfd, true);//generating  get method link
+        	xmlhttp.open("GET", "../workers/addStock.worker.php?amount="+amount+"&id="+id+"&bPrice="+bPrice+"&exDate="+exDate+"&sPrice="+sPrice+"&mfd="+mfd+"&mPrice="+mPrice, true);//generating  get method link
         	xmlhttp.send();
 }
 }
@@ -629,7 +639,7 @@ function CheckCustomerForMakeBill(idCard){
 					console.log(this.responseText);
 					if(jsonData.s == 1){
 //						alert("next url");
-						creditCustomer();
+						creditCustomer(idCard);
 					}else{
 						msg("msg",jsonData.msg);
 					}
@@ -926,6 +936,14 @@ function enterfinishBill(e,cash) {
   }
 }
 
+function enterfinishBillCreditCustomer(e,cash,installment){
+	if (e.which == 13) {
+  finishBillCreditCustomer(cash,installment);
+  }
+}
+
+
+
 function enterAddArea(e) {
   area = document.getElementById("area").value;
   if (e.which == 13) {addArea(area); }
@@ -1170,7 +1188,7 @@ function fastCustomer(){
 }
 
 
-function creditCustomer(){
+function creditCustomer(idCard){
 	showModal();
 	var ajax = _ajax();
 		ajax.onreadystatechange = function() {
@@ -1185,7 +1203,7 @@ function creditCustomer(){
 			}
 	  }
 
-		ajax.open("POST", "subPages/creditCustomer.php", true);
+		ajax.open("POST", "subPages/creditCustomer.php?idCard="+idCard, true);
 		ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 		ajax.send();
 	
@@ -1649,6 +1667,48 @@ function finishBill(cash){
 	}
 			
 }
+
+
+function finishBillCreditCustomer(cash,installments){
+//			alert("finish bill");
+	////get bill data json
+	if(cash != ""){
+		var ajax = _ajax();
+			ajax.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+	    			alert(this.responseText);
+					sendCreditBill(this.responseText);
+				}
+	  		}
+
+			ajax.open("POST", "../json/getBillDataCreditCustomer.json.php", true);
+			ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+			ajax.send("cash="+cash+"&installments="+installments);
+	}else{
+		alert("Enter cash");
+	}
+			
+}
+
+///TODO
+function sendCreditBill(data){
+			var ajax = _ajax();
+			ajax.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+//	    			msg("out",this.responseText);
+				//setTimeout(fastCustomer,20000);	
+					ajaxCommonGetFromNet('subPages/sellCustomer.php','cStage');
+				}
+	  		}
+
+			ajax.open("GET", "http://localhost/CMIPrinter/example/interface/windows-usb.php?data="+data, true);
+			ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+			ajax.send();
+}
+
+
+
+
 function sendBill(data){
 			var ajax = _ajax();
 			ajax.onreadystatechange = function() {
