@@ -1677,7 +1677,7 @@ function finishBillCreditCustomer(cash,installments){
 			ajax.onreadystatechange = function() {
 				if (this.readyState == 4 && this.status == 200) {
 	    			//alert(this.responseText);
-					sendBill(this.responseText);
+					sendCreditBill(this.responseText);
 				}
 	  		}
 
@@ -1689,6 +1689,23 @@ function finishBillCreditCustomer(cash,installments){
 	}
 			
 }
+
+///TODO
+function sendCreditBill(data){
+			var ajax = _ajax();
+			ajax.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+//	    			msg("out",this.responseText);
+				//setTimeout(fastCustomer,20000);	
+					ajaxCommonGetFromNet('subPages/sellCustomer.php','cStage');
+				}
+	  		}
+
+			ajax.open("GET", "http://localhost/CMIPrinter/example/interface/windows-usb.php?data="+data, true);
+			ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+			ajax.send();
+}
+
 
 
 

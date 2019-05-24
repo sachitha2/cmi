@@ -25,6 +25,13 @@ if(isset($_SESSION['credit']['bill'])){
 	$billid = $_SESSION['credit']['bill']['id'];
 //	echo("<br>bill id $billid<br>");
 	$billData = $DB->select("purchaseditems","where dealid = $billid");
+	
+	//update status of deal
+	$dealSql = "UPDATE deals SET `status` = '1' WHERE deals.id = $billid;";
+	$conn->query($dealSql);
+	
+	
+	
 //	print_r($billData);
 	$arr['data']['mainData']['total'] = 0;
 	$arr['data']['mainData']['msg'] = "MSG here";

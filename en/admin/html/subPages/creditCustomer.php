@@ -63,11 +63,11 @@ if(isset($_SESSION['credit']['bill'])){
 	</div>
 	
 	<div style="width: 40%;height: 70% !important;background-color: ;height: 70%;float: left;color: black;" id="input">
-			<h1>Credit Customer</h1>
+			<h1>Credit Customer id</h1>
 			<input readonly type="text" value="<?php echo($_GET['idCard']) ?>" id="idCard"  class="form-control" >
+			<br>
 			
-			
-			<h1>Bill id <?php echo($tmpBillId) ?></h1>
+<!--			<h1>Bill id <?php echo($tmpBillId) ?></h1>-->
 			<div id="msg"></div>
 <!--		<input type="number" id="item"  class="form-control">-->
 			<?php //$DB->itemList($DB) ?>
@@ -99,9 +99,10 @@ if(isset($_SESSION['credit']['bill'])){
 			</datalist>
 			
 			
-			
+			<br>
 		<input type="number" id="qty" placeholder="QTY" class="form-control" onKeyPress="enterAdditemsToCreditCustomerBill(event,<?php echo($tmpBillId) ?>)">
-		<input type="button" value="Next" class="btn btn-primary btn-lg" style="width: 100%" onClick="additemsToCreditCustomerBill(<?php echo($tmpBillId) ?>)">
+		<br>
+		<input type="button" value="Next" class="btn btn-primary btn-lg" style="width: 100%" onClick="additemsToCreditCustomerBill(<?php echo($tmpBillId) ?>)"><br><br>
 		<?php 
 			
 			$total = $DB->select("purchaseditems","where dealid = $tmpBillId","SUM(amount * uprice)");
@@ -110,7 +111,11 @@ if(isset($_SESSION['credit']['bill'])){
 			
 		
 		?>
+		
 		<input type="button" value="Finish" class="btn btn-danger btn-lg" style="width: 100%" onClick="creditsCustomerFinish(<?php echo($total[0]['SUM(amount * uprice)']) ?>)">
+		<br>
+		<br>
+		<input type="button" value="Cancel"  class="btn btn-danger btn-lg" style="width: 100%" onClick="alert('Cancel function not available. remove items manualy from bill')">
 		
 	</div>
 	
