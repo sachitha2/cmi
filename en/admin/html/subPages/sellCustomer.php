@@ -23,3 +23,5 @@ $customer = $DB->select("customer","");
 				?>
 			</datalist>
 			<div id="msg"></div>
+			<br>
+			<input type="button" value="Next"  class="btn btn-primary btn-lg" onClick="CheckCustomerForMakeBill(idCard.value);">
