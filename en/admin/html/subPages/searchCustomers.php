@@ -1,5 +1,5 @@
 <?php 
-include("../db.php");
+require_once("../db.php");
 require_once("../../methods/Main.class.php");
 require_once("../../methods/DB.class.php");
 
@@ -7,7 +7,9 @@ $DB = new DB;
 $DB->conn = $conn;
 $areas = $DB->select('area', '');
 
-if(isset( $_POST['id'] or $_POST['name'] or $_POST['tp'] or $_POST['address'] or $_POST['regDate'] or  $_POST['nie'] or $_POST['area'] or $_POST['regDate'] ){
+if(isset( ($_POST['id']) || ($_POST['name']) || ($_POST['tp']) || ($_POST['address']) || ($_POST['regDate']) ||  ($_POST['nie']) || ($_POST['area']) || ($_POST['regDate'])))
+{
+
     $id = $_POST['id'];
     $name = $_POST['name'];
     $address = $_POST['address'];
@@ -16,8 +18,13 @@ if(isset( $_POST['id'] or $_POST['name'] or $_POST['tp'] or $_POST['address'] or
     $nie = $_POST['nie'];
     $tp = $_POST['tp'];
 
+$customers = $DB->select('customer', 'WHERE id LIKE %${$id}% AND name LIKE %{$name}% AND address LIKE %{$address}% AND tp LIKE %{$tp}% AND regDate LIKE %{$regDate}% AND nie LIKE %{$nie}% AND areaID LIKE %{$areaId}% ;');
+
+
 }
+
 ?>
+
 <form method="post">
     <div>ID :<input type="text" name="id"></div>
     <div>Name :<input type="text" name="name"></div>
@@ -42,3 +49,25 @@ if(isset( $_POST['id'] or $_POST['name'] or $_POST['tp'] or $_POST['address'] or
     <div><input type="submit" value="search customer"></div>
 
 </form>
+
+<div id="outPut">
+    <?php 
+    if(isset($customers)){
+        foreach($customers as $customer){
+            ?>
+
+   <a href="viewCustormer.php?id='<?php echo({$customer['id']}); ?>'"> 
+   
+   <table>
+        <tr>
+            <td><?php echo($customer['id']); ?></td>
+            <td><?php echo($customer['name']); ?></td>            
+        </tr>
+    </table>
+    </a>
+
+<?php
+        }
+    }
+ ?>
+</div>
