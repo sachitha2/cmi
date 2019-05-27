@@ -6,9 +6,11 @@ $DB = new DB;
 $main = new Main;
 $DB->conn = $conn;
 
-$nic = $_GET['nic'];
+$cid = $_GET['cid'];
 
-$customer = $DB->select("customer","where nic like '$nic';");
+//echo($cid);
+
+$customer = $DB->select("customer","where id like '$cid';");
 
 
 
