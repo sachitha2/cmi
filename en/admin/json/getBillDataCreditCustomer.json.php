@@ -9,8 +9,8 @@ $installments = $_POST['installments'];
 $DB = new DB;
 $DB->conn = $conn;
 	
-	
-	
+$timezone  = +5.30; 
+$date =  gmdate("Y-m-j", time() + 3600*($timezone+date("I")));
 	
 	
 if(isset($_SESSION['credit']['bill'])){
@@ -37,7 +37,7 @@ if(isset($_SESSION['credit']['bill'])){
 	$billData = $DB->select("purchaseditems","where dealid = $billid");
 	
 	//update status of deal
-	$dealSql = "UPDATE deals SET status = '1' WHERE deals.id = $billid;";
+	$dealSql = "UPDATE deals SET status = '0' WHERE deals.id = $billid;";
 	$conn->query($dealSql);
 	
 	//update purchaseditem table cc
@@ -58,16 +58,30 @@ if(isset($_SESSION['credit']['bill'])){
 	
 		$sqlFirstI = "INSERT INTO installment (id, dealid, installmentid, payment, time, date, rdate, status, rpayment, cid) VALUES (NULL, '$billid', '1', '$cash', curtime(), curdate(), curdate(), '1', '$cash', '{$cid[0]['cid']}');";
 		$conn->query($sqlFirstI);
+			
 	
+			$remain = $total[0]['SUM(amount * uprice)'] - $cash;
+	
+		//update deal data
+				$sqlDealData = "UPDATE deals SET tprice = '{$total[0]['SUM(amount * uprice)']}', rprice = '{$remain}' WHERE deals.id = $billid;";
+				$conn->query($sqlDealData);
+		//update deal data
+		
 	///make installments
 		$installments -= 1;
-		$remain = $total[0]['SUM(amount * uprice)'] - $cash;
+		
 		
 		$perOneI = $remain / $installments;
 	
 		for($x = 0;$x < $installments;$x++){
-			$sqlI = "INSERT INTO installment (id, dealid, installmentid, payment, time, date, rdate, status, rpayment, cid) VALUES (NULL, '$billid', '".($x + 2)."', '$perOneI', curtime(), curdate(), curdate(), '0', '0', '{$cid[0]['cid']}');";
+			
+			$days = (($x+1) * 7);
+			$iDate = 	date('Y-m-d', strtotime($date. ' + '.$days.'  days'));
+			
+			
+			$sqlI = "INSERT INTO installment (id, dealid, installmentid, payment, time, date, rdate, status, rpayment, cid) VALUES (NULL, '$billid', '".($x + 2)."', '$perOneI', curtime(), '$iDate', '0000-00-00' , '0', '0', '{$cid[0]['cid']}');";
 			$conn->query($sqlI);
+//			echo($sqlI);
 		}
 		
 	
