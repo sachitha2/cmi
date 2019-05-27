@@ -646,7 +646,8 @@ body{
   <!-- endbuild -->
   <link rel="stylesheet" href="../assets/styles/font.css" type="text/css" />
 </head>
-<body onLoad='ajaxCommonGetFromNet("subPages/customerBilling.php?nic=<?php echo($_GET['id']) ?>","customerStage");'>
+<body >
+<!-- onLoad='ajaxCommonGetFromNet("subPages/customerBilling.php?nic=<?php echo($_GET['id']) ?>","customerStage");'-->
   <div class="app" id="app">
 
 <!-- ############ LAYOUT START-->
@@ -691,9 +692,9 @@ body{
                     </div>
                     <nav class="side-menu">
                         <ul class="nav">
-                            <li onClick='ajaxCommonGetFromNet("subPages/customerProfile.php?nic=<?php echo($_GET['id']) ?>","customerStage");'><a href="#"><span class="fa fa-user"></span> Profile</a></li>
+                            <li onClick='ajaxCommonGetFromNet("subPages/customerProfile.php?cid=<?php echo($customer[0]['id']) ?>","customerStage");'><a href="#"><span class="fa fa-user"></span> Profile</a></li>
 <!--                            <li><a href="#"><span class="fa fa-cog"></span> Settings</a></li>-->
-                            <li onClick='ajaxCommonGetFromNet("subPages/customerBilling.php?nic=<?php echo($_GET['id']) ?>","customerStage");'><a href="#"><span class="fa fa-credit-card"></span> Billing</a></li>
+                            <li onClick='ajaxCommonGetFromNet("subPages/customerBilling.php?cid=<?php echo($customer[0]['id']) ?>","customerStage");'><a href="#"><span class="fa fa-credit-card"></span> Billing</a></li>
 <!--                            <li class="active" ><a href="#" ><span class="fa fa-envelope"></span> Messages</a></li>-->
 
 <!--                            <li><a href="user-drive.html"><span class="fa fa-th"></span> Drive</a></li>-->
