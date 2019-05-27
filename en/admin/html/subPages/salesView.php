@@ -27,7 +27,7 @@ if($DB->nRow("purchaseditems","") != 0){ ?>
     
     <?php
 	
-		$arr = $DB->select("purchaseditems","WHERE date = curdate()"," DISTINCT dealid , cc");
+		$arr = $DB->select("purchaseditems",""," DISTINCT dealid , cc");
 		
 //		print_r($arr);
 	
