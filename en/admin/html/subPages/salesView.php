@@ -1,0 +1,79 @@
+<?php
+
+require_once("../db.php");
+require_once("../../methods/DB.class.php");
+require_once("../../methods/Main.class.php");
+$main = new Main;
+$DB = new DB;
+$DB->conn = $conn;?>
+<?php $main->b("sales.php") ?>
+	
+	
+	
+<?php
+if($DB->nRow("purchaseditems","") != 0){ ?>
+
+<table class="table table-hover table-bordered table-striped table-dark">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col" width="10">ID</th>
+      <th scope="col">Deal ID</th>
+      <th scope="col">IID</th>
+      <th scope="col">Payment</th>
+      <th scope="col">RAmount</th>
+      <th scope="col">Date</th>
+      <th scope="col">Customer</th>
+      <th scope="col">Area</th>
+    </tr>
+  </thead>
+  <tbody>
+    
+    <?php
+	
+		$arr = $DB->select("purchaseditems","WHERE date = curdate()");
+		
+		print_r($arr);
+	
+	
+//		foreach($arr as $data){
+//	?>
+//			<tr>
+//				<td><?php echo($data['id']) ?></td>
+//				<td><?php echo($data['dealid']) ?></td>
+//				<td><?php echo($data['installmentid']) ?></td>
+//				<td><?php echo($data['payment']) ?></td>
+//				<td><input type="number" style="width: 100px;"></td>
+//				<td><?php echo($data['date']) ?></td>
+//				
+//				<?php
+//					$arrCustomerDetails = $DB->select("customer","WHERE id = ".$data['cid']);
+//			
+//					$customerName = $arrCustomerDetails[0]['name'];
+//					$arrAreaDetails = $DB->select("area","WHERE id = ".$arrCustomerDetails[0]['areaid']);
+//						
+//					$area = $arrAreaDetails[0]['name'];
+//						
+//				?>
+//				
+//				<td><?php echo $customerName ?></td>
+//				<td><?php echo $area ?></td>
+//			</tr>
+//				
+//		<?php
+//		}
+		?>
+  </tbody>
+</table>
+
+
+<?php	
+}
+else{
+?>
+			<div class="alert alert-danger" align="center">
+  				<strong>No Data Available!</strong>  <br>
+  				
+  			</div>
+<?php
+}
+?>
