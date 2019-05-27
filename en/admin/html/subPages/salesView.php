@@ -18,49 +18,67 @@ if($DB->nRow("purchaseditems","") != 0){ ?>
     <tr>
       <th scope="col" width="10">ID</th>
       <th scope="col">Deal ID</th>
-      <th scope="col">IID</th>
-      <th scope="col">Payment</th>
-      <th scope="col">RAmount</th>
-      <th scope="col">Date</th>
-      <th scope="col">Customer</th>
-      <th scope="col">Area</th>
+      <th scope="col">Items</th>
+      <th scope="col">Total</th>
+      <th scope="col">Status</th>
     </tr>
   </thead>
   <tbody>
     
     <?php
 	
-		$arr = $DB->select("purchaseditems","WHERE date = curdate()");
+		$arr = $DB->select("purchaseditems","WHERE date = curdate()"," DISTINCT dealid , cc");
 		
-		print_r($arr);
+//		print_r($arr);
 	
-	
-//		foreach($arr as $data){
-//	?>
-//			<tr>
-//				<td><?php echo($data['id']) ?></td>
-//				<td><?php echo($data['dealid']) ?></td>
-//				<td><?php echo($data['installmentid']) ?></td>
-//				<td><?php echo($data['payment']) ?></td>
-//				<td><input type="number" style="width: 100px;"></td>
-//				<td><?php echo($data['date']) ?></td>
-//				
-//				<?php
-//					$arrCustomerDetails = $DB->select("customer","WHERE id = ".$data['cid']);
-//			
-//					$customerName = $arrCustomerDetails[0]['name'];
-//					$arrAreaDetails = $DB->select("area","WHERE id = ".$arrCustomerDetails[0]['areaid']);
-//						
-//					$area = $arrAreaDetails[0]['name'];
-//						
-//				?>
-//				
-//				<td><?php echo $customerName ?></td>
-//				<td><?php echo $area ?></td>
-//			</tr>
-//				
-//		<?php
-//		}
+		$x = 1;
+		foreach($arr as $data){
+	?>
+			<tr
+				<?php if($data['cc'] == 2){
+					echo("class='bg-info'");
+		
+				} ?>
+			>
+				<td><?php echo($x) ?></td>
+				<td><?php echo($data['dealid']) ?></td>
+				<td>
+					
+					<?php 
+							echo($DB->nRow("purchaseditems","where dealid = {$data['dealid']}"));
+					?>
+					
+					
+				</td>
+				<td>
+					
+					<?php
+						$total = $DB->select("purchaseditems","where dealid = {$data['dealid']}","SUM(amount*uprice) AS total");
+//						print_r($total);
+						echo($total[0]['total']);							
+			
+					?>
+					
+				</td>
+				<td>
+				
+					<?php
+						if($data['cc'] == 2){
+							echo("CASH");
+						}else{
+							echo("CREDIT");
+						}
+					
+					?>
+				
+				
+				</td>
+				
+			</tr>
+				
+		<?php
+			$x++;
+		}
 		?>
   </tbody>
 </table>
