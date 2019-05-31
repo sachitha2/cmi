@@ -6,33 +6,38 @@ require_once("../../methods/DB.class.php");
 $DB = new DB;
 $DB->conn = $conn;
 $areas = $DB->select('area', '');
-
-if(isset( ($_POST['id']) || ($_POST['name']) || ($_POST['tp']) || ($_POST['address']) || ($_POST['regDate']) ||  ($_POST['nie']) || ($_POST['area']) || ($_POST['regDate'])))
-{
-
-    $id = $_POST['id'];
-    $name = $_POST['name'];
-    $address = $_POST['address'];
-    $areaId = $_POST['area'];
-    $regDate = $_POST['regDate'];
-    $nie = $_POST['nie'];
-    $tp = $_POST['tp'];
-
-$customers = $DB->select('customer', 'WHERE id LIKE %${$id}% AND name LIKE %{$name}% AND address LIKE %{$address}% AND tp LIKE %{$tp}% AND regDate LIKE %{$regDate}% AND nie LIKE %{$nie}% AND areaID LIKE %{$areaId}% ;');
-
-
-}
-
 ?>
+    <script type="text/javascript">
+	function _ajax() {
+		var xmlhttp;
+		try{
+		   // Opera 8.0+, Firefox, Safari
+		   xmlhttp = new XMLHttpRequest();
+		 }catch (e){
+		   // Internet Explorer Browsers
+		   try{
+		      xmlhttp = new ActiveXObject("Msxml2.XMLHTTP");
+		   }catch (e) {
+		      try{
+		         xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+		      }catch (e){
+		         // Something went wrong
+		         alert("Your browser broke or older! UPDATE the browser to continue.");
+		         return false;
+		      }
+		   }
+ 		}
+ 		return xmlhttp;
+	}
+</script>
 
-<form method="post">
-    <div>ID :<input type="text" name="id"></div>
-    <div>Name :<input type="text" name="name"></div>
-    <div>Tp number :<input type="text" name="tp"></div>
-    <div>Address :<input type="text" name="address"></div>
-    <div>Reg Date : <input type="text" name="regDate"></div>
-    <div>NIE : <input type="text" name="nie"></div>
-    <div><select name="area">
+    <div>ID :<input type="text" name="id" id="id"></div>
+    <div>Name :<input type="text" name="name" id="name"></div>
+    <div>Tp number :<input type="text" name="tp" id="tp"></div>
+    <div>Address :<input type="text" name="address" id="address"></div>
+    <div>Reg Date : <input type="date" name="regDate" id="regDate"></div>
+    <div>NIE : <input type="text" name="nie" id="nie"></div>
+    <div><select name="area" id="area">
         <?php 
         foreach ( $areas as $area ){
             $name = $area['name'];
@@ -46,28 +51,42 @@ $customers = $DB->select('customer', 'WHERE id LIKE %${$id}% AND name LIKE %{$na
         }
         ?>
     </select></div>
-    <div><input type="submit" value="search customer"></div>
+    <div><button onclick="searchCustomers();">Search </button></div>
 
-</form>
+
 
 <div id="outPut">
-    <?php 
-    if(isset($customers)){
-        foreach($customers as $customer){
-            ?>
-
-   <a href="viewCustormer.php?id='<?php echo({$customer['id']}); ?>'"> 
-   
-   <table>
-        <tr>
-            <td><?php echo($customer['id']); ?></td>
-            <td><?php echo($customer['name']); ?></td>            
-        </tr>
-    </table>
-    </a>
-
-<?php
-        }
-    }
- ?>
+    
 </div>
+
+<script type="text/javascript">
+		function searchCustomers(){
+		
+		var id = document.getElementById('id').value;
+		var name = document.getElementById('name').value;
+		var regDate = document.getElementById('regDate').value;
+		var addresss = document.getElementById('address').value;
+		var tp = document.getElementById('tp').value;
+
+
+
+
+		
+		data = { 'id' :id, 'nie':nie, 'regDate':regDate, 'name':name, 'address': address, 'tp':tp };
+		
+		var ajax = _ajax();
+		ajax.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+	    alert(this.responseText);
+				
+			}
+	  }
+
+		ajax.open("POST", "ajaxSearchCustomer.php", true);
+		ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		ajax.send("data="+(JSON.stringify(data)));
+		
+		}
+    </script>
+    
+    <?php $conn->close();
