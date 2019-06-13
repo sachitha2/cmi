@@ -910,6 +910,23 @@ function enterAddExpenses(e,costTypeid){
 	}
 }
 
+///this is installment collect
+function enterAddAgentInstallmentCollect(e) {
+  if (e.which == 13) {alert("Helloo"); 
+					 //send data to installment collect Start
+					  ///TODO
+					  
+					  
+					  
+					  
+					 //send data to installment collect End
+					 
+					 }
+}
+///this is installment collect
+
+
+
 function enterAddAgent(e) {
   if (e.which == 13) {addAgent(); }
 }
