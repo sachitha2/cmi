@@ -11,7 +11,7 @@ $DB->conn = $conn;?>
 	
 	
 <?php
-if($DB->nRow("purchaseditems",""," DISTINCT dealid , cc") != 0){ ?>
+if($DB->nRow("purchaseditems","where date = curdate()"," DISTINCT dealid , cc") != 0){ ?>
 
 <table class="table table-hover table-bordered table-striped table-dark">
   <thead class="thead-dark">
@@ -28,7 +28,7 @@ if($DB->nRow("purchaseditems",""," DISTINCT dealid , cc") != 0){ ?>
     
     <?php
 	
-		$arr = $DB->select("purchaseditems",""," DISTINCT dealid , cc");
+		$arr = $DB->select("purchaseditems","where date = curdate()"," DISTINCT dealid , cc");
 		
 //		print_r($arr);
 	
