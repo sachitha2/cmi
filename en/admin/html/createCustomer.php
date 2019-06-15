@@ -5,7 +5,7 @@ require_once("../methods/Main.class.php");
 $DB = new DB;
 $DB->conn = $conn;
 $main = new Main;
-
+$x = "";
 if(isset($_GET['nic'])){
 	$nic = $_GET['nic'];
 	$sql = "SELECT * FROM customer WHERE nic LIKE '$nic'";
@@ -15,13 +15,10 @@ if(isset($_GET['nic'])){
 	echo $numberOfid;
 
 	if($numberOfRow == 1){
-		header("Location:viewCustomer.php?id=$nic");
+		header("Location:viewCustomer.php?nic=$nic");
 	}
-//	else if(($numberOfid == 10) || ($numberOfid == 12)){
-//		header("Location:insertcustomer.php?id={$nic}");
-//	}
 	else{
-		header("Location:insertCustomer.php?id=$nic");
+		header("Location:insertCustomer.php?nic=$nic");
 	}
 
 	
@@ -36,13 +33,10 @@ if(isset($_GET['nic'])){
 	echo $numberOfid;
 
 	if($numberOfRow == 1){
-		header("Location:viewCustomer.php?id=$cid");
+		header("Location:viewCustomer.php?cid=$cid");
 	}
-//	else if(($numberOfid == 10) || ($numberOfid == 12)){
-//		header("Location:insertcustomer.php?id={$nic}");
-//	}
 	else{
-		header("Location:insertCustomer.php?id=$nic");
+		$x = "User Not Available <br> Add a new one";
 	}
 }
 
@@ -154,7 +148,7 @@ if(isset($_GET['nic'])){
 			</datalist>
         	
       		</div>
-      		<label id="msg"></label><br>
+      		<label id="msg"> <?php echo($x) ?></label><br>
       		<input type="submit"  class="btn btn-primary btn-lg" name="submit" value="Find">
     	</form>
     	
