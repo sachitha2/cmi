@@ -80,7 +80,7 @@ $DB->conn = $conn;
 		<div>Address</div>
 		<div><input type="text" class="form-control" name="address" id="address" placeholder="Enter Address"></div>
 		<div>NIC</div>
-		<div><input type="text" class="form-control" name="nic" id="nic" value="<?php echo $_GET['id']; ?>" readonly></div>
+		<div><input type="text" class="form-control" name="nic" id="nic" value="<?php echo $_GET['nic']; ?>" readonly></div>
 		<div>Telephone</div>
 		<div><input type="text" class="form-control" name="tp" id="tp" placeholder="Enter Telephone Number"></div>
 		
@@ -118,6 +118,7 @@ $DB->conn = $conn;
 		<div>Agent name</div>
 		<div>
 			<select class="form-control" name="areaAgent" id="areaAgent"  style="width: 200px">
+				<option value='0'>NO</option>
 				<?php
 					$queryForAgentSelection = $conn->query("SELECT * FROM agent");
 					while ($rowAgent = mysqli_fetch_assoc($queryForAgentSelection)) {

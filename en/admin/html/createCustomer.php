@@ -6,20 +6,27 @@ $DB = new DB;
 $DB->conn = $conn;
 $main = new Main;
 $x = "";
+$y = "";
 if(isset($_GET['nic'])){
 	$nic = $_GET['nic'];
-	$sql = "SELECT * FROM customer WHERE nic LIKE '$nic'";
-	$query = $conn->query($sql);
-	$numberOfRow = mysqli_num_rows($query);
-	$numberOfid = strlen($nic);
-	echo $numberOfid;
+	
+	if($nic != "0000000000"){
+		$sql = "SELECT * FROM customer WHERE nic LIKE '$nic'";
+		$query = $conn->query($sql);
+		$numberOfRow = mysqli_num_rows($query);
+		$numberOfid = strlen($nic);
+		echo $numberOfid;
 
-	if($numberOfRow == 1){
-		header("Location:viewCustomer.php?nic=$nic");
+		if($numberOfRow == 1){
+			header("Location:viewCustomer.php?nic=$nic");
+		}
+		else{
+			header("Location:insertCustomer.php?nic=$nic");
+		}
+	}else{
+		$y = "Invalid Id Card Number";
 	}
-	else{
-		header("Location:insertCustomer.php?nic=$nic");
-	}
+	
 
 	
 
@@ -109,17 +116,20 @@ if(isset($_GET['nic'])){
     			<?php
 					$customer = $DB->select("customer","");
 					foreach($customer as $data){
-						?>
+						if($data['nic'] != "0000000000"){
+							?>
 						<option value="<?php echo($data['nic']) ?>"><?php echo($data['name']) ?><?php // $DB->getcustomerNameByStockId($data['id']) ?></option>
 						
 						<?php
+						}
+						
 					}
 	
 				?>
 			</datalist>
         	
       		</div>
-      		<label id="msg"></label><br>
+      		<label id="msg"><?php echo($y) ?></label><br>
       		<input type="submit"  class="btn btn-primary btn-lg" name="submit" value="Find">
     	</form>
     	
