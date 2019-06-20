@@ -49,7 +49,7 @@ $DB->conn = $conn;?>
 					<td><?php echo($data['nic']) ?></td>
 					<td><?php $DB->getAreaById($data['areaid'])?></td>
 <!--					<td><?php echo($data['dob'])?></td>-->
-					<td><a href="viewCustomer.php?id=<?php echo($data['nic']) ?>"><button class="btn btn-md btn-primary">More</button></a></td>
+					<td><a href="viewCustomer.php?cid=<?php echo($data['id']) ?>"><button class="btn btn-md btn-primary">More</button></a></td>
 
 					<td><button type="button" class="btn btn-md btn-primary">Edit</button></td>
 					<td><button onClick="delCustomer(<?php echo($data['id']) ?>)" type="button" class="btn btn-md btn-danger ">X</button></td>

@@ -5,28 +5,46 @@ require_once("../methods/Main.class.php");
 $DB = new DB;
 $DB->conn = $conn;
 $main = new Main;
+$x = "";
+$y = "";
+if(isset($_GET['nic'])){
+	$nic = $_GET['nic'];
+	
+	if($nic != "0000000000"){
+		$sql = "SELECT * FROM customer WHERE nic LIKE '$nic'";
+		$query = $conn->query($sql);
+		$numberOfRow = mysqli_num_rows($query);
+		$numberOfid = strlen($nic);
+		echo $numberOfid;
 
-if(isset($_GET['id'])){
-	$nic = $_GET['id'];
-	$sql = "SELECT * FROM customer WHERE nic LIKE '$nic'";
-	$query = $conn->query($sql);
-	$numberOfRow = mysqli_num_rows($query);
-	$numberOfid = strlen($nic);
-	echo $numberOfid;
-
-	if($numberOfRow == 1){
-		header("Location:viewCustomer.php?id=$nic");
+		if($numberOfRow == 1){
+			header("Location:viewCustomer.php?nic=$nic");
+		}
+		else{
+			header("Location:insertCustomer.php?nic=$nic");
+		}
+	}else{
+		$y = "Invalid Id Card Number";
 	}
-//	else if(($numberOfid == 10) || ($numberOfid == 12)){
-//		header("Location:insertcustomer.php?id={$nic}");
-//	}
-	else{
-		header("Location:insertCustomer.php?id=$nic");
-	}
+	
 
 	
 
 
+}else if(isset($_GET['cid'])){
+	$cid = $_GET['cid'];
+	$sql = "SELECT * FROM customer WHERE id = $cid";
+	$query = $conn->query($sql);
+	$numberOfRow = mysqli_num_rows($query);
+	$numberOfid = strlen($cid);
+	echo $numberOfid;
+
+	if($numberOfRow == 1){
+		header("Location:viewCustomer.php?cid=$cid");
+	}
+	else{
+		$x = "User Not Available <br> Add a new one";
+	}
 }
 
 
@@ -91,15 +109,47 @@ if(isset($_GET['id'])){
      
       		<div class="form-group">
         	<label for="formGroupExampleInput2">ENTER NIC</label>
-        	<input type="text" class="form-control"  name="id" id="nic" placeholder="Enter NIC" required="" list="customersList">
+        	<input type="text" class="form-control"  name="nic" id="nic" placeholder="Enter NIC" required="" list="customersList">
         	
 			<datalist id="customersList">
 				
     			<?php
 					$customer = $DB->select("customer","");
 					foreach($customer as $data){
-						?>
+						if($data['nic'] != "0000000000"){
+							?>
 						<option value="<?php echo($data['nic']) ?>"><?php echo($data['name']) ?><?php // $DB->getcustomerNameByStockId($data['id']) ?></option>
+						
+						<?php
+						}
+						
+					}
+	
+				?>
+			</datalist>
+        	
+      		</div>
+      		<label id="msg"><?php echo($y) ?></label><br>
+      		<input type="submit"  class="btn btn-primary btn-lg" name="submit" value="Find">
+    	</form>
+    	
+    	
+    	<!---This is find customer by customer id-->
+    	<br>
+    	<br>
+    	<form action="createCustomer.php" method="get">
+     
+      		<div class="form-group">
+        	<label for="formGroupExampleInput2">ENTER Customer Id</label>
+        	<input type="text" class="form-control"  name="cid" id="cid" placeholder="Enter Customer Id" required="" list="customersListCID">
+        	
+			<datalist id="customersListCID">
+				
+    			<?php
+					$customer = $DB->select("customer","");
+					foreach($customer as $data){
+						?>
+						<option value="<?php echo($data['id']) ?>"><?php echo($data['name']) ?><?php // $DB->getcustomerNameByStockId($data['id']) ?></option>
 						
 						<?php
 					}
@@ -108,9 +158,10 @@ if(isset($_GET['id'])){
 			</datalist>
         	
       		</div>
-      		<label id="msg"></label><br>
+      		<label id="msg"> <?php echo($x) ?></label><br>
       		<input type="submit"  class="btn btn-primary btn-lg" name="submit" value="Find">
     	</form>
+    	
 	  </div>
 
 

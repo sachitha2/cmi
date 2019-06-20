@@ -18,9 +18,11 @@ if($DB->nRow("installment","") != 0){ ?>
     <tr>
       <th scope="col" width="10">ID</th>
       <th scope="col">Deal ID</th>
-      <th scope="col">Installment ID</th>
+      <th scope="col">CID</th>
+      <th scope="col">IID</th>
       <th scope="col">Payment</th>
-      <th scope="col">Date</th>
+      <th scope="col">RAmount</th>
+      <th scope="col">Due Date</th>
       <th scope="col">Customer</th>
       <th scope="col">Area</th>
     </tr>
@@ -29,15 +31,17 @@ if($DB->nRow("installment","") != 0){ ?>
     
     <?php
 	
-		$arr = $DB->select("installment","WHERE status = 0 && date = CURDATE()");
+		$arr = $DB->select("installment","WHERE status = 0 ORDER BY installment.date ASC");
 	
 		foreach($arr as $data){
 	?>
 			<tr>
 				<td><?php echo($data['id']) ?></td>
 				<td><?php echo($data['dealid']) ?></td>
+				<td><?php echo($data['cid']) ?></td>
 				<td><?php echo($data['installmentid']) ?></td>
 				<td><?php echo($data['payment']) ?></td>
+				<td><input type="number" style="width: 100px;" onKeyPress="enterAddAgentInstallmentCollect(event)"></td>
 				<td><?php echo($data['date']) ?></td>
 				
 				<?php

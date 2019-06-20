@@ -6,7 +6,7 @@ $main = new Main;
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>CMS - Area</title>
+  <title>CMS - Sales</title>
   <meta name="description" content="cms" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimal-ui" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -52,7 +52,12 @@ $main = new Main;
         <?php $main->head("Sales") ?>
     <div class="container h-100" id="cStage">
 		<!--  	This is sales stage		-->
-			
+			<button type="button" class="btn btn-primary btn-lg" onclick="ajaxCommonGetFromNet('subPages/salesView.php','cStage')">View</button>
+			<button type="button" class="btn btn-primary btn-lg" onclick="">Today</button>
+			<button type="button" class="btn btn-primary btn-lg" onclick=""> Week</button>
+			<button type="button" class="btn btn-primary btn-lg" onclick=""> Month</button>
+			<button type="button" class="btn btn-primary btn-lg" onclick=""> Custome Dates</button>
+			<button type="button" class="btn btn-primary btn-lg" onclick="">Search</button>
 		<!--  	This is sales stage		-->
 	</div>
 

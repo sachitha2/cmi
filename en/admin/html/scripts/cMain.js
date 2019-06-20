@@ -232,6 +232,76 @@ function addCustomer(){
 			}
 }
 
+
+function addCustomerWithoutAIdCardN(){
+	
+	var name = document.getElementById('name').value;
+	var address = document.getElementById('address').value;
+	
+	var dob = document.getElementById('dob').value;
+	var route = document.getElementById('route').value;
+	
+	
+	
+	
+	var tp = document.getElementById('tp').value;
+	var area = document.getElementById('area').value;
+	var d = new Date();
+	var year = d.getFullYear().toString();
+	var month =  d.getMonth() + 1;
+	var months = month.toString();
+	var day = d.getDate().toString();
+	var date = year+"/"+months+"/"+day;
+	var agent = document.getElementById('agent').value;
+	
+	var areaAgent = document.getElementById('areaAgent').value;
+	///convertingimage in to base 64
+	
+	var image = "NULL";
+	
+	
+
+	data = {'name':name , 'address':address,  'tp':tp, 'area':area, 'date':date, 'agent':agent ,'dob':dob,'route':route,'image':image,'areaAgent':areaAgent};
+		////Valida ting data 
+		msg = document.getElementById("msg");
+		if(name.length == "" ){
+			msg.innerHTML = "Insert name"
+		}
+		
+		else if(address.length == ""){
+			msg.innerHTML = " Insert Address"
+		}
+		else if(tp.length != 10){
+			msg.innerHTML = " Insert Telephone number"
+		}
+		else{
+			
+			msg.innerHTML = "";
+			var ajax = _ajax();
+			ajax.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+	    		alert(this.responseText);
+					json = JSON.parse(this.responseText);
+					console.log(json);
+//				emt("name");
+//				emt("address");
+////				emt("nic");
+//				emt("tp");
+//				emt("route");
+					ajaxCommonGetFromNet('subPages/uploadImageForCustomer.php?id='+json.id,'cStage');
+//				window.location.assign('createCustomer.php');
+//				msg.innerHTML = " Account Created successfully"
+				}
+	  		}
+
+			ajax.open("POST", "../workers/customerInsertWithOutAIdCardN.worker.php", true);
+			ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+			ajax.send("data="+(JSON.stringify(data)));
+		
+			}
+}
+
+
 function additemsToFastCustomerBill(billId){
 	
 	
@@ -909,6 +979,23 @@ function enterAddExpenses(e,costTypeid){
 		addExpenses(costTypeid);
 	}
 }
+
+///this is installment collect
+function enterAddAgentInstallmentCollect(e) {
+  if (e.which == 13) {alert("Helloo"); 
+					 //send data to installment collect Start
+					  ///TODO
+					  
+					  
+					  
+					  
+					 //send data to installment collect End
+					 
+					 }
+}
+///this is installment collect
+
+
 
 function enterAddAgent(e) {
   if (e.which == 13) {addAgent(); }

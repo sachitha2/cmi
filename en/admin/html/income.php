@@ -50,7 +50,16 @@ $main = new Main;
 
       <!-- ############ PAGE START-->
 	 	<?php $main->head("Income") ?>
-
+		<div class="container h-100" id="cStage">
+    		<button type="button" class="btn btn-primary btn-lg" onclick="ajaxCommonGetFromNet('subPages/incomTodayView.php','cStage')"> Today </button>
+    		<button type="button" class="btn btn-primary btn-lg" onclick=""> Week </button>
+			<button type="button" class="btn btn-primary btn-lg" onclick=""> Month</button>
+			<button type="button" class="btn btn-primary btn-lg" onclick=""> Year</button>
+			<button type="button" class="btn btn-primary btn-lg" onclick=""> Custom</button>
+			<button type="button" class="btn btn-primary btn-lg" onclick=""> Search</button>
+		</div>
+     
+     	
       <!-- ############ PAGE END-->
 
     </div>

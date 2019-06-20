@@ -677,7 +677,14 @@ body{
                 <div class="side-bar">
                     <div class="user-info">
                        	<?php
-							$customer = $DB->select("customer","WHERE nic LIKE '{$_GET['id']}' ");
+	
+							if(isset($_GET['nic'])){
+								$customer = $DB->select("customer","WHERE nic LIKE '{$_GET['nic']}' ");
+							}
+							 else if(isset($_GET['cid'])){
+								 $customer = $DB->select("customer","WHERE id = {$_GET['cid']} ");
+							 }
+							
 							
 						?>
                        
