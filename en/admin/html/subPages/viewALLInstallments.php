@@ -5,13 +5,28 @@ require_once("../../methods/DB.class.php");
 require_once("../../methods/Main.class.php");
 $main = new Main;
 $DB = new DB;
-$DB->conn = $conn;?>
+$DB->conn = $conn;
+	$search = $_GET['search'];
+	if($search == "all"){
+		$sql = "WHERE status = 0 ORDER BY installment.date ASC";
+	}else if($search == "today"){
+		$sql = "WHERE date = curdate() AND status = 0 ORDER BY installment.date ASC";
+	}else if($search == "week"){
+		$sql = "WHERE WEEK(date) = WEEK(curdate()) AND MONTH(date) = MONTH(curdate()) AND YEAR(date) = YEAR(curdate()) AND status = 0 ORDER BY installment.date ASC";
+	}else if($search == "month"){
+		$sql = "WHERE  MONTH(date) = MONTH(curdate()) AND YEAR(date) = YEAR(curdate()) AND status = 0 ORDER BY installment.date ASC";
+	}else if($search == "area"){
+		$sql = "WHERE  MONTH(date) = MONTH(curdate()) AND YEAR(date) = YEAR(curdate()) AND status = 0 ORDER BY installment.date ASC";
+	}
+?>
 <?php $main->b("installments.php") ?>
 	
-	
+<div class="card-header" style="padding-bottom: 10px;padding-top: 10px;margin-bottom: 5px;margin-top: 20px;text-transform: uppercase">
+     <center><h1 class="my-0 font-weight-normal text-info">SALES - <?php echo($search) ?></h1></center>
+</div>
 	
 <?php
-if($DB->nRow("installment","") != 0){ ?>
+if($DB->nRow("installment",$sql) != 0){ ?>
 
 <table class="table table-hover table-bordered table-striped table-dark">
   <thead class="thead-dark">
@@ -31,7 +46,7 @@ if($DB->nRow("installment","") != 0){ ?>
     
     <?php
 	
-		$arr = $DB->select("installment","WHERE status = 0 ORDER BY installment.date ASC");
+		$arr = $DB->select("installment",$sql);
 	
 		foreach($arr as $data){
 	?>

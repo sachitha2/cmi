@@ -1864,6 +1864,17 @@ function creditsCustomerFinish(){
 			ajax.send();
 }
 
+function selectAreaToViewInstallments(value){
+		if(value != ""){
+			
+			ajaxCommonGetFromNet("subPages/viewAllInstallments.php?search=area&id="+value,"cStage");
+		}else{
+			msg("msg","Enter a area");
+		}
+		
+		
+	}
+
 //image uploading part
 
 $(document).ready(function(){

@@ -49,8 +49,13 @@ $main = new Main;
     	<?php $main->head("Installments") ?>
 	<div class="container h-100" id="cStage">
       <!-- ############ PAGE START-->
-      <button type="button" class="btn btn-primary btn-lg" onclick="ajaxCommonGetFromNet('subPages/viewALLInstallments.php','cStage')">View</button>
-		
+      <button type="button" class="btn btn-primary btn-lg" onclick="ajaxCommonGetFromNet('subPages/viewALLInstallments.php?search=all','cStage')">View</button>
+			<button type="button" class="btn btn-primary btn-lg" onclick="ajaxCommonGetFromNet('subPages/viewALLInstallments.php?search=today','cStage')">Today</button>
+			<button type="button" class="btn btn-primary btn-lg" onclick="ajaxCommonGetFromNet('subPages/viewALLInstallments.php?search=week','cStage')"> This Week</button>
+			<button type="button" class="btn btn-primary btn-lg" onclick="ajaxCommonGetFromNet('subPages/viewALLInstallments.php?search=month','cStage')"> Month</button>
+			<button type="button" class="btn btn-primary btn-lg" onclick="ajaxCommonGetFromNet('subPages/selectAreaToViewInstallments.php','cStage')"> Area</button>
+			<button type="button" class="btn btn-primary btn-lg" onclick="alert('under construction')"> Custome Dates</button>
+			<button type="button" class="btn btn-primary btn-lg" onclick="alert('under construction')">Search</button>
       <!-- ############ PAGE END-->
 	</div>
     </div>

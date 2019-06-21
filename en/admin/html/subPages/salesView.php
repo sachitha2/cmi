@@ -9,6 +9,7 @@ $DB->conn = $conn;?>
 <?php 
 
 	$main->b("sales.php");
+
 	$search = $_GET['search'];
 	if($search == "all"){
 		$sql = "";
