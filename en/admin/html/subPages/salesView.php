@@ -6,12 +6,28 @@ require_once("../../methods/Main.class.php");
 $main = new Main;
 $DB = new DB;
 $DB->conn = $conn;?>
-<?php $main->b("sales.php") ?>
+<?php 
+
+	$main->b("sales.php");
+	$search = $_GET['search'];
+	if($search == "all"){
+		$sql = "";
+	}else if($search == "today"){
+		$sql = "WHERE date = curdate()";
+	}else if($search == "week"){
+		$sql = "WHERE WEEK(date) = WEEK(curdate()) AND MONTH(date) = MONTH(curdate()) AND YEAR(date) = YEAR(curdate())";
+	}else if($search == "month"){
+		$sql = "WHERE  MONTH(date) = MONTH(curdate()) AND YEAR(date) = YEAR(curdate())";
+	}
+	$col = "DISTINCT dealid , cc";
+?>
 	
 	
-	
+<div class="card-header" style="padding-bottom: 10px;padding-top: 10px;margin-bottom: 5px;margin-top: 20px;text-transform: uppercase">
+     <center><h1 class="my-0 font-weight-normal text-info">SALES - <?php echo($search) ?></h1></center>
+</div>	
 <?php
-if($DB->nRow("purchaseditems",""," DISTINCT dealid , cc") != 0){ ?>
+if($DB->nRow("purchaseditems",$sql,$col) != 0){ ?>
 
 <table class="table table-hover table-bordered table-striped table-dark">
   <thead class="thead-dark">
@@ -28,7 +44,7 @@ if($DB->nRow("purchaseditems",""," DISTINCT dealid , cc") != 0){ ?>
     
     <?php
 	
-		$arr = $DB->select("purchaseditems",""," DISTINCT dealid , cc");
+		$arr = $DB->select("purchaseditems",$sql,$col);
 		
 //		print_r($arr);
 	
