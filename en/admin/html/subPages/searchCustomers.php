@@ -68,8 +68,7 @@ $areas = $DB->select('area', '');
 		var addresss = document.getElementById('address').value;
 		var tp = document.getElementById('tp').value;
 
-
-
+		if(id.length != 0 || name.length != 0 || regDate.length != 0 || addresss.length != 0 || tp.length != 0 ){
 
 		
 		data = { 'id' :id, 'nie':nie, 'regDate':regDate, 'name':name, 'address': address, 'tp':tp };
@@ -77,7 +76,7 @@ $areas = $DB->select('area', '');
 		var ajax = _ajax();
 		ajax.onreadystatechange = function() {
 			if (this.readyState == 4 && this.status == 200) {
-	    alert(this.responseText);
+				document.getElementById("").innerHTML = this.responseText;
 				
 			}
 	  }
@@ -85,6 +84,14 @@ $areas = $DB->select('area', '');
 		ajax.open("POST", "ajaxSearchCustomer.php", true);
 		ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 		ajax.send("data="+(JSON.stringify(data)));
+		
+		}
+		else{
+			document.getElementById("outPut") = 'Please fill the forum';
+		}
+
+
+		
 		
 		}
     </script>
