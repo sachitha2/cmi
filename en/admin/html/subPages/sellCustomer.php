@@ -33,7 +33,7 @@ $customer = $DB->select("customer","");
 			
 			<!---///TODO--->
 			<h1>Select Customer From CID</h1>
-			<input list="cids" name="color" id="cid" class="form-control" style="width: 200px" onKeyPress="enterCheckCustomerForMakeBill(event,this.value)">
+			<input list="cids" name="color" id="CID" class="form-control" style="width: 200px" onKeyPress="enterCheckCustomerForMakeBill(event,this.value)">
 			<datalist id="cids">
 				
     			<?php
@@ -46,6 +46,6 @@ $customer = $DB->select("customer","");
 	
 				?>
 			</datalist>
-			<div id="msg"></div>
+			<div id="msg2"></div>
 			<br>
-			<input type="button" value="Next"  class="btn btn-primary btn-lg" onClick="CheckCustomerForMakeBill(idCard.value);">
+			<input type="button" value="Next"  class="btn btn-primary btn-lg" onClick="CheckCustomerForMakeBillCID(CID.value);">

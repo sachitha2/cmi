@@ -10,8 +10,13 @@ $postData = json_decode($_POST['data'], true);
 
 
 //print_r($postData);
+if($postData['idCard'] != ""){
+	$sql = "WHERE nic LIKE '".$postData['idCard']."'";
+}else{
+	$sql = "WHERE id = ".$postData['CID']."";
+}
 
-$sql = "WHERE nic LIKE '".$postData['idCard']."'";
+
 
 if($DB->nRow("customer",$sql) == 1){
 	
