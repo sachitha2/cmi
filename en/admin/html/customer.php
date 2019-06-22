@@ -100,8 +100,6 @@ $main = new Main;
 	  <?php $main->head("Customer") ?>
     <div class="container h-100" id="cStage">
     		
-    			
-    		
     		<center> 
 				<a href="createCustomer.php"><button type="button" class="btn btn-primary btn-lg"  style="width: 40%;margin-bottom: 5px;">Find</button></a>
 				<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/addACustomer.php','cStage')"  style="width: 40%;margin-bottom: 5px;">Add</button>
@@ -111,8 +109,6 @@ $main = new Main;
 				<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/searchCustomers.php','cStage')"  style="width: 40%;margin-bottom: 5px;">Search</button>
     		</center>
     		
-  			
-     		
      		<div class="card-header" style="padding-bottom: 10px;padding-top: 10px;margin-top: 20px;">
         			<center><h1 class="my-0 font-weight-normal text-info">Customers - Area </h1></center>
       		</div>
