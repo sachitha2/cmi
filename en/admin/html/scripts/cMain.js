@@ -1874,7 +1874,16 @@ function selectAreaToViewInstallments(value){
 		
 		
 	}
-
+function selectAreaAgentToViewInstallments(value){
+		if(value != ""){
+			
+			ajaxCommonGetFromNet("subPages/viewAllInstallments.php?search=area_agent&id="+value,"cStage");
+		}else{
+			msg("msg","Enter a area agent");
+		}
+		
+		
+	}
 //image uploading part
 
 $(document).ready(function(){

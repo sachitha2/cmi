@@ -54,6 +54,7 @@ $main = new Main;
 			<button type="button" class="btn btn-primary btn-lg" onclick="ajaxCommonGetFromNet('subPages/viewALLInstallments.php?search=week','cStage')"> This Week</button>
 			<button type="button" class="btn btn-primary btn-lg" onclick="ajaxCommonGetFromNet('subPages/viewALLInstallments.php?search=month','cStage')"> Month</button>
 			<button type="button" class="btn btn-primary btn-lg" onclick="ajaxCommonGetFromNet('subPages/selectAreaToViewInstallments.php','cStage')"> Area</button>
+			<button type="button" class="btn btn-primary btn-lg" onclick="ajaxCommonGetFromNet('subPages/selectAreaAgentToViewInstallments.php','cStage')"> Area Agent</button>
 			<button type="button" class="btn btn-primary btn-lg" onclick="alert('under construction')"> Custome Dates</button>
 			<button type="button" class="btn btn-primary btn-lg" onclick="alert('under construction')">Search</button>
       <!-- ############ PAGE END-->
