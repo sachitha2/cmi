@@ -49,14 +49,18 @@ $main = new Main;
     	<?php $main->head("Installments") ?>
 	<div class="container h-100" id="cStage">
       <!-- ############ PAGE START-->
-      <button type="button" class="btn btn-primary btn-lg" onclick="ajaxCommonGetFromNet('subPages/viewALLInstallments.php?search=all','cStage')">View</button>
-			<button type="button" class="btn btn-primary btn-lg" onclick="ajaxCommonGetFromNet('subPages/viewALLInstallments.php?search=today','cStage')">Today</button>
-			<button type="button" class="btn btn-primary btn-lg" onclick="ajaxCommonGetFromNet('subPages/viewALLInstallments.php?search=week','cStage')"> This Week</button>
-			<button type="button" class="btn btn-primary btn-lg" onclick="ajaxCommonGetFromNet('subPages/viewALLInstallments.php?search=month','cStage')"> Month</button>
-			<button type="button" class="btn btn-primary btn-lg" onclick="ajaxCommonGetFromNet('subPages/selectAreaToViewInstallments.php','cStage')"> Area</button>
-			<button type="button" class="btn btn-primary btn-lg" onclick="ajaxCommonGetFromNet('subPages/selectAreaAgentToViewInstallments.php','cStage')"> Area Agent</button>
-			<button type="button" class="btn btn-primary btn-lg" onclick="alert('under construction')"> Custome Dates</button>
-			<button type="button" class="btn btn-primary btn-lg" onclick="alert('under construction')">Search</button>
+      <center>
+      		<button type="button" class="btn btn-primary btn-lg " onclick="ajaxCommonGetFromNet('subPages/viewALLInstallments.php?search=all','cStage')" style="width: 40%;margin-bottom: 5px;">View</button>
+			<button type="button" class="btn btn-primary btn-lg" onclick="ajaxCommonGetFromNet('subPages/viewALLInstallments.php?search=today','cStage')" style="width: 40%;margin-bottom: 5px;">Today</button>
+			<button type="button" class="btn btn-primary btn-lg" onclick="ajaxCommonGetFromNet('subPages/viewALLInstallments.php?search=week','cStage')" style="width: 40%;margin-bottom: 5px;">This Week</button>
+			<button type="button" class="btn btn-primary btn-lg" onclick="ajaxCommonGetFromNet('subPages/viewALLInstallments.php?search=month','cStage')" style="width: 40%;margin-bottom: 5px;">Month</button>
+			<button type="button" class="btn btn-primary btn-lg" onclick="ajaxCommonGetFromNet('subPages/selectAreaToViewInstallments.php','cStage')" style="width: 40%;margin-bottom: 5px;">Area</button>
+			<button type="button" class="btn btn-primary btn-lg" onclick="ajaxCommonGetFromNet('subPages/selectAreaAgentToViewInstallments.php','cStage')" style="width: 40%;margin-bottom: 5px;">Area Agent</button>
+			<button type="button" class="btn btn-primary btn-lg " onclick="ajaxCommonGetFromNet('subPages/selectStaffAgentToViewInstallments.php','cStage')" style="width: 40%;margin-bottom: 5px;">Staff Agent</button>
+			<button type="button" class="btn btn-primary btn-lg" onclick="alert('under construction')" style="width: 40%;margin-bottom: 5px;">Custome Dates</button>
+			<button type="button" class="btn btn-primary btn-lg" onclick="alert('under construction')" style="width: 40%;margin-bottom: 5px;">Search</button>
+      </center>
+      		
       <!-- ############ PAGE END-->
 	</div>
     </div>

@@ -51,12 +51,14 @@ $main = new Main;
       <!-- ############ PAGE START-->
 	 	<?php $main->head("Income") ?>
 		<div class="container h-100" id="cStage">
-    		<button type="button" class="btn btn-primary btn-lg" onclick="ajaxCommonGetFromNet('subPages/incomTodayView.php','cStage')"> Today </button>
-    		<button type="button" class="btn btn-primary btn-lg" onclick=""> Week </button>
-			<button type="button" class="btn btn-primary btn-lg" onclick=""> Month</button>
-			<button type="button" class="btn btn-primary btn-lg" onclick=""> Year</button>
-			<button type="button" class="btn btn-primary btn-lg" onclick=""> Custom</button>
-			<button type="button" class="btn btn-primary btn-lg" onclick=""> Search</button>
+    		<center>
+				<button type="button" class="btn btn-primary btn-lg" onclick="ajaxCommonGetFromNet('subPages/incomTodayView.php','cStage')"  style="width: 40%;margin-bottom: 5px;"> Today </button>
+				<button type="button" class="btn btn-primary btn-lg" onclick=""  style="width: 40%;margin-bottom: 5px;"> Week </button>
+				<button type="button" class="btn btn-primary btn-lg" onclick=""  style="width: 40%;margin-bottom: 5px;"> Month</button>
+				<button type="button" class="btn btn-primary btn-lg" onclick=""  style="width: 40%;margin-bottom: 5px;"> Year</button>
+				<button type="button" class="btn btn-primary btn-lg" onclick=""  style="width: 40%;margin-bottom: 5px;"> Custom</button>
+				<button type="button" class="btn btn-primary btn-lg" onclick=""  style="width: 40%;margin-bottom: 5px;"> Search</button>
+    		</center>
 		</div>
      
      	

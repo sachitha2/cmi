@@ -375,7 +375,7 @@ class Main{
 	}
 	public function head($title){
 		?>
-		<div class="card-header" style="margin-bottom: 5px;margin-top: 5px;position: sticky;top: 50px;z-index: 10">
+		<div class="card-header" style="margin-bottom: 5px;margin-top: 5px;position: sticky;top: 50px;z-index: 10;text-transform: uppercase">
         	<center><h1 class="my-0 font-weight-normal text-info" ><?php echo($title) ?></h1></center>
       	</div>
 		<?php

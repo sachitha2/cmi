@@ -8,6 +8,7 @@ $DB = new DB;
 $DB->conn = $conn;
 	$search = $_GET['search'];
 	$areaName = "";
+	$areaAgent = "";
 	if($search == "all"){
 		$sql = "WHERE status = 0 ORDER BY installment.date ASC";
 	}else if($search == "today"){
@@ -24,12 +25,15 @@ $DB->conn = $conn;
 		$sql = "WHERE status = 0  ORDER BY installment.date ASC";
 	}else if($search == "area_agent"){
 		$sql = "WHERE status = 0  ORDER BY installment.date ASC";
+		$agentArr = $DB->select("agent","WHERE id = {$_GET['id']}");
+		
+		$areaAgent = $agentArr[0]['name'];
 	}
 ?>
 <?php $main->b("installments.php") ?>
 	
 <div class="card-header" style="padding-bottom: 10px;padding-top: 10px;margin-bottom: 5px;margin-top: 20px;text-transform: uppercase">
-     <center><h1 class="my-0 font-weight-normal text-info">SALES - <?php echo($search." ".$areaName) ?> </h1></center>
+     <center><h1 class="my-0 font-weight-normal text-info">SALES - <?php echo($search." ".$areaName." ".$areaAgent) ?> </h1></center>
 </div>
 	
 <?php
