@@ -6,7 +6,7 @@ $main = new Main;
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>CMS - Income</title>
+  <title>CMS - Orders</title>
   <meta name="description" content="cms" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimal-ui" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -31,37 +31,30 @@ $main = new Main;
   <link rel="stylesheet" href="../assets/styles/app.css" type="text/css" />
   <!-- endbuild -->
   <link rel="stylesheet" href="../assets/styles/font.css" type="text/css" />
+   <script src="scripts/cMain.js"></script> 
 </head>
 <body>
+
   <div class="app" id="app">
 
 <!-- ############ LAYOUT START-->
 
-  <?php $main->menuBar()  ?>
+  <?php $main->menuBar() ?>
   <!-- / -->
   
   <!-- content -->
   <div id="content" class="app-content box-shadow-z0" role="main">
-    
-   
     <?php $main->modal() ?> 
     <?php $main->topBar() ?>
     <div ui-view class="app-body" id="view">
-
+		<?php $main->modal() ?>
       <!-- ############ PAGE START-->
-	 	<?php $main->head("Income") ?>
-		<div class="container h-100" id="cStage">
-    		<center>
-				<button type="button" class="btn btn-primary btn-lg" onclick="ajaxCommonGetFromNet('subPages/incomTodayView.php','cStage')"  style="width: 40%;margin-bottom: 5px;"> Today </button>
-				<button type="button" class="btn btn-primary btn-lg" onclick=""  style="width: 40%;margin-bottom: 5px;"> Week </button>
-				<button type="button" class="btn btn-primary btn-lg" onclick=""  style="width: 40%;margin-bottom: 5px;"> Month</button>
-				<button type="button" class="btn btn-primary btn-lg" onclick=""  style="width: 40%;margin-bottom: 5px;"> Year</button>
-				<button type="button" class="btn btn-primary btn-lg" onclick=""  style="width: 40%;margin-bottom: 5px;"> Custom</button>
-				<button type="button" class="btn btn-primary btn-lg" onclick=""  style="width: 40%;margin-bottom: 5px;"> Search</button>
-    		</center>
-		</div>
-     
+        <?php $main->head("Orders") ?>
+    <div class="container h-100" id="cStage">
+  			This page is under construction
      	
+	</div>
+
       <!-- ############ PAGE END-->
 
     </div>
@@ -96,11 +89,13 @@ $main = new Main;
   <script src="scripts/ui-toggle-class.js"></script>
 
   <script src="scripts/app.js"></script>
-  <script src="scripts/cMain.js"></script>
+  
 
   <!-- ajax -->
   <script src="../libs/jquery/jquery-pjax/jquery.pjax.js"></script>
   <script src="scripts/ajax.js"></script>
 <!-- endbuild -->
+  
+  <script src="../libs/main.js"></script>
 </body>
 </html>

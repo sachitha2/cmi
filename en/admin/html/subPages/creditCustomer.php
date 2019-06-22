@@ -9,7 +9,7 @@ $totalId = round(microtime(true) * 1000);
 
 
 //get CID
-$cidSql = $DB->select("customer","WHERE nic like '{$_GET['idCard']}'","id");
+$cidSql = $DB->select("customer","WHERE id = {$_GET['cid']}","id");
 $cid = $cidSql[0]['id'];
 //print_r($cid);
 
@@ -64,7 +64,7 @@ if(isset($_SESSION['credit']['bill'])){
 	
 	<div style="width: 40%;height: 70% !important;background-color: ;height: 70%;float: left;color: black;" id="input">
 			<h1>Credit Customer id</h1>
-			<input readonly type="text" value="<?php echo($_GET['idCard']) ?>" id="idCard"  class="form-control" >
+			<input readonly type="text" value="<?php echo($_GET['cid']) ?>" id="idCard"  class="form-control" >
 			<br>
 			
 <!--			<h1>Bill id <?php echo($tmpBillId) ?></h1>-->

@@ -698,7 +698,7 @@ function CheckCustomerForMakeBill(idCard){
 			if(idCard != ""){
 				
 				
-				data = { 'idCard':idCard };
+				data = { 'idCard':idCard,'CID':"" };
 		
 				var ajax = _ajax();
 				ajax.onreadystatechange = function() {
@@ -724,6 +724,37 @@ function CheckCustomerForMakeBill(idCard){
 			}
 			}
 
+
+function CheckCustomerForMakeBillCID(CID){
+			
+			if(CID != ""){
+				
+				
+				data = { 'CID':CID,'idCard':"" };
+		
+				var ajax = _ajax();
+				ajax.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+//	   	 			alert(this.responseText);
+					emt("CID");
+					jsonData = JSON.parse(this.responseText);
+					console.log(this.responseText);
+					if(jsonData.s == 1){
+//						alert("next url");
+						creditCustomer(CID);
+					}else{
+						msg("msg2",jsonData.msg);
+					}
+				}
+	  			}
+
+				ajax.open("POST", "../workers/checkCustomerForMakeBill.worker.php", true);
+				ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+				ajax.send("data="+(JSON.stringify(data)));
+			}else{
+				msg("msg2","Enter CID Number");
+			}
+			}
 ////check customer for make bill
 ////Item
 function addItem(){
@@ -1275,7 +1306,7 @@ function fastCustomer(){
 }
 
 
-function creditCustomer(idCard){
+function creditCustomer(cid){
 	showModal();
 	var ajax = _ajax();
 		ajax.onreadystatechange = function() {
@@ -1290,7 +1321,7 @@ function creditCustomer(idCard){
 			}
 	  }
 
-		ajax.open("POST", "subPages/creditCustomer.php?idCard="+idCard, true);
+		ajax.open("POST", "subPages/creditCustomer.php?cid="+cid, true);
 		ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 		ajax.send();
 	
@@ -1833,6 +1864,26 @@ function creditsCustomerFinish(){
 			ajax.send();
 }
 
+function selectAreaToViewInstallments(value){
+		if(value != ""){
+			
+			ajaxCommonGetFromNet("subPages/viewAllInstallments.php?search=area&id="+value,"cStage");
+		}else{
+			msg("msg","Enter a area");
+		}
+		
+		
+	}
+function selectAreaAgentToViewInstallments(value){
+		if(value != ""){
+			
+			ajaxCommonGetFromNet("subPages/viewAllInstallments.php?search=area_agent&id="+value,"cStage");
+		}else{
+			msg("msg","Enter a area agent");
+		}
+		
+		
+	}
 //image uploading part
 
 $(document).ready(function(){

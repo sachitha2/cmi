@@ -53,10 +53,13 @@ $main = new Main;
       <!-- ############ PAGE START-->
       	<?php $main->head("User") ?>
     <div class="container h-100" id="cStage">
-  			<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/createUser.php','cStage')">Add</button>
-     		<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/user.STE.php','cStage')">Edit</button>
-<!--     		<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/deleteArea.php','cStage')">Delete</button>-->
-     		<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/viewUsers.php','cStage')">View</button>
+    		<center>
+				<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/createUser.php','cStage')"  style="width: 40%;margin-bottom: 5px;">Add</button>
+				<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/user.STE.php','cStage')"  style="width: 40%;margin-bottom: 5px;">Edit</button>
+	<!--     		<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/deleteArea.php','cStage')">Delete</button>-->
+				<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/viewUsers.php','cStage')"  style="width: 40%;margin-bottom: 5px;">View</button>
+    		</center>
+  			
      		
 	</div>
       <!-- ############ PAGE END-->

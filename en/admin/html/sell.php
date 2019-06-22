@@ -51,8 +51,10 @@ $main = new Main;
       <!-- ############ PAGE START-->
     	<h1>Sales</h1>
     <div class="container h-100" id="cStage">
-  			<button  type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/sellCustomer.php','cStage')">Credit</button>
-  			<button  type="button" class="btn btn-primary btn-lg" onClick="fastCustomer()">Cash</button>
+  			<center>
+  				<button  type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/sellCustomer.php','cStage')" style="width: 40%;margin-bottom: 5px;">Credit</button>
+  				<button  type="button" class="btn btn-primary btn-lg" onClick="fastCustomer()" style="width: 40%;margin-bottom: 5px;">Cash</button>
+  			</center>
 	</div>
 
       <!-- ############ PAGE END-->

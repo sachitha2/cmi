@@ -52,12 +52,14 @@ $main = new Main;
         <?php $main->head("Sales") ?>
     <div class="container h-100" id="cStage">
 		<!--  	This is sales stage		-->
-			<button type="button" class="btn btn-primary btn-lg" onclick="ajaxCommonGetFromNet('subPages/salesView.php','cStage')">View</button>
-			<button type="button" class="btn btn-primary btn-lg" onclick="">Today</button>
-			<button type="button" class="btn btn-primary btn-lg" onclick=""> Week</button>
-			<button type="button" class="btn btn-primary btn-lg" onclick=""> Month</button>
-			<button type="button" class="btn btn-primary btn-lg" onclick=""> Custome Dates</button>
-			<button type="button" class="btn btn-primary btn-lg" onclick="">Search</button>
+			<center>
+				<button type="button" class="btn btn-primary btn-lg" onclick="ajaxCommonGetFromNet('subPages/salesView.php?search=all','cStage')"  style="width: 40%;margin-bottom: 5px;">View</button>
+				<button type="button" class="btn btn-primary btn-lg" onclick="ajaxCommonGetFromNet('subPages/salesView.php?search=today','cStage')"  style="width: 40%;margin-bottom: 5px;">Today</button>
+				<button type="button" class="btn btn-primary btn-lg" onclick="ajaxCommonGetFromNet('subPages/salesView.php?search=week','cStage')"  style="width: 40%;margin-bottom: 5px;"> This Week</button>
+				<button type="button" class="btn btn-primary btn-lg" onclick="ajaxCommonGetFromNet('subPages/salesView.php?search=month','cStage')"  style="width: 40%;margin-bottom: 5px;"> Month</button>
+				<button type="button" class="btn btn-primary btn-lg" onclick="alert('under construction')"  style="width: 40%;margin-bottom: 5px;"> Custome Dates</button>
+				<button type="button" class="btn btn-primary btn-lg" onclick="alert('under construction')"  style="width: 40%;margin-bottom: 5px;">Search</button>
+			</center>
 		<!--  	This is sales stage		-->
 	</div>
 
