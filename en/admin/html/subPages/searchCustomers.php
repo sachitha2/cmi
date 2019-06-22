@@ -1,3 +1,4 @@
+
 <?php 
 require_once("../db.php");
 require_once("../../methods/Main.class.php");
@@ -97,3 +98,4 @@ $areas = $DB->select('area', '');
     </script>
     
     <?php $conn->close();
+

@@ -8,11 +8,11 @@ $postData = json_decode($_POST['data'], true);
 $itemId = $postData['itemId'];
 $qty = $postData['qty'];
 $billNumber = $postData['billNumber'];
-echo($billNumber);
+//echo($billNumber);
 /////Selecting the pack and item from input
 // use of explode 
 $str_arr = explode ("-",$postData['itemId']);
-print_r($str_arr);
+//print_r($str_arr);
 $itemId = $str_arr[1];
 if($str_arr[0] == "P" || $str_arr[0] == "p"){
 	/////This is pack
@@ -21,34 +21,219 @@ if($str_arr[0] == "P" || $str_arr[0] == "p"){
 		////////////////////////////////
 		///Pack available START
 		////////////////////////////////
+			$packSize = $DB->nRow("packitems","where pid = $itemId");
+//			echo("<br>");
+//			echo("Pack Size ".$packSize);
+//			echo("<br>");
 		
-		if($DB->nRow("packitems","where pid = $itemId") != 0){
+		if($packSize != 0){
 			///////////////////////////////////////////////////////////
 			///Pack Items available START
 			///////////////////////////////////////////////////////////
-			echo("Pack items  available");
+//			echo("Pack items  available");
 			
 			$arrPackItems = $DB->select("packitems","where pid = $itemId");
 //			print_r($arrPackItems);
-			
-			$packItemsInStock = false;
+			$packItemsInStock = 0;
 			foreach($arrPackItems as $dataPackItems){
 				$stockItemsForPack = $DB->select("stock","WHERE itemid = ".$dataPackItems['itemid']." AND status = 1 "," SUM(amount),SUM(ramount)");
-				
-				if($stockItemsForPack[0]['SUM(amount)'] == "" || $stockItemsForPack[0]['SUM(amount)'] < $dataPackItems['amount'] * $qty){
-					echo("empty");
-					$packItemsInStock = false;
-					break;
+//				print_r($stockItemsForPack);
+//				echo($dataPackItems['amount'] * $qty);
+				if( $stockItemsForPack[0]['SUM(ramount)'] >= $dataPackItems['amount'] * $qty){
+//					echo("<br>");
+//					echo("stock amount ".$stockItemsForPack[0]['SUM(amount)']);
+//					echo("<br>");
+					
+					$packItemsInStock++;
 				}
-				echo("<br>");
-				print_r($stockItemsForPack);
-				echo("<br>");
+				
 				
 			}
-			if($packItemsInStock == false){
-				echo("Pack Items not available in the stock");
+			if($packItemsInStock != $packSize){
+				?>
+				<div class="alert alert-danger">
+  					<strong>!</strong> Pack Items Not Available in Stock </div>
+				<?php
 			}else{
-				////TODO
+//				echo("TODO Main");
+				///////////////////////////////////////////////////////////
+				///////////////////////////////////////////////////////////
+				///////////////////////////////////////////////////////////
+				///////////////////////////////////////////////////////////
+				///////////////////////////////////////////////////////////
+				///////////////////////////////////////////////////////////
+				///TODO 
+				///TODO
+				///TODO
+				///TODO
+				///TODO
+				
+				$arrPackItems = $DB->select("packitems","where pid = $itemId");
+				foreach($arrPackItems as $dataPackItemsMain){
+					
+					$tmpQty = $dataPackItems['amount'] * $qty;
+//					echo(".......................................................\n");
+//					echo("tmp qty $tmpQty");
+//					echo(".......................................................\n");
+//					echo("");
+//					echo(".......................................................\n");
+//					echo("<br>");
+//					print_r($dataPackItemsMain);
+//					echo("<br>");
+//					echo("item id - ".$dataPackItemsMain['itemid']);
+					
+					
+					
+					$arrStockRowOne = $DB->select("stock","WHERE itemid = ".$dataPackItemsMain['itemid']." AND status = 1 ORDER BY stock.adate DESC");
+//					echo($arrStockRowOne[0]['ramount']);
+					if($arrStockRowOne[0]['ramount'] >= $tmpQty){
+						////////////////////////////////////////////////////
+						///First row enought START
+						////////////////////////////////////////////////////
+//						echo("<br>");
+//						echo("First row is enough ");
+//						echo("<br>");
+						
+						
+						////update stock
+						$sql = "UPDATE stock SET ramount = ramount - $tmpQty WHERE stock.id = ".$arrStockRowOne[0]['id'];
+						$conn->query($sql);
+				
+						////update purchased items
+				
+						$sql = "INSERT INTO purchaseditems (id, dealid, itemid, amount, uprice, stockid, type,cc,date,time) VALUES (NULL, '$billNumber', '".$dataPackItemsMain['itemid']."', '$tmpQty', '".$arrStockRowOne[0]['bprice']."', '".$arrStockRowOne[0]['id']."', '1','2',curdate(),curtime());";
+				
+						$conn->query($sql);
+				
+				
+						/////updating stock status 
+				
+						if($arrStockRowOne[0]['ramount'] == $tmpQty){
+					
+							$sql = "UPDATE stock SET status = '0' WHERE stock.id = ".$arrStockRowOne[0]['id'].";";
+							$conn->query($sql);
+						}
+						///TODO 
+						////Stock distrybution table updating
+						
+						
+						
+						
+						
+						
+						
+						
+						////////////////////////////////////////////////////
+						///First row enought END
+						////////////////////////////////////////////////////
+						
+					}else{
+//						echo("first row is not enough");
+						//////////////////////////////////////////////////////
+						//////////////////////////////////////////////////////
+						//////////////////////////////////////////////////////
+						//////////////////////////////////////////////////////
+						//////////////////////////////////////////////////////
+						//////////////////////////////////////////////////////
+						//////////////////////////////////////////////////////
+						//////////////////////////////////////////////////////
+						
+						//////////////////////////////
+				///Multiple attempts need START
+				//////////////////////////////
+				$arrMultipleAttempts = $DB->select("stock","WHERE itemid = ".$dataPackItemsMain['itemid']." AND status = 1 ORDER BY stock.adate DESC");
+				foreach($arrMultipleAttempts as $dataMultipleAttempts){
+					/////checking adding is finished or not
+					if($tmpQty != 0){
+						/////////////////////////////////////
+						///A row is enouh START
+						/////////////////////////////////////
+						if($dataMultipleAttempts['ramount'] >= $tmpQty){
+							
+							/////update stock
+							$sql = "UPDATE stock SET ramount = ramount - $tmpQty WHERE stock.id = ".$dataMultipleAttempts['id'];
+							$conn->query($sql);
+						
+							/////update customer bill side
+							$sql = "INSERT INTO purchaseditems (id, dealid, itemid, amount, uprice, stockid, type,cc,date,time) VALUES (NULL, '$billNumber', '".$dataPackItemsMain['itemid']."', '$tmpQty', '".$dataMultipleAttempts['bprice']."', '".$dataMultipleAttempts['id']."', '1','2',curdate(),curtime());";
+				
+							$conn->query($sql);
+							$tmpQty = 0;
+							/////////////////////////////////////
+							///A row is enouh END
+							/////////////////////////////////////
+						
+						}else{
+							/////////////////////////////////////
+							///A row is Not enouh START
+							/////////////////////////////////////
+							$tmpQty -= $dataMultipleAttempts['ramount'];
+							
+							
+							/////update stock
+							$sql = "UPDATE stock SET ramount = ramount - ".$dataMultipleAttempts['ramount']." WHERE stock.id = ".$dataMultipleAttempts['id'];
+							$conn->query($sql);
+							
+							//////update customer bill side
+							$sql = "INSERT INTO purchaseditems (id, dealid, itemid, amount, uprice, stockid, type,cc,date,time) VALUES (NULL, '$billNumber', '".$dataPackItemsMain['itemid']."', '".$dataMultipleAttempts['ramount']."', '".$dataMultipleAttempts['bprice']."', '".$dataMultipleAttempts['id']."', '1','2',curdate(),curtime());";
+							$conn->query($sql);
+							
+							///updating stock status
+							$sql = "UPDATE stock SET status = '0' WHERE stock.id = ".$dataMultipleAttempts['id'].";";
+							$conn->query($sql);
+							/////////////////////////////////////
+							///A row is Not enouh END
+							/////////////////////////////////////
+						}
+					}
+				}
+				//////////////////////////////
+				///Multiple attempts need END
+				//////////////////////////////
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						////////////////////////////////////////////////////////
+						////////////////////////////////////////////////////////
+						////////////////////////////////////////////////////////
+						////////////////////////////////////////////////////////
+						////////////////////////////////////////////////////////
+						////////////////////////////////////////////////////////
+						////////////////////////////////////////////////////////
+						////////////////////////////////////////////////////////
+						////////////////////////////////////////////////////////
+						////////////////////////////////////////////////////////
+					}
+					
+					
+				}
+				///////////////////////////////////////////////////////////
+				///////////////////////////////////////////////////////////
+				///////////////////////////////////////////////////////////
+				///////////////////////////////////////////////////////////
+				///////////////////////////////////////////////////////////
+				///////////////////////////////////////////////////////////
+				///////////////////////////////////////////////////////////
 			}
 			
 			
@@ -56,13 +241,19 @@ if($str_arr[0] == "P" || $str_arr[0] == "p"){
 			///Pack Items available END
 			///////////////////////////////////////////////////////////
 		}else{
-			echo("pack items not available");
+				?>
+				<div class="alert alert-danger">
+  					<strong>!</strong> Pack Items Not Available in Stock </div>
+				<?php
 		}
 		////////////////////////////////
 		///Pack available END
 		////////////////////////////////
 	}else{
-		echo("pack  not available");
+				?>
+				<div class="alert alert-danger">
+  					<strong>!</strong> Pack  Not Available </div>
+				<?php
 		
 	}
 	////checking Availability of pack
@@ -75,7 +266,7 @@ else if($str_arr[0] == "I" || $str_arr[0] == "i"){
 //		echo("item available");
 		/////checking stock availability 
 		$arrStockTotal = $DB->select("stock","WHERE itemid = $itemId AND status = 1 "," SUM(amount),SUM(ramount)");
-		print_r($arrStockTotal);
+//		print_r($arrStockTotal);
 		if($arrStockTotal[0]['SUM(ramount)'] >= $qty){
 			///////////////////////////////////////////////////
 			////OUT OF STOCK CHECKING START
@@ -84,7 +275,7 @@ else if($str_arr[0] == "I" || $str_arr[0] == "i"){
 			////Stock Available Start
 			///////////////////////////////////////////////////
 			$arrStockRowOne = $DB->select("stock","WHERE itemid = $itemId AND status = 1 ORDER BY stock.adate DESC");
-			echo($arrStockRowOne[0]['ramount']);
+//			echo($arrStockRowOne[0]['ramount']);
 			if($arrStockRowOne[0]['ramount'] >= $qty){
 				//////////////////////////////////
 				///First row is enough for the task START
@@ -96,7 +287,7 @@ else if($str_arr[0] == "I" || $str_arr[0] == "i"){
 				
 				////update purchased items
 				
-				$sql = "INSERT INTO purchaseditems (id, dealid, itemid, amount, uprice, stockid, type) VALUES (NULL, '$billNumber', '$itemId', '$qty', '".$arrStockRowOne[0]['bprice']."', '".$arrStockRowOne[0]['id']."', '2');";
+				$sql = "INSERT INTO purchaseditems (id, dealid, itemid, amount, uprice, stockid, type,cc,date,time) VALUES (NULL, '$billNumber', '$itemId', '$qty', '".$arrStockRowOne[0]['bprice']."', '".$arrStockRowOne[0]['id']."', '2','2',curdate(),curtime());";
 				
 				$conn->query($sql);
 				
@@ -135,7 +326,7 @@ else if($str_arr[0] == "I" || $str_arr[0] == "i"){
 							$conn->query($sql);
 						
 							/////update customer bill side
-							$sql = "INSERT INTO purchaseditems (id, dealid, itemid, amount, uprice, stockid, type) VALUES (NULL, '$billNumber', '$itemId', '$qty', '".$dataMultipleAttempts['bprice']."', '".$dataMultipleAttempts['id']."', '2');";
+							$sql = "INSERT INTO purchaseditems (id, dealid, itemid, amount, uprice, stockid, type,cc,date,time) VALUES (NULL, '$billNumber', '$itemId', '$qty', '".$dataMultipleAttempts['bprice']."', '".$dataMultipleAttempts['id']."', '2','2',,curdate(),curtime());";
 				
 							$conn->query($sql);
 							$qty = 0;
@@ -155,7 +346,7 @@ else if($str_arr[0] == "I" || $str_arr[0] == "i"){
 							$conn->query($sql);
 							
 							//////update customer bill side
-							$sql = "INSERT INTO purchaseditems (id, dealid, itemid, amount, uprice, stockid, type) VALUES (NULL, '$billNumber', '$itemId', '".$dataMultipleAttempts['ramount']."', '".$dataMultipleAttempts['bprice']."', '".$dataMultipleAttempts['id']."', '2');";
+							$sql = "INSERT INTO purchaseditems (id, dealid, itemid, amount, uprice, stockid, type,cc,date,time) VALUES (NULL, '$billNumber', '$itemId', '".$dataMultipleAttempts['ramount']."', '".$dataMultipleAttempts['bprice']."', '".$dataMultipleAttempts['id']."', '2','2',curdate(),curtime());";
 							$conn->query($sql);
 							
 							///updating stock status
@@ -176,8 +367,13 @@ else if($str_arr[0] == "I" || $str_arr[0] == "i"){
 			////Stock Available END
 			///////////////////////////////////////////////////
 			}else{
-				echo("<BR>OUT OF STOCK <BR>");
-				echo("Available stock amount is " . $arrStockTotal[0]['SUM(ramount)']);
+				?>
+				<div class="alert alert-danger">
+  					<strong>!</strong> Pack Items Not Available in Stock </div>
+  					<div class="alert alert-success">
+  					<strong>! Available Amount</strong> <?php echo($arrStockTotal[0]['SUM(ramount)']); ?> </div>
+				<?php
+				
 				}
 			///////////////////////////////////////////////////
 			////OUT OF STOCK CHECKING END

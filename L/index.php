@@ -13,7 +13,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>CMS login</title>
+	<title>CMI login</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->	
@@ -46,7 +46,7 @@
 					</div>
 
 					<span class="login100-form-title p-t-20 p-b-45">
-						CMS
+						CMI
 					</span>
 
 					<div class="wrap-input100 validate-input m-b-10" data-validate = "Username is required">

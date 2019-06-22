@@ -79,14 +79,18 @@ $main = new Main;
       	<?php $main->head("Pack") ?>
     <div class="container h-100" id="cStage">
     		<div id="piechart" style="width:100%; height: 500px;padding-bottom: 20px"></div>
-  			<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/createAPackName.php','cStage')">Create</button>
-     		<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/pack.STE.php','cStage')">Edit</button>
-<!--     		<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/deleteArea.php','cStage')">Delete</button>-->
-     		<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/viewPacks.php','cStage')">View</button>
-     		<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/selectPack.STE.php','cStage')">View PACK-ITEMS</button>
-     		<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/addItemsToPack.php','cStage')">Add PACK-ITEMS</button>
-     		<a href="PDF/viewPacksPDF.php" target="_blank"><button type="button" class="btn btn-primary btn-lg" >PDF</button></a>
-     		<a href="PDF/viewPacksPDF.php" target="_blank"><button type="button" class="btn btn-primary btn-lg" >PACK-ITEMS PDF</button></a>
+  			<center>
+  				
+				<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/createAPackName.php','cStage')"  style="width: 40%;margin-bottom: 5px;">Create</button>
+				<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/pack.STE.php','cStage')"  style="width: 40%;margin-bottom: 5px;">Edit</button>
+	<!--     		<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/deleteArea.php','cStage')">Delete</button>-->
+				<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/viewPacks.php','cStage')"  style="width: 40%;margin-bottom: 5px;">View</button>
+				<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/selectPack.STE.php','cStage')"  style="width: 40%;margin-bottom: 5px;">View PACK-ITEMS</button>
+				<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/addItemsToPack.php','cStage')"  style="width: 40%;margin-bottom: 5px;">Add PACK-ITEMS</button>
+				<a href="PDF/viewPacksPDF.php" target="_blank"><button type="button" class="btn btn-primary btn-lg"  style="width: 40%;margin-bottom: 5px;">PDF</button></a>
+				<a href="PDF/viewPacksPDF.php" target="_blank"><button type="button" class="btn btn-primary btn-lg"  style="width: 40%;margin-bottom: 5px;">PACK-ITEMS PDF</button></a>
+  				
+  			</center>
 	</div>
 
       <!-- ############ PAGE END-->

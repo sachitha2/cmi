@@ -18,6 +18,9 @@ if(isset($_SESSION['bill'])){
 		$_SESSION['bill']['date'] = "2018-01-25";
 		$_SESSION['bill']['s'] = 1;
 		$tmpBillId = $_SESSION['bill']['id'];
+		
+		
+		
 }
 
 }else{
@@ -40,13 +43,14 @@ if(isset($_SESSION['bill'])){
 	</div>
 	
 	<div style="width: 40%;height: 70% !important;background-color: ;height: 70%;float: left;color: black;" id="input">
+			<h1>Cash Customer</h1>
 			<h1>Bill id <?php echo($tmpBillId) ?></h1>
 			<div id="msg"></div>
 <!--		<input type="number" id="item"  class="form-control">-->
 			<?php //$DB->itemList($DB) ?>
 			
 			
-			<input list="colors" name="color" id="itemId" class="form-control"  placeholder="Item Id"  onKeyPress="">
+			<input autofocus list="colors" name="color" id="itemId" class="form-control"  placeholder="Item Id"   onKeyPress="enterNext(event,'qty')">
 			<datalist id="colors">
 				
     			<?php
@@ -75,7 +79,15 @@ if(isset($_SESSION['bill'])){
 			
 		<input type="number" id="qty" placeholder="QTY" class="form-control" onKeyPress="enteradditemsToFastCustomerBill(event,<?php echo($tmpBillId) ?>)">
 		<input type="button" value="Next" class="btn btn-primary btn-lg" style="width: 100%" onClick="additemsToFastCustomerBill(<?php echo($tmpBillId) ?>)">
-		<input type="button" value="Finish" class="btn btn-danger btn-lg" style="width: 100%" onClick="fastCustomerFinish(2500)">
+		<?php 
+			
+			$total = $DB->select("purchaseditems","where dealid = $tmpBillId","SUM(amount * uprice)");
+	
+	
+			
+		
+		?>
+		<input type="button" value="Finish" class="btn btn-danger btn-lg" style="width: 100%" onClick="fastCustomerFinish(<?php echo($total[0]['SUM(amount * uprice)']) ?>)">
 		
 	</div>
 	
