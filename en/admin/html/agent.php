@@ -51,10 +51,13 @@ $main = new Main;
       <!-- ############ PAGE START-->
         <?php $main->head("Agent") ?>
     <div class="container h-100" id="cStage">
-  			<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/addAgent.php','cStage')">Add</button>
-     		<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/agent.STE.php','cStage')">Edit</button>
+    	<center>
+    		<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/addAgent.php','cStage')" style="width: 40%;margin-bottom: 5px;">Add</button>
+     		<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/agent.STE.php','cStage')" style="width: 40%;margin-bottom: 5px;">Edit</button>
 <!--     		<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/deleteArea.php','cStage')">Delete</button>-->
-     		<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/viewAgent.php','cStage')">View</button>
+     		<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/viewAgent.php','cStage')" style="width: 40%;margin-bottom: 5px;">View</button>
+    	</center>
+  			
      	
 	</div>
 
