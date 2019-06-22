@@ -214,7 +214,6 @@ class Main{
                   </a>
                 </li>
             
-<!--
                 <li>
                   <a onClick="window.location.assign('credits.php')">
                     <span class="nav-icon">
@@ -225,7 +224,6 @@ class Main{
                     <span class="nav-text">Credits</span>
                   </a>
                 </li>
--->
                 <li>
                   <a onClick="window.location.assign('installments.php')">
                     <span class="nav-icon">

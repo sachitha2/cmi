@@ -1306,7 +1306,7 @@ function fastCustomer(){
 }
 
 
-function creditCustomer(idCard){
+function creditCustomer(cid){
 	showModal();
 	var ajax = _ajax();
 		ajax.onreadystatechange = function() {
@@ -1321,7 +1321,7 @@ function creditCustomer(idCard){
 			}
 	  }
 
-		ajax.open("POST", "subPages/creditCustomer.php?idCard="+idCard, true);
+		ajax.open("POST", "subPages/creditCustomer.php?cid="+cid, true);
 		ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 		ajax.send();
 	
