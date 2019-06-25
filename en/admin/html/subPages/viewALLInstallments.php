@@ -112,7 +112,35 @@ if($nRow != 0){ ?>
 				//----------------------------------------------------------------------------------------------------
 				//AREA END
 				//----------------------------------------------------------------------------------------------------
-			}else {
+			}
+			else if($search == "area_agent" && $_GET['id'] != 0){
+						?>
+					<tr>
+						<td><?php echo($data['id']) ?></td>
+						<td><?php echo($data['dealid']) ?></td>
+						<td><?php echo($data['cid']) ?></td>
+						<td><?php echo($data['installmentid']) ?></td>
+						<td><?php echo($data['payment']) ?></td>
+						<td><input id="input<?php echo($id) ?>" type="number" style="width: 100px;" onKeyPress="enterAddAgentInstallmentCollect(event,this.value,<?php echo($id) ?>,<?php echo($data['id']) ?>,<?php echo($nRow) ?>)"> <div id="msg<?php echo($id) ?>"></div></td>
+						<td><?php echo($data['date']) ?></td>
+
+						<?php
+							$arrCustomerDetails = $DB->select("customer","WHERE id = ".$data['cid']);
+
+							$customerName = $arrCustomerDetails[0]['name'];
+							$arrAreaDetails = $DB->select("area","WHERE id = ".$arrCustomerDetails[0]['areaid']);
+
+							$area = $arrAreaDetails[0]['name'];
+
+						?>
+
+						<td><?php echo $customerName ?></td>
+						<td><?php echo $area ?></td>
+					</tr>
+
+					<?php
+			}
+			else {
 				?>
 				<tr>
 					<td><?php echo($data['id']) ?></td>

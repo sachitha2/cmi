@@ -51,10 +51,18 @@ $main = new Main;
       <!-- ############ PAGE START-->
       <center>
       		<button type="button" class="btn btn-primary btn-lg " onclick="ajaxCommonGetFromNet('subPages/viewALLInstallments.php?search=all','cStage')" style="width: 80%;margin-bottom: 10px;">ALL</button>
-			<button type="button" class="btn btn-primary btn-lg" onclick="ajaxCommonGetFromNet('subPages/viewALLInstallments.php?search=today','cStage')" style="width: 40%;margin-bottom: 10px;">Today</button>
-			<button type="button" class="btn btn-primary btn-lg" onclick="ajaxCommonGetFromNet('subPages/viewALLInstallments.php?search=today','cStage')" style="width: 40%;margin-bottom: 10px;">Yesterday</button>
-			<button type="button" class="btn btn-primary btn-lg" onclick="ajaxCommonGetFromNet('subPages/viewALLInstallments.php?search=week','cStage')" style="width: 40%;margin-bottom: 10px;">This Week</button>
-			<button type="button" class="btn btn-primary btn-lg" onclick="ajaxCommonGetFromNet('subPages/viewALLInstallments.php?search=week','cStage')" style="width: 40%;margin-bottom: 10px;">Last Week</button>
+			
+			<button type="button" class="btn btn-primary btn-lg" onclick="ajaxCommonGetFromNet('subPages/viewALLInstallments.php?search=today','cStage')" style="width: 25%;margin-bottom: 10px;">Yesterday</button>
+			<button type="button" class="btn btn-primary btn-lg" onclick="ajaxCommonGetFromNet('subPages/viewALLInstallments.php?search=today','cStage')" style="width: 25%;margin-bottom: 10px;">Today</button>
+			<button type="button" class="btn btn-primary btn-lg" onclick="ajaxCommonGetFromNet('subPages/viewALLInstallments.php?search=today','cStage')" style="width: 25%;margin-bottom: 10px;">Tommorrow</button>
+			
+			
+			<button type="button" class="btn btn-primary btn-lg" onclick="ajaxCommonGetFromNet('subPages/viewALLInstallments.php?search=week','cStage')" style="width: 25%;margin-bottom: 10px;">Last Week</button>
+			<button type="button" class="btn btn-primary btn-lg" onclick="ajaxCommonGetFromNet('subPages/viewALLInstallments.php?search=week','cStage')" style="width: 25%;margin-bottom: 10px;">This Week</button>
+			<button type="button" class="btn btn-primary btn-lg" onclick="ajaxCommonGetFromNet('subPages/viewALLInstallments.php?search=week','cStage')" style="width: 25%;margin-bottom: 10px;">Next Week</button>
+			
+			
+			
 			<button type="button" class="btn btn-primary btn-lg" onclick="ajaxCommonGetFromNet('subPages/viewALLInstallments.php?search=month','cStage')" style="width: 40%;margin-bottom: 10px;">Month</button>
 			<button type="button" class="btn btn-primary btn-lg" onclick="ajaxCommonGetFromNet('subPages/viewALLInstallments.php?search=month','cStage')" style="width: 40%;margin-bottom: 10px;">Last Month</button>
 			<button type="button" class="btn btn-primary btn-lg" onclick="ajaxCommonGetFromNet('subPages/selectAreaToViewInstallments.php','cStage')" style="width: 40%;margin-bottom: 10px;">Area</button>
