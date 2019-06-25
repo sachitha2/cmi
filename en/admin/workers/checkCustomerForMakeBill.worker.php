@@ -34,6 +34,7 @@ if($DB->nRow("customer",$sql) == 1){
 	else{
 		$arr['msg'] = " No deals";
 		$arr['s'] = 1;
+		$arr['cid'] = $customer[0]['id'];
 	}
 	
 	$arr['idCard'] = $postData['idCard'];

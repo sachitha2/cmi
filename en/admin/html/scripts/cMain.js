@@ -752,7 +752,7 @@ function CheckCustomerForMakeBill(idCard){
 					console.log(this.responseText);
 					if(jsonData.s == 1){
 //						alert("next url");
-						creditCustomer(idCard);
+						creditCustomer(jsonData.cid);
 					}else{
 						msg("msg",jsonData.msg);
 					}
