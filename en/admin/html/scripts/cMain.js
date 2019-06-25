@@ -688,23 +688,26 @@ function addStock(amount,id,bPrice,sPrice,exDate,mfd){
 			vEXDate = document.getElementById("exDate").value;
 			vmfd = document.getElementById("mfd").value;
 			mPrice = document.getElementById("mPrice").value;	
+			cPrice = document.getElementById("cPrice").value;	
 				
 		
 	
 			if(vAmount == ""){
-				document.getElementById("msg").innerHTML = "Enter Amount";
+				msg("msg","Enter Amount");
 			}
 			else if(vBPrice == ""){
-				document.getElementById("msg").innerHTML = "Enter Buying Price";
+				msg("msg","Enter Buying Price");
 			}
 			else if(vSPrice == ""){
-				document.getElementById("msg").innerHTML = "Enter Selling Price";
+				msg("msg","Enter Selling Price");
 			}
 			else if(vEXDate == ""){
-				document.getElementById("msg").innerHTML = "Enter Expire Date";
+				msg("msg","Enter Expire Date");
 			}
 			else if(vmfd == ""){
-				document.getElementById("msg").innerHTML = "Enter MFD";
+				msg("msg","Enter MFD");
+			}else if(cPrice ==""){
+				msg("msg","Enter Cash Price");
 			}
 			else{
 			showModal();
@@ -723,7 +726,7 @@ function addStock(amount,id,bPrice,sPrice,exDate,mfd){
 					hideModal();
            		}
         	};
-        	xmlhttp.open("GET", "../workers/addStock.worker.php?amount="+amount+"&id="+id+"&bPrice="+bPrice+"&exDate="+exDate+"&sPrice="+sPrice+"&mfd="+mfd+"&mPrice="+mPrice, true);//generating  get method link
+        	xmlhttp.open("GET", "../workers/addStock.worker.php?amount="+amount+"&id="+id+"&bPrice="+bPrice+"&exDate="+exDate+"&sPrice="+sPrice+"&mfd="+mfd+"&mPrice="+mPrice+"&cPrice="+cPrice, true);//generating  get method link
         	xmlhttp.send();
 }
 }
@@ -1247,6 +1250,51 @@ function enterStockShortBySP(e,less,great,SP) {
 			}
 	  }
 }
+
+
+function enterStockShortByCP(e,less,great,CP) {
+  if (e.which == 13) {  
+	  	  if(CP != ""){
+				console.log(readStockMenu());
+		  		var menu = readStockMenu();
+	  			if(less == 1){
+					GL = ' <= ';
+				}else{
+					GL = ' >= ';
+				}
+		    	data = {'mode':'CP','GL':GL,'CP':CP,'status':0,"day":""};
+		  		data.status = menu.status;
+		  		data.day = menu.day;
+		  		console.log(data);
+	  			ajaxCommonGetFromNet('subPages/viewStock.php?data='+JSON.stringify(data),'cStage');
+//	  			alert("on key press in short stock by Amount");
+	  			console.log("enterStockShortByAmount less - " + less+"greater "+great + " amount " + CP);	
+			}
+	  }
+}
+
+function enterStockShortByMP(e,less,great,MP) {
+  if (e.which == 13) {  
+	  	  if(MP != ""){
+				console.log(readStockMenu());
+		  		var menu = readStockMenu();
+	  			if(less == 1){
+					GL = ' <= ';
+				}else{
+					GL = ' >= ';
+				}
+		    	data = {'mode':'MP','GL':GL,'MP':MP,'status':0,"day":""};
+		  		data.status = menu.status;
+		  		data.day = menu.day;
+		  		console.log(data);
+	  			ajaxCommonGetFromNet('subPages/viewStock.php?data='+JSON.stringify(data),'cStage');
+//	  			alert("on key press in short stock by Amount");
+	  			console.log("enterStockShortByAmount less - " + less+"greater "+great + " amount " + MP);	
+			}
+	  }
+}
+
+
 function enterStockShortByMFD(from,to) {
 				console.log(readStockMenu());
 		  		var menu = readStockMenu();

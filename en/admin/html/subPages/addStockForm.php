@@ -43,12 +43,17 @@ $item = $_GET['id'];
 			
 			
 			<label for="">Buying Price</label>
-			<input class="form-control" type="number"   onKeyPress="enterNext(event,'sPrice')"  placeholder="Buying price" style="font-size: 20px;color: black;" id="bPrice" required>
-			<br>
-			<label for="">Selling Price</label>
-			<input class="form-control" type="number"  onKeyPress="enterAddStock(event,amount.value,<?php echo($item) ?>,bPrice.value,sPrice.value,exDate.value,mfd.value) "  placeholder="Selling price" style="font-size: 20px;color: black;" id="sPrice" required>
+			<input class="form-control" type="number"   onKeyPress="enterNext(event,'cPrice')"  placeholder="Buying price" style="font-size: 20px;color: black;" id="bPrice" required>
 			<br>
 			
+			<label for="">Cash Price</label>
+			<input class="form-control" type="number"   onKeyPress="enterNext(event,'sPrice')"  placeholder="Cash price" style="font-size: 20px;color: black;" id="cPrice" required>
+			<br>
+			
+			<label for="">Selling Price</label>
+			<input class="form-control" type="number"  onKeyPress="enterAddStock(event,amount.value,<?php echo($item) ?>,bPrice.value,sPrice.value,exDate.value,mfd.value) "  placeholder="Selling price" style="font-size: 20px;color: black;" id="sPrice" required>
+			
+			<br>
 			<div id="msg"></div>
 			<input class="btn btn-primary btn-lg" type="button" value="ADD"  onClick="addStock(amount.value,<?php echo($item) ?>,bPrice.value,sPrice.value,exDate.value,mfd.value)">
 		

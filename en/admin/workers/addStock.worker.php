@@ -9,7 +9,7 @@ $bPrice = $_GET['bPrice'];
 $exDate = $_GET['exDate'];
 $sPrice = $_GET['sPrice'];
 $mfd = $_GET['mfd'];
-
+$cPrice = $_GET['cPrice'];
 
 
 
@@ -19,7 +19,7 @@ print_r($_GET);
 $DB->conn = $conn;
 //$postData = json_decode($_POST['data'], true); 
 //print_r($postData);
-$conn->query("INSERT INTO `stock` (`id`, `itemid`, `bprice`, `sprice`, `amount`,`ramount`, `adate`, `mfd`, `exdate`, `status`,`marketPrice`) VALUES (NULL, '$id', '$bPrice', '$sPrice', '$amount','$amount', curdate(), '$mfd', '$exDate', '1','{$_GET['mPrice']}');");
+$conn->query("INSERT INTO `stock` (`id`, `itemid`, `bprice`, `sprice`, `amount`,`ramount`, `adate`, `mfd`, `exdate`, `status`,`marketPrice`,`cashPrice`,`type`) VALUES (NULL, '$id', '$bPrice', '$sPrice', '$amount','$amount', curdate(), '$mfd', '$exDate', '1','{$_GET['mPrice']}',$cPrice,0);");
 //$DB->insert($table,$col,$val);
 $itemName = $DB->getItemNameByStockId($id,0);
 $purpose = "For buy $amount of Item $itemName ($id) at rate of $bPrice";
