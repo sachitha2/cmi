@@ -688,11 +688,14 @@ function addStock(amount,id,bPrice,sPrice,exDate,mfd){
 			vEXDate = document.getElementById("exDate").value;
 			vmfd = document.getElementById("mfd").value;
 			mPrice = document.getElementById("mPrice").value;	
-			cPrice = document.getElementById("cPrice").value;	
+			cPrice = document.getElementById("cPrice").value;
+			type = document.getElementById("type").value;
 				
 		
-	
-			if(vAmount == ""){
+			if(type == "0"){
+				msg("msg","Select Type");
+			}
+			else if(vAmount == ""){
 				msg("msg","Enter Amount");
 			}
 			else if(vBPrice == ""){
@@ -726,7 +729,7 @@ function addStock(amount,id,bPrice,sPrice,exDate,mfd){
 					hideModal();
            		}
         	};
-        	xmlhttp.open("GET", "../workers/addStock.worker.php?amount="+amount+"&id="+id+"&bPrice="+bPrice+"&exDate="+exDate+"&sPrice="+sPrice+"&mfd="+mfd+"&mPrice="+mPrice+"&cPrice="+cPrice, true);//generating  get method link
+        	xmlhttp.open("GET", "../workers/addStock.worker.php?amount="+amount+"&id="+id+"&bPrice="+bPrice+"&exDate="+exDate+"&sPrice="+sPrice+"&mfd="+mfd+"&mPrice="+mPrice+"&cPrice="+cPrice+"&type="+type, true);//generating  get method link
         	xmlhttp.send();
 }
 }

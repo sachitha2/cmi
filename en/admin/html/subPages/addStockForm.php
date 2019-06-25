@@ -24,6 +24,14 @@ $item = $_GET['id'];
 			
 			<h2> <b><?php echo($DB->getItemNameByStockId($item)) ?></b> to stock</h2>	
 			<br>
+			<label for="">Select Type</label>
+			<select class="form-control" id="type">
+				<option value="0">Select Type</option>
+				<option value="1">PEACES</option>
+				<option value="2">KG</option>
+				<option value="3">PACK</option>
+			</select>
+			<br>
 			<label for="">Enter Amount</label>
 			<input autofocus  class="form-control" type="number"  onKeyPress="enterNext(event,'exDate')"  placeholder="Enter Amount"  style="font-size: 20px;color: black;" id="amount" onKeyPress="enterUpdateMainStockItems(event)" required>
 			<br>
