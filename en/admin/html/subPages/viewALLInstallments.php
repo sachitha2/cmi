@@ -33,11 +33,12 @@ $DB->conn = $conn;
 <?php $main->b("installments.php") ?>
 	
 <div class="card-header" style="padding-bottom: 10px;padding-top: 10px;margin-bottom: 5px;margin-top: 20px;text-transform: uppercase">
-     <center><h1 class="my-0 font-weight-normal text-info">SALES - <?php echo($search." ".$areaName." ".$areaAgent) ?> </h1></center>
+     <center><h2 class="my-0 font-weight-normal text-info">installments - <?php echo($search." ".$areaName." ".$areaAgent) ?> </h2></center>
 </div>
 	
 <?php
-if($DB->nRow("installment",$sql) != 0){ ?>
+	$nRow = $DB->nRow("installment",$sql);
+if($nRow != 0){ ?>
 
 <table class="table table-hover table-bordered table-striped table-dark">
   <thead class="thead-dark">
@@ -70,7 +71,7 @@ if($DB->nRow("installment",$sql) != 0){ ?>
     <?php
 	
 		$arr = $DB->select("installment",$sql);
-	
+		$id = 1;
 		foreach($arr as $data){
 			
 			if($search == "area"){
@@ -119,7 +120,7 @@ if($DB->nRow("installment",$sql) != 0){ ?>
 					<td><?php echo($data['cid']) ?></td>
 					<td><?php echo($data['installmentid']) ?></td>
 					<td><?php echo($data['payment']) ?></td>
-					<td><input type="number" style="width: 100px;" onKeyPress="enterAddAgentInstallmentCollect(event)"></td>
+					<td><input id="input<?php echo($id) ?>" type="number" style="width: 100px;" onKeyPress="enterAddAgentInstallmentCollect(event,this.value,<?php echo($id) ?>,<?php echo($data['id']) ?>,<?php echo($nRow) ?>)"> <div id="msg<?php echo($id) ?>"></div></td>
 					<td><?php echo($data['date']) ?></td>
 
 					<?php
@@ -138,7 +139,7 @@ if($DB->nRow("installment",$sql) != 0){ ?>
 
 		<?php
 			}
-	
+			$id++;
 		}
 		?>
   </tbody>

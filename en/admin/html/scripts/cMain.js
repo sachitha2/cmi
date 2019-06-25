@@ -1055,12 +1055,36 @@ function enterAddExpenses(e,costTypeid){
 }
 
 ///this is installment collect
-function enterAddAgentInstallmentCollect(e) {
-  if (e.which == 13) {alert("Helloo"); 
+function enterAddAgentInstallmentCollect(e,amount,inputId,IID,nRow) {
+  if (e.which == 13) {
+	  				 //alert(amount+"IID"+IID); 
 					 //send data to installment collect Start
-					  ///TODO
-					  
-					  
+					  ///TODO set read only
+	  
+	  
+	  				data = { 'IID':IID, 'amount':amount };
+	  				console.log("Nr "+nRow+"input"+inputId);
+	  				if(nRow != inputId){
+						enterNext(event,"input"+(inputId+1));
+					}
+					
+					var ajax = _ajax();
+	  				showModal();
+	  				msg("msg"+inputId,"Wait");
+					ajax.onreadystatechange = function() {
+						if (this.readyState == 4 && this.status == 200) {
+							hideModal();
+				   	 		console.log(this.responseText);
+							document.getElementById("input"+inputId).readOnly = true;
+					  		msg("msg"+inputId,"Done Saving");
+						}
+				  }
+
+					ajax.open("POST", "../workers/takeInstallment.worker.php", true);
+					ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+					ajax.send("data="+(JSON.stringify(data)));
+	  
+	  				
 					  
 					  
 					 //send data to installment collect End
