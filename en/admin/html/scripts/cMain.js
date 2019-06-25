@@ -1055,14 +1055,13 @@ function enterAddExpenses(e,costTypeid){
 }
 
 ///this is installment collect
-function enterAddAgentInstallmentCollect(e,amount,inputId,IID,nRow) {
+function enterAddAgentInstallmentCollect(e,amount,inputId,ID,nRow,IID,dealId) {
   if (e.which == 13) {
-	  				 //alert(amount+"IID"+IID); 
 					 //send data to installment collect Start
 					  ///TODO set read only
 	  
 	  
-	  				data = { 'IID':IID, 'amount':amount };
+	  				data = { 'ID':ID, 'amount':amount,'IID':IID,'dealId':dealId};
 	  				console.log("Nr "+nRow+"input"+inputId);
 	  				if(nRow != inputId){
 						enterNext(event,"input"+(inputId+1));

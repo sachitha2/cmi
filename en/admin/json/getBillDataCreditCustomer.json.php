@@ -71,7 +71,7 @@ if(isset($_SESSION['credit']['bill'])){
 		$installments -= 1;
 		
 		
-		$perOneI = $remain / $installments;
+		$perOneI = round(($remain / $installments),2);
 	
 		for($x = 0;$x < $installments;$x++){
 			

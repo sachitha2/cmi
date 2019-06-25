@@ -114,7 +114,13 @@ if($nRow != 0){ ?>
 				//----------------------------------------------------------------------------------------------------
 			}
 			else if($search == "area_agent" && $_GET['id'] != 0){
+						$arrCustomerDetails = $DB->select("customer","WHERE id = ".$data['cid']);
+				
+						if($arrCustomerDetails[0]['areaAgent'] == $_GET['id'] ){
+							
+						
 						?>
+						
 					<tr>
 						<td><?php echo($data['id']) ?></td>
 						<td><?php echo($data['dealid']) ?></td>
@@ -125,7 +131,7 @@ if($nRow != 0){ ?>
 						<td><?php echo($data['date']) ?></td>
 
 						<?php
-							$arrCustomerDetails = $DB->select("customer","WHERE id = ".$data['cid']);
+							
 
 							$customerName = $arrCustomerDetails[0]['name'];
 							$arrAreaDetails = $DB->select("area","WHERE id = ".$arrCustomerDetails[0]['areaid']);
@@ -140,6 +146,7 @@ if($nRow != 0){ ?>
 
 					<?php
 			}
+			}
 			else {
 				?>
 				<tr>
@@ -148,7 +155,7 @@ if($nRow != 0){ ?>
 					<td><?php echo($data['cid']) ?></td>
 					<td><?php echo($data['installmentid']) ?></td>
 					<td><?php echo($data['payment']) ?></td>
-					<td><input id="input<?php echo($id) ?>" type="number" style="width: 100px;" onKeyPress="enterAddAgentInstallmentCollect(event,this.value,<?php echo($id) ?>,<?php echo($data['id']) ?>,<?php echo($nRow) ?>)"> <div id="msg<?php echo($id) ?>"></div></td>
+					<td><input id="input<?php echo($id) ?>" type="number" style="width: 100px;" onKeyPress="enterAddAgentInstallmentCollect(event,this.value,<?php echo($id) ?>,<?php echo($data['id']) ?>,<?php echo($nRow) ?>,<?php echo($data['installmentid']) ?>,<?php echo($data['dealid']) ?>)"> <div id="msg<?php echo($id) ?>"></div></td>
 					<td><?php echo($data['date']) ?></td>
 
 					<?php
