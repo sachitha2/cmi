@@ -420,7 +420,7 @@ function additemsToCreditCustomerBill(billId){
 				document.getElementById("itemId").select();
 				}
 	  		}
-			ajax.open("POST", "../workers/fastbillInsert.worker.php", true);
+			ajax.open("POST", "../workers/fastbillInsertCredit.worker.php", true);
 			ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 			ajax.send("data="+(JSON.stringify(data)));
 		
