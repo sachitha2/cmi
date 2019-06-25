@@ -146,6 +146,11 @@ class Main{
                         <span class="nav-text">Agent</span>
                       </a>
                     </li>
+                    <li>
+                      <a onClick="window.location.assign('vehicle.php')">
+                        <span class="nav-text">Vehicle</span>
+                      </a>
+                    </li>
                   </ul>
                 </li>
             

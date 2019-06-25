@@ -13,8 +13,10 @@ $nie = $postData['nie'];
 $id = $postData['id'];
 $tp = $postData['tp'];
 
-$customers = $DB->select('customer', 'WHERE id LIKE %$id% AND name LIKE %$name% AND address LIKE %$address% AND tp LIKE %$tp% AND regDate LIKE "'$regDate'" AND nie LIKE %$nie% AND areaID LIKE %$areaId% ;');
+$customers = $DB->select('customer', 'WHERE id LIKE %$id% AND name LIKE %$name% AND address LIKE %$address% AND tp LIKE %$tp% AND regDate LIKE "'.$regDate.'" AND nic LIKE %$nie% AND areaID LIKE %$areaId% ;');
 
+
+print_r($customers);
 if($customers != null){
     ?>
 

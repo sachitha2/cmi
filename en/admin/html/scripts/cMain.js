@@ -66,6 +66,43 @@ function addArea(area){
 			document.getElementById("msg").innerHTML = "Enter valid area";
 		}
 	}
+
+
+function searchCustomers(){
+		
+		var id = document.getElementById('id').value;
+		var name = document.getElementById('name').value;
+		var regDate = document.getElementById('regDate').value;
+		var addresss = document.getElementById('address').value;
+		var tp = document.getElementById('tp').value;
+
+		if(id.length != 0 || name.length != 0 || regDate.length != 0 || addresss.length != 0 || tp.length != 0 ){
+
+		
+		data = { 'id' :id, 'nie':nie, 'regDate':regDate, 'name':name, 'address': address, 'tp':tp };
+		
+		var ajax = _ajax();
+		ajax.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+				document.getElementById("outPut").innerHTML = this.responseText;
+				
+			}
+	  }
+
+		ajax.open("POST", "subPages/ajaxSearchCustomer.php", true);
+		ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		ajax.send("data="+(JSON.stringify(data)));
+		
+		}
+		else{
+			document.getElementById("outPut") = 'Please fill the forum';
+		}
+
+
+		
+		
+		}
+
 function addAgent(){
 		var agent = {};
 		agent.Name = document.getElementById("aName").value;
