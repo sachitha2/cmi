@@ -13,9 +13,9 @@ $DB->conn = $conn;
 		$sql = "WHERE status = 0 ORDER BY installment.date ASC";
 	}else if($search == "today"){
 		$sql = "WHERE date = curdate() AND status = 0 ORDER BY installment.date ASC";
-	}else if($search == "week"){
+	}else if($search == "this_week"){
 		$sql = "WHERE WEEK(date) = WEEK(curdate()) AND MONTH(date) = MONTH(curdate()) AND YEAR(date) = YEAR(curdate()) AND status = 0 ORDER BY installment.date ASC";
-	}else if($search == "month"){
+	}else if($search == "this_month"){
 		$sql = "WHERE  MONTH(date) = MONTH(curdate()) AND YEAR(date) = YEAR(curdate()) AND status = 0 ORDER BY installment.date ASC";
 	}else if($search == "area"){
 //		echo($_GET['id']);
