@@ -1055,7 +1055,7 @@ function enterAddExpenses(e,costTypeid){
 }
 
 ///this is installment collect
-function enterAddAgentInstallmentCollect(e,amount,inputId,ID,nRow,IID,dealId) {
+function enterAddAgentInstallmentCollect(e,amount,inputId,ID,nRow,IID,dealId,FN = 0) {
   if (e.which == 13) {
 					 //send data to installment collect Start
 					  ///TODO set read only

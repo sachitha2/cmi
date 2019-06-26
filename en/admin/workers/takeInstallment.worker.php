@@ -37,25 +37,29 @@ if($data['IID'] == 2){
 	
 }else {
 	//check last or not here
-	if($ni == $data['']){
+	if($ni == $data['IID']){
+		echo("Final installment");
 		
-	}
+	}else{
+		
 	
 	
-	if($installment[0]['payment'] == $data['amount']){
-		$sql = "UPDATE installment SET rdate = curdate(), status = '1', rpayment = {$data['amount']} WHERE installment.id = {$data['ID']};";
-		
-	}else if($installment[0]['payment'] > $data['amount']){
-			
-				$sql = "UPDATE installment SET rdate = curdate(), status = '1', rpayment = {$data['amount']} WHERE installment.id = {$data['ID']};";
-				$tmp = $DB->select("installment","where id = {$data['ID']}");
-		
-				echo("tmp");
-				print_r($tmp);
-				$forwadedAmount = $tmp[0]['payment'] - $data['amount'];
-				$sql2 = "UPDATE installment SET  payment = payment + $forwadedAmount WHERE installment.id = {$data['ID']}+1;";
-				$conn->query($sql2);
-	}
+	
+		if($installment[0]['payment'] == $data['amount']){
+			$sql = "UPDATE installment SET rdate = curdate(), status = '1', rpayment = {$data['amount']} WHERE installment.id = {$data['ID']};";
+
+		}else if($installment[0]['payment'] > $data['amount']){
+
+					$sql = "UPDATE installment SET rdate = curdate(), status = '1', rpayment = {$data['amount']} WHERE installment.id = {$data['ID']};";
+					$tmp = $DB->select("installment","where id = {$data['ID']}");
+
+					echo("tmp");
+					print_r($tmp);
+					$forwadedAmount = $tmp[0]['payment'] - $data['amount'];
+					$sql2 = "UPDATE installment SET  payment = payment + $forwadedAmount WHERE installment.id = {$data['ID']}+1;";
+					$conn->query($sql2);
+		}
+		}
 }
 
 $sqlDeal = "UPDATE deals SET rprice = rprice - {$data['amount']} WHERE deals.id = {$data['dealId']};";
