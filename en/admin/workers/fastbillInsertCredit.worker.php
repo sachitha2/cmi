@@ -105,7 +105,7 @@ if(isset($_POST['data'])){
 
 							////update purchased items
 
-							$sql = "INSERT INTO purchaseditems (id, dealid, itemid, amount, uprice, stockid, type,cc,date,time) VALUES (NULL, '$billNumber', '".$dataPackItemsMain['itemid']."', '$tmpQty', '".$arrStockRowOne[0]['cashPrice']."', '".$arrStockRowOne[0]['id']."', '1','2',curdate(),curtime());";
+							$sql = "INSERT INTO purchaseditems (id, dealid, itemid, amount, uprice, stockid, type,cc,date,time) VALUES (NULL, '$billNumber', '".$dataPackItemsMain['itemid']."', '$tmpQty', '".$arrStockRowOne[0]['sprice']."', '".$arrStockRowOne[0]['id']."', '1','2',curdate(),curtime());";
 
 							$conn->query($sql);
 
@@ -159,7 +159,7 @@ if(isset($_POST['data'])){
 								$conn->query($sql);
 
 								/////update customer bill side
-								$sql = "INSERT INTO purchaseditems (id, dealid, itemid, amount, uprice, stockid, type,cc,date,time) VALUES (NULL, '$billNumber', '".$dataPackItemsMain['itemid']."', '$tmpQty', '".$dataMultipleAttempts['cashPrice']."', '".$dataMultipleAttempts['id']."', '1','2',curdate(),curtime());";
+								$sql = "INSERT INTO purchaseditems (id, dealid, itemid, amount, uprice, stockid, type,cc,date,time) VALUES (NULL, '$billNumber', '".$dataPackItemsMain['itemid']."', '$tmpQty', '".$dataMultipleAttempts['sprice']."', '".$dataMultipleAttempts['id']."', '1','2',curdate(),curtime());";
 
 								$conn->query($sql);
 								$tmpQty = 0;
@@ -179,7 +179,7 @@ if(isset($_POST['data'])){
 								$conn->query($sql);
 
 								//////update customer bill side
-								$sql = "INSERT INTO purchaseditems (id, dealid, itemid, amount, uprice, stockid, type,cc,date,time) VALUES (NULL, '$billNumber', '".$dataPackItemsMain['itemid']."', '".$dataMultipleAttempts['ramount']."', '".$dataMultipleAttempts['cashPrice']."', '".$dataMultipleAttempts['id']."', '1','2',curdate(),curtime());";
+								$sql = "INSERT INTO purchaseditems (id, dealid, itemid, amount, uprice, stockid, type,cc,date,time) VALUES (NULL, '$billNumber', '".$dataPackItemsMain['itemid']."', '".$dataMultipleAttempts['ramount']."', '".$dataMultipleAttempts['sprice']."', '".$dataMultipleAttempts['id']."', '1','2',curdate(),curtime());";
 								$conn->query($sql);
 
 								///updating stock status
@@ -291,7 +291,7 @@ if(isset($_POST['data'])){
 
 					////update purchased items
 
-					$sql = "INSERT INTO purchaseditems (id, dealid, itemid, amount, uprice, stockid, type,cc,date,time) VALUES (NULL, '$billNumber', '$itemId', '$qty', '".$arrStockRowOne[0]['cashPrice']."', '".$arrStockRowOne[0]['id']."', '2','2',curdate(),curtime());";
+					$sql = "INSERT INTO purchaseditems (id, dealid, itemid, amount, uprice, stockid, type,cc,date,time) VALUES (NULL, '$billNumber', '$itemId', '$qty', '".$arrStockRowOne[0]['sprice']."', '".$arrStockRowOne[0]['id']."', '2','2',curdate(),curtime());";
 
 					$conn->query($sql);
 
@@ -330,7 +330,7 @@ if(isset($_POST['data'])){
 								$conn->query($sql);
 
 								/////update customer bill side
-								$sql = "INSERT INTO purchaseditems (id, dealid, itemid, amount, uprice, stockid, type,cc,date,time) VALUES (NULL, '$billNumber', '$itemId', '$qty', '".$dataMultipleAttempts['cashPrice']."', '".$dataMultipleAttempts['id']."', '2','2',,curdate(),curtime());";
+								$sql = "INSERT INTO purchaseditems (id, dealid, itemid, amount, uprice, stockid, type,cc,date,time) VALUES (NULL, '$billNumber', '$itemId', '$qty', '".$dataMultipleAttempts['sprice']."', '".$dataMultipleAttempts['id']."', '2','2',,curdate(),curtime());";
 
 								$conn->query($sql);
 								$qty = 0;
@@ -350,7 +350,7 @@ if(isset($_POST['data'])){
 								$conn->query($sql);
 
 								//////update customer bill side
-								$sql = "INSERT INTO purchaseditems (id, dealid, itemid, amount, uprice, stockid, type,cc,date,time) VALUES (NULL, '$billNumber', '$itemId', '".$dataMultipleAttempts['ramount']."', '".$dataMultipleAttempts['cashPrice']."', '".$dataMultipleAttempts['id']."', '2','2',curdate(),curtime());";
+								$sql = "INSERT INTO purchaseditems (id, dealid, itemid, amount, uprice, stockid, type,cc,date,time) VALUES (NULL, '$billNumber', '$itemId', '".$dataMultipleAttempts['ramount']."', '".$dataMultipleAttempts['sprice']."', '".$dataMultipleAttempts['id']."', '2','2',curdate(),curtime());";
 								$conn->query($sql);
 
 								///updating stock status

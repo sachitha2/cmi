@@ -11,8 +11,10 @@ $DB->conn = $conn;?>
 	
 	
 <?php
-if(($DB->nRow("purchaseditems","where date = curdate() AND cc = '2'") != 0 ) && ($DB->nRow("installment","where rdate = curdate()") != 0 )){ ?>
+if(($DB->nRow("purchaseditems","where date = curdate() AND cc = '2'") != 0 ) && ($DB->nRow("installment","where rdate = curdate()") != 0 )){
 	
+	?>
+	oh hii
 	
 
 

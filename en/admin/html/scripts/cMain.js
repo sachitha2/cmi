@@ -66,6 +66,43 @@ function addArea(area){
 			document.getElementById("msg").innerHTML = "Enter valid area";
 		}
 	}
+
+
+function searchCustomers(){
+		
+		var id = document.getElementById('id').value;
+		var name = document.getElementById('name').value;
+		var regDate = document.getElementById('regDate').value;
+		var addresss = document.getElementById('address').value;
+		var tp = document.getElementById('tp').value;
+
+		if(id.length != 0 || name.length != 0 || regDate.length != 0 || addresss.length != 0 || tp.length != 0 ){
+
+		
+		data = { 'id' :id, 'nie':nie, 'regDate':regDate, 'name':name, 'address': address, 'tp':tp };
+		
+		var ajax = _ajax();
+		ajax.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+				document.getElementById("outPut").innerHTML = this.responseText;
+				
+			}
+	  }
+
+		ajax.open("POST", "subPages/ajaxSearchCustomer.php", true);
+		ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		ajax.send("data="+(JSON.stringify(data)));
+		
+		}
+		else{
+			document.getElementById("outPut") = 'Please fill the forum';
+		}
+
+
+		
+		
+		}
+
 function addAgent(){
 		var agent = {};
 		agent.Name = document.getElementById("aName").value;
@@ -383,7 +420,7 @@ function additemsToCreditCustomerBill(billId){
 				document.getElementById("itemId").select();
 				}
 	  		}
-			ajax.open("POST", "../workers/fastbillInsert.worker.php", true);
+			ajax.open("POST", "../workers/fastbillInsertCredit.worker.php", true);
 			ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 			ajax.send("data="+(JSON.stringify(data)));
 		
@@ -651,23 +688,29 @@ function addStock(amount,id,bPrice,sPrice,exDate,mfd){
 			vEXDate = document.getElementById("exDate").value;
 			vmfd = document.getElementById("mfd").value;
 			mPrice = document.getElementById("mPrice").value;	
+			cPrice = document.getElementById("cPrice").value;
+			type = document.getElementById("type").value;
 				
 		
-	
-			if(vAmount == ""){
-				document.getElementById("msg").innerHTML = "Enter Amount";
+			if(type == "0"){
+				msg("msg","Select Type");
+			}
+			else if(vAmount == ""){
+				msg("msg","Enter Amount");
 			}
 			else if(vBPrice == ""){
-				document.getElementById("msg").innerHTML = "Enter Buying Price";
+				msg("msg","Enter Buying Price");
 			}
 			else if(vSPrice == ""){
-				document.getElementById("msg").innerHTML = "Enter Selling Price";
+				msg("msg","Enter Selling Price");
 			}
 			else if(vEXDate == ""){
-				document.getElementById("msg").innerHTML = "Enter Expire Date";
+				msg("msg","Enter Expire Date");
 			}
 			else if(vmfd == ""){
-				document.getElementById("msg").innerHTML = "Enter MFD";
+				msg("msg","Enter MFD");
+			}else if(cPrice ==""){
+				msg("msg","Enter Cash Price");
 			}
 			else{
 			showModal();
@@ -686,7 +729,7 @@ function addStock(amount,id,bPrice,sPrice,exDate,mfd){
 					hideModal();
            		}
         	};
-        	xmlhttp.open("GET", "../workers/addStock.worker.php?amount="+amount+"&id="+id+"&bPrice="+bPrice+"&exDate="+exDate+"&sPrice="+sPrice+"&mfd="+mfd+"&mPrice="+mPrice, true);//generating  get method link
+        	xmlhttp.open("GET", "../workers/addStock.worker.php?amount="+amount+"&id="+id+"&bPrice="+bPrice+"&exDate="+exDate+"&sPrice="+sPrice+"&mfd="+mfd+"&mPrice="+mPrice+"&cPrice="+cPrice+"&type="+type, true);//generating  get method link
         	xmlhttp.send();
 }
 }
@@ -709,7 +752,7 @@ function CheckCustomerForMakeBill(idCard){
 					console.log(this.responseText);
 					if(jsonData.s == 1){
 //						alert("next url");
-						creditCustomer(idCard);
+						creditCustomer(jsonData.cid);
 					}else{
 						msg("msg",jsonData.msg);
 					}
@@ -1012,12 +1055,35 @@ function enterAddExpenses(e,costTypeid){
 }
 
 ///this is installment collect
-function enterAddAgentInstallmentCollect(e) {
-  if (e.which == 13) {alert("Helloo"); 
+function enterAddAgentInstallmentCollect(e,amount,inputId,ID,nRow,IID,dealId,FN = 0) {
+  if (e.which == 13) {
 					 //send data to installment collect Start
-					  ///TODO
-					  
-					  
+					  ///TODO set read only
+	  
+	  
+	  				data = { 'ID':ID, 'amount':amount,'IID':IID,'dealId':dealId};
+	  				console.log("Nr "+nRow+"input"+inputId);
+	  				if(nRow != inputId){
+						enterNext(event,"input"+(inputId+1));
+					}
+					
+					var ajax = _ajax();
+	  				showModal();
+	  				msg("msg"+inputId,"Wait");
+					ajax.onreadystatechange = function() {
+						if (this.readyState == 4 && this.status == 200) {
+							hideModal();
+				   	 		console.log(this.responseText);
+							document.getElementById("input"+inputId).readOnly = true;
+					  		msg("msg"+inputId,"Done Saving");
+						}
+				  }
+
+					ajax.open("POST", "../workers/takeInstallment.worker.php", true);
+					ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+					ajax.send("data="+(JSON.stringify(data)));
+	  
+	  				
 					  
 					  
 					 //send data to installment collect End
@@ -1210,6 +1276,51 @@ function enterStockShortBySP(e,less,great,SP) {
 			}
 	  }
 }
+
+
+function enterStockShortByCP(e,less,great,CP) {
+  if (e.which == 13) {  
+	  	  if(CP != ""){
+				console.log(readStockMenu());
+		  		var menu = readStockMenu();
+	  			if(less == 1){
+					GL = ' <= ';
+				}else{
+					GL = ' >= ';
+				}
+		    	data = {'mode':'CP','GL':GL,'CP':CP,'status':0,"day":""};
+		  		data.status = menu.status;
+		  		data.day = menu.day;
+		  		console.log(data);
+	  			ajaxCommonGetFromNet('subPages/viewStock.php?data='+JSON.stringify(data),'cStage');
+//	  			alert("on key press in short stock by Amount");
+	  			console.log("enterStockShortByAmount less - " + less+"greater "+great + " amount " + CP);	
+			}
+	  }
+}
+
+function enterStockShortByMP(e,less,great,MP) {
+  if (e.which == 13) {  
+	  	  if(MP != ""){
+				console.log(readStockMenu());
+		  		var menu = readStockMenu();
+	  			if(less == 1){
+					GL = ' <= ';
+				}else{
+					GL = ' >= ';
+				}
+		    	data = {'mode':'MP','GL':GL,'MP':MP,'status':0,"day":""};
+		  		data.status = menu.status;
+		  		data.day = menu.day;
+		  		console.log(data);
+	  			ajaxCommonGetFromNet('subPages/viewStock.php?data='+JSON.stringify(data),'cStage');
+//	  			alert("on key press in short stock by Amount");
+	  			console.log("enterStockShortByAmount less - " + less+"greater "+great + " amount " + MP);	
+			}
+	  }
+}
+
+
 function enterStockShortByMFD(from,to) {
 				console.log(readStockMenu());
 		  		var menu = readStockMenu();

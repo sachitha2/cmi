@@ -6,7 +6,7 @@ $main = new Main;
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>CMS - Sales</title>
+  <title>CMS - Vehicle</title>
   <meta name="description" content="cms" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimal-ui" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -49,21 +49,17 @@ $main = new Main;
     <div ui-view class="app-body" id="view">
 		<?php $main->modal() ?>
       <!-- ############ PAGE START-->
-        <?php $main->head("Sales") ?>
+        <?php $main->head("Vehicle") ?>
     <div class="container h-100" id="cStage">
-		<!--  	This is sales stage		-->
-			<center>
-				<button type="button" class="btn btn-primary btn-lg" onclick="ajaxCommonGetFromNet('subPages/salesView.php?search=all','cStage')"  style="width: 80%;margin-bottom: 10px;">View</button>
-				<button type="button" class="btn btn-primary btn-lg" onclick="ajaxCommonGetFromNet('subPages/salesView.php?search=today','cStage')"  style="width: 40%;margin-bottom: 10px;">Today</button>
-				<button type="button" class="btn btn-primary btn-lg" onclick="ajaxCommonGetFromNet('subPages/salesView.php?search=yesterday','cStage')"  style="width: 40%;margin-bottom: 10px;">Yesterday</button>
-				<button type="button" class="btn btn-primary btn-lg" onclick="ajaxCommonGetFromNet('subPages/salesView.php?search=week','cStage')"  style="width: 40%;margin-bottom: 10px;"> This Week</button>
-				<button type="button" class="btn btn-primary btn-lg" onclick="ajaxCommonGetFromNet('subPages/salesView.php?search=week','cStage')"  style="width: 40%;margin-bottom: 10px;"> Last Week</button>
-				<button type="button" class="btn btn-primary btn-lg" onclick="ajaxCommonGetFromNet('subPages/salesView.php?search=month','cStage')"  style="width: 40%;margin-bottom: 10px;"> This Month</button>
-				<button type="button" class="btn btn-primary btn-lg" onclick="ajaxCommonGetFromNet('subPages/salesView.php?search=month','cStage')"  style="width: 40%;margin-bottom: 10px;"> Last Month</button>
-				<button type="button" class="btn btn-primary btn-lg" onclick="alert('under construction')"  style="width: 80%;margin-bottom: 10px;"> Custome Dates</button>
-				<button type="button" class="btn btn-primary btn-lg" onclick="alert('under construction')"  style="width: 80%;margin-bottom: 10px;">Search</button>
-			</center>
-		<!--  	This is sales stage		-->
+    
+    		<center>
+				<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/addVehicle.php','cStage')"  style="width: 40%;margin-bottom: 5px;">Add</button>
+				<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/area.STE.php','cStage')"  style="width: 40%;margin-bottom: 5px;">Edit</button>
+	<!--     		<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/deleteArea.php','cStage')">Delete</button>-->
+				<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/viewArea.php','cStage')"  style="width: 40%;margin-bottom: 5px;">View</button>
+    		</center>
+  			
+     	
 	</div>
 
       <!-- ############ PAGE END-->
