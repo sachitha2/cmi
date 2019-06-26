@@ -27,6 +27,8 @@ $main = new Main;
   <link rel="stylesheet" href="../assets/material-design-icons/material-design-icons.css" type="text/css" />
 
   <link rel="stylesheet" href="../assets/bootstrap/dist/css/bootstrap.min.css" type="text/css" />
+  <!--  PDF-->
+  <link rel="stylesheet" href="https://printjs-4de6.kxcdn.com/print.min.css" type="text/css" />
   <!-- build:css ../assets/styles/app.min.css -->
   <link rel="stylesheet" href="../assets/styles/app.css" type="text/css" />
   <!-- endbuild -->
@@ -50,6 +52,10 @@ $main = new Main;
 	<div class="container h-100" id="cStage">
       <!-- ############ PAGE START-->
       <center>
+     		 
+     		
+     		
+     		
       		<button type="button" class="btn btn-primary btn-lg " onclick="ajaxCommonGetFromNet('subPages/viewALLInstallments.php?search=all','cStage')" style="width: 80%;margin-bottom: 10px;">ALL</button>
 			
 			<button type="button" class="btn btn-primary btn-lg" onclick="ajaxCommonGetFromNet('subPages/viewALLInstallments.php?search=today','cStage')" style="width: 25%;margin-bottom: 10px;">Yesterday</button>
@@ -111,6 +117,29 @@ $main = new Main;
   <!-- ajax -->
   <script src="../libs/jquery/jquery-pjax/jquery.pjax.js"></script>
   <script src="scripts/ajax.js"></script>
+  
+  <script src="https://printjs-4de6.kxcdn.com/print.min.js"></script>
+  <script>
+	
+	 someJSONdata = [
+    {
+       name: 'John Doe',
+       email: 'john@doe.com',
+       phone: '111-111-1111'
+    },
+    {
+       name: 'Barry Allen',
+       email: 'barry@flash.com',
+       phone: '222-222-2222'
+    },
+    {
+       name: 'Cool Dude',
+       email: 'cool@dude.com',
+       phone: '333-333-3333'
+    }
+ ]
+  </script>
+  
 <!-- endbuild -->
 </body>
 </html>

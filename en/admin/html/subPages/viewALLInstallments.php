@@ -37,10 +37,29 @@ $DB->conn = $conn;
 </div>
 	
 <?php
+	///JSON ARRAY CREATING START
+	
+	
+			
+		$arr = $DB->select("installment",$sql);
+		$jx = 0;
+		foreach($arr as $jsonData){
+			$arrrr[0]['ID'] = $jx+1;
+			$arrrr[0]['C_NAME'] = "Sachithaa";
+			
+		}
+
+		$json = json_encode($arrrr);
+	///JSON ARRAY CREATING END
+	
 	$nRow = $DB->nRow("installment",$sql);
 if($nRow != 0){ ?>
+			 <button type="button" onclick='printJS({printable: <?php echo($json) ?>, properties: ["ID", "email", "phone"], type: "json"})'>
+    				Print
+ 			</button>
 
-<table class="table table-hover table-bordered table-striped table-dark">
+ </button>
+<table class="table table-hover table-bordered table-striped table-dark" id="dataTable" border="1">
   <thead class="thead-dark">
     <tr>
       <th scope="col" width="10">ID</th>
@@ -70,7 +89,7 @@ if($nRow != 0){ ?>
     
     <?php
 	
-		$arr = $DB->select("installment",$sql);
+		
 		$id = 1;
 		foreach($arr as $data){
 			
