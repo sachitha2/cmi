@@ -6,7 +6,7 @@ $DB = new DB;
 $DB->conn = $conn;
 $main = new Main;
 $main->b("pack.php");
-
+include("../../workers/readSesson.worker.php");
 
 
 if($DB->nRow("pack","") != 0){ ?>

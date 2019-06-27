@@ -8,6 +8,7 @@ $DB->conn = $conn;
 $id = $_POST['id'];
 //echo($area);
 echo($id);
+$arr = $DB->select("area","where id = $id","name ");
 $DB->delete("area","where id = $id");
-$main->createSettionError("Deleted a area -> $id");
+$main->createSettionError("Deleted a area -> {$arr[0]['name']}");
 ?>
