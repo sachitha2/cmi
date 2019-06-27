@@ -25,8 +25,7 @@ $main->b("order.php");
       						<th scope="col">CID</th>
       						<th scope="col">QTY</th>
       						<th scope="col">Date</th>
-      						<th scope="col" width="50"></th>
-      						<th scope="col" width="50"></th>
+      						<th scope="col"></th>
     					</tr>
   					</thead>
   					<tbody>
@@ -42,8 +41,12 @@ $main->b("order.php");
 					<td><?php echo($data['cid'])?></td>
 					<td><?php echo($DB->nRow("orders","")) ?></td>
 					<td><?php echo($data['cid']) ?></td>
-					<td></td>
-					<td></td>
+					<td>
+						<button class="btn btn-primary btn-md">View</button>
+						<button class="btn btn-primary btn-md">Approve</button>
+						<button class="btn btn-danger btn-md">Cancel</button>
+					
+					</td>
 					
 				</tr>
 				<?php
