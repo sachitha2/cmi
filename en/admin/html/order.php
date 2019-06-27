@@ -51,7 +51,10 @@ $main = new Main;
       <!-- ############ PAGE START-->
         <?php $main->head("Orders") ?>
     <div class="container h-100" id="cStage">
-  			This page is under construction
+    
+  			<button type="button" class="btn btn-primary btn-lg" onclick="ajaxCommonGetFromNet('subPages/selectCustomerToNewOrder.php','cStage')" style="width: 25%;margin-bottom: 10px;">New Order</button>
+  			
+  			<button type="button" class="btn btn-primary btn-lg" onclick="ajaxCommonGetFromNet('subPages/viewALLInstallments.php?search=next_week','cStage')" style="width: 25%;margin-bottom: 10px;">All</button>
      	
 	</div>
 
