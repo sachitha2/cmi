@@ -54,7 +54,7 @@ $main = new Main;
     
   			<button type="button" class="btn btn-primary btn-lg" onclick="ajaxCommonGetFromNet('subPages/selectCustomerToNewOrder.php','cStage')" style="width: 25%;margin-bottom: 10px;">New Order</button>
   			
-  			<button type="button" class="btn btn-primary btn-lg" onclick="ajaxCommonGetFromNet('subPages/viewALLInstallments.php?search=next_week','cStage')" style="width: 25%;margin-bottom: 10px;">All</button>
+  			<button type="button" class="btn btn-primary btn-lg" onclick="ajaxCommonGetFromNet('subPages/allOrders.php','cStage')" style="width: 25%;margin-bottom: 10px;">All</button>
      	
 	</div>
 
