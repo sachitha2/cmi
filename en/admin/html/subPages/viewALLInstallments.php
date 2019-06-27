@@ -174,7 +174,18 @@ if($nRow != 0){ ?>
 					<td><?php echo($data['cid']) ?></td>
 					<td><?php echo($data['installmentid']) ?></td>
 					<td><?php echo($data['payment']) ?></td>
-					<td><input id="input<?php echo($id) ?>" type="number" style="width: 100px;" onKeyPress="enterAddAgentInstallmentCollect(event,this.value,<?php echo($id) ?>,<?php echo($data['id']) ?>,<?php echo($nRow) ?>,<?php echo($data['installmentid']) ?>,<?php echo($data['dealid']) ?>)"> <div id="msg<?php echo($id) ?>"></div></td>
+					<td>
+					
+						<?php
+							$val = "";
+							if($data['rpayment'] != 0){
+								$val = $data['payment'] - $data['rpayment'];
+							}
+					
+						?>
+						<input id="input<?php echo($id) ?>" placeholder="<?php echo($val) ?>" type="number" style="width: 100px;" onKeyPress="enterAddAgentInstallmentCollect(event,this.value,<?php echo($id) ?>,<?php echo($data['id']) ?>,<?php echo($nRow) ?>,<?php echo($data['installmentid']) ?>,<?php echo($data['dealid']) ?>)"> <div id="msg<?php echo($id) ?>"></div>
+						
+						</td>
 					<td><?php echo($data['date']) ?></td>
 
 					<?php

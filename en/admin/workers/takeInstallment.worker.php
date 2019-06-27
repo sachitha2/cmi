@@ -44,6 +44,7 @@ if($data['IID'] == 2){
 
 			}else{
 				$sql = "UPDATE installment SET rdate = curdate(), status = '0', rpayment =rpayment + {$data['amount']} WHERE installment.id = {$data['ID']};";
+				
 			}
 
 		
