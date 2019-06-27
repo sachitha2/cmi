@@ -7,7 +7,6 @@ $DB = new DB;
 $DB->conn = $conn;
 $main->b("order.php");
 
-$main->createSettionError("hi san");
 ?>
 <?php
 	include("../../workers/readSesson.worker.php");
