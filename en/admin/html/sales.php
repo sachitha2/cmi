@@ -54,12 +54,19 @@ $main = new Main;
 		<!--  	This is sales stage		-->
 			<center>
 				<button type="button" class="btn btn-primary btn-lg" onclick="ajaxCommonGetFromNet('subPages/salesView.php?search=all','cStage')"  style="width: 80%;margin-bottom: 10px;">View</button>
-				<button type="button" class="btn btn-primary btn-lg" onclick="ajaxCommonGetFromNet('subPages/salesView.php?search=today','cStage')"  style="width: 40%;margin-bottom: 10px;">Today</button>
-				<button type="button" class="btn btn-primary btn-lg" onclick="ajaxCommonGetFromNet('subPages/salesView.php?search=yesterday','cStage')"  style="width: 40%;margin-bottom: 10px;">Yesterday</button>
-				<button type="button" class="btn btn-primary btn-lg" onclick="ajaxCommonGetFromNet('subPages/salesView.php?search=week','cStage')"  style="width: 40%;margin-bottom: 10px;"> This Week</button>
-				<button type="button" class="btn btn-primary btn-lg" onclick="ajaxCommonGetFromNet('subPages/salesView.php?search=week','cStage')"  style="width: 40%;margin-bottom: 10px;"> Last Week</button>
-				<button type="button" class="btn btn-primary btn-lg" onclick="ajaxCommonGetFromNet('subPages/salesView.php?search=month','cStage')"  style="width: 40%;margin-bottom: 10px;"> This Month</button>
-				<button type="button" class="btn btn-primary btn-lg" onclick="ajaxCommonGetFromNet('subPages/salesView.php?search=month','cStage')"  style="width: 40%;margin-bottom: 10px;"> Last Month</button>
+				
+				
+				<button type="button" class="btn btn-primary btn-lg" onclick="ajaxCommonGetFromNet('subPages/salesView.php?search=yesterday','cStage')"  style="width: 35%;margin-bottom: 10px;">Yesterday</button>
+				<button type="button" class="btn btn-primary btn-lg" onclick="ajaxCommonGetFromNet('subPages/salesView.php?search=today','cStage')"  style="width: 35%;margin-bottom: 10px;">Today</button>
+				
+				
+				<button type="button" class="btn btn-primary btn-lg" onclick="ajaxCommonGetFromNet('subPages/salesView.php?search=last_week','cStage')"  style="width: 35%;margin-bottom: 10px;"> Last Week</button>
+				<button type="button" class="btn btn-primary btn-lg" onclick="ajaxCommonGetFromNet('subPages/salesView.php?search=week','cStage')"  style="width: 35%;margin-bottom: 10px;"> This Week</button>
+				
+				
+				<button type="button" class="btn btn-primary btn-lg" onclick="ajaxCommonGetFromNet('subPages/salesView.php?search=last_month','cStage')"  style="width: 35%;margin-bottom: 10px;"> Last Month</button>
+				<button type="button" class="btn btn-primary btn-lg" onclick="ajaxCommonGetFromNet('subPages/salesView.php?search=month','cStage')"  style="width: 35%;margin-bottom: 10px;"> This Month</button>
+				
 				<button type="button" class="btn btn-primary btn-lg" onclick="alert('under construction')"  style="width: 80%;margin-bottom: 10px;"> Custome Dates</button>
 				<button type="button" class="btn btn-primary btn-lg" onclick="alert('under construction')"  style="width: 80%;margin-bottom: 10px;">Search</button>
 			</center>
