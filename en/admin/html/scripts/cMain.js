@@ -1940,7 +1940,28 @@ function sendCreditBill(data){
 			ajax.send();
 }
 
+///update stock prices
 
+function updateStockPrices(){
+	sPrice = document.getElementById("sPrice").value;
+	mPrice = document.getElementById("mPrice").value;
+	cPrice = document.getElementById("cPrice").value;
+	if((sPrice != "") || (mPrice != "") || (cPrice != "")){
+			
+			var ajax = _ajax();
+			ajax.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+					console.log(this.responseText);
+				}
+	  		}
+
+			ajax.open("GET", ""+data, true);
+			ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+			ajax.send();
+	}else{
+		msg("msg","Enter prices in atleast  one input filed");
+	}
+}
 
 
 function sendBill(data){

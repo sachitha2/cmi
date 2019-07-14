@@ -1,0 +1,12 @@
+<?php
+require_once("db.php");
+require_once("../methods/DB.class.php");
+$DB = new DB;
+$DB->conn = $conn;
+$data = $_GET['data'];
+$data = json_decode($data,true);
+//print_r($data);
+
+
+?>
+this is change prices;
