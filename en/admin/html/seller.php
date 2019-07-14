@@ -6,7 +6,7 @@ $main = new Main;
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>CMS - Orders</title>
+  <title>CMS - Seller</title>
   <meta name="description" content="cms" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimal-ui" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -49,12 +49,16 @@ $main = new Main;
     <div ui-view class="app-body" id="view">
 		<?php $main->modal() ?>
       <!-- ############ PAGE START-->
-        <?php $main->head("Orders") ?>
+        <?php $main->head("Seller") ?>
     <div class="container h-100" id="cStage">
     
-  			<button type="button" class="btn btn-primary btn-lg" onclick="ajaxCommonGetFromNet('subPages/selectCustomerToNewOrder.php','cStage')" style="width: 25%;margin-bottom: 10px;">New Order</button>
+    		<center>
+				<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/addVehicle.php','cStage')"  style="width: 40%;margin-bottom: 5px;">Add</button>
+				<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/area.STE.php','cStage')"  style="width: 40%;margin-bottom: 5px;">Edit</button>
+	<!--     		<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/deleteArea.php','cStage')">Delete</button>-->
+				<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/viewArea.php','cStage')"  style="width: 40%;margin-bottom: 5px;">View</button>
+    		</center>
   			
-  			<button type="button" class="btn btn-primary btn-lg" onclick="ajaxCommonGetFromNet('subPages/allOrders.php','cStage')" style="width: 25%;margin-bottom: 10px;">All</button>
      	
 	</div>
 

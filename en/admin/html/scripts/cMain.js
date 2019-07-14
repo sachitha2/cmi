@@ -1057,36 +1057,41 @@ function enterAddExpenses(e,costTypeid){
 ///this is installment collect
 function enterAddAgentInstallmentCollect(e,amount,inputId,ID,nRow,IID,dealId,FN = 0) {
   if (e.which == 13) {
-					 //send data to installment collect Start
-					  ///TODO set read only
-	  
-	  
-	  				data = { 'ID':ID, 'amount':amount,'IID':IID,'dealId':dealId};
-	  				console.log("Nr "+nRow+"input"+inputId);
-	  				if(nRow != inputId){
-						enterNext(event,"input"+(inputId+1));
-					}
-					
-					var ajax = _ajax();
-	  				showModal();
-	  				msg("msg"+inputId,"Wait");
-					ajax.onreadystatechange = function() {
-						if (this.readyState == 4 && this.status == 200) {
-							hideModal();
-				   	 		console.log(this.responseText);
-							document.getElementById("input"+inputId).readOnly = true;
-					  		msg("msg"+inputId,"Done Saving");
-						}
-				  }
+	  		if(amount != ""){
+					//send data to installment collect Start
+						  ///TODO set read only
 
-					ajax.open("POST", "../workers/takeInstallment.worker.php", true);
-					ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-					ajax.send("data="+(JSON.stringify(data)));
-	  
-	  				
-					  
-					  
-					 //send data to installment collect End
+
+						data = { 'ID':ID, 'amount':amount,'IID':IID,'dealId':dealId};
+						console.log("Nr "+nRow+"input"+inputId);
+						if(nRow != inputId){
+							enterNext(event,"input"+(inputId+1));
+						}
+
+						var ajax = _ajax();
+						showModal();
+						msg("msg"+inputId,"Wait");
+						ajax.onreadystatechange = function() {
+							if (this.readyState == 4 && this.status == 200) {
+								hideModal();
+								console.log(this.responseText);
+								document.getElementById("input"+inputId).readOnly = true;
+								msg("msg"+inputId,"Done Saving");
+							}
+					  }
+
+						ajax.open("POST", "../workers/takeInstallment.worker.php", true);
+						ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+						ajax.send("data="+(JSON.stringify(data)));
+
+
+
+
+						 //send data to installment collect End
+			}else{
+				alert("Enter amount ");
+			}
+					 
 					 
 					 }
 }
@@ -1905,7 +1910,7 @@ function finishBillCreditCustomer(cash,installments){
 		var ajax = _ajax();
 			ajax.onreadystatechange = function() {
 				if (this.readyState == 4 && this.status == 200) {
-	    			alert(this.responseText);
+//	    			alert(this.responseText);
 					sendCreditBill(this.responseText);
 				}
 	  		}
@@ -1935,7 +1940,32 @@ function sendCreditBill(data){
 			ajax.send();
 }
 
+///update stock prices
 
+function updateStockPrices(itemId){
+	sPrice = document.getElementById("sPrice").value;
+	mPrice = document.getElementById("mPrice").value;
+	cPrice = document.getElementById("cPrice").value;
+	if((sPrice != 0) || (mPrice != 0) || (cPrice != 0)){
+			loadingModal();
+			msg("msg","");
+			var data = {"sPrice":sPrice,"mPrice":mPrice,"cPrice":cPrice,"itemId":itemId};
+			var ajax = _ajax();
+			ajax.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+					hideModal();
+					msg("msg","done");
+					console.log(this.responseText);
+				}
+	  		}
+
+			ajax.open("GET", "../workers/changePrices.worker.php?data="+JSON.stringify(data), true);
+			ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+			ajax.send();
+	}else{
+		msg("msg","Enter prices in atleast  one input filed");
+	}
+}
 
 
 function sendBill(data){

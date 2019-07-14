@@ -17,8 +17,16 @@ $DB->conn = $conn;?>
 		$sql = "WHERE date = curdate()";
 	}else if($search == "week"){
 		$sql = "WHERE WEEK(date) = WEEK(curdate()) AND MONTH(date) = MONTH(curdate()) AND YEAR(date) = YEAR(curdate())";
-	}else if($search == "month"){
+	}else if($search == "last_week"){
+		$sql = "WHERE WEEK(date) = WEEK(curdate())-1 AND MONTH(date) = MONTH(curdate()) AND YEAR(date) = YEAR(curdate())";
+	}
+	else if($search == "month"){
 		$sql = "WHERE  MONTH(date) = MONTH(curdate()) AND YEAR(date) = YEAR(curdate())";
+	}else if($search == "last_month"){
+		$sql = "WHERE  MONTH(date) = MONTH(curdate())-1 AND YEAR(date) = YEAR(curdate())";
+	}
+	else if($search == "yesterday"){
+		$sql = "WHERE date = curdate()-1";
 	}
 	$col = "DISTINCT dealid , cc";
 ?>

@@ -13,9 +13,9 @@ $DB->conn = $conn;
 		$sql = "WHERE status = 0 ORDER BY installment.date ASC";
 	}else if($search == "today"){
 		$sql = "WHERE date = curdate() AND status = 0 ORDER BY installment.date ASC";
-	}else if($search == "week"){
+	}else if($search == "this_week"){
 		$sql = "WHERE WEEK(date) = WEEK(curdate()) AND MONTH(date) = MONTH(curdate()) AND YEAR(date) = YEAR(curdate()) AND status = 0 ORDER BY installment.date ASC";
-	}else if($search == "month"){
+	}else if($search == "this_month"){
 		$sql = "WHERE  MONTH(date) = MONTH(curdate()) AND YEAR(date) = YEAR(curdate()) AND status = 0 ORDER BY installment.date ASC";
 	}else if($search == "area"){
 //		echo($_GET['id']);
@@ -37,10 +37,29 @@ $DB->conn = $conn;
 </div>
 	
 <?php
+	///JSON ARRAY CREATING START
+	
+	
+			
+		$arr = $DB->select("installment",$sql);
+		$jx = 0;
+		foreach($arr as $jsonData){
+			$arrrr[0]['ID'] = $jx+1;
+			$arrrr[0]['C_NAME'] = "Sachithaa";
+			
+		}
+
+		$json = json_encode($arrrr);
+	///JSON ARRAY CREATING END
+	
 	$nRow = $DB->nRow("installment",$sql);
 if($nRow != 0){ ?>
+			 <button type="button" onclick='printJS({printable: <?php echo($json) ?>, properties: ["ID", "email", "phone"], type: "json"})'>
+    				Print
+ 			</button>
 
-<table class="table table-hover table-bordered table-striped table-dark">
+ </button>
+<table class="table table-hover table-bordered table-striped table-dark" id="dataTable" border="1">
   <thead class="thead-dark">
     <tr>
       <th scope="col" width="10">ID</th>
@@ -70,7 +89,7 @@ if($nRow != 0){ ?>
     
     <?php
 	
-		$arr = $DB->select("installment",$sql);
+		
 		$id = 1;
 		foreach($arr as $data){
 			
@@ -155,7 +174,18 @@ if($nRow != 0){ ?>
 					<td><?php echo($data['cid']) ?></td>
 					<td><?php echo($data['installmentid']) ?></td>
 					<td><?php echo($data['payment']) ?></td>
-					<td><input id="input<?php echo($id) ?>" type="number" style="width: 100px;" onKeyPress="enterAddAgentInstallmentCollect(event,this.value,<?php echo($id) ?>,<?php echo($data['id']) ?>,<?php echo($nRow) ?>,<?php echo($data['installmentid']) ?>,<?php echo($data['dealid']) ?>)"> <div id="msg<?php echo($id) ?>"></div></td>
+					<td>
+					
+						<?php
+							$val = "";
+							if($data['rpayment'] != 0){
+								$val = $data['payment'] - $data['rpayment'];
+							}
+					
+						?>
+						<input id="input<?php echo($id) ?>" placeholder="<?php echo($val) ?>" type="number" style="width: 100px;" onKeyPress="enterAddAgentInstallmentCollect(event,this.value,<?php echo($id) ?>,<?php echo($data['id']) ?>,<?php echo($nRow) ?>,<?php echo($data['installmentid']) ?>,<?php echo($data['dealid']) ?>)"> <div id="msg<?php echo($id) ?>"></div>
+						
+						</td>
 					<td><?php echo($data['date']) ?></td>
 
 					<?php

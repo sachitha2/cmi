@@ -27,6 +27,8 @@ $main = new Main;
   <link rel="stylesheet" href="../assets/material-design-icons/material-design-icons.css" type="text/css" />
 
   <link rel="stylesheet" href="../assets/bootstrap/dist/css/bootstrap.min.css" type="text/css" />
+  <!--  PDF-->
+  <link rel="stylesheet" href="https://printjs-4de6.kxcdn.com/print.min.css" type="text/css" />
   <!-- build:css ../assets/styles/app.min.css -->
   <link rel="stylesheet" href="../assets/styles/app.css" type="text/css" />
   <!-- endbuild -->
@@ -50,21 +52,29 @@ $main = new Main;
 	<div class="container h-100" id="cStage">
       <!-- ############ PAGE START-->
       <center>
+     		 
+     		
+     		
+     		
       		<button type="button" class="btn btn-primary btn-lg " onclick="ajaxCommonGetFromNet('subPages/viewALLInstallments.php?search=all','cStage')" style="width: 80%;margin-bottom: 10px;">ALL</button>
 			
-			<button type="button" class="btn btn-primary btn-lg" onclick="ajaxCommonGetFromNet('subPages/viewALLInstallments.php?search=today','cStage')" style="width: 25%;margin-bottom: 10px;">Yesterday</button>
+			<button type="button" class="btn btn-primary btn-lg" onclick="ajaxCommonGetFromNet('subPages/viewALLInstallments.php?search=yesterday','cStage')" style="width: 25%;margin-bottom: 10px;">Yesterday</button>
 			<button type="button" class="btn btn-primary btn-lg" onclick="ajaxCommonGetFromNet('subPages/viewALLInstallments.php?search=today','cStage')" style="width: 25%;margin-bottom: 10px;">Today</button>
-			<button type="button" class="btn btn-primary btn-lg" onclick="ajaxCommonGetFromNet('subPages/viewALLInstallments.php?search=today','cStage')" style="width: 25%;margin-bottom: 10px;">Tommorrow</button>
+			<button type="button" class="btn btn-primary btn-lg" onclick="ajaxCommonGetFromNet('subPages/viewALLInstallments.php?search=tommorrow','cStage')" style="width: 25%;margin-bottom: 10px;">Tommorrow</button>
 			
 			
-			<button type="button" class="btn btn-primary btn-lg" onclick="ajaxCommonGetFromNet('subPages/viewALLInstallments.php?search=week','cStage')" style="width: 25%;margin-bottom: 10px;">Last Week</button>
-			<button type="button" class="btn btn-primary btn-lg" onclick="ajaxCommonGetFromNet('subPages/viewALLInstallments.php?search=week','cStage')" style="width: 25%;margin-bottom: 10px;">This Week</button>
-			<button type="button" class="btn btn-primary btn-lg" onclick="ajaxCommonGetFromNet('subPages/viewALLInstallments.php?search=week','cStage')" style="width: 25%;margin-bottom: 10px;">Next Week</button>
+			<button type="button" class="btn btn-primary btn-lg" onclick="ajaxCommonGetFromNet('subPages/viewALLInstallments.php?search=last_week','cStage')" style="width: 25%;margin-bottom: 10px;">Last Week</button>
+			<button type="button" class="btn btn-primary btn-lg" onclick="ajaxCommonGetFromNet('subPages/viewALLInstallments.php?search=this_week','cStage')" style="width: 25%;margin-bottom: 10px;">This Week</button>
+			<button type="button" class="btn btn-primary btn-lg" onclick="ajaxCommonGetFromNet('subPages/viewALLInstallments.php?search=next_week','cStage')" style="width: 25%;margin-bottom: 10px;">Next Week</button>
+			
+			
+			<button type="button" class="btn btn-primary btn-lg" onclick="ajaxCommonGetFromNet('subPages/viewALLInstallments.php?search=last_month','cStage')" style="width: 25%;margin-bottom: 10px;">Last Month</button>
+			<button type="button" class="btn btn-primary btn-lg" onclick="ajaxCommonGetFromNet('subPages/viewALLInstallments.php?search=this_month','cStage')" style="width: 25%;margin-bottom: 10px;">This Month</button>
+			<button type="button" class="btn btn-primary btn-lg" onclick="ajaxCommonGetFromNet('subPages/viewALLInstallments.php?search=next_month','cStage')" style="width: 25%;margin-bottom: 10px;">Next Month</button>
 			
 			
 			
-			<button type="button" class="btn btn-primary btn-lg" onclick="ajaxCommonGetFromNet('subPages/viewALLInstallments.php?search=month','cStage')" style="width: 40%;margin-bottom: 10px;">Month</button>
-			<button type="button" class="btn btn-primary btn-lg" onclick="ajaxCommonGetFromNet('subPages/viewALLInstallments.php?search=month','cStage')" style="width: 40%;margin-bottom: 10px;">Last Month</button>
+			
 			<button type="button" class="btn btn-primary btn-lg" onclick="ajaxCommonGetFromNet('subPages/selectAreaToViewInstallments.php','cStage')" style="width: 40%;margin-bottom: 10px;">Area</button>
 			<button type="button" class="btn btn-primary btn-lg" onclick="ajaxCommonGetFromNet('subPages/selectAreaAgentToViewInstallments.php','cStage')" style="width: 40%;margin-bottom: 10px;">Area Agent</button>
 			<button type="button" class="btn btn-primary btn-lg " onclick="ajaxCommonGetFromNet('subPages/selectStaffAgentToViewInstallments.php','cStage')" style="width: 40%;margin-bottom: 10px;">Staff Agent</button>
@@ -111,6 +121,10 @@ $main = new Main;
   <!-- ajax -->
   <script src="../libs/jquery/jquery-pjax/jquery.pjax.js"></script>
   <script src="scripts/ajax.js"></script>
+  
+  <script src="https://printjs-4de6.kxcdn.com/print.min.js"></script>
+  
+  
 <!-- endbuild -->
 </body>
 </html>

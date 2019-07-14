@@ -7,7 +7,9 @@ $DB->conn = $conn;
 
 
 $main = new Main;
+
 $main->b("itemType.php");
+$main->readSessionError();
 
 if($DB->nRow("item_type","") != 0){
 	?>

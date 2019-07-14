@@ -38,7 +38,23 @@ if($data['IID'] == 2){
 }else {
 	//check last or not here
 	if($ni == $data['IID']){
-		echo("Final installment");
+		///Final installment part Start
+			if($installment[0]['payment'] == $data['amount']){
+				$sql = "UPDATE installment SET rdate = curdate(), status = '1', rpayment = rpayment + {$data['amount']} WHERE installment.id = {$data['ID']};";
+
+			}else{
+				if(($installment[0]['payment'] - $installment[0]['rpayment'])  == $data['amount']){
+					$sql = "UPDATE installment SET rdate = curdate(), status = '1', rpayment = rpayment + {$data['amount']} WHERE installment.id = {$data['ID']};";
+					
+				}else{
+					$sql = "UPDATE installment SET rdate = curdate(), status = '0', rpayment =rpayment + {$data['amount']} WHERE installment.id = {$data['ID']};";
+				}
+				
+				
+			}
+
+		
+		///Final installment part End
 		
 	}else{
 		
@@ -74,10 +90,10 @@ $conn->query($sqlDeal);
 
 
 $deal = $DB->select("deals","where id = {$data['dealId']}");
-if($deal[0]['rprice'] <= 0){
+if(round($deal[0]['rprice'],0) <= 0){
 	$conn->query("UPDATE deals SET status = '1' WHERE deals.id = {$data['dealId']} ;");
 }
-
+echo("Deal".round($deal[0]['rprice'],0));
 print_r($deal);
 
 
