@@ -12,7 +12,7 @@ $arr = $DB->select("item","");
 <?php
 	include("../../workers/readSesson.worker.php");
 ?>
-<h1>Price Table</h1>
+<h1>Prices Table</h1>
 <table class="table table-hover table-bordered table-striped table-dark">
 	  <thead class="thead-dark">
 		<tr>
@@ -30,8 +30,8 @@ $arr = $DB->select("item","");
 		<?php
 				$arr = $DB->select("item","");
 				foreach($arr as $data){
-					$priceArr = $DB->select("stock","WHERE itemid = {$data['id']} ORDER BY marketPrice DESC");
-					if($DB->nRow("stock","WHERE itemid = {$data['id']} ORDER BY marketPrice DESC") != 0){
+					$priceArr = $DB->select("stock","WHERE itemid = {$data['id']}  AND status = 1 ORDER BY marketPrice DESC");
+					if($DB->nRow("stock","WHERE itemid = {$data['id']}  AND status = 1 ORDER BY marketPrice DESC") != 0){
 						
 					
 //					print_r($priceArr);
@@ -42,7 +42,7 @@ $arr = $DB->select("item","");
 						<td><?php echo($priceArr[0]['marketPrice']) ?></td>
 						<td><?php echo($priceArr[0]['cashPrice']) ?></td>
 						<td><?php echo($priceArr[0]['sprice']) ?></td>
-						<td><button type="button" class="btn btn-md btn-primary" onClick="loadEditFormsItem(<?php echo($data['id']) ?>)">Change</button></td>
+						<td><button type="button" class="btn btn-md btn-primary" onclick="ajaxCommonGetFromNet('subPages/changePrices.php?id='+<?php echo($data['id']) ?>,'cStage')">Change</button></td>
 
 					</tr>
 					<?php

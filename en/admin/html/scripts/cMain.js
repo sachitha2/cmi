@@ -1942,20 +1942,24 @@ function sendCreditBill(data){
 
 ///update stock prices
 
-function updateStockPrices(){
+function updateStockPrices(itemId){
 	sPrice = document.getElementById("sPrice").value;
 	mPrice = document.getElementById("mPrice").value;
 	cPrice = document.getElementById("cPrice").value;
-	if((sPrice != "") || (mPrice != "") || (cPrice != "")){
-			
+	if((sPrice != 0) || (mPrice != 0) || (cPrice != 0)){
+			loadingModal();
+			msg("msg","");
+			var data = {"sPrice":sPrice,"mPrice":mPrice,"cPrice":cPrice,"itemId":itemId};
 			var ajax = _ajax();
 			ajax.onreadystatechange = function() {
 				if (this.readyState == 4 && this.status == 200) {
+					hideModal();
+					msg("msg","done");
 					console.log(this.responseText);
 				}
 	  		}
 
-			ajax.open("GET", ""+data, true);
+			ajax.open("GET", "../workers/changePrices.worker.php?data="+JSON.stringify(data), true);
 			ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 			ajax.send();
 	}else{

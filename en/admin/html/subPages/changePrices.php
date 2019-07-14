@@ -14,14 +14,14 @@ $itemName = $DB->getItemNameByStockId($id,0);
 	<h2>Change prices of item -  <b><?php echo($itemName); ?></b></h2>
 	
 	<label for="">Cash Price</label>
-	<input class="form-control" type="number" onkeypress="enterNext(event,'mPrice')" placeholder="Cash price" style="font-size: 20px;color: black;" id="cPrice" required="">
+	<input class="form-control" type="number" value="0" onkeypress="enterNext(event,'mPrice')" placeholder="Cash price" style="font-size: 20px;color: black;" id="cPrice" required="">
    
-    <label for="">Market Price</label>
-    <input class="form-control" type="number" onkeypress="enterNext(event,'sPrice')" placeholder="Market price" style="font-size: 20px;color: black;" id="mPrice" required="">
+    <label for="">Market Price</label> 
+    <input class="form-control" type="number" value="0" onkeypress="enterNext(event,'sPrice')" placeholder="Market price" style="font-size: 20px;color: black;" id="mPrice" required="">
     
     <label for="">Selling Price</label>
-    <input class="form-control" type="number" onkeypress="" placeholder="Selling price" style="font-size: 20px;color: black;" id="sPrice" required="">
+    <input class="form-control" type="number" value="0" onkeypress="" placeholder="Selling price" style="font-size: 20px;color: black;" id="sPrice" required="">
     
     <br>
     <div id="msg"></div>
-    <button type="button" class="btn btn-primary btn-lg" onclick="updateStockPrices()">Update</button>
+    <button type="button" class="btn btn-primary btn-lg" onclick="updateStockPrices(<?php echo($id) ?>)">Update</button>
