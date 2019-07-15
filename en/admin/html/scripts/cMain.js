@@ -2025,6 +2025,18 @@ function selectAreaAgentToViewInstallments(value){
 		
 		
 	}
+
+
+function selectAgentToViewInstallments(value){
+		if(value != ""){
+			
+			ajaxCommonGetFromNet("subPages/viewAllInstallments.php?search=staff_agent&id="+value,"cStage");
+		}else{
+			msg("msg","Enter a Staff agent");
+		}
+		
+		
+	}
 //image uploading part
 
 $(document).ready(function(){

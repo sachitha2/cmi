@@ -9,15 +9,41 @@ $DB->conn = $conn;
 	$search = $_GET['search'];
 	$areaName = "";
 	$areaAgent = "";
+	$pdfTitle = "This is PDF header";
 	if($search == "all"){
+		$pdfTitle = "ALL";
 		$sql = "WHERE status = 0 ORDER BY installment.date ASC";
 	}else if($search == "today"){
+		$pdfTitle = "TODAY";
 		$sql = "WHERE date = curdate() AND status = 0 ORDER BY installment.date ASC";
-	}else if($search == "this_week"){
+	}else if($search == "yesterday"){
+		$pdfTitle = "YESTERDAY";
+		$sql = "WHERE date = curdate()-1 AND status = 0 ORDER BY installment.date ASC";
+	}
+	else if($search == "tommorrow"){
+		$pdfTitle = "TOMMORROW";
+		$sql = "WHERE date = curdate()+1 AND status = 0 ORDER BY installment.date ASC";
+	}
+	else if($search == "this_week"){
+		$pdfTitle = "THIS_WEEK";
 		$sql = "WHERE WEEK(date) = WEEK(curdate()) AND MONTH(date) = MONTH(curdate()) AND YEAR(date) = YEAR(curdate()) AND status = 0 ORDER BY installment.date ASC";
-	}else if($search == "this_month"){
+	}
+	else if($search == "last_week"){
+		$sql = "WHERE WEEK(date) = WEEK(curdate())-1 AND MONTH(date) = MONTH(curdate()) AND YEAR(date) = YEAR(curdate()) AND status = 0 ORDER BY installment.date ASC";
+	}
+	else if($search == "next_week"){
+		$sql = "WHERE WEEK(date) = WEEK(curdate())+1 AND MONTH(date) = MONTH(curdate()) AND YEAR(date) = YEAR(curdate()) AND status = 0 ORDER BY installment.date ASC";
+	}
+	else if($search == "this_month"){
 		$sql = "WHERE  MONTH(date) = MONTH(curdate()) AND YEAR(date) = YEAR(curdate()) AND status = 0 ORDER BY installment.date ASC";
-	}else if($search == "area"){
+	}
+	else if($search == "last_month"){
+		$sql = "WHERE  MONTH(date) = MONTH(curdate())-1 AND YEAR(date) = YEAR(curdate()) AND status = 0 ORDER BY installment.date ASC";
+	}
+	else if($search == "next_month"){
+		$sql = "WHERE  MONTH(date) = MONTH(curdate())+1 AND YEAR(date) = YEAR(curdate()) AND status = 0 ORDER BY installment.date ASC";
+	}
+	else if($search == "area"){
 //		echo($_GET['id']);
 		$areaArr = $DB->select("area","WHERE id = {$_GET['id']}");
 //		print_r($areaArr);
@@ -41,20 +67,34 @@ $DB->conn = $conn;
 	
 	
 			
-		$arr = $DB->select("installment",$sql);
-		$jx = 0;
-		foreach($arr as $jsonData){
-			$arrrr[0]['ID'] = $jx+1;
-			$arrrr[0]['C_NAME'] = "Sachithaa";
-			
-		}
-
-		$json = json_encode($arrrr);
+		
 	///JSON ARRAY CREATING END
 	
 	$nRow = $DB->nRow("installment",$sql);
-if($nRow != 0){ ?>
-			 <button type="button" onclick='printJS({printable: <?php echo($json) ?>, properties: ["ID", "email", "phone"], type: "json"})'>
+if($nRow != 0){ 
+	
+	
+		$idAgent = 1;
+		$idArea = 1;
+		
+		$arr = $DB->select("installment",$sql);
+		$jx = 0;
+		foreach($arr as $jsonData){
+			$customerArr = $DB->select("customer","WHERE id = {$jsonData['cid']}");
+			$arrrr[$jx]['ID'] = $jx+1;
+			$arrrr[$jx]['C_NAME'] = $customerArr[0]['name'];
+			$arrrr[$jx]['CID'] = $jsonData['cid'];
+			$arrrr[$jx]['PHONE'] = $customerArr[0]['tp'];
+			$arrrr[$jx]['PAYMENT'] = $jsonData['payment'];
+			$arrrr[$jx]['R_PAYMENT'] = $jsonData['rpayment'];
+			$arrrr[$jx]['DUE_DATE'] = $jsonData['date'];
+			
+			$jx++;
+		}
+
+		$json = json_encode($arrrr);
+	?>
+			 <button type="button" onclick='printJS({printable: <?php echo($json) ?>, properties: ["ID","CID", "C_NAME", "PHONE","DUE_DATE","PAYMENT","R_PAYMENT"], type: "json",header: "<?php echo($pdfTitle) ?>"})'>
     				Print
  			</button>
 
@@ -103,6 +143,7 @@ if($nRow != 0){ ?>
 				echo("<br>");
 				
 				if($customerArea[0]['areaid'] == $_GET['id'] && $customerArea[0]['areaAgent'] != 0){
+							
 							?>
 						<tr>
 							<td><?php echo($data['id']) ?></td>
@@ -110,7 +151,19 @@ if($nRow != 0){ ?>
 							<td><?php echo($data['cid']) ?></td>
 							<td><?php echo($data['installmentid']) ?></td>
 							<td><?php echo($data['payment']) ?></td>
-							<td><input type="number" style="width: 100px;" onKeyPress="enterAddAgentInstallmentCollect(event)"></td>
+							<td>
+								
+						
+								<?php
+								$val = "";
+								if($data['rpayment'] != 0){
+									$val = $data['payment'] - $data['rpayment'];
+								}
+
+								?>
+								<input id="input<?php echo($idArea) ?>" placeholder="<?php echo($val) ?>" type="number" style="width: 100px;" onKeyPress="enterAddAgentInstallmentCollect(event,this.value,<?php echo($idArea) ?>,<?php echo($data['id']) ?>,<?php echo($nRow) ?>,<?php echo($data['installmentid']) ?>,<?php echo($data['dealid']) ?>)"> <div id="msg<?php echo($idArea) ?>"></div>
+								
+							</td>
 							<td><?php echo($data['date']) ?></td>
 
 							<?php
@@ -126,6 +179,7 @@ if($nRow != 0){ ?>
 							<td><?php echo $customerName ?></td>
 						</tr>
 						<?php
+								$idArea++;
 				}
 				
 				//----------------------------------------------------------------------------------------------------
@@ -133,6 +187,7 @@ if($nRow != 0){ ?>
 				//----------------------------------------------------------------------------------------------------
 			}
 			else if($search == "area_agent" && $_GET['id'] != 0){
+						
 						$arrCustomerDetails = $DB->select("customer","WHERE id = ".$data['cid']);
 				
 						if($arrCustomerDetails[0]['areaAgent'] == $_GET['id'] ){
@@ -146,7 +201,19 @@ if($nRow != 0){ ?>
 						<td><?php echo($data['cid']) ?></td>
 						<td><?php echo($data['installmentid']) ?></td>
 						<td><?php echo($data['payment']) ?></td>
-						<td><input id="input<?php echo($id) ?>" type="number" style="width: 100px;" onKeyPress="enterAddAgentInstallmentCollect(event,this.value,<?php echo($id) ?>,<?php echo($data['id']) ?>,<?php echo($nRow) ?>)"> <div id="msg<?php echo($id) ?>"></div></td>
+						<td>
+						
+						
+							<?php
+							$val = "";
+							if($data['rpayment'] != 0){
+								$val = $data['payment'] - $data['rpayment'];
+							}
+					
+							?>
+							<input id="input<?php echo($idAgent) ?>" placeholder="<?php echo($val) ?>" type="number" style="width: 100px;" onKeyPress="enterAddAgentInstallmentCollect(event,this.value,<?php echo($idAgent) ?>,<?php echo($data['id']) ?>,<?php echo($nRow) ?>,<?php echo($data['installmentid']) ?>,<?php echo($data['dealid']) ?>)"> <div id="msg<?php echo($idAgent) ?>"></div>
+						
+						</td>
 						<td><?php echo($data['date']) ?></td>
 
 						<?php
@@ -164,7 +231,9 @@ if($nRow != 0){ ?>
 					</tr>
 
 					<?php
+							$idAgent++;
 			}
+					
 			}
 			else {
 				?>
