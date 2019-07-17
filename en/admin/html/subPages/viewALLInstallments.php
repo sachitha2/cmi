@@ -30,18 +30,26 @@ $DB->conn = $conn;
 	}
 	else if($search == "last_week"){
 		$sql = "WHERE WEEK(date) = WEEK(curdate())-1 AND MONTH(date) = MONTH(curdate()) AND YEAR(date) = YEAR(curdate()) AND status = 0 ORDER BY installment.date ASC";
+		
+		$pdfTitle = "LAST_WEEK";
 	}
 	else if($search == "next_week"){
 		$sql = "WHERE WEEK(date) = WEEK(curdate())+1 AND MONTH(date) = MONTH(curdate()) AND YEAR(date) = YEAR(curdate()) AND status = 0 ORDER BY installment.date ASC";
+		
+		$pdfTitle = "NEXT_WEEK";
 	}
 	else if($search == "this_month"){
 		$sql = "WHERE  MONTH(date) = MONTH(curdate()) AND YEAR(date) = YEAR(curdate()) AND status = 0 ORDER BY installment.date ASC";
 	}
 	else if($search == "last_month"){
 		$sql = "WHERE  MONTH(date) = MONTH(curdate())-1 AND YEAR(date) = YEAR(curdate()) AND status = 0 ORDER BY installment.date ASC";
+		
+		$pdfTitle = "LAST_MONTH";
 	}
 	else if($search == "next_month"){
 		$sql = "WHERE  MONTH(date) = MONTH(curdate())+1 AND YEAR(date) = YEAR(curdate()) AND status = 0 ORDER BY installment.date ASC";
+		
+		$pdfTitle = "NEXT_MONTH";
 	}
 	else if($search == "area"){
 //		echo($_GET['id']);
@@ -49,11 +57,20 @@ $DB->conn = $conn;
 //		print_r($areaArr);
 		$areaName = $areaArr[0]['name'];
 		$sql = "WHERE status = 0  ORDER BY installment.date ASC";
+		
+		$pdfTitle = "AREA $areaName";
+		
 	}else if($search == "area_agent"){
+		
+		
 		$sql = "WHERE status = 0  ORDER BY installment.date ASC";
 		$agentArr = $DB->select("agent","WHERE id = {$_GET['id']}");
 		
 		$areaAgent = $agentArr[0]['name'];
+		$pdfTitle = "AREA_AGENT $areaAgent";
+	}else if($search == "passed"){
+		$pdfTitle = "PASSED INSTALLMENTS";
+		$sql = "WHERE date < curdate() AND status = 0 ORDER BY installment.date ASC";
 	}
 ?>
 <?php $main->b("installments.php") ?>

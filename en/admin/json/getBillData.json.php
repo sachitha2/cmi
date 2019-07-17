@@ -30,7 +30,10 @@ if(isset($_SESSION['bill'])){
 		$arr['data']['QTY'][$x] = $data['amount'];
 		$arr['data']['price'][$x] = $data['uprice'];
 		$arr['data']['total'][$x] = $data['amount'] * $data['uprice'];
-		$arr['data']['r'][$x] = 00;
+		
+		$marketPrice = $DB->select("stock","where id = {$data['stockid']} ");
+		
+		$arr['data']['r'][$x] = $marketPrice[0]['marketPrice'] - $marketPrice[0]['cashPrice'];
 		$x++;
 	}
 	$total = $DB->select("purchaseditems","where dealid = $billid","SUM(amount * uprice)");

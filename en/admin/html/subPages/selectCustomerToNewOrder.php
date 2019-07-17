@@ -1,7 +1,12 @@
 <?php
 require_once("../../methods/Main.class.php");
+require_once("../../methods/DB.class.php");
+require_once("../db.php");
+$DB = new DB;
+$DB->conn = $conn;
 $main = new Main;
 $main->b("order.php");
+$customer = $DB->select("customer","");
 ?>
 <?php
 	include("../../workers/readSesson.worker.php");
@@ -25,7 +30,7 @@ $main->b("order.php");
 			</datalist>
 			<div id="msg"></div>
 			<br>
-			<input type="button" value="Next"  class="btn btn-primary btn-lg" onClick="CheckCustomerForMakeBill(idCard.value);">
+			<input type="button" value="Next"  class="btn btn-primary btn-lg" onClick="CheckCustomerForNewOrder(idCard.value);">
 			
 			
 			
@@ -46,5 +51,5 @@ $main->b("order.php");
 			</datalist>
 			<div id="msg2"></div>
 			<br>
-			<input type="button" value="Next"  class="btn btn-primary btn-lg" onClick="CheckCustomerForMakeBillCID(CID.value);">
+			<input type="button" value="Next"  class="btn btn-primary btn-lg" onClick="CheckCustomerForNewOrderCID(CID.value);">
       
