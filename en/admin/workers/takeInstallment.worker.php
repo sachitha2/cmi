@@ -5,7 +5,7 @@ $DB = new DB;
 $DB->conn = $conn;
 $data = $_POST['data'];
 $data = json_decode($data,true);
-print_r($data);
+//print_r($data);
 
 //Save installment
 //find unfinished jobs available or not
@@ -27,8 +27,8 @@ if($data['IID'] == 2){
 				$sql = "UPDATE installment SET rdate = curdate(), status = '1', rpayment = {$data['amount']} WHERE installment.id = {$data['ID']};";
 				$tmp = $DB->select("installment","where id = {$data['ID']}");
 		
-				echo("tmp");
-				print_r($tmp);
+//				echo("tmp");
+//				print_r($tmp);
 				$forwadedAmount = $tmp[0]['payment'] - $data['amount'];
 				$sql2 = "UPDATE installment SET  payment = payment + $forwadedAmount WHERE installment.id = {$data['ID']}+1;";
 				$conn->query($sql2);
@@ -69,8 +69,8 @@ if($data['IID'] == 2){
 					$sql = "UPDATE installment SET rdate = curdate(), status = '1', rpayment = {$data['amount']} WHERE installment.id = {$data['ID']};";
 					$tmp = $DB->select("installment","where id = {$data['ID']}");
 
-					echo("tmp");
-					print_r($tmp);
+//					echo("tmp");
+//					print_r($tmp);
 					$forwadedAmount = $tmp[0]['payment'] - $data['amount'];
 					$sql2 = "UPDATE installment SET  payment = payment + $forwadedAmount WHERE installment.id = {$data['ID']}+1;";
 					$conn->query($sql2);
@@ -93,8 +93,33 @@ $deal = $DB->select("deals","where id = {$data['dealId']}");
 if(round($deal[0]['rprice'],0) <= 0){
 	$conn->query("UPDATE deals SET status = '1' WHERE deals.id = {$data['dealId']} ;");
 }
-echo("Deal".round($deal[0]['rprice'],0));
-print_r($deal);
+$arrInstallment = $DB->select("installment"," WHERE dealid = {$data['dealId']} ORDER BY installmentid ASC");
+//print_r($arrInstallment);
+$x = 0;
+$insTotal = 0;
+$insRAmount = 0;
+foreach($arrInstallment as $dataInstall){
+		
+		$arrInstall['data']['id'][$x] = $dataInstall['id'];
+		$arrInstall['data']['installment'][$x] = $dataInstall['payment'];
+		$arrInstall['data']['rPayment'][$x] = $dataInstall['rpayment'];
+		$arrInstall['data']['dueDate'][$x] = $dataInstall['date'];
+		$arrInstall['data']['rDate'][$x] = $dataInstall['rdate'];
+			$x++;
+		$insTotal +=  $dataInstall['payment'];
+		$insRAmount +=  $dataInstall['rpayment'];
+	}
+	$arrInstall['data']['mainData']['insTot'] = $insTotal;
+	$arrInstall['data']['mainData']['rAmount'] = $insRAmount;
+	$arrInstall['data']['mainData']['dueAmount'] = $insTotal - $insRAmount;
+	///TODO
+	$arrInstall['data']['customerName'] = "sachitha Hirushan";
+	$arrInstall['data']['cid'] = "50";
+	$arrInstall['data']['tp'] =  "0715591137";
+$json = json_encode($arrInstall);
+echo($json);
+//echo("Deal".round($deal[0]['rprice'],0));
+//print_r($deal);
 
 
 

@@ -12,14 +12,14 @@ $cid = $_GET['cid'];
 
 if($DB->nRow("deals"," WHERE cid = $cid") != 0){
 	
-	$deals = $DB->select("deals"," WHERE cid = $cid");
+	$deals = $DB->select("deals"," WHERE cid = $cid  ORDER BY date DESC ");
 //	print_r($deals);
 	
 	foreach($deals as $data){
 	
-		
-		$installment = $DB->select("installment","WHERE dealid ={$data['id']} ");
-		print_r($installment);
+//		print_r($data);
+		$installment = $DB->select("installment","WHERE dealid ={$data['id'] }");
+//		print_r($installment);
 		
 		
 		?>
@@ -48,7 +48,8 @@ if($DB->nRow("deals"," WHERE cid = $cid") != 0){
 												
 											
 		      					<?php
-		
+									$id = 1;
+									$nRow = $DB->nRow("installment","WHERE dealid ={$data['id']} ");
 									foreach($installment as $dataInstallment){
 										
 											if($dataInstallment['status'] == 1){
@@ -68,7 +69,22 @@ if($DB->nRow("deals"," WHERE cid = $cid") != 0){
 													<tr>
 														<td scope="row"><?php echo($dataInstallment['installmentid']) ?></td>
 														<td><?php echo($dataInstallment['payment']) ?></td>
-														<td><input id="input<?php echo($id) ?>" type="number" style="width: 100px;" onKeyPress="enterAddAgentInstallmentCollect(event,this.value,<?php echo($id) ?>,<?php echo($data['id']) ?>,<?php echo($nRow) ?>,<?php echo($data['installmentid']) ?>,<?php echo($data['dealid']) ?>)"></td>
+														
+														
+														
+														<td>
+								
+						
+															<?php
+															$val = "";
+															if($dataInstallment['rpayment'] != 0){
+																$val = $dataInstallment['payment'] - $dataInstallment['rpayment'];
+															}
+
+															?>
+															<input id="input<?php echo($id) ?>" placeholder="<?php echo($val) ?>" type="number" style="width: 100px;" onKeyPress="enterAddAgentInstallmentCollect(event,this.value,<?php echo($id) ?>,<?php echo($dataInstallment['id']) ?>,<?php echo($nRow) ?>,<?php echo($dataInstallment['installmentid']) ?>,<?php echo($dataInstallment['dealid']) ?>,1,1)"> <div id="msg<?php echo($id) ?>"></div>
+								
+														</td>
 														<td><?php echo($dataInstallment['date']) ?></td>
 
 													</tr>		
@@ -76,6 +92,7 @@ if($DB->nRow("deals"," WHERE cid = $cid") != 0){
 											
 											<?php
 										}
+										$id++;
 									}
 								
 								?>
@@ -84,7 +101,7 @@ if($DB->nRow("deals"," WHERE cid = $cid") != 0){
 	      							</center>
       						</div>
       						<div class="card-header">
-        						<h2 class="my-0 font-weight-normal text-primary" id="totalToday">0 / 250</h2>
+        						<h2 class="my-0 font-weight-normal text-primary" id="totalToday"><?php echo(round(($data['tprice']-$data['rprice']),0)."/".$data['tprice']) ?></h2>
         					</div>
 						</div>
 	

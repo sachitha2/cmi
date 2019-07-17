@@ -1186,7 +1186,7 @@ function enterAddExpenses(e,costTypeid){
 }
 
 ///this is installment collect
-function enterAddAgentInstallmentCollect(e,amount,inputId,ID,nRow,IID,dealId,FN = 0) {
+function enterAddAgentInstallmentCollect(e,amount,inputId,ID,nRow,IID,dealId,FN = 0,p = 0) {
   if (e.which == 13) {
 	  		if(amount != ""){
 					//send data to installment collect Start
@@ -1208,6 +1208,12 @@ function enterAddAgentInstallmentCollect(e,amount,inputId,ID,nRow,IID,dealId,FN 
 								console.log(this.responseText);
 								document.getElementById("input"+inputId).readOnly = true;
 								msg("msg"+inputId,"Done Saving");
+								if(p == 1){
+									console.log("Bill needs to be printed");
+									sendInstallmentBill(this.responseText);
+								}else{
+									console.log("No bill needed");
+								}
 							}
 					  }
 
@@ -2110,6 +2116,22 @@ function sendBill(data){
 	  		}
 
 			ajax.open("GET", "http://localhost/CMIPrinter/example/interface/windows-usb.php?data="+data, true);
+			ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+			ajax.send();
+}
+
+function sendInstallmentBill(data){
+			alert("installments bill sending");
+			var ajax = _ajax();
+			ajax.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+//	    			msg("out",this.responseText);
+				//setTimeout(fastCustomer,20000);	
+					alert("Done");
+				}
+	  		}
+
+			ajax.open("GET", "http://localhost/CMIPrinter/example/interface/installmentsBill.php?data="+data, true);
 			ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 			ajax.send();
 }
