@@ -123,6 +123,7 @@ if(isset($_SESSION['credit']['bill'])){
 		$arr['data']['cid'] = $cid[0]['cid'];
 		$arr['data']['tp'] = $arrCus[0]['tp'];
 		$arr['data']['i'] = $perOneI;
+		$arr['data']['invoiceN'] = $billid;
 	
 	$json = json_encode($arr);
 	$_SESSION['credit']['bill']['s'] = 0;

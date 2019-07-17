@@ -16,6 +16,7 @@ if(isset($_SESSION['bill'])){
 //	print_r($billData);
 	$arr['data']['mainData']['total'] = 0;
 	$arr['data']['mainData']['msg'] = "MSG here";
+	$arr['data']['mainData']['invoiceN'] = $billid;
 	$arr['data']['mainData']['cash'] = $cash;
 	$arr['data']['customerName'] = "0";
 	$arr['data']['cid'] = "0";
