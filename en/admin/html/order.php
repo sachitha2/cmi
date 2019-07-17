@@ -51,10 +51,15 @@ $main = new Main;
       <!-- ############ PAGE START-->
         <?php $main->head("Orders") ?>
     <div class="container h-100" id="cStage">
-    
-  			<button type="button" class="btn btn-primary btn-lg" onclick="ajaxCommonGetFromNet('subPages/selectCustomerToNewOrder.php','cStage')" style="width: 25%;margin-bottom: 10px;">New Order</button>
+    	<center>
+    		<button type="button" class="btn btn-primary btn-lg" onclick="ajaxCommonGetFromNet('subPages/selectCustomerToNewOrder.php','cStage')" style="width: 40%;margin-bottom: 10px;">New Order</button>
   			
-  			<button type="button" class="btn btn-primary btn-lg" onclick="ajaxCommonGetFromNet('subPages/allOrders.php','cStage')" style="width: 25%;margin-bottom: 10px;">All</button>
+  			<button type="button" class="btn btn-primary btn-lg" onclick="ajaxCommonGetFromNet('subPages/allOrders.php','cStage')" style="width: 40%;margin-bottom: 10px;">All</button>
+  			<button type="button" class="btn btn-primary btn-lg" onclick="ajaxCommonGetFromNet('subPages/viewPendingPrices.php','cStage')" style="width: 40%;margin-bottom: 10px;">View Prices</button>
+  			<button type="button" class="btn btn-primary btn-lg" onclick="ajaxCommonGetFromNet('subPages/addPendingPrices.php','cStage')" style="width: 40%;margin-bottom: 10px;">Add Prices</button>
+    		
+    	</center>
+  			
      	
 	</div>
 

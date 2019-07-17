@@ -66,7 +66,53 @@ function addArea(area){
 			document.getElementById("msg").innerHTML = "Enter valid area";
 		}
 	}
-
+function addPendingPrices(){
+		itemId = document.getElementById("itemId").value;
+		cPrice = document.getElementById("cPrice").value;
+		mPrice = document.getElementById("mPrice").value;
+		crePrice = document.getElementById("crePrice").value;
+	
+		
+	
+		if(itemId.length == 0){
+					msg("msg","Select Item");
+		}
+		else if(mPrice.length == 0){
+					msg("msg","Add Market Price");
+		}
+		else if(cPrice.length == 0){
+					msg("msg","Add Cash Price");
+		}
+		else if(crePrice.length == 0){
+					msg("msg","Add Credit Price");
+		}
+		else{
+					///ajax part
+					var pendingPrices = {
+						"itemId":itemId,
+						"mPrice":mPrice,
+						"cPrice":cPrice,
+						"crePrice":crePrice
+					};
+					loadingModal();
+					showModal();
+					var xmlhttp = new XMLHttpRequest();
+        			xmlhttp.onreadystatechange = function() {
+        			if (this.readyState === 4 && this.status == 200) {
+							document.getElementById("msg").innerHTML  =  this.responseText;
+							emt("itemId");
+							emt("mPrice");
+							emt("cPrice");
+							emt("crePrice");
+							hideModal();
+           				}
+        			};
+        			xmlhttp.open("GET", "../workers/addPendingOrderPrices.worker.php?data="+JSON.stringify(pendingPrices), true);//generating  get method link
+        			xmlhttp.send();
+					////ajax part
+			
+		}
+	}
 
 function searchCustomers(){
 		
@@ -767,6 +813,58 @@ function CheckCustomerForMakeBill(idCard){
 			}
 			}
 
+function takeAOrder(cid){
+	loadingModal();
+	console.log("take a order initializedzzzz");
+	var ajax = _ajax();
+		ajax.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+//	   	 		alert(this.responseText);
+//				ajaxCommonGetFromNet('subPages/fastCustomer.php','cStage');
+				document.getElementById("cStage").innerHTML = this.responseText;
+				
+				//load Bill
+				ajaxCommonGetFromNet("subPages/pendingOrderTemplate.php","output");
+				hideModal();
+			}
+	  }
+
+		ajax.open("POST", "subPages/takeOrder.php?cid="+cid, true);
+		ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		ajax.send();
+		
+}
+
+function CheckCustomerForNewOrder(idCard){
+			
+			if(idCard != ""){
+				
+				
+				data = { 'idCard':idCard,'CID':"" };
+		
+				var ajax = _ajax();
+				ajax.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+//	   	 			alert(this.responseText);
+					emt("idCard");
+					jsonData = JSON.parse(this.responseText);
+					console.log(this.responseText);
+					if(jsonData.s == 1){
+						takeAOrder(jsonData.cid);
+//						creditCustomer(jsonData.cid);
+					}else{
+						msg("msg",jsonData.msg);
+					}
+				}
+	  			}
+
+				ajax.open("POST", "../workers/checkCustomerForMakeBill.worker.php", true);
+				ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+				ajax.send("data="+(JSON.stringify(data)));
+			}else{
+				msg("msg","Enter idCard Number");
+			}
+			}
 
 function CheckCustomerForMakeBillCID(CID){
 			
@@ -785,6 +883,39 @@ function CheckCustomerForMakeBillCID(CID){
 					if(jsonData.s == 1){
 //						alert("next url");
 						creditCustomer(CID);
+					}else{
+						msg("msg2",jsonData.msg);
+					}
+				}
+	  			}
+
+				ajax.open("POST", "../workers/checkCustomerForMakeBill.worker.php", true);
+				ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+				ajax.send("data="+(JSON.stringify(data)));
+			}else{
+				msg("msg2","Enter CID Number");
+			}
+			}
+
+
+
+function CheckCustomerForNewOrderCID(CID){
+			
+			if(CID != ""){
+				
+				
+				data = { 'CID':CID,'idCard':"" };
+		
+				var ajax = _ajax();
+				ajax.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+//	   	 			alert(this.responseText);
+					emt("CID");
+					jsonData = JSON.parse(this.responseText);
+					console.log(this.responseText);
+					if(jsonData.s == 1){
+						alert("next url");
+//						creditCustomer(CID);
 					}else{
 						msg("msg2",jsonData.msg);
 					}
@@ -1888,7 +2019,7 @@ function finishBill(cash){
 		var ajax = _ajax();
 			ajax.onreadystatechange = function() {
 				if (this.readyState == 4 && this.status == 200) {
-	    			//alert(this.responseText);
+	    			alert(this.responseText);
 					sendBill(this.responseText);
 				}
 	  		}
@@ -1910,7 +2041,7 @@ function finishBillCreditCustomer(cash,installments){
 		var ajax = _ajax();
 			ajax.onreadystatechange = function() {
 				if (this.readyState == 4 && this.status == 200) {
-//	    			alert(this.responseText);
+	    			alert(this.responseText);
 					sendCreditBill(this.responseText);
 				}
 	  		}

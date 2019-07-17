@@ -103,13 +103,28 @@ if(isset($_SESSION['credit']['bill'])){
 		$arr['data']['QTY'][$x] = $data['amount'];
 		$arr['data']['price'][$x] = $data['uprice'];
 		$arr['data']['total'][$x] = $data['amount'] * $data['uprice'];
-		$arr['data']['r'][$x] = 00;
+		
+		$marketPrice = $DB->select("stock","where id = {$data['stockid']} ");
+		$arr['data']['r'][$x] = $marketPrice[0]['marketPrice'] - $marketPrice[0]['sprice'];
 		$x++;
 	}
 	
 //	print_r($total);
 	$arr['data']['mainData']['total'] = $total[0]['SUM(amount * uprice)'];
 	$arr['data']['mainData']['balance'] = $cash -  $total[0]['SUM(amount * uprice)'];
+	
+	$arr['data']['customerName'] = "0";
+	$arr['data']['cid'] = "0";
+	$arr['data']['tp'] = "0";
+	$arr['data']['i'] = "0";
+		$arrCus = $DB->select("customer","where id = {$cid[0]['cid']}");
+//		print_r($arrCus);
+		$arr['data']['customerName'] = $arrCus[0]['name'];
+		$arr['data']['cid'] = $cid[0]['cid'];
+		$arr['data']['tp'] = $arrCus[0]['tp'];
+		$arr['data']['i'] = $perOneI;
+		$arr['data']['invoiceN'] = $billid;
+	
 	$json = json_encode($arr);
 	$_SESSION['credit']['bill']['s'] = 0;
 	echo($json);

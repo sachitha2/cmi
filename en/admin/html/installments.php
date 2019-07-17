@@ -57,6 +57,8 @@ $main = new Main;
      		
      		
       		<button type="button" class="btn btn-primary btn-lg " onclick="ajaxCommonGetFromNet('subPages/viewALLInstallments.php?search=all','cStage')" style="width: 80%;margin-bottom: 10px;">ALL</button>
+      		
+      		<button type="button" class="btn btn-primary btn-lg " onclick="ajaxCommonGetFromNet('subPages/viewALLInstallments.php?search=passed','cStage')" style="width: 80%;margin-bottom: 10px;">Passed</button>
 			
 			<button type="button" class="btn btn-primary btn-lg" onclick="ajaxCommonGetFromNet('subPages/viewALLInstallments.php?search=yesterday','cStage')" style="width: 25%;margin-bottom: 10px;">Yesterday</button>
 			<button type="button" class="btn btn-primary btn-lg" onclick="ajaxCommonGetFromNet('subPages/viewALLInstallments.php?search=today','cStage')" style="width: 25%;margin-bottom: 10px;">Today</button>
