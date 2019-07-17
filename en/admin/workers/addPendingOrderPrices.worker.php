@@ -19,6 +19,7 @@ if($DB->nRow("pendingprices"," WHERE itemId = {$json['itemId']}") == 0){
 	echo("done");
 }
 else{
+	//Do updating part here 
 	echo("Pending Prices Row is already available. Edit It to change Prices");
 }
 ?>
