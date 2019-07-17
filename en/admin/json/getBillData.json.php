@@ -17,7 +17,15 @@ if(isset($_SESSION['bill'])){
 	$arr['data']['mainData']['total'] = 0;
 	$arr['data']['mainData']['msg'] = "MSG here";
 	$arr['data']['mainData']['cash'] = $cash;
-	
+	$arr['data']['customerName'] = "0";
+	$arr['data']['cid'] = "0";
+	$arr['data']['tp'] = "0";
+	if(isset($_POST['cid'])){
+		$arrCus = $DB->select("customer","where id = {$_POST['cid']}");
+		$arr['data']['customerName'] = $arrCus[0]['name'];
+		$arr['data']['cid'] = $_POST['cid'];
+		$arr['data']['tp'] = $arrCus[0]['tp'];
+	}
 	
 	
 	$x = 0;

@@ -2020,7 +2020,7 @@ function finishBill(cash){
 			ajax.onreadystatechange = function() {
 				if (this.readyState == 4 && this.status == 200) {
 	    			alert(this.responseText);
-					//sendBill(this.responseText);
+					sendBill(this.responseText);
 				}
 	  		}
 
@@ -2041,7 +2041,7 @@ function finishBillCreditCustomer(cash,installments){
 		var ajax = _ajax();
 			ajax.onreadystatechange = function() {
 				if (this.readyState == 4 && this.status == 200) {
-//	    			alert(this.responseText);
+	    			alert(this.responseText);
 					sendCreditBill(this.responseText);
 				}
 	  		}
