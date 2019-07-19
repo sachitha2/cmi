@@ -72,13 +72,13 @@ if(isset($_SESSION['order']['bill'])){
 			<input readonly type="text" value="<?php echo($cName[0]['name']) ?>" id="idCard"  class="form-control" >
 			<br>
 			
-			<h1>Bill id <?php echo($tmpBillId) ?></h1>
+<!--			<h1>Bill id <?php echo($tmpBillId) ?></h1>-->
 			<div id="msg"></div>
 <!--		<input type="number" id="item"  class="form-control">-->
 			<?php //$DB->itemList($DB) ?>
 			
 			
-			<input autofocus list="colors" name="color" id="itemId" class="form-control"  placeholder="Item Id"   onKeyPress="enterNext(event,'qty')">
+			<input autofocus list="colors" name="color" id="itemId" class="form-control"  placeholder="Item Id"   onKeyPress="enterItemNameInAddOrder(event,this.value)">
 			<datalist id="colors">
 				
     			<?php
@@ -87,14 +87,14 @@ if(isset($_SESSION['order']['bill'])){
 
 					foreach($arrPack as $packdata){
 						?>
-						<option value="P-<?php echo($packdata['id']) ?>"><?php echo($packdata['name']) ?></option>
+						<option id="itemP-<?php echo($packdata['id']) ?>" value="P-<?php echo($packdata['id']) ?>"><?php echo($packdata['name']) ?></option>
 						<?php
 					}
 					
 					$arrItem = $DB->select("item","");
 					foreach($arrItem as $data){
 						?>
-						<option value="I-<?php echo($data['id']) ?>"><?php $DB->getItemNameByStockId($data['id']) ?></option>
+						<option id="itemI-<?php echo($data['id']) ?>" value="I-<?php echo($data['id']) ?>"><?php $DB->getItemNameByStockId($data['id']) ?></option>
 						
 						<?php
 					}
@@ -102,7 +102,7 @@ if(isset($_SESSION['order']['bill'])){
 				?>
 				
 			</datalist>
-			
+			<input readonly id="itemName" type="text" class="form-control" value="">
 			
 			<br>
 		<input type="number" id="qty" placeholder="QTY" class="form-control" onKeyPress="enterAdditemsToOrderBill(event,<?php echo($tmpBillId) ?>)">

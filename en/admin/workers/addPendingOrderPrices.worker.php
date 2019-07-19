@@ -20,6 +20,8 @@ if($DB->nRow("pendingprices"," WHERE itemId = {$json['itemId']}") == 0){
 }
 else{
 	//Do updating part here 
-	echo("Pending Prices Row is already available. Edit It to change Prices");
+	$sql = "UPDATE pendingprices SET mPrice = '{$json['mPrice']}', cPrice = '{$json['cPrice']}', crePrice = '{$json['crePrice']}' WHERE itemId = {$json['itemId']}";
+	$conn->query($sql);
+	echo("Successfully updated");
 }
 ?>
