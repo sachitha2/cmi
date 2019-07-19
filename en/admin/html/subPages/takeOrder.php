@@ -105,9 +105,9 @@ if(isset($_SESSION['order']['bill'])){
 			
 			
 			<br>
-		<input type="number" id="qty" placeholder="QTY" class="form-control" onKeyPress="enterAdditemsToorderCustomerBill(event,<?php echo($tmpBillId) ?>)">
+		<input type="number" id="qty" placeholder="QTY" class="form-control" onKeyPress="enterAdditemsToOrderBill(event,<?php echo($tmpBillId) ?>)">
 		<br>
-		<input type="button" value="Next" class="btn btn-primary btn-lg" style="width: 100%" onClick="additemsToorderCustomerBill(<?php echo($tmpBillId) ?>)"><br><br>
+		<input type="button" value="Next" class="btn btn-primary btn-lg" style="width: 100%" onClick="additemsToOrderBill(<?php echo($tmpBillId) ?>)"><br><br>
 		<?php 
 			
 			$total = $DB->select("purchaseditems","where dealid = $tmpBillId","SUM(amount * uprice)");

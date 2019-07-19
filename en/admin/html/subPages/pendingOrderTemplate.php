@@ -30,7 +30,7 @@ if($_SESSION['order']['bill']['s']  == 1){ ?>
   </thead>
   <tbody>
     			<?php
-					$arrBillData = $DB->select("purchaseditems","WHERE dealId = $tmpBillId");
+					$arrBillData = $DB->select("orders","WHERE dealId = $tmpBillId");
 //					print_r($arrBillData);
 								 $x = 1;
 					foreach($arrBillData as $billData){
@@ -42,7 +42,7 @@ if($_SESSION['order']['bill']['s']  == 1){ ?>
 								if($billData['type'] == 1){
 									//get pack name
 									
-									$packCustomer = $DB->select("packcustomers","WHERE dealid = $tmpBillId");
+									$packCustomer = $DB->select("orderpackcustomer","WHERE dealId = $tmpBillId");
 //									print_r($packCustomer);
 									
 									$packData = $DB->select("pack","where id = {$packCustomer[0]['packId']}");
@@ -53,11 +53,11 @@ if($_SESSION['order']['bill']['s']  == 1){ ?>
 								else{
 									echo("Extra - ");
 								}
-								$DB->getItemNameByStockId($billData['itemid']) ?></td>
+							 		$DB->getItemNameByStockId($billData['itemId']) ?></td>
 							<td><?php echo($billData['amount']) ?></td>
-							<td><?php echo($billData['uprice']) ?></td>
-							<td><?php echo($billData['amount'] * $billData['uprice']) ?></td>
-							<td><button onclick="delFastBillData(<?php echo($billData['id']) ?>)" type="button" class="btn btn-md btn-danger ">X</button></td>
+							<td><?php //echo($billData['uprice']) ?></td>
+							<td><?php //echo($billData['amount'] * $billData['uprice']) ?></td>
+							<td><button onclick="delOrderBillData(<?php echo($billData['id']) ?>)" type="button" class="btn btn-md btn-danger ">X</button></td>
 					
 						</tr>
 						<?php
