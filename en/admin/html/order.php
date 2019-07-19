@@ -57,6 +57,7 @@ $main = new Main;
   			<button type="button" class="btn btn-primary btn-lg" onclick="ajaxCommonGetFromNet('subPages/allOrders.php','cStage')" style="width: 40%;margin-bottom: 10px;">All</button>
   			<button type="button" class="btn btn-primary btn-lg" onclick="ajaxCommonGetFromNet('subPages/viewPendingPrices.php','cStage')" style="width: 40%;margin-bottom: 10px;">View Prices</button>
   			<button type="button" class="btn btn-primary btn-lg" onclick="ajaxCommonGetFromNet('subPages/addPendingPrices.php','cStage')" style="width: 40%;margin-bottom: 10px;">Add Prices</button>
+  			<button type="button" class="btn btn-primary btn-lg" onclick="ajaxCommonGetFromNet('subPages/orderPrices.STE.php','cStage')" style="width: 40%;margin-bottom: 10px;">Edit Prices</button>
     		
     	</center>
   			

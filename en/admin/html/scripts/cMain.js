@@ -1,5 +1,5 @@
 // JavaScript Document
-function ajaxCommonGetFromNet(phpFileName, outPutStage,x,loading = true){
+function ajaxCommonGetFromNet(phpFileName, outPutStage,x=0,loading = true){
 //			 if(navigator.onLine){
 					if(loading){
 						loadingModal();
@@ -44,7 +44,20 @@ function loadingModal(){
 	document.getElementById("mainModal").innerHTML = "<center><img src='load.gif' class='lImg'><h1 style='color:black'>Loading...Please wait</h1></center>";
   	showModal();
 }
-
+function enterItemNameInAddPendingPrices(e,id){
+	if (e.which == 13) {
+		conte = document.getElementById("item"+id).innerText;
+		document.getElementById("itemName").value = conte;
+		enterNext(event,"mPrice");
+	}
+}
+function enterItemNameInAddOrder(e,id){
+	if (e.which == 13) {
+		conte = document.getElementById("item"+id).innerText;
+		document.getElementById("itemName").value = conte;
+		enterNext(event,"qty");
+	}
+}
 function addArea(area){
 		area = document.getElementById("area").value;
 		if(area.length != 0){
@@ -462,6 +475,7 @@ function additemsToOrderBill(billId){
 				ajaxCommonGetFromNet("subPages/pendingOrderTemplate.php","output",0,false);
 				emt("qty");
 				emt("itemId");
+				emt("itemName");
 				document.getElementById("itemId").focus();
 				document.getElementById("itemId").select();
 				}
@@ -1240,10 +1254,12 @@ function delOrderBillData(id){
 ////Enter key events
 function enterAddExpenses(e,costTypeid){
 	if (e.which == 13) {
-//		if(costTypeid != ""){
-//			
-//		} 3
 		addExpenses(costTypeid);
+	}
+}
+function enteraddPendingPrices(e){
+	if (e.which == 13) {
+		addPendingPrices();
 	}
 }
 
@@ -2235,6 +2251,7 @@ function selectAreaToViewInstallments(value){
 		
 		
 	}
+
 function selectAreaAgentToViewInstallments(value){
 		if(value != ""){
 			
