@@ -12,7 +12,7 @@ $customer = $DB->select("customer","");
 	include("../../workers/readSesson.worker.php");
 ?>
 	<h1>Select Customer From NIC</h1>
-			<input list="colors" name="color" id="idCard" class="form-control" style="width: 200px" onKeyPress="enterCheckCustomerForMakeBill(event,this.value)">
+			<input list="colors" name="color" id="idCard" class="form-control" style="width: 200px" onKeyPress="enterCheckCustomerForNewOrder(event,this.value)">
 			<datalist id="colors">
 				
     			<?php
