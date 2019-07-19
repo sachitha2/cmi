@@ -1323,6 +1323,12 @@ function enterCheckCustomerForMakeBill(e,idCard) {
 	  	CheckCustomerForMakeBill(idCard);
   }
 }
+
+function enterCheckCustomerForNewOrder(e,idCard) {
+  if (e.which == 13) {
+	  	CheckCustomerForNewOrder(idCard);
+  }
+}
 function enterAddStock(e,amount,item,bPrice,sPrice,exDate,mfd) {
   if (e.which == 13) {
   addStock(amount,item,bPrice,sPrice,exDate,mfd);
