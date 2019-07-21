@@ -51,6 +51,20 @@ function enterItemNameInAddPendingPrices(e,id){
 		enterNext(event,"mPrice");
 	}
 }
+function enterItemNameInFastCustomer(e,id){
+	if (e.which == 13) {
+		conte = document.getElementById("item"+id).innerText;
+		document.getElementById("itemName").value = conte;
+		enterNext(event,"qty");
+	}
+}
+function enterItemNameInCreditCustomer(e,id){
+	if (e.which == 13) {
+		conte = document.getElementById("item"+id).innerText;
+		document.getElementById("itemName").value = conte;
+		enterNext(event,"qty");
+	}
+}
 function enterItemNameInAddOrder(e,id){
 	if (e.which == 13) {
 		conte = document.getElementById("item"+id).innerText;
@@ -2074,7 +2088,7 @@ function readStockMenu(){
 }
 var fastCustomerBillTotal ;
 function fastCustomerFinish(total){
-	fastCustomerBillTotal = total;
+			fastCustomerBillTotal = total;
 			showModal();
 			stage = document.getElementById("mainModal");
 			stage.style.opacity = 0.9;
@@ -2100,6 +2114,9 @@ function fastCustomerFinish(total){
 	
 	
 	
+}
+function ordersCustomerFinish(){
+	alert("Under construction");
 }
 function fastCustomerBalance(e){
 	var total = document.getElementById("total").value;
