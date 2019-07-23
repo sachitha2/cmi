@@ -55,8 +55,11 @@ if($_SESSION['order']['bill']['s']  == 1){ ?>
 								}
 							 		$DB->getItemNameByStockId($billData['itemId']) ?></td>
 							<td><?php echo($billData['amount']) ?></td>
-							<td><?php //echo($billData['uprice']) ?></td>
-							<td><?php //echo($billData['amount'] * $billData['uprice']) ?></td>
+							<td><?php 
+									$arrPrices = $DB->select("pendingprices","where itemId = {$billData['itemId']}");
+									echo($arrPrices[0]['crePrice']);
+								?></td>
+							<td><?php echo($arrPrices[0]['crePrice'] * $billData['amount'] ) ?></td>
 							<td><button onclick="delOrderBillData(<?php echo($billData['id']) ?>)" type="button" class="btn btn-md btn-danger ">X</button></td>
 					
 						</tr>
