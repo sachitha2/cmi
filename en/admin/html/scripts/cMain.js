@@ -2116,7 +2116,17 @@ function fastCustomerFinish(total){
 	
 }
 function ordersCustomerFinish(){
-	alert("Under construction");
+			var ajax = _ajax();
+			ajax.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+	    			alert(this.responseText);
+					sendOrderBill(this.responseText);
+				}
+	  		}
+
+			ajax.open("POST", "../json/getOrderBillData.json.php", true);
+			ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+			ajax.send("cash=100");
 }
 function fastCustomerBalance(e){
 	var total = document.getElementById("total").value;
@@ -2225,7 +2235,19 @@ function sendBill(data){
 			ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 			ajax.send();
 }
+function sendOrderBill(data){
+			var ajax = _ajax();
+			ajax.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+					ajaxCommonGetFromNet('subPages/selectCustomerToNewOrder.php','cStage');
+					
+				}
+	  		}
 
+			ajax.open("GET", "http://localhost/CMIPrinter/example/interface/orderBill.php?data="+data, true);
+			ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+			ajax.send();
+}
 function sendInstallmentBill(data){
 			alert("installments bill sending");
 			var ajax = _ajax();
