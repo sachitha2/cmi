@@ -597,12 +597,14 @@ function addUser(){
 		}
 
 		else{
+			showModal();
 			data = {'name':name, 'nic':nic, 'password':password, 'tp':tp, 'dob':dob, 'date':date, 'type':type ,'userName':userName};
 			console.log(data);
 			
 			var ajax = _ajax();
 			ajax.onreadystatechange = function() {
 			if (this.readyState == 4 && this.status == 200) {
+				hideModal();
 				emt("name");
 				emt("nic");
 				emt("dob");
@@ -770,7 +772,7 @@ function addCostType(){
 		}else{
 			
 		
-
+		showModal();
 		
 		var d = new Date();
 		var year = d.getFullYear().toString();
@@ -784,6 +786,7 @@ function addCostType(){
 		ajax.onreadystatechange = function() {
 			if (this.readyState == 4 && this.status == 200) {
 //	    		alert(this.responseText);
+				hideModal();
 				emt("costType");
 				msg("msg",this.responseText);
 			}
@@ -909,13 +912,14 @@ function takeAOrder(cid){
 function CheckCustomerForNewOrder(idCard){
 			
 			if(idCard != ""){
-				
+				showModal();
 				
 				data = { 'idCard':idCard,'CID':"" };
 		
 				var ajax = _ajax();
 				ajax.onreadystatechange = function() {
 				if (this.readyState == 4 && this.status == 200) {
+					
 //	   	 			alert(this.responseText);
 					emt("idCard");
 					jsonData = JSON.parse(this.responseText);
@@ -924,6 +928,7 @@ function CheckCustomerForNewOrder(idCard){
 						takeAOrder(jsonData.cid);
 //						creditCustomer(jsonData.cid);
 					}else{
+						hideModal();
 						msg("msg",jsonData.msg);
 					}
 				}
@@ -1012,31 +1017,32 @@ function addItem(){
 		if(item == ""){
 			msg("msg","Enter Item");
 		}else{
-			
+			showModal();
 		
 
 
 		
-		var d = new Date();
-		var year = d.getFullYear().toString();
-		var month =  d.getMonth() + 1;
-		var months = month.toString();
-		var day = d.getDate().toString();
-		var date = year+"-"+months+"-"+day;
-		data = { 'date':date, 'item':item,'itemTypeId':itemType };
-		
-		var ajax = _ajax();
-		ajax.onreadystatechange = function() {
-			if (this.readyState == 4 && this.status == 200) {
-//	   	 		alert(this.responseText);
-				msg("msg",this.responseText);
-				emt("idItem");
-			}
-	  }
+			var d = new Date();
+			var year = d.getFullYear().toString();
+			var month =  d.getMonth() + 1;
+			var months = month.toString();
+			var day = d.getDate().toString();
+			var date = year+"-"+months+"-"+day;
+			data = { 'date':date, 'item':item,'itemTypeId':itemType };
 
-		ajax.open("POST", "../workers/insertItem.worker.php", true);
-		ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-		ajax.send("data="+(JSON.stringify(data)));
+			var ajax = _ajax();
+			ajax.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+	//	   	 		alert(this.responseText);
+					hideModal();
+					msg("msg",this.responseText);
+					emt("idItem");
+				}
+		  }
+
+			ajax.open("POST", "../workers/insertItem.worker.php", true);
+			ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+			ajax.send("data="+(JSON.stringify(data)));
 		
 		}}
 
