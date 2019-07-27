@@ -17,7 +17,7 @@ if(isset($_POST['data'])){
 	/////Selecting the pack and item from input
 	// use of explode 
 	$str_arr = explode ("-",$postData['itemId']);
-	print_r($str_arr);
+//	print_r($str_arr);
 	$itemId = $str_arr[1];
 	if($str_arr[0] == "P" || $str_arr[0] == "p"){
 		////////////////////////////////////////////////////////////////////////////////////////////

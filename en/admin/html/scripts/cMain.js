@@ -284,8 +284,8 @@ function addCustomer(){
 	var dob = document.getElementById('dob').value;
 	var route = document.getElementById('route').value;
 	
-	
-	
+	var sName = document.getElementById('sName').value;
+	var desi = document.getElementById('desi').value;
 	var nic = document.getElementById('nic').value;
 	var tp = document.getElementById('tp').value;
 	var area = document.getElementById('area').value;
@@ -304,10 +304,14 @@ function addCustomer(){
 	
 	
 
-	data = {'name':name , 'address':address, 'nic':nic, 'tp':tp, 'area':area, 'date':date, 'agent':agent ,'dob':dob,'route':route,'image':image,'areaAgent':areaAgent};
+	data = {'name':name , 'address':address, 'nic':nic, 'tp':tp, 'area':area, 'date':date, 'agent':agent ,'dob':dob,'route':route,'image':image,'areaAgent':areaAgent,'sName':sName,'desi':desi};
 		////Valida ting data 
 		msg = document.getElementById("msg");
-		if(name.length == "" ){
+		if(desi == 0){
+			msg.innerHTML  = "Select Designation";
+
+		}
+		else if(name.length == "" ){
 			msg.innerHTML = "Insert name"
 		}
 		
@@ -330,8 +334,8 @@ function addCustomer(){
 //				emt("tp");
 //				emt("route");
 					hideModal();
-					ajaxCommonGetFromNet('subPages/uploadImageForCustomer.php?id='+nic,'cStage');
-//				window.location.assign('createCustomer.php');
+//					ajaxCommonGetFromNet('createCustomer.php','cStage');
+					window.location.assign('createCustomer.php');
 //				msg.innerHTML = " Account Created successfully"
 				}
 	  		}
@@ -437,10 +441,12 @@ function additemsToFastCustomerBill(billId){
 		}
 		else{
 			//loading logo
+			
 			document.getElementById("output").innerHTML = "<center><img src='load.gif' class='lImg'><h1 style='color:black'>Loading...Please wait</h1></center>";
 			var ajax = _ajax();
 			ajax.onreadystatechange = function() {
 				if (this.readyState == 4 && this.status == 200) {
+				document.getElementById("qty").disabled = false;
 	    		msg("msg",this.responseText);
 				ajaxCommonGetFromNet("subPages/billTemplate.php","output",0,false);
 				emt("qty");
@@ -485,13 +491,14 @@ function additemsToOrderBill(billId){
 			var ajax = _ajax();
 			ajax.onreadystatechange = function() {
 				if (this.readyState == 4 && this.status == 200) {
-	    		msg("msg",this.responseText);
-				ajaxCommonGetFromNet("subPages/pendingOrderTemplate.php","output",0,false);
-				emt("qty");
-				emt("itemId");
-				emt("itemName");
-				document.getElementById("itemId").focus();
-				document.getElementById("itemId").select();
+					document.getElementById("qty").disabled = false;
+					msg("msg",this.responseText);
+					ajaxCommonGetFromNet("subPages/pendingOrderTemplate.php","output",0,false);
+					emt("qty");
+					emt("itemId");
+					emt("itemName");
+					document.getElementById("itemId").focus();
+					document.getElementById("itemId").select();
 				}
 	  		}
 			ajax.open("POST", "../workers/orderBillInsert.worker.php", true);
@@ -529,12 +536,13 @@ function additemsToCreditCustomerBill(billId){
 			var ajax = _ajax();
 			ajax.onreadystatechange = function() {
 				if (this.readyState == 4 && this.status == 200) {
-	    		msg("msg",this.responseText);
-				ajaxCommonGetFromNet("subPages/creditCustomerBillTemplate.php","output",0,false);
-				emt("qty");
-				emt("itemId");
-				document.getElementById("itemId").focus();
-				document.getElementById("itemId").select();
+					document.getElementById("qty").disabled = false;
+	    			msg("msg",this.responseText);
+					ajaxCommonGetFromNet("subPages/creditCustomerBillTemplate.php","output",0,false);
+					emt("qty");
+					emt("itemId");
+					document.getElementById("itemId").focus();
+					document.getElementById("itemId").select();
 				}
 	  		}
 			ajax.open("POST", "../workers/fastbillInsertCredit.worker.php", true);
@@ -1247,6 +1255,25 @@ function delFastBillData(id){
 		ajax.send("id="+id);
 	}
 }
+function delCreditBillData(id){
+	//alert(id);//fastBillData.del.php
+	var r = confirm("Are you sure want to delete this!");
+	if(r == true){
+		showModal();
+		var ajax = _ajax();
+		ajax.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+//	   	 		alert(this.responseText);
+				ajaxCommonGetFromNet("subPages/creditCustomerBillTemplate.php","output");
+				hideModal();
+			}
+	  }
+
+		ajax.open("POST", "../workers/creditBillData.del.php?id="+id, true);
+		ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		ajax.send("id="+id);
+	}
+}
 function delOrderBillData(id){
 	//alert(id);//fastBillData.del.php
 	var r = confirm("Are you sure want to delete this!");
@@ -1408,19 +1435,19 @@ function enterEditCustomer(e,id) {
 }
 function enteradditemsToFastCustomerBill(e,billId) {
   if (e.which == 13) { 
-	  
+	  document.getElementById("qty").disabled = true;
 	  additemsToFastCustomerBill(billId);
 	  }
 }
 function enterAdditemsToOrderBill(e,billId) {
   if (e.which == 13) { 
-	  
+	  document.getElementById("qty").disabled = true;
 	  additemsToOrderBill(billId);
 	  }
 }
 function enterAdditemsToCreditCustomerBill(e,billId){
 	if (e.which == 13) { 
-	  
+	  document.getElementById("qty").disabled = true;
 	  additemsToCreditCustomerBill(billId);
 	  }
 }

@@ -102,7 +102,8 @@ if(isset($_SESSION['credit']['bill'])){
 			<br>
 		<input type="number" id="qty" placeholder="QTY" class="form-control" onKeyPress="enterAdditemsToCreditCustomerBill(event,<?php echo($tmpBillId) ?>)">
 		<br>
-		<input type="button" value="Next" class="btn btn-primary btn-lg" style="width: 100%" onClick="additemsToCreditCustomerBill(<?php echo($tmpBillId) ?>)"><br><br>
+<!--		<input type="button" value="Next" class="btn btn-primary btn-lg" style="width: 100%" onClick="additemsToCreditCustomerBill(<?php echo($tmpBillId) ?>)">-->
+		<br>
 		<?php 
 			
 			$total = $DB->select("purchaseditems","where dealid = $tmpBillId","SUM(amount * uprice)");
