@@ -42,7 +42,7 @@ if($_SESSION['credit']['bill']['s']  == 1){ ?>
 							<td><?php echo($billData['amount']) ?></td>
 							<td><?php echo($billData['uprice']) ?></td>
 							<td><?php echo($billData['amount'] * $billData['uprice']) ?></td>
-							<td><button onclick="delFastBillData(<?php echo($billData['id']) ?>)" type="button" class="btn btn-md btn-danger ">X</button></td>
+							<td><button onclick="delCreditBillData(<?php echo($billData['id']) ?>)" type="button" class="btn btn-md btn-danger ">X</button></td>
 					
 						</tr>
 						<?php

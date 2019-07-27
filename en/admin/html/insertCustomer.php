@@ -75,8 +75,19 @@ $DB->conn = $conn;
 	  				if($x == 2){
 						?>
 						<form>
-		<div>Name</div>
+		<div>Select Designation</div>
+		<select  class="form-control" id="desi">
+			<option value="0">Select Designation</option>
+			<option value="Mr.">Mr.</option>
+			<option value="Mrs.">Mrs.</option>
+			<option value="Ms.">Ms.</option>
+			<option value="Miss.">Miss.</option>
+		</select>
+		<div>Full Name</div>
 		<div><input type="text" class="form-control" name="name" id="name" placeholder="Enter Name"></div>
+		
+		<div>Short Name</div>
+		<div><input type="text" class="form-control" name="sName" id="sName" placeholder="Enter Short Name"></div>
 		<div>Address</div>
 		<div><input type="text" class="form-control" name="address" id="address" placeholder="Enter Address"></div>
 		<div>NIC</div>

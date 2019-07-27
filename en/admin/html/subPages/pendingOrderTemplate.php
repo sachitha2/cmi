@@ -9,7 +9,7 @@ $main = new Main;
 $tmpBillId = $_SESSION['order']['bill']['id'];
 if($_SESSION['order']['bill']['s']  == 1){ ?>
 	<h1 align="center">Bill - <?php echo($tmpBillId) ?></h1>
-	<h2 align="center">Date <?php echo(date("y-m-d")) ?></h2>
+	
 	<h2 align="center">Total <?php 
 		$total = $DB->select("orders","where dealid = $tmpBillId","SUM(amount)");
 	
@@ -17,6 +17,7 @@ if($_SESSION['order']['bill']['s']  == 1){ ?>
 		echo($total[0]['SUM(amount)'])
 		
 		?></h2>
+	<h6 align="center">Date <?php echo(date("y-m-d")) ?></h6>
 <table class="table table-hover table-bordered table-striped table-dark">
   <thead class="thead-dark">
     <tr>

@@ -27,6 +27,7 @@ if(isset($_SESSION['order']['bill'])){
 	
 	
 	$x = 0;
+	$total = 0;
 	$billItems = $DB->select("orders","where dealId = {$billid}");
 	foreach($billItems as $data){
 		$prices = $DB->select("pendingprices","where itemId = {$data['itemId']}");
@@ -39,11 +40,12 @@ if(isset($_SESSION['order']['bill'])){
 		$marketPrice = $prices[0]['mPrice'] * $data['amount'];
 		
 		$arr['data']['r'][$x] = ($marketPrice - $arr['data']['total'][$x]);
+		$total += $arr['data']['total'][$x];
 		$x++;
+		
 	}
-	$total = 0;
 //	print_r($total);
-	$arr['data']['mainData']['total'] = 0;
+	$arr['data']['mainData']['total'] = $total;
 	$arr['data']['mainData']['balance'] = 0;
 	$json = json_encode($arr);
 	$_SESSION['bill']['s'] = 0;

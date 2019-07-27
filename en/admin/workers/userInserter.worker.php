@@ -1,7 +1,9 @@
 <?php 
 require_once("db.php");
 require_once("../methods/DB.class.php");
+require_once("../methods/Main.class.php");
 $DB = new DB;
+$main = new Main;
 $DB->conn = $conn;
 $postData = json_decode($_POST['data'], true);
 //print_r($postData);
@@ -26,11 +28,11 @@ $conn->query("INSERT INTO `userdata` (`id`, `name`, `tp`, `dob`, `regdate`, `sta
 $userDataidQuery = $conn->query("SELECT * FROM userdata ORDER BY id DESC LIMIT 1;");
 $row = mysqli_fetch_assoc($userDataidQuery);
 $userDataId = $row['id'];
-echo("last user id is ".$row['id']);
+//echo("last user id is ".$row['id']);
 $conn->query("INSERT INTO `user` (`id`, `username`, `password`, `type`) VALUES ('$userDataId', '$userN', '$mdpass', '$type');");
+	echo("<br>");
+	$main->Msgwarning("Done");
 	
-	
-	echo("Done");
 }else{
 	echo("User already available");
 }

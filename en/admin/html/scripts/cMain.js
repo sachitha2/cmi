@@ -284,8 +284,8 @@ function addCustomer(){
 	var dob = document.getElementById('dob').value;
 	var route = document.getElementById('route').value;
 	
-	
-	
+	var sName = document.getElementById('sName').value;
+	var desi = document.getElementById('desi').value;
 	var nic = document.getElementById('nic').value;
 	var tp = document.getElementById('tp').value;
 	var area = document.getElementById('area').value;
@@ -304,10 +304,14 @@ function addCustomer(){
 	
 	
 
-	data = {'name':name , 'address':address, 'nic':nic, 'tp':tp, 'area':area, 'date':date, 'agent':agent ,'dob':dob,'route':route,'image':image,'areaAgent':areaAgent};
+	data = {'name':name , 'address':address, 'nic':nic, 'tp':tp, 'area':area, 'date':date, 'agent':agent ,'dob':dob,'route':route,'image':image,'areaAgent':areaAgent,'sName':sName,'desi':desi};
 		////Valida ting data 
 		msg = document.getElementById("msg");
-		if(name.length == "" ){
+		if(desi == 0){
+			msg.innerHTML  = "Select Designation";
+
+		}
+		else if(name.length == "" ){
 			msg.innerHTML = "Insert name"
 		}
 		
@@ -330,8 +334,8 @@ function addCustomer(){
 //				emt("tp");
 //				emt("route");
 					hideModal();
-					ajaxCommonGetFromNet('subPages/uploadImageForCustomer.php?id='+nic,'cStage');
-//				window.location.assign('createCustomer.php');
+//					ajaxCommonGetFromNet('createCustomer.php','cStage');
+					window.location.assign('createCustomer.php');
 //				msg.innerHTML = " Account Created successfully"
 				}
 	  		}
@@ -437,10 +441,12 @@ function additemsToFastCustomerBill(billId){
 		}
 		else{
 			//loading logo
+			
 			document.getElementById("output").innerHTML = "<center><img src='load.gif' class='lImg'><h1 style='color:black'>Loading...Please wait</h1></center>";
 			var ajax = _ajax();
 			ajax.onreadystatechange = function() {
 				if (this.readyState == 4 && this.status == 200) {
+				document.getElementById("qty").disabled = false;
 	    		msg("msg",this.responseText);
 				ajaxCommonGetFromNet("subPages/billTemplate.php","output",0,false);
 				emt("qty");
@@ -485,13 +491,14 @@ function additemsToOrderBill(billId){
 			var ajax = _ajax();
 			ajax.onreadystatechange = function() {
 				if (this.readyState == 4 && this.status == 200) {
-	    		msg("msg",this.responseText);
-				ajaxCommonGetFromNet("subPages/pendingOrderTemplate.php","output",0,false);
-				emt("qty");
-				emt("itemId");
-				emt("itemName");
-				document.getElementById("itemId").focus();
-				document.getElementById("itemId").select();
+					document.getElementById("qty").disabled = false;
+					msg("msg",this.responseText);
+					ajaxCommonGetFromNet("subPages/pendingOrderTemplate.php","output",0,false);
+					emt("qty");
+					emt("itemId");
+					emt("itemName");
+					document.getElementById("itemId").focus();
+					document.getElementById("itemId").select();
 				}
 	  		}
 			ajax.open("POST", "../workers/orderBillInsert.worker.php", true);
@@ -529,12 +536,13 @@ function additemsToCreditCustomerBill(billId){
 			var ajax = _ajax();
 			ajax.onreadystatechange = function() {
 				if (this.readyState == 4 && this.status == 200) {
-	    		msg("msg",this.responseText);
-				ajaxCommonGetFromNet("subPages/creditCustomerBillTemplate.php","output",0,false);
-				emt("qty");
-				emt("itemId");
-				document.getElementById("itemId").focus();
-				document.getElementById("itemId").select();
+					document.getElementById("qty").disabled = false;
+	    			msg("msg",this.responseText);
+					ajaxCommonGetFromNet("subPages/creditCustomerBillTemplate.php","output",0,false);
+					emt("qty");
+					emt("itemId");
+					document.getElementById("itemId").focus();
+					document.getElementById("itemId").select();
 				}
 	  		}
 			ajax.open("POST", "../workers/fastbillInsertCredit.worker.php", true);
@@ -597,12 +605,14 @@ function addUser(){
 		}
 
 		else{
+			showModal();
 			data = {'name':name, 'nic':nic, 'password':password, 'tp':tp, 'dob':dob, 'date':date, 'type':type ,'userName':userName};
 			console.log(data);
 			
 			var ajax = _ajax();
 			ajax.onreadystatechange = function() {
 			if (this.readyState == 4 && this.status == 200) {
+				hideModal();
 				emt("name");
 				emt("nic");
 				emt("dob");
@@ -770,7 +780,7 @@ function addCostType(){
 		}else{
 			
 		
-
+		showModal();
 		
 		var d = new Date();
 		var year = d.getFullYear().toString();
@@ -784,6 +794,7 @@ function addCostType(){
 		ajax.onreadystatechange = function() {
 			if (this.readyState == 4 && this.status == 200) {
 //	    		alert(this.responseText);
+				hideModal();
 				emt("costType");
 				msg("msg",this.responseText);
 			}
@@ -909,13 +920,14 @@ function takeAOrder(cid){
 function CheckCustomerForNewOrder(idCard){
 			
 			if(idCard != ""){
-				
+				showModal();
 				
 				data = { 'idCard':idCard,'CID':"" };
 		
 				var ajax = _ajax();
 				ajax.onreadystatechange = function() {
 				if (this.readyState == 4 && this.status == 200) {
+					
 //	   	 			alert(this.responseText);
 					emt("idCard");
 					jsonData = JSON.parse(this.responseText);
@@ -924,6 +936,7 @@ function CheckCustomerForNewOrder(idCard){
 						takeAOrder(jsonData.cid);
 //						creditCustomer(jsonData.cid);
 					}else{
+						hideModal();
 						msg("msg",jsonData.msg);
 					}
 				}
@@ -1012,31 +1025,32 @@ function addItem(){
 		if(item == ""){
 			msg("msg","Enter Item");
 		}else{
-			
+			showModal();
 		
 
 
 		
-		var d = new Date();
-		var year = d.getFullYear().toString();
-		var month =  d.getMonth() + 1;
-		var months = month.toString();
-		var day = d.getDate().toString();
-		var date = year+"-"+months+"-"+day;
-		data = { 'date':date, 'item':item,'itemTypeId':itemType };
-		
-		var ajax = _ajax();
-		ajax.onreadystatechange = function() {
-			if (this.readyState == 4 && this.status == 200) {
-//	   	 		alert(this.responseText);
-				msg("msg",this.responseText);
-				emt("idItem");
-			}
-	  }
+			var d = new Date();
+			var year = d.getFullYear().toString();
+			var month =  d.getMonth() + 1;
+			var months = month.toString();
+			var day = d.getDate().toString();
+			var date = year+"-"+months+"-"+day;
+			data = { 'date':date, 'item':item,'itemTypeId':itemType };
 
-		ajax.open("POST", "../workers/insertItem.worker.php", true);
-		ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-		ajax.send("data="+(JSON.stringify(data)));
+			var ajax = _ajax();
+			ajax.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+	//	   	 		alert(this.responseText);
+					hideModal();
+					msg("msg",this.responseText);
+					emt("idItem");
+				}
+		  }
+
+			ajax.open("POST", "../workers/insertItem.worker.php", true);
+			ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+			ajax.send("data="+(JSON.stringify(data)));
 		
 		}}
 
@@ -1241,6 +1255,25 @@ function delFastBillData(id){
 		ajax.send("id="+id);
 	}
 }
+function delCreditBillData(id){
+	//alert(id);//fastBillData.del.php
+	var r = confirm("Are you sure want to delete this!");
+	if(r == true){
+		showModal();
+		var ajax = _ajax();
+		ajax.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+//	   	 		alert(this.responseText);
+				ajaxCommonGetFromNet("subPages/creditCustomerBillTemplate.php","output");
+				hideModal();
+			}
+	  }
+
+		ajax.open("POST", "../workers/creditBillData.del.php?id="+id, true);
+		ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		ajax.send("id="+id);
+	}
+}
 function delOrderBillData(id){
 	//alert(id);//fastBillData.del.php
 	var r = confirm("Are you sure want to delete this!");
@@ -1402,19 +1435,19 @@ function enterEditCustomer(e,id) {
 }
 function enteradditemsToFastCustomerBill(e,billId) {
   if (e.which == 13) { 
-	  
+	  document.getElementById("qty").disabled = true;
 	  additemsToFastCustomerBill(billId);
 	  }
 }
 function enterAdditemsToOrderBill(e,billId) {
   if (e.which == 13) { 
-	  
+	  document.getElementById("qty").disabled = true;
 	  additemsToOrderBill(billId);
 	  }
 }
 function enterAdditemsToCreditCustomerBill(e,billId){
 	if (e.which == 13) { 
-	  
+	  document.getElementById("qty").disabled = true;
 	  additemsToCreditCustomerBill(billId);
 	  }
 }

@@ -20,6 +20,7 @@ $DB->conn = $conn;?>
     <tr>
       <th id="id" scope="col" width="10">ID</th>
       <th id="item" scope="col" onDblClick="itemMenuInStock()">Name</th>
+      <th id="item" scope="col" onDblClick="itemMenuInStock()">Short Name</th>
       <th id="amount" scope="col">TP Number</th>
       <th id="bPrice" scope="col">Address</th>
       <th id="sPrice" scope="col">Reg.Date</th>
@@ -41,7 +42,8 @@ $DB->conn = $conn;?>
 				?>
 				<tr>
 					<td scope="row"><?php echo($data['id']) ?></td>
-					<td><?php echo($data['name'] )?></td>
+					<td><?php echo($data['designation'].$data['name'] )?></td>
+					<td><?php echo($data['designation'].$data['shortName'] )?></td>
 
 					<td><?php echo($data['tp']) ?></td>
 					<td><?php echo($data['address']) ?></td>
