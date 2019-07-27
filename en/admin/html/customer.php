@@ -104,7 +104,7 @@ $main = new Main;
 				<a href="createCustomer.php"><button type="button" class="btn btn-primary btn-lg"  style="width: 40%;margin-bottom: 5px;">Find | ADD With NIC</button></a>
 				<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/addACustomer.php','cStage')"  style="width: 40%;margin-bottom: 5px;">ADD | Without NIC</button>
 				<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/customers.STE.php','cStage')"  style="width: 40%;margin-bottom: 5px;">Edit</button>
-				<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/deleteArea.php','cStage')"  style="width: 40%;margin-bottom: 5px;">Delete</button>
+<!--				<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/deleteArea.php','cStage')"  style="width: 40%;margin-bottom: 5px;">Delete</button>-->
 				<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/viewCustomers.php','cStage')"  style="width: 40%;margin-bottom: 5px;">View</button>
 <!--				<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/searchCustomers.php','cStage')"  style="width: 40%;margin-bottom: 5px;">Advance Search</button>-->
     		</center>
