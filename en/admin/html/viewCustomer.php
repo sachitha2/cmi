@@ -1,3 +1,11 @@
+<?php
+require_once("db.php");
+require_once("../methods/DB.class.php");
+require_once("../methods/Main.class.php");
+$DB = new DB;
+$DB->conn = $conn;
+$main = new Main;
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -612,7 +620,7 @@ body{
 }
 	
 	</style>
-  <title>CMS - stock</title>
+  <title>CMS - Customer Profile</title>
   <meta name="description" content="cms" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimal-ui" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -638,7 +646,8 @@ body{
   <!-- endbuild -->
   <link rel="stylesheet" href="../assets/styles/font.css" type="text/css" />
 </head>
-<body>
+<body >
+<!-- onLoad='ajaxCommonGetFromNet("subPages/customerBilling.php?nic=<?php echo($_GET['id']) ?>","customerStage");'-->
   <div class="app" id="app">
 
 <!-- ############ LAYOUT START-->
@@ -646,199 +655,20 @@ body{
   <!-- aside -->
   <div id="aside" class="app-aside modal nav-dropdown">
   	<!-- fluid app aside -->
-    <div class="left navside dark dk" data-layout="column">
-  	  <div class="navbar no-radius" style="padding-top: 22px">
-        <!-- brand -->
-        <a class="navbar-brand" href="dashboard.php">
-        	<img src="../assets/images/logo.png" alt="">
-        	<span class="hidden-folded inline" style="font-size: 22px">CMS</span>
-        </a>
-        <!-- / brand -->
-      </div>
-      <div class="hide-scroll" data-flex>
-          <nav class="scroll nav-light">
-            
-              <ul class="nav" ui-nav>
-                <br>
-                <li>
-                  <a href="dashboard.php" >
-                    <span class="nav-icon">
-                      <i class="material-icons">&#xe3fc;
-                        <span ui-include="'../assets/images/i_0.svg'"></span>
-                      </i>
-                    </span>
-                    <span class="nav-text">Dashboard</span>
-                  </a>
-                </li>
-            
-                <li>
-                  <a>
-                    <span class="nav-caret">
-                      <i class="fa fa-caret-down"></i>
-                    </span>
-                    <span class="nav-icon">
-                      <i class="material-icons">&#xe429;
-                        <span ui-include="'../assets/images/i_1.svg'"></span>
-                      </i>
-                    </span>
-                    <span class="nav-text">Configure</span>
-                  </a>
-                  <ul class="nav-sub">
-                    <li>
-                      <a href="area.php" >
-                        <span class="nav-text">Area</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="user.php" >
-                        <span class="nav-text">User</span>
-                      </a>
-                    </li>
-                     <li>
-                      <a href="pack.php" >
-                        <span class="nav-text">Pack</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="item.php" >
-                        <span class="nav-text">Item</span>
-                      </a>
-                    </li>
-                     <li>
-                      <a href="itemType.php" >
-                        <span class="nav-text">Item Type</span>
-                      </a>
-                    </li>
-                  </ul>
-                </li>
-            
-                <li>
-                  <a href="customer.php" >
-                    <span class="nav-icon">
-                      <i class="material-icons">&#xe851;
-                        <span ui-include="'../assets/images/i_2.svg'"></span>
-                      </i>
-                    </span>
-                    <span class="nav-text">Customer</span>
-                  </a>
-                </li>
-            
-                <li>
-                  <a href="stock.php" >
-                    <span class="nav-icon">
-                      <i class="material-icons">&#xe547;
-                        <span ui-include="'../assets/images/i_3.svg'"></span>
-                      </i>
-                    </span>
-                    <span class="nav-text">Stock</span>
-                  </a>
-                </li>
-            
-            
-                <li>
-                  <a href="expenses.php" >
-                    <span class="nav-icon">
-                      <i class="material-icons">&#xe01d;
-                        <span ui-include="'../assets/images/i_4.svg'"></span>
-                      </i>
-                    </span>
-                    <span class="nav-text">Expenses</span>
-                  </a>
-                </li>
-            
-                <li>
-                  <a href="profit.php" >
-                    <span class="nav-icon">
-                      <i class="material-icons">&#xe227;
-                        <span ui-include="'../assets/images/i_5.svg'"></span>
-                      </i>
-                    </span>
-                    <span class="nav-text">Profit</span>
-                  </a>
-                </li>
-            
-                <li>
-                  <a href="income.php" >
-                    <span class="nav-icon">
-                      <i class="material-icons">&#xe39e;
-                        <span ui-include="'../assets/images/i_6.svg'"></span>
-                      </i>
-                    </span>
-                    <span class="nav-text">Income</span>
-                  </a>
-                </li>
-            
-                <li>
-                  <a href="credits.php" >
-                    <span class="nav-icon">
-                      <i class="material-icons">&#xe870;
-                        <span ui-include="'../assets/images/i_7.svg'"></span>
-                      </i>
-                    </span>
-                    <span class="nav-text">Credits</span>
-                  </a>
-                </li>
-            
-              </ul>
-          </nav>
-      </div>
-      <div class="b-t">
-        <div class="nav-fold">
-        	<a href="profile.php">
-        	    <span class="pull-left">
-        	      <img src="../assets/images/a0.jpg" alt="..." class="w-40 img-circle">
-        	    </span>
-        	    <span class="clear hidden-folded p-x">
-        	      <span class="block _500">CMS - Admin</span>
-        	      <small class="block text-muted"><i class="fa fa-circle text-success m-r-sm"></i>online</small>
-        	    </span>
-        	</a>
-        </div>
-      </div>
-    </div>
+    <?php $main->menuBar() ?>
   </div>
   <!-- / -->
   
   <!-- content -->
   <div id="content" class="app-content box-shadow-z0" role="main">
-    <div class="app-header white box-shadow" style="background-color: #8A8282">
-        <div class="navbar navbar-toggleable-sm flex-row align-items-center">
-            <!-- Open side - Naviation on mobile -->
-            <a data-toggle="modal" data-target="#aside" class="hidden-lg-up mr-3">
-              <i class="material-icons">&#xe5d2;</i>
-            </a>
-            <!-- / -->
-        
-            <!-- Page title - Bind to $state's title -->
-            <div class="mb-0 h5 no-wrap" ng-bind="$state.current.data.title" id="pageTitle"></div>
-        
-            <!-- navbar right -->
-            <ul class="nav navbar-nav ml-auto flex-row">
-              <li class="nav-item dropdown">
-                <a class="nav-link p-0 clear" href="profile.php">
-                  <span class="avatar w-32">
-                    <img src="../assets/images/logo.png" alt="...">
-                    <i class="on b-white bottom"></i>
-                  </span>
-                </a>
-                <div ui-include="'../views/blocks/dropdown.user.html'"></div>
-              </li>
-            </ul>
-            <!-- / navbar right -->
-        </div>
-    </div>
-    <div class="app-footer">
-      <div class="p-2 text-xs">
-        <div class="pull-right text-muted py-1">
-          &copy; 2019 CMS. All Rights Reserved<span class="hidden-xs-down"> | Powered by <a href="http://infinisolutionslk.com/" target="_blank">Infini Solutions</a></span>
-          <a ui-scroll-to="content"><i class="fa fa-long-arrow-up p-x-sm"></i></a>
-        </div>
-      </div>
-    </div>
+    <?php $main->modal() ?> 
+    <?php $main->topBar() ?>
     <div ui-view class="app-body" id="view">
 
-      <!-- ############ PAGE START-->
-	  <h1>Customer Details</h1>
+     	<!-- ############ PAGE START-->
+	  	<?php $main->modal() ?>
+      	<!-- ############ PAGE START-->
+        <?php $main->head("Customer Profile") ?>
     	<!---->
     	<div class="container">
     <div class="view-account">
@@ -846,35 +676,48 @@ body{
             <div class="module-inner">
                 <div class="side-bar">
                     <div class="user-info">
-                        <img class="img-profile img-circle img-responsive center-block" src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="">
+                       	<?php
+	
+							if(isset($_GET['nic'])){
+								$customer = $DB->select("customer","WHERE nic LIKE '{$_GET['nic']}' ");
+							}
+							 else if(isset($_GET['cid'])){
+								 $customer = $DB->select("customer","WHERE id = {$_GET['cid']} ");
+							 }
+							
+							
+						?>
+                       
+                        <img class="img-profile img-circle img-responsive center-block" src="<?php echo($customer[0]['img']); ?>" alt="">
                         <ul class="meta list list-unstyled">
-                            <li class="name">Sachitha Hirushan
-                                <label class="label label-info">488</label>
+                            <li class="name"><?php echo($customer[0]['name']) ?><br>
+                                <label class="label label-info"><?php echo($customer[0]['id']) ?></label>
                             </li>
-                            <li class="email"><a href="#">shpsachitha@gmail.com</a></li>
-                            <li class="activity">Last logged in: Today at 2:18pm</li>
+<!--                            <li class="email"><a href="#">shpsachitha@gmail.com</a></li>-->
+                            <li class="activity">Registered Date: <?php echo($customer[0]['regdate']) ?></li>
                         </ul>
                     </div>
                     <nav class="side-menu">
                         <ul class="nav">
-                            <li><a href="#"><span class="fa fa-user"></span> Profile</a></li>
-                            <li><a href="#"><span class="fa fa-cog"></span> Settings</a></li>
-                            <li class="active"><a href="#"><span class="fa fa-credit-card"></span> Billing</a></li>
-                            <li><a href="#"><span class="fa fa-envelope"></span> Messages</a></li>
+                            <li onClick='ajaxCommonGetFromNet("subPages/customerProfile.php?cid=<?php echo($customer[0]['id']) ?>","customerStage");'><a href="#"><span class="fa fa-user"></span> Profile</a></li>
+<!--                            <li><a href="#"><span class="fa fa-cog"></span> Settings</a></li>-->
+                            <li onClick='ajaxCommonGetFromNet("subPages/customerBilling.php?cid=<?php echo($customer[0]['id']) ?>","customerStage");'><a href="#"><span class="fa fa-credit-card"></span> Billing</a></li>
+<!--                            <li class="active" ><a href="#" ><span class="fa fa-envelope"></span> Messages</a></li>-->
 
-                            <li><a href="user-drive.html"><span class="fa fa-th"></span> Drive</a></li>
-                            <li><a href="#"><span class="fa fa-clock-o"></span> Reminders</a></li>
+<!--                            <li><a href="user-drive.html"><span class="fa fa-th"></span> Drive</a></li>-->
+                            <li  onClick='ajaxCommonGetFromNet("subPages/customerReminders.php","customerStage");'><a href="#"><span class="fa fa-clock-o"></span> Reminders</a></li>
                         </ul>
                     </nav>
                 </div>
 
                 <div class="content-panel">
                     <div class="content-header-wrapper">
-                        <h2 class="title">My Drive</h2>
+<!--                        <h2 class="title">Customer Profile</h2>-->
                         
                     </div>
                     <div class="content-utilities">
                         
+<!--
                         <div class="actions">
                             <div class="btn-group">
                                 <button class="btn btn-default dropdown-toggle" data-toggle="dropdown" type="button" aria-expanded="false">All Items <span class="caret"></span></button>
@@ -900,8 +743,11 @@ body{
                                 <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Delete"><i class="fa fa-trash-o"></i></button>
                             </div>
                         </div>
+-->
                     </div>
-                    <div class="drive-wrapper drive-grid-view">
+                    <div id="customerStage">
+<!--
+                    	<div class="drive-wrapper drive-grid-view" >
                         <div class="grid-items-wrapper">
                             
                             
@@ -916,7 +762,7 @@ body{
                                 <div class="drive-item-inner module-inner">
                                     <div class="drive-item-title"><a href="#">Image DS2314.JPG</a></div>
                                     <div class="drive-item-thumb">
-<!--                                        <a href="#"><img class="img-responsive" src="https://bootdey.com/img/Content/avatar/avatar6.png" alt=""></a>-->
+                                        <a href="#"><img class="img-responsive" src="https://bootdey.com/img/Content/avatar/avatar6.png" alt=""></a>
                                    147
                                     </div>
                                 </div>
@@ -928,9 +774,8 @@ body{
                                 </div>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="drive-wrapper drive-list-view">
+                    	</div>
+                    	<div class="drive-wrapper drive-list-view">
                         <div class="table-responsive drive-items-table-wrapper">
                             <table class="table">
                                 <thead>
@@ -960,6 +805,11 @@ body{
                             </table>
                         </div>
                     </div>
+-->
+                    </div>
+                    
+
+                    
                 </div>
             </div>
         </section>

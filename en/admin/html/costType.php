@@ -52,11 +52,14 @@ $main = new Main;
       <!-- ############ PAGE START-->
 	 	<?php $main->head("Cost Type") ?>
     <div class="container h-100" id="cStage">
-  			<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/addCostType.php','cStage')">Create</button>
-     		<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/costType.STE.php','cStage')">Edit</button>
+    	<center>
+    		<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/addCostType.php','cStage')" style="width: 40%;margin-bottom: 5px;">Create</button>
+     		<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/costType.STE.php','cStage')" style="width: 40%;margin-bottom: 5px;">Edit</button>
 <!--     		<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/deleteArea.php','cStage')">Delete</button>-->
-     		<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/viewCostTypes.php','cStage')">View</button>
-     		<a href="PDF/viewCostTypesPDF.php" target="_blank"><button type="button" class="btn btn-primary btn-lg" >PDF</button></a>
+     		<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/viewCostTypes.php','cStage')" style="width: 40%;margin-bottom: 5px;">View</button>
+     		<a href="PDF/viewCostTypesPDF.php" target="_blank"><button type="button" class="btn btn-primary btn-lg" style="width: 40%;margin-bottom: 5px;">PDF</button></a>
+    	</center>
+  			
 	</div>
 
       <!-- ############ PAGE END-->

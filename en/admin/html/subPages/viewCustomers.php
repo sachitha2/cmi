@@ -20,11 +20,14 @@ $DB->conn = $conn;?>
     <tr>
       <th id="id" scope="col" width="10">ID</th>
       <th id="item" scope="col" onDblClick="itemMenuInStock()">Name</th>
+      <th id="item" scope="col" onDblClick="itemMenuInStock()">Short Name</th>
       <th id="amount" scope="col">TP Number</th>
       <th id="bPrice" scope="col">Address</th>
       <th id="sPrice" scope="col">Reg.Date</th>
       <th id="mfd" scope="col">NIC</th>
       <th id="exDate" scope="col">Area</th>
+<!--      <th id="exDate" scope="col">DOB</th>-->
+      <th id="exDate" scope="col">More</th>
       
 <!--  <th scope="col" width="50"></th>
       <th scope="col" width="50"></th>-->
@@ -39,13 +42,16 @@ $DB->conn = $conn;?>
 				?>
 				<tr>
 					<td scope="row"><?php echo($data['id']) ?></td>
-					<td><?php echo($data['name'] )?></td>
+					<td><?php echo($data['designation'].$data['name'] )?></td>
+					<td><?php echo($data['designation'].$data['shortName'] )?></td>
 
 					<td><?php echo($data['tp']) ?></td>
 					<td><?php echo($data['address']) ?></td>
 					<td><?php echo($data['regdate']) ?></td>
 					<td><?php echo($data['nic']) ?></td>
 					<td><?php $DB->getAreaById($data['areaid'])?></td>
+<!--					<td><?php echo($data['dob'])?></td>-->
+					<td><a href="viewCustomer.php?cid=<?php echo($data['id']) ?>"><button class="btn btn-md btn-primary">More</button></a></td>
 
 					<td><button type="button" class="btn btn-md btn-primary">Edit</button></td>
 					<td><button onClick="delCustomer(<?php echo($data['id']) ?>)" type="button" class="btn btn-md btn-danger ">X</button></td>

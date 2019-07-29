@@ -16,8 +16,17 @@ if(isset($_SESSION['bill'])){
 //	print_r($billData);
 	$arr['data']['mainData']['total'] = 0;
 	$arr['data']['mainData']['msg'] = "MSG here";
+	$arr['data']['mainData']['invoiceN'] = $billid;
 	$arr['data']['mainData']['cash'] = $cash;
-	
+	$arr['data']['customerName'] = "0";
+	$arr['data']['cid'] = "0";
+	$arr['data']['tp'] = "0";
+	if(isset($_POST['cid'])){
+		$arrCus = $DB->select("customer","where id = {$_POST['cid']}");
+		$arr['data']['customerName'] = $arrCus[0]['name'];
+		$arr['data']['cid'] = $_POST['cid'];
+		$arr['data']['tp'] = $arrCus[0]['tp'];
+	}
 	
 	
 	$x = 0;
@@ -25,12 +34,15 @@ if(isset($_SESSION['bill'])){
 //		echo("<br>");
 //		print_r($data);
 //		echo("<br>");
-		$arr['data']['id'][$x] = $data['id'];
+		$arr['data']['id'][$x] = $x + 1;
 		$arr['data']['item'][$x] = $DB->getItemNameByStockId($data['itemid'],0);
 		$arr['data']['QTY'][$x] = $data['amount'];
 		$arr['data']['price'][$x] = $data['uprice'];
 		$arr['data']['total'][$x] = $data['amount'] * $data['uprice'];
-		$arr['data']['r'][$x] = 00;
+		
+		$marketPrice = $DB->select("stock","where id = {$data['stockid']} ");
+		
+		$arr['data']['r'][$x] = $marketPrice[0]['marketPrice'] - $marketPrice[0]['cashPrice'];
 		$x++;
 	}
 	$total = $DB->select("purchaseditems","where dealid = $billid","SUM(amount * uprice)");

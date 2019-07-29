@@ -5,7 +5,9 @@ require_once("../../methods/Main.class.php");
 $DB = new DB;
 $DB->conn = $conn;
 $main = new Main;
+
 $main->b("costType.php");
+$main->readSessionError();
 if($DB->nRow("costtype","") != 0){ ?>
 
 

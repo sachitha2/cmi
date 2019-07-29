@@ -1,5 +1,7 @@
 <?php
+session_start();
 include("../en/admin/html/db.php");
+$_SESSION['login']['status'] = 1;
 require_once("../en/admin/methods/DB.class.php");
 $DB = new DB;
 $DB->conn = $conn;

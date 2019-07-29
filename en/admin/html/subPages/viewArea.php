@@ -1,11 +1,11 @@
 <?php
 require_once("../db.php");
 require_once("../../methods/DB.class.php");
+require_once("../../methods/Main.class.php");
 $DB = new DB;
-$DB->conn = $conn;?>
-<script>$('#myModal').modal('show')</script>
-<div><a href="area.php"><img src="../assets/images/back.png" width="30" height="30"></a></div><br>
-<?php
+$DB->conn = $conn;
+$main = new Main;
+$main->b("area.php");
 	include("../../workers/readSesson.worker.php");
 ?>
 <!-- Button trigger modal -->

@@ -54,11 +54,14 @@ $main = new Main;
       <!-- ############ PAGE START-->
 	 	<?php $main->head("Item Type") ?>
 	<div class="container h-100" id="cStage">
-  			<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/insertItemType.php','cStage')">Add</button>
-     		<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/itemType.STE.php','cStage')">Edit</button>
-<!--     		<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/deleteArea.php','cStage')">Delete</button>-->
-     		<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/viewItemType.php','cStage')">View</button>
-     		<a href="PDF/viewItemTypesPDF.php" target="_blank"><button type="button" class="btn btn-primary btn-lg" >PDF</button></a>
+ 			<center>
+				<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/insertItemType.php','cStage')" style="width: 40%;margin-bottom: 5px;" >Add</button>
+				<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/itemType.STE.php','cStage')" style="width: 40%;margin-bottom: 5px;">Edit</button>
+	<!--     		<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/deleteArea.php','cStage')">Delete</button>-->
+				<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/viewItemType.php','cStage')" style="width: 40%;margin-bottom: 5px;">View</button>
+				<a href="PDF/viewItemTypesPDF.php" target="_blank"><button type="button" class="btn btn-primary btn-lg" style="width: 40%;margin-bottom: 5px;">PDF</button></a>
+ 			</center>
+  			
 	</div>
       <!-- ############ PAGE END-->
 

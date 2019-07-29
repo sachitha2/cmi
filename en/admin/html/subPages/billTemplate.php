@@ -32,11 +32,28 @@ if($_SESSION['bill']['s']  == 1){ ?>
     			<?php
 					$arrBillData = $DB->select("purchaseditems","WHERE dealId = $tmpBillId");
 //					print_r($arrBillData);
+								 $x = 1;
 					foreach($arrBillData as $billData){
 						?>
 						<tr>
-							<td scope="row"><?php echo($billData['id']) ?></td>
-							<td><?php echo($billData['itemid']) ?></td>
+							<td scope="row"><?php echo($x) ?></td>
+							<td><?php
+								//check pack or item
+								if($billData['type'] == 1){
+									//get pack name
+									
+									$packCustomer = $DB->select("packcustomers","WHERE dealid = $tmpBillId");
+//									print_r($packCustomer);
+									
+									$packData = $DB->select("pack","where id = {$packCustomer[0]['packId']}");
+									
+//									print_r($packData);
+									echo($packData[0]['name']." - ");
+								}
+								else{
+									echo("Extra - ");
+								}
+								$DB->getItemNameByStockId($billData['itemid']) ?></td>
 							<td><?php echo($billData['amount']) ?></td>
 							<td><?php echo($billData['uprice']) ?></td>
 							<td><?php echo($billData['amount'] * $billData['uprice']) ?></td>
@@ -44,6 +61,7 @@ if($_SESSION['bill']['s']  == 1){ ?>
 					
 						</tr>
 						<?php
+							$x++;
 					}
 				?>
     			

@@ -55,6 +55,7 @@ By sachitha hirushan
 			$_SESSION['login']['status'] = 1;
 			$_SESSION['login']['user'] = $cookie_value;
 			header("location:dashboard.php");
+			$_SESSION["error"] = array("s"=>1,"msg"=>"Logged in to the system as $UserName ");
 			
 			/*if (isset($_COOKIE["user"])){
 				echo "done";

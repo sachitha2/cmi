@@ -141,6 +141,21 @@ class Main{
                         <span class="nav-text">Cost Type</span>
                       </a>
                     </li>
+                    <li>
+                      <a onClick="window.location.assign('agent.php')">
+                        <span class="nav-text">Agent</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a onClick="window.location.assign('vehicle.php')">
+                        <span class="nav-text">Vehicle</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a onClick="window.location.assign('seller.php')">
+                        <span class="nav-text">Seller</span>
+                      </a>
+                    </li>
                   </ul>
                 </li>
             
@@ -229,6 +244,39 @@ class Main{
                     <span class="nav-text">Installments</span>
                   </a>
                 </li>
+                
+                <li>
+                  <a onClick="window.location.assign('sales.php')">
+                    <span class="nav-icon">
+                      <i class="material-icons">&#xe870;
+                        <span ui-include="'../assets/images/i_7.svg'"></span>
+                      </i>
+                    </span>
+                    <span class="nav-text">Sales</span>
+                  </a>
+                </li>
+                 <li>
+                  <a onClick="window.location.assign('order.php')">
+                    <span class="nav-icon">
+                      <i class="material-icons">&#xe870;
+                        <span ui-include="'../assets/images/i_7.svg'"></span>
+                      </i>
+                    </span>
+                    <span class="nav-text">Orders</span>
+                  </a>
+                </li>
+                
+                <li>
+                  <a onClick="window.location.assign('salary.php')">
+                    <span class="nav-icon">
+                      <i class="material-icons">&#xe870;
+                        <span ui-include="'../assets/images/i_7.svg'"></span>
+                      </i>
+                    </span>
+                    <span class="nav-text">Salary</span>
+                  </a>
+                </li>
+                
             
               </ul>
           </nav>
@@ -346,7 +394,7 @@ class Main{
 	}
 	public function head($title){
 		?>
-		<div class="card-header" style="margin-bottom: 5px;margin-top: 5px;position: sticky;top: 50px;z-index: 10">
+		<div class="card-header" style="margin-bottom: 5px;margin-top: 5px;position: sticky;top: 50px;z-index: 10;text-transform: uppercase">
         	<center><h1 class="my-0 font-weight-normal text-info" ><?php echo($title) ?></h1></center>
       	</div>
 		<?php

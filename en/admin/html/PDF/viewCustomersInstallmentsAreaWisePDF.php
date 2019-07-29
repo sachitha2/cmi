@@ -42,10 +42,12 @@ $pdf->SetFont('Times','',11);
 $pdf->ln(4);
 
 $arrCus = $DB->select("customer","WHERE status = 1 && areaid =".$areaId);
+//print_r($arrCus);
 
 foreach ($arrCus as $dataCus) {
-	
+//	print_r($dataCus['id']);
 	$arrDeal = $DB->select("deals","WHERE status = 0  && cid =".$dataCus['id']);
+	print_r($arrDeal[0]['id']);
 	$arrIns = $DB->select("installment","WHERE dealid =".$arrDeal[0]['id']);
 	
 	$pdf->ln(6);

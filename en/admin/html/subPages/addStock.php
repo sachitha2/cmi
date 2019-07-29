@@ -12,7 +12,7 @@ if( ($DB->nRow("item","") != 0 ) && ($DB->nRow("item_type","") != 0 )){
 	?>
 	<h2>Select Item to load</h2>
 	
-     	<input list="colors" name="color" id="itemId" class="form-control" style="width: 200px" onKeyPress="enterAddItemsToStock(event)">
+     	<input list="colors" autofocus name="color" id="itemId" class="form-control" style="width: 200px" onKeyPress="enterAddItemsToStock(event)">
 			<datalist id="colors">
 				
     			<?php
