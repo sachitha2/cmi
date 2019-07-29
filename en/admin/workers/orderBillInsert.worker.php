@@ -25,18 +25,18 @@ if(isset($_POST['data'])){
 		////////////////////////////////////////////////////////////////////////////////////////////
 		$arrPack = $DB->select("packitems"," WHERE pid = {$itemId}");
 		$numPack = $DB->nRow("packitems"," WHERE pid = {$itemId}");
-		print_r($arrPack);
+//		print_r($arrPack);
 //		echo("Number of items $numPack");
 		//check all are available
 		$itemAmo = 0;
 		foreach($arrPack as $dataPackAvailable){
 			$nRItemA = $DB->nRow("pendingprices"," WHERE itemId = {$dataPackAvailable['itemid']}");
-			echo("item ".$nRItemA."<br>");
+//			echo("item ".$nRItemA."<br>");
 			if($nRItemA == 1){
 				$itemAmo++;
 			}
 		}
-		echo("Item amount ".$itemAmo);
+//		echo("Item amount ".$itemAmo);
 		if($itemAmo == $numPack){
 			foreach($arrPack as $dataPack){
 //			print_r($dataPack);

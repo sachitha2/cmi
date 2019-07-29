@@ -54,10 +54,12 @@ $main = new Main;
     	<center>
     		<button type="button" class="btn btn-primary btn-lg" onclick="ajaxCommonGetFromNet('subPages/selectCustomerToNewOrder.php','cStage')" style="width: 40%;margin-bottom: 10px;">New Order</button>
   			
-  			<button type="button" class="btn btn-primary btn-lg" onclick="ajaxCommonGetFromNet('subPages/allOrders.php','cStage')" style="width: 40%;margin-bottom: 10px;">All</button>
+  			<button type="button" class="btn btn-primary btn-lg" onclick="ajaxCommonGetFromNet('subPages/allOrders.php','cStage')" style="width: 40%;margin-bottom: 10px;">All Orders</button>
   			<button type="button" class="btn btn-primary btn-lg" onclick="ajaxCommonGetFromNet('subPages/viewPendingPrices.php','cStage')" style="width: 40%;margin-bottom: 10px;">View Prices</button>
   			<button type="button" class="btn btn-primary btn-lg" onclick="ajaxCommonGetFromNet('subPages/addPendingPrices.php','cStage')" style="width: 40%;margin-bottom: 10px;">Add Prices</button>
   			<button type="button" class="btn btn-primary btn-lg" onclick="ajaxCommonGetFromNet('subPages/orderPrices.STE.php','cStage')" style="width: 40%;margin-bottom: 10px;">Edit Prices</button>
+  			<button type="button" class="btn btn-primary btn-lg" onclick="ajaxCommonGetFromNet('subPages/canceledOrders.php','cStage')" style="width: 40%;margin-bottom: 10px;">Canceled Orders</button>
+  			<button type="button" class="btn btn-primary btn-lg" onclick="ajaxCommonGetFromNet('subPages/approvedOrders.php','cStage')" style="width: 40%;margin-bottom: 10px;">Approved Orders</button>
     		
     	</center>
   			
@@ -98,6 +100,7 @@ $main = new Main;
   <script src="scripts/ui-toggle-class.js"></script>
 
   <script src="scripts/app.js"></script>
+  <script src="scripts/chatson.js"></script>
   
 
   <!-- ajax -->

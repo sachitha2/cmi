@@ -5,7 +5,6 @@ require_once("../../methods/DB.class.php");
 $main = new Main;
 $DB = new DB;
 $DB->conn = $conn;
-$main->head("all orders");
 $main->b("order.php");
 
 ?>
@@ -14,7 +13,7 @@ $main->b("order.php");
 ?>
 	 <?php
 	  
-	 		if($DB->nRow("orderdata"," ") != 0){
+	 		if($DB->nRow("orderdata","WHERE s = 3 ") != 0){
 				 
 				?>
 <!--				<a target="_blank" href="PDF/viewAreaPDF.php"><button type="button" class="btn btn-primary btn-md" >PDF</button></a>-->
@@ -25,7 +24,6 @@ $main->b("order.php");
       						<th scope="col">Name</th>
       						<th scope="col">CID</th>
       						<th scope="col">QTY</th>
-      						<th scope="col">Total</th>
       						<th scope="col">Date</th>
       						<th scope="col"></th>
     					</tr>
@@ -33,31 +31,20 @@ $main->b("order.php");
   					<tbody>
 				<?php
 			
-			$arr = $DB->select("orderdata"," ");
+			$arr = $DB->select("orderdata"," where s = 3");
 //			print_r	($arr);
 			foreach($arr as $data){
 				?>
 				<tr>
 					<td scope="row"><?php echo($data['id']) ?></td>
-					<td>
-					
-						<?php 
-							$arrCustomer = $DB->select("customer","where id = {$data['cid']}");
-//							print_r($arrCustomer);
-							echo($arrCustomer[0]['name']);
-						
-						?>
-					
-					
-					</td>
+					<td><?php echo($data['cid'])?></td>
 					<td><?php echo($data['cid'])?></td>
 					<td><?php echo($DB->nRow("orders","")) ?></td>
-					<td><?php echo("tot") ?></td>
-					<td><?php echo($data['date']) ?></td>
+					<td><?php echo($data['cid']) ?></td>
 					<td>
-						<button class="btn btn-primary btn-md" onClick="ajaxCommonGetFromNet('subPages/viewAOrder.php?id=<?php echo($data['id']) ?>','cStage');">View</button>
-						<button class="btn btn-primary btn-md" onClick="approveAOrder(<?php echo($data['id']) ?>)">Approve</button>
-						<button class="btn btn-danger btn-md" onClick="cancelAOrder(<?php echo($data['id']) ?>)">Cancel</button>
+						<button class="btn btn-primary btn-md">View</button>
+						<button class="btn btn-primary btn-md">Approve</button>
+						<button class="btn btn-danger btn-md">Undo </button>
 					
 					</td>
 					
