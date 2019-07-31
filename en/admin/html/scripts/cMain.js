@@ -309,7 +309,6 @@ function addCustomer(){
 		msg = document.getElementById("msg");
 		if(desi == 0){
 			msg.innerHTML  = "Select Designation";
-
 		}
 		else if(name.length == "" ){
 			msg.innerHTML = "Insert name"
@@ -352,12 +351,12 @@ function addCustomerWithoutAIdCardN(){
 	
 	var name = document.getElementById('name').value;
 	var address = document.getElementById('address').value;
+
+	var sName = document.getElementById('sName').value;
+	var desi = document.getElementById('desi').value;
 	
 	var dob = document.getElementById('dob').value;
 	var route = document.getElementById('route').value;
-	
-	
-	
 	
 	var tp = document.getElementById('tp').value;
 	var area = document.getElementById('area').value;
@@ -376,13 +375,15 @@ function addCustomerWithoutAIdCardN(){
 	
 	
 
-	data = {'name':name , 'address':address,  'tp':tp, 'area':area, 'date':date, 'agent':agent ,'dob':dob,'route':route,'image':image,'areaAgent':areaAgent};
+	data = {'name':name , 'address':address,  'tp':tp, 'area':area, 'date':date, 'agent':agent ,'dob':dob,'route':route,'image':image,'areaAgent':areaAgent, 'sName':sName,'desi':desi};
 		////Valida ting data 
 		msg = document.getElementById("msg");
-		if(name.length == "" ){
+		if(desi == "0"){
+			msg.innerHTML  = "Select Designation";
+		}
+		else if(name.length == "" ){
 			msg.innerHTML = "Insert name"
 		}
-		
 		else if(address.length == ""){
 			msg.innerHTML = " Insert Address"
 		}
@@ -1433,6 +1434,12 @@ function enterEditCustomer(e,id) {
 	  loadEditFormsCustomer(id);
 	  }
 }
+function enterEditCustomerByCustomerId(e,id) {
+	if (e.which == 13) { 
+		
+		loadEditFormsCustomer(id);
+		}
+  }
 function enteradditemsToFastCustomerBill(e,billId) {
   if (e.which == 13) { 
 	  document.getElementById("qty").disabled = true;
@@ -2021,9 +2028,11 @@ function editSaveCostType(costType,id){
 			document.getElementById("msg").innerHTML = "Enter valid item";
 		}
 }
-function editSaveCustomer(){
+function editSaveCustomer(id){
 	alert("edit save customer");
 	var name = document.getElementById('name').value;
+	var sName = document.getElementById('sName').value;
+	var desi = document.getElementById('desi').value;
 	var address = document.getElementById('address').value;
 	var nic = document.getElementById('nic').value;
 	var tp = document.getElementById('tp').value;
@@ -2037,13 +2046,15 @@ function editSaveCustomer(){
 	var agent = document.getElementById('agent').value;
 	var s = document.getElementById('status').value;
 
-	data = {'name':name , 'address':address, 'nic':nic, 'tp':tp, 'area':area, 'date':date, 'agent':agent,'s':s};
-		////Valida ting data 
+	data = {'id':id, 'name':name , 'sName':sName, 'desi':desi, 'address':address, 'nic':nic, 'tp':tp, 'area':area, 'date':date, 'agent':agent,'s':s};
+		////Validating data 
 		msg = document.getElementById("msg");
-		if(name.length == "" ){
+		if(desi == "0"){
+			msg.innerHTML  = "Select Designation";
+		}
+		else if(name.length == "" ){
 			msg.innerHTML = "Insert name"
 		}
-		
 		else if(address.length == ""){
 			msg.innerHTML = " Insert Address"
 		}
@@ -2056,12 +2067,15 @@ function editSaveCustomer(){
 			var ajax = _ajax();
 			ajax.onreadystatechange = function() {
 				if (this.readyState == 4 && this.status == 200) {
-	    		alert(this.responseText);
+				alert(this.responseText);
+				emt("id");
+				emt("desi");
 				emt("name");
+				emt("sNAme");
 				emt("address");
 				emt("nic");
 				emt("tp");
-				msg.innerHTML = " Account Created successfully"
+				msg.innerHTML = "Account Created successfully";
 				}
 	  		}
 
@@ -2397,3 +2411,30 @@ $(document).ready(function(){
 
 
 //image uploading part
+
+
+//----SANDALI-----------------------
+function addSalary(){
+	var employeeId = document.getElementById("employeeId").value;
+	var amount = document.getElementById("amount").value;
+	console.log(amount + employeeId);
+	if(employeeId != "" && amount != ""){
+				///ajax part
+				loadingModal();
+				showModal();
+				var xmlhttp = new XMLHttpRequest();
+				xmlhttp.onreadystatechange = function() {
+				if (this.readyState === 4 && this.status == 200) {
+						document.getElementById("msg").innerHTML  =  this.responseText;
+						emt("employeeId");
+						emt("amount");
+						hideModal();
+					   }
+				};
+				xmlhttp.open("GET", "../workers/addSalary.worker.php?empId="+employeeId+"&amount="+amount, true);//generating  get method link
+				xmlhttp.send();
+				////ajax part
+	}else{
+		document.getElementById("msg").innerHTML = "Enter valid data";
+	}
+}

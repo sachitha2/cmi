@@ -52,7 +52,13 @@ $main = new Main;
         <?php $main->head("Salary") ?>
     <div class="container h-100" id="cStage">
 		<!--  	This is sales stage		-->
-			
+      <center> 
+        <button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/addSalary.php','cStage')"  style="width: 40%;margin-bottom: 5px;">Add Salary</button>
+				<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/viewSalary.php','cStage')"  style="width: 40%;margin-bottom: 5px;">View Salary</button>
+				<!--<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/customers.STE.php','cStage')"  style="width: 40%;margin-bottom: 5px;">View Salary</button>
+				<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/deleteArea.php','cStage')"  style="width: 40%;margin-bottom: 5px;">Delete</button>
+				<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/viewCustomers.php','cStage')"  style="width: 40%;margin-bottom: 5px;">View</button>-->
+      </center>
 		<!--  	This is sales stage		-->
 	</div>
 

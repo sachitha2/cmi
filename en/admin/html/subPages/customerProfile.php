@@ -30,10 +30,24 @@ $customer = $DB->select("customer","where id like '$cid';");
             
             <label>NIC</label>
             <input type="text" value="<?php echo($customer[0]['nic']) ?>" class="form-control">
+
+            <?php $designation = $customer[0]['designation']; if($designation == 0){echo "Selected";}?>
             
+            <label>Designation</label>
+            <select  class="form-control" id="desi">
+                <option value="0"       <?php $designation = $customer[0]['designation']; if($designation == "0"){echo "Selected";}?>    >Select Designation</option>
+                <option value="Mr."     <?php $designation = $customer[0]['designation']; if($designation == "Mr."){echo "Selected";}?>  >Mr.</option>
+                <option value="Mrs."    <?php $designation = $customer[0]['designation']; if($designation == "Mrs."){echo "Selected";}?> >Mrs.</option>
+                <option value="Ms."     <?php $designation = $customer[0]['designation']; if($designation == "Ms."){echo "Selected";}?>  >Ms.</option>
+                <option value="Miss."   <?php $designation = $customer[0]['designation']; if($designation == "Miss."){echo "Selected";}?>>Miss.</option>
+		    </select>
             
-            <label>Name</label>
+            <label>Full Name</label>
             <input type="text" value="<?php echo($customer[0]['name']) ?>" class="form-control">
+
+            <label>Short Name</label>
+            <input type="text" value="<?php echo($customer[0]['shortName']) ?>" class="form-control">
+            
             <label>Address</label>
             <input type="text" value="<?php echo($customer[0]['address']) ?>" class="form-control">
             <label>Telephone Number</label>

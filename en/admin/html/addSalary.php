@@ -1,7 +1,7 @@
 <?php
 require_once("../../methods/Main.class.php");
 $main = new Main;
-$main->b("customer.php");
+$main->b("salary.php");
 require_once("../db.php");
 require_once("../../methods/DB.class.php");
 $DB = new DB;
@@ -12,7 +12,7 @@ $DB->conn = $conn;?>
 	
 	
      
-      <h1>Add a Customer - Without NIC Number</h1>
+      <h1>Add Salary</h1>
  			
  			 	<?php
 //					echo($DB->nRow("area"," "));
@@ -108,7 +108,6 @@ $DB->conn = $conn;?>
 		<div id="imgTest" style="width: 100px;height: auto"><img src="" id="img" width="100"></div>
 -->
 		
-		<br>
 		<div id="msg"> </div>
 		<br>
 		<div><button class="btn btn-primary btn-lg" type="button" onclick="addCustomerWithoutAIdCardN();">Next</button></div>
