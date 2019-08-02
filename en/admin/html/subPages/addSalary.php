@@ -15,17 +15,8 @@ $DB->conn = $conn;?>
       <h1>Add Salary</h1>
  			
  			 	<?php
-//					echo($DB->nRow("area"," "));
-//					if(1 == 1){
-//						$main->Msgwarning("Add data to Area and User tables");
-//						}
-					$x = 0;
-					if($DB->nRow('area',' ') == 0){
-						$main->Msgwarning("No data Found in Area Table");
-					}else{
-						$x++;
-					}
-	  				if($DB->nRow('user',' WHERE type = 2') == 0){
+
+	  				if($DB->nRow('user','') == 0){
 						$main->Msgwarning("No data Found in User Table");
 					}else{?>
 
@@ -36,9 +27,9 @@ $DB->conn = $conn;?>
 							<input list="empId" name="employeeId" id="employeeId" class="form-control" style="width: 200px" >
 							<datalist id="empId">
 								<?php
-										$employeeArr = $DB->select("agent","");
+										$employeeArr = $DB->select("user","");
 										foreach($employeeArr as $employeeData){ ?>
-												<option value="<?php echo($employeeData['id']) ?>"><?php echo($employeeData['name']) ?></option>
+												<option value="<?php echo($employeeData['id']) ?>"><?php echo($employeeData['username']) ?></option>
 								<?php 	} ?>
 							</datalist>
 						</div>

@@ -13,48 +13,44 @@ $DB->conn = $conn;?>
 <!-- Button trigger modal -->
 
 <?php
-	if($DB->nRow("customer","") != 0){	?>
+	if($DB->nRow("salary","") != 0){	?>
 	
 			<table class="table table-hover table-bordered table-striped table-dark">
   <thead class="thead-dark">
     <tr>
       <th id="id" scope="col" width="10">ID</th>
-      <th id="item" scope="col" onDblClick="itemMenuInStock()">Name</th>
-      <th id="item" scope="col" onDblClick="itemMenuInStock()">Short Name</th>
-      <th id="amount" scope="col">TP Number</th>
-      <th id="bPrice" scope="col">Address</th>
-      <th id="sPrice" scope="col">Reg.Date</th>
-      <th id="mfd" scope="col">NIC</th>
-      <th id="exDate" scope="col">Area</th>
-<!--      <th id="exDate" scope="col">DOB</th>-->
-      <th id="exDate" scope="col">More</th>
-      
-<!--  <th scope="col" width="50"></th>
-      <th scope="col" width="50"></th>-->
+      <th id="empId" scope="col">Employee ID</th>
+      <th id="empName" scope="col">Name</th>
+      <th id="amount" scope="col">Amount</th>
+      <th id="costId" scope="col">Cost ID</th>
+      <th id="date" scope="col">Date</th>
+      <th id="time" scope="col">Time</th>
     </tr>
   </thead>
   <tbody>
     
     <?php
-			$arr = $DB->select("customer","");
+			$arr = $DB->select("salary","");
 //	  		print_r($arr);
 			foreach($arr as $data){
 				?>
 				<tr>
 					<td scope="row"><?php echo($data['id']) ?></td>
-					<td><?php echo($data['designation'].$data['name'] )?></td>
-					<td><?php echo($data['designation'].$data['shortName'] )?></td>
+					<td><?php echo($data['employeeId'] )?></td>
+					<?php
+					$empId = $data['employeeId'];
+					$arrTemp = $DB->select("user","WHERE id = $empId");
+					foreach($arrTemp as $dataTemp){
+					?>
+						<td><?php echo($dataTemp['username'])?></td>
+					<?php } ?>
+					<td><?php echo($data['amount']) ?></td>
+					<td><?php echo($data['costId']) ?></td>
+					<td><?php echo($data['date']) ?></td>
+					<td><?php echo($data['time']) ?></td>
 
-					<td><?php echo($data['tp']) ?></td>
-					<td><?php echo($data['address']) ?></td>
-					<td><?php echo($data['regdate']) ?></td>
-					<td><?php echo($data['nic']) ?></td>
-					<td><?php $DB->getAreaById($data['areaid'])?></td>
-<!--					<td><?php echo($data['dob'])?></td>-->
-					<td><a href="viewCustomer.php?cid=<?php echo($data['id']) ?>"><button class="btn btn-md btn-primary">More</button></a></td>
-
-					<td><button type="button" class="btn btn-md btn-primary">Edit</button></td>
-					<td><button onClick="delCustomer(<?php echo($data['id']) ?>)" type="button" class="btn btn-md btn-danger ">X</button></td>
+					<!--<td><button type="button" class="btn btn-md btn-primary">Edit</button></td>
+					<td><button onClick="delCustomer(<?php //echo($data['id']) ?>)" type="button" class="btn btn-md btn-danger ">X</button></td>-->
 					
 				</tr>
 				<?php
