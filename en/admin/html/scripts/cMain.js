@@ -2438,3 +2438,68 @@ function addSalary(){
 		document.getElementById("msg").innerHTML = "Enter valid data";
 	}
 }
+
+function viewSalary(i, agentId = -1){
+	if (i ==1){
+		var employeeId = document.getElementById("employeeId").value;
+		if(employeeId != -1){
+			var logic = "WHERE employeeId = '" + employeeId + "' AND MONTH(date) = MONTH(CURRENT_DATE()) AND YEAR(date) = YEAR(CURRENT_DATE());";
+		}else if(employeeId == -1){
+			var logic = "WHERE MONTH(date) = MONTH(CURRENT_DATE()) AND YEAR(date) = YEAR(CURRENT_DATE());";
+		}	
+	}else if(i==2){
+		var employeeId = document.getElementById("employeeId").value;
+		if(employeeId != -1){
+			var logic = "WHERE employeeId = '" + employeeId + "' AND YEAR(date) = YEAR(CURRENT_DATE());";
+		}else if(employeeId == -1){
+			var logic = "WHERE YEAR(date) = YEAR(CURRENT_DATE());";
+		}
+	}else if(i==3){
+		var employeeId = document.getElementById("employeeId").value;
+		var from = document.getElementById("from").value;
+		var to = document.getElementById("to").value;
+		if(employeeId != -1){
+			var logic = "WHERE employeeId = " + employeeId + " AND (DATE(date)<='" + to + "' AND DATE(date)>='" + from + "');";
+		}else if(employeeId == -1){
+			var logic = "WHERE (DATE(date)<='" + to + "' AND DATE(date)>='" + from + "');";
+		}
+	}else if(i==4){
+		var employeeId = agentId;
+		if(employeeId != -1){
+			var logic = "WHERE employeeId = " + employeeId + " AND MONTH(date) = MONTH(CURRENT_DATE()) AND YEAR(date) = YEAR(CURRENT_DATE());";
+		}
+	}else if(i==5){
+		var employeeId = agentId;
+		if(employeeId != -1){
+			var logic = "WHERE employeeId = " + employeeId + " AND YEAR(date) = YEAR(CURRENT_DATE());";
+		}
+	}else if(i==6){
+		var employeeId = agentId;
+		var from = document.getElementById("from").value;
+		var to = document.getElementById("to").value;
+		if(employeeId != -1){
+			var logic = "WHERE employeeId = " + employeeId + " AND (DATE(date)<='" + to + "' AND DATE(date)>='" + from + "');";
+		}
+	}
+
+	if(i != "" && agentId != ""){
+				///ajax part
+				loadingModal();
+				showModal();
+				var xmlhttp = new XMLHttpRequest();
+				xmlhttp.onreadystatechange = function() {
+				if (this.readyState === 4 && this.status == 200) {
+						document.getElementById("content").innerHTML  =  this.responseText;
+						emt("to");
+						emt("from");
+						emt("employeeId");
+						hideModal();
+					   }
+				};
+				xmlhttp.open("GET", "../workers/viewSalary.worker.php?logic="+logic, true);//generating  get method link
+				xmlhttp.send();
+				////ajax part
+	}else{
+		document.getElementById("msg").innerHTML = "Enter valid data";
+	}
+}

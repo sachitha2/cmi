@@ -12,63 +12,127 @@ $DB->conn = $conn;?>
 ?>
 <!-- Button trigger modal -->
 
-<?php
-	if($DB->nRow("salary","") != 0){	?>
+<div class="container h-100" id="cStage">
+		
+	<?php
+	if($DB->nRow("salary","") != 0){
+	?>
 	
-	<table class="table table-hover table-bordered table-striped table-dark">
-		<thead class="thead-dark">
-			<tr>
-			<th id="id" scope="col" width="10">ID</th>
-			<th id="empId" scope="col">Employee ID</th>
-			<th id="empName" scope="col">Name</th>
-			<th id="amount" scope="col">Amount</th>
-			<th id="costId" scope="col">Cost ID</th>
-			<th id="date" scope="col">Date</th>
-			<th id="time" scope="col">Time</th>
-			</tr>
-		</thead>
-		<tbody>
-			
+	
 			<?php
-			
-					if($_SESSION["login"]['type'] == 1){
-						$arr = $DB->select("salary","");
-					}else if($_SESSION["login"]['type'] == 2){
+			if($_SESSION["login"]['type'] == 1){ ?>		
 
-						$user = $_SESSION["login"]['user'];
-						$arrTemp1 = $DB->select("user","WHERE username = '$user'");
-						foreach($arrTemp1 as $dataTemp1){
-							$id = $dataTemp1['id'];	
-						} 
-						$arr = $DB->select("salary","WHERE employeeId = $id");
-					}
-	
-					foreach($arr as $data){
-			?>
-						<tr>
-							<td scope="row"><?php echo($data['id']) ?></td>
-							<td><?php echo($data['employeeId'] )?></td>
-							<?php
-							$empId = $data['employeeId'];
-							$arrTemp2 = $DB->select("user","WHERE id = $empId");
-							foreach($arrTemp2 as $dataTemp2){
-							?>
-								<td><?php echo($dataTemp2['username'])?></td>
-							<?php } ?>
-							<td><?php echo($data['amount']) ?></td>
-							<td><?php echo($data['costId']) ?></td>
-							<td><?php echo($data['date']) ?></td>
-							<td><?php echo($data['time']) ?></td>
-
-							<!--<td><button type="button" class="btn btn-md btn-primary">Edit</button></td>
-							<td><button onClick="delCustomer(<?php //echo($data['id']) ?>)" type="button" class="btn btn-md btn-danger ">X</button></td>-->
+				<center>
+				<div><label for="employeeId">Enter Employee ID</label></div>
+				<div>
+					<input list="empId" name="employeeId" id="employeeId" value="-1" class="form-control" style="width: 200px" >
+					<datalist id="empId">
+						<?php
+								$employeeArr = $DB->select("user","");?>
+								<option value="-1">All employees</option>
+								<?php
+								foreach($employeeArr as $employeeData){ ?>
+										<option value="<?php echo($employeeData['id']) ?>"><?php echo($employeeData['username']) ?></option>
+						<?php 	} ?>
+					</datalist>
+				</div>	
+				</center>			
+				<br><br>
+				<center> 
+					<button type="button" class="btn btn-primary btn-lg" onclick="viewSalary(1);"  style="width: 40%;margin-bottom: 5px;">This Month</button>
+					<button type="button" class="btn btn-primary btn-lg" onclick="viewSalary(2);"  style="width: 40%;margin-bottom: 5px;">This Year</button>
+				</center>
+				<br><hr>
+				<div class="row">
+					<div class="col-md-2"></div>
+					
+					<div class="col-md-4" align="center">
+					
+						<div>
 							
-						</tr>
-					<?php
-					}
-					?>
-		</tbody>
-	</table>
+							<label>From</label>
+							<hr width="70%">
+
+							<input type="date" id="from" class="form-control" ><br>
+
+						</div>
+						
+					</div>
+					
+					<div class="col-md-4" align="center">
+					
+						<div>
+							
+							<label>To</label>
+							<hr width="70%">
+
+							<input type="date" id="to"  class="form-control" ><br>
+						</div>
+						
+					</div>
+
+					<div class="col-md-2"></div>
+				</div>
+				<center>
+				<button type="button" class="btn btn-primary btn-lg" onclick="viewSalary(3);"  style="width: 40%;margin-bottom: 5px; align: center;">View salary for a time period</button>
+				</center>
+				<br>
+			<?php
+			}else if($_SESSION["login"]['type'] == 2){ ?>
+			<?php 
+				$user = $_SESSION["login"]['user'];
+				$arrTemp1 = $DB->select("user","WHERE username = '$user'");
+				foreach($arrTemp1 as $dataTemp1){
+					$id = $dataTemp1['id'];	
+				} 
+			?>
+				<center> 
+					<button type="button" class="btn btn-primary btn-lg" onclick="viewSalary(4,<?php echo($id) ?>)"  style="width: 40%;margin-bottom: 5px;">This Month</button>
+					<button type="button" class="btn btn-primary btn-lg" onclick="viewSalary(5,<?php echo($id) ?>);"  style="width: 40%;margin-bottom: 5px;">This Year</button>
+				</center>
+				<br><br><br><hr>
+				<div class="row">
+					<div class="col-md-2"></div>
+					
+					<div class="col-md-4" align="center">
+					
+						<div>
+							
+							<label>From</label>
+							<hr width="70%">
+
+							<input type="date" id="from" class="form-control" ><br>
+
+						</div>
+						
+					</div>
+					
+					<div class="col-md-4" align="center">
+					
+						<div>
+							
+							<label>To</label>
+							<hr width="70%">
+
+							<input type="date" id="to"  class="form-control" ><br>
+						</div>
+						
+					</div>
+
+					<div class="col-md-2"></div>
+				</div>
+				<center>
+				<button type="button" class="btn btn-primary btn-lg" onclick="viewSalary(6,<?php echo($id) ?>);"  style="width: 40%;margin-bottom: 5px; align: center;">View salary for a time period</button>
+				</center>
+				<br>
+			<?php
+			}
+			?>
+
+      
+
+
+
 	
 	<?php
 		
@@ -76,4 +140,6 @@ $DB->conn = $conn;?>
 	else{
 		$main->noDataAvailable();
 	}
-?>
+	?>
+
+</div>

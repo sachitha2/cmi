@@ -52,6 +52,8 @@ By sachitha hirushan
 			*/
 			//echo("pw ok");
 
+			//-------- SANDALI---------------------
+
 			$sql2 = "SELECT *
 			FROM user
 			WHERE username = '$UserName'";
@@ -60,10 +62,14 @@ By sachitha hirushan
 			$resultCheck2 = mysqli_num_rows($result2);
 			$row2 = mysqli_fetch_assoc($result2);
 
+			$_SESSION['login']['type'] = $row2['type'];
+
+			//----------------SANDALI END-----------------------
+			
 			$_SESSION['login']['pass'] = 1;
 			$_SESSION['login']['status'] = 1;
 			$_SESSION['login']['user'] = $cookie_value;
-			$_SESSION['login']['type'] = $row2['type'];
+			
 			header("location:dashboard.php");
 			$_SESSION["error"] = array("s"=>1,"msg"=>"Logged in to the system as $UserName ");
 			
