@@ -4,9 +4,11 @@ require_once("../methods/DB.class.php");
 require_once("../methods/Main.class.php");
 $DB = new DB;
 $main = new Main;
+//$main->head("Salary");
 $DB->conn = $conn;?>
 <script>$('#myModal').modal('show')</script>
-<?php $main->b("salary.php") ?>
+<?php $main->b("salary.php"); ?>
+
 <?php
 	include("readSesson.worker.php");
 ?>

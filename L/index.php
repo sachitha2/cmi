@@ -1,15 +1,3 @@
-<?php
-	session_start();
-	if(isset($_SESSION['login']['status'])){
-		
-	
-		if($_SESSION['login']['status'] == 1){
-			header("location:../en/admin/html/dashboard.php");
-		}
-	}
-?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
