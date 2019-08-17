@@ -7,10 +7,16 @@ $DB->conn = $conn;
 /////par1 - table name
 /////par2 - LOGIC
 /////par3 - if u need columns enter column names.. if not do not pass a 3rd parameter
-$arrThisM = $DB->select("cost","WHERE MONTH(date)  = MONTH(curdate()) AND YEAR(date) = YEAR(curdate())","SUM(cost)");
-$arrLastM = $DB->select("cost"," WHERE YEAR(date) = YEAR(CURRENT_DATE - INTERVAL 1 MONTH) AND MONTH(date) = MONTH(CURRENT_DATE - INTERVAL 1 MONTH)","SUM(cost)");
-$data['costThisM'] = (int)$arrThisM[0]['SUM(cost)'];
-$data['costLastM'] = (int)$arrLastM[0]['SUM(cost)'];
+
+$logic = $_GET['logic']; 
+$logicLast = $_GET['logicLast'];
+$periodL = $_GET['periodL'];
+$periodT = $_GET['periodT'];
+
+$arrThis = $DB->select("cost", "WHERE ".$logic.";", "SUM(cost)");
+$arrLast = $DB->select("cost", "WHERE ".$logicLast.";", "SUM(cost)");
+$data['costThis'] = (int)$arrThis[0]['SUM(cost)'];
+$data['costLast'] = (int)$arrLast[0]['SUM(cost)'];
 $json = json_encode($data);
 echo($json);
 ?>

@@ -31,7 +31,7 @@ $main = new Main;
   <link rel="stylesheet" href="../assets/styles/app.css" type="text/css" />
   <!-- endbuild -->
   <link rel="stylesheet" href="../assets/styles/font.css" type="text/css" />
-   <script src="scripts/cMain.js"></script> 
+  <script src="scripts/cMain.js"></script> 
 </head>
 <body>
 
@@ -57,7 +57,7 @@ $main = new Main;
             <button type="button" class="btn btn-primary btn-lg" onClick="viewReport(2);"  style="width: 40%;margin-bottom: 5px;">This Week</button>
             <button type="button" class="btn btn-primary btn-lg" onClick="viewReport(3);"  style="width: 40%;margin-bottom: 5px;">This Month</button>
             <button type="button" class="btn btn-primary btn-lg" onClick="viewReport(4)"  style="width: 40%;margin-bottom: 5px;">This Year</button>
-		</center>
+		    </center>
         <br><hr><br>
 		<div class="row">
 			<div class="col-md-2"></div>
