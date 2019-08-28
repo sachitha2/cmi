@@ -18,12 +18,24 @@ $periodT = $_GET['periodT'];
 // $periodL = "Yesterday";
 // $periodT = "Today";
 
-$arrThis = $DB->select("cost", "WHERE ".$logic.";", "SUM(cost)");
-$arrLast = $DB->select("cost", "WHERE ".$logicLast.";", "SUM(cost)");
-$data['expensesThis'] = (int)$arrThis[0]['SUM(cost)'];
-$data['expensesLast'] = (int)$arrLast[0]['SUM(cost)'];
+$totCost = 0;
+$arr = $DB->select("purchaseditems", "WHERE ".$logic.";"); 
+foreach($arr as $data){ 
+	$arr2 = $DB->select("stock", "WHERE id = ".$data['stockid'].";");
+	$totCost += $data['amount'] * $arr2[0]['bprice'];
+}
+$arrThis = $totCost;
 
+$totCost = 0;
+$arr = $DB->select("purchaseditems", "WHERE ".$logicLast.";");
+foreach($arr as $data){
+	$arr2 = $DB->select("stock", "WHERE id = ".$data['stockid'].";");
+	$totCost += $data['amount'] * $arr2[0]['bprice'];
+} 
+$arrLast = $totCost;
 
+$data['costThis'] = $arrThis;
+$data['costLast'] = $arrLast;
 
 $json = json_encode($data);
 echo($json);

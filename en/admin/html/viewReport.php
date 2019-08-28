@@ -33,7 +33,11 @@ $main = new Main;
     $periodT = "This Year";
   }
 
-  $x = "../json/reportExpences.json.php?logic=".$logic."&logicLast=".$logicLast."&periodL=".$periodL."&periodT=".$periodT;
+  $expencesString = "../json/reportExpences.json.php?logic=".$logic."&logicLast=".$logicLast."&periodL=".$periodL."&periodT=".$periodT;
+  $incomeString = "../json/reportIncome.json.php?logic=".$logic."&logicLast=".$logicLast."&periodL=".$periodL."&periodT=".$periodT;
+  $costString = "../json/reportCost.json.php?logic=".$logic."&logicLast=".$logicLast."&periodL=".$periodL."&periodT=".$periodT;
+  $profitString = "../json/reportProfit.json.php?logic=".$logic."&logicLast=".$logicLast."&periodL=".$periodL."&periodT=".$periodT;
+
 
   //-------------------------------------------------------------------------------------------------
 
@@ -45,7 +49,7 @@ $main = new Main;
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>CMS - expenses</title>
+  <title>CMS - Reports</title>
   <meta name="description" content="cms" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimal-ui" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -74,46 +78,165 @@ $main = new Main;
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
   <script type="text/javascript">
-    function chartThisMandLMonth(x, periodLast, periodThis){	
+    //-----Expenses------------------------------------------------------------------------------------
+    function chartExpences(expencesString, periodThis, periodLast){	
         
           var ajax = _ajax();
           ajax.onreadystatechange = function() {
           if (this.readyState == 4 && this.status == 200) {
             
   					//alert(this.responseText);
-            var jsonThisMandLM = JSON.parse(this.responseText);
+            var jsonExpences = JSON.parse(this.responseText);
             
                 google.charts.load('current', {'packages':['corechart']});
                 google.charts.setOnLoadCallback(drawChart);
 
                 function drawChart() {
-                console.log(jsonThisMandLM);
-                msg("TMLMTotal",jsonThisMandLM.costThis+" / "+jsonThisMandLM.costLast);
+                console.log(jsonExpences);
+                msg("expencesTotal",jsonExpences.expensesThis+" / "+jsonExpences.expensesLast);
                 var data = google.visualization.arrayToDataTable([
                     ['Task', 'Hours per Day'],
-                    [periodThis,   jsonThisMandLM.costThis ],
-                    [periodLast,    jsonThisMandLM.costLast]
+                    [periodThis, jsonExpences.expensesThis],
+                    [periodLast, jsonExpences.expensesLast]
             
                   ]);
               
                   var options = {
-                    title: 'Expenses '+periodLast+' / '+periodThis+''
+                    title: 'Expenses '+periodThis+' / '+periodLast+''
                   };
 
-                var chart = new google.visualization.PieChart(document.getElementById('piechartToday'));
+                var chart = new google.visualization.PieChart(document.getElementById('pieChartExpences'));
 
                 chart.draw(data, options);
                 }}
         
             }
-        ajax.open("GET", x, true);
+        ajax.open("GET", expencesString, true);
         ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
         ajax.send();
       
     }
+    //--------------------------------------------------------------------------------------------------------
+    //-----Income------------------------------------------------------------------------------------
+    function chartIncome(incomeString, periodThis, periodLast){	
+        
+        var ajax = _ajax();
+        ajax.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+          
+          //alert(this.responseText);
+          var jsonIncome = JSON.parse(this.responseText);
+          
+              google.charts.load('current', {'packages':['corechart']});
+              google.charts.setOnLoadCallback(drawChart);
+
+              function drawChart() {
+              console.log(jsonIncome);
+              msg("incomeTotal",jsonIncome.incomeThis+" / "+jsonIncome.incomeLast);
+              var data = google.visualization.arrayToDataTable([
+                  ['Task', 'Hours per Day'],
+                  [periodThis, jsonIncome.incomeThis],
+                  [periodLast, jsonIncome.incomeLast]
+          
+                ]);
+            
+                var options = {
+                  title: 'Income '+periodThis+' / '+periodLast+''
+                };
+
+              var chart = new google.visualization.PieChart(document.getElementById('pieChartIncome'));
+
+              chart.draw(data, options);
+              }}
+      
+          }
+      ajax.open("GET", incomeString, true);
+      ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+      ajax.send();
+    
+    }
+    //--------------------------------------------------------------------------------------------------------
+    //-----Cost------------------------------------------------------------------------------------
+    function chartCost(costString, periodThis, periodLast){	
+        
+        var ajax = _ajax();
+        ajax.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+          
+          //alert(this.responseText);
+          var jsonCost = JSON.parse(this.responseText);
+          
+              google.charts.load('current', {'packages':['corechart']});
+              google.charts.setOnLoadCallback(drawChart);
+
+              function drawChart() {
+              console.log(jsonCost);
+              msg("costTotal",jsonCost.costThis+" / "+jsonCost.costLast);
+              var data = google.visualization.arrayToDataTable([
+                  ['Task', 'Hours per Day'],
+                  [periodThis, jsonCost.costThis],
+                  [periodLast, jsonCost.costLast]
+          
+                ]);
+            
+                var options = {
+                  title: 'Cost '+periodThis+' / '+periodLast+''
+                };
+
+              var chart = new google.visualization.PieChart(document.getElementById('pieChartCost'));
+
+              chart.draw(data, options);
+              }}
+      
+          }
+      ajax.open("GET", costString, true);
+      ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+      ajax.send();
+    
+    }
+    //--------------------------------------------------------------------------------------------------------
+    //-----Profit------------------------------------------------------------------------------------
+    function chartProfit(profitString, periodThis, periodLast){	
+        
+        var ajax = _ajax();
+        ajax.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+          
+          //alert(this.responseText);
+          var jsonProfit = JSON.parse(this.responseText);
+          
+              google.charts.load('current', {'packages':['corechart']});
+              google.charts.setOnLoadCallback(drawChart);
+
+              function drawChart() {
+              console.log(jsonProfit);
+              msg("profitTotal",jsonProfit.profitThis+" / "+jsonProfit.profitLast);
+              var data = google.visualization.arrayToDataTable([
+                  ['Task', 'Hours per Day'],
+                  [periodThis, jsonProfit.profitThis],
+                  [periodLast, jsonProfit.profitLast]
+          
+                ]);
+            
+                var options = {
+                  title: 'Profit '+periodThis+' / '+periodLast+''
+                };
+
+              var chart = new google.visualization.PieChart(document.getElementById('pieChartProfit'));
+
+              chart.draw(data, options);
+              }}
+      
+          }
+      ajax.open("GET", profitString, true);
+      ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+      ajax.send();
+    
+  }
+  //--------------------------------------------------------------------------------------------------------
 	</script>
 </head>
-<body onLoad="chartThisMandLMonth('<?php echo($x);?>','<?php echo($periodL);?>','<?php echo($periodT);?>');">
+<body onLoad="chartExpences('<?php echo($expencesString);?>','<?php echo($periodT);?>','<?php echo($periodL);?>');chartIncome('<?php echo($incomeString);?>','<?php echo($periodT);?>','<?php echo($periodL);?>');chartCost('<?php echo($costString);?>','<?php echo($periodT);?>','<?php echo($periodL);?>');chartProfit('<?php echo($profitString);?>','<?php echo($periodT);?>','<?php echo($periodL);?>');">
   <div class="app" id="app">
 
 <!-- ############ LAYOUT START-->
@@ -129,37 +252,106 @@ $main = new Main;
     <div ui-view class="app-body" id="view">
 		<?php $main->modal() ?>
       	<!-- ############ PAGE START-->
-		<?php $main->head("Reports") ?>
-     	
-     	<div class="container h-100" id="cStage">
-     	<br>
-  			<div class="card-header" style="margin-bottom: 5px;margin-top: 5px;">
-          <center><h1 class="my-0 font-weight-normal text-info" >Expenses Summary</h1></center>
-      	</div>
- 			<div class="card-deck mb-3 text-center">  
- 			
-    <div class="card mb-4 shadow-sm">
-      <div class="card-header">
-        <h4 class="my-0 font-weight-normal text-primary"><?php echo($periodL);?>/<?php echo($periodT);?></h4>
-      </div>
-      <div class="card-body" id="piechartToday">
-      
-      </div>
-      <div class="card-header">
-      		<center><h4 class="my-0 font-weight-normal text-primary" id="TMLMTotal">0000</h4></center>
-      </div>
-    </div>
-    
-    </div>
-  </div>
- 			
- 			
-		
-		
-		
-		
-      	<!-- ############ PAGE END-->
+        <?php $main->head("Reports") ?>
+          
+          <div class="container h-100" id="cStage">
+          <br>
+          <!-- Expences----------------------------------->
+            <div class="card-header" style="margin-bottom: 5px;margin-top: 5px;">
+              <center><h1 class="my-0 font-weight-normal text-info" >Expenses Summary</h1></center>
+            </div>
 
+            <div class="card-deck mb-3 text-center">  
+          
+              <div class="card mb-4 shadow-sm">
+                  <div class="card-header">
+                    <h4 class="my-0 font-weight-normal text-primary"><?php echo($periodT);?>/<?php echo($periodL);?></h4>
+                  </div>
+
+                  <div class="card-body" id="pieChartExpences">
+                  
+                  </div>
+
+                  <div class="card-header">
+                      <center><h4 class="my-0 font-weight-normal text-primary" id="expencesTotal">0000</h4></center>
+                  </div>
+              </div>
+
+            </div>
+          <!--------------------------------------------->
+
+          <!-- Income----------------------------------->
+            <div class="card-header" style="margin-bottom: 5px;margin-top: 5px;">
+              <center><h1 class="my-0 font-weight-normal text-info" >Income Summary</h1></center>
+            </div>
+
+            <div class="card-deck mb-3 text-center">  
+          
+              <div class="card mb-4 shadow-sm">
+                  <div class="card-header">
+                    <h4 class="my-0 font-weight-normal text-primary"><?php echo($periodT);?>/<?php echo($periodL);?></h4>
+                  </div>
+
+                  <div class="card-body" id="pieChartIncome">
+                  
+                  </div>
+
+                  <div class="card-header">
+                      <center><h4 class="my-0 font-weight-normal text-primary" id="incomeTotal">0000</h4></center>
+                  </div>
+              </div>
+
+            </div>
+          <!--------------------------------------------->
+
+          <!-- Cost----------------------------------->
+          <div class="card-header" style="margin-bottom: 5px;margin-top: 5px;">
+              <center><h1 class="my-0 font-weight-normal text-info" >Cost Summary</h1></center>
+            </div>
+
+            <div class="card-deck mb-3 text-center">  
+          
+              <div class="card mb-4 shadow-sm">
+                  <div class="card-header">
+                    <h4 class="my-0 font-weight-normal text-primary"><?php echo($periodT);?>/<?php echo($periodL);?></h4>
+                  </div>
+
+                  <div class="card-body" id="pieChartCost">
+                  
+                  </div>
+
+                  <div class="card-header">
+                      <center><h4 class="my-0 font-weight-normal text-primary" id="costTotal">0000</h4></center>
+                  </div>
+              </div>
+
+            </div>
+          <!--------------------------------------------->
+          <!-- Profit----------------------------------->
+          <div class="card-header" style="margin-bottom: 5px;margin-top: 5px;">
+              <center><h1 class="my-0 font-weight-normal text-info" >Profit Summary</h1></center>
+            </div>
+
+            <div class="card-deck mb-3 text-center">  
+          
+              <div class="card mb-4 shadow-sm">
+                  <div class="card-header">
+                    <h4 class="my-0 font-weight-normal text-primary"><?php echo($periodT);?>/<?php echo($periodL);?></h4>
+                  </div>
+
+                  <div class="card-body" id="pieChartProfit">
+                  
+                  </div>
+
+                  <div class="card-header">
+                      <center><h4 class="my-0 font-weight-normal text-primary" id="profitTotal">0000</h4></center>
+                  </div>
+              </div>
+
+            </div>
+          <!--------------------------------------------->
+          </div>
+      	<!-- ############ PAGE END-->
     </div>
   </div>
   <!-- / -->

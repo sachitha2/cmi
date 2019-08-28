@@ -18,10 +18,10 @@ $periodT = $_GET['periodT'];
 // $periodL = "Yesterday";
 // $periodT = "Today";
 
-$arrThis = $DB->select("cost", "WHERE ".$logic.";", "SUM(cost)");
-$arrLast = $DB->select("cost", "WHERE ".$logicLast.";", "SUM(cost)");
-$data['expensesThis'] = (int)$arrThis[0]['SUM(cost)'];
-$data['expensesLast'] = (int)$arrLast[0]['SUM(cost)'];
+$arrThis = $DB->select("purchaseditems", "WHERE ".$logic.";", "SUM(amount*uprice)");
+$arrLast = $DB->select("purchaseditems", "WHERE ".$logicLast.";", "SUM(amount*uprice)");
+$data['incomeThis'] = (int)$arrThis[0]['SUM(amount*uprice)'];
+$data['incomeLast'] = (int)$arrLast[0]['SUM(amount*uprice)'];
 
 
 
