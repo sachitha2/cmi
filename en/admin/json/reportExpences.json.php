@@ -13,10 +13,18 @@ $logicLast = $_GET['logicLast'];
 $periodL = $_GET['periodL'];
 $periodT = $_GET['periodT'];
 
+// $logic = "DATE(date) = DATE(CURRENT_DATE())";
+// $logicLast = "DATE(date) = DATE(CURRENT_DATE()-1)";
+// $periodL = "Yesterday";
+// $periodT = "Today";
+
 $arrThis = $DB->select("cost", "WHERE ".$logic.";", "SUM(cost)");
 $arrLast = $DB->select("cost", "WHERE ".$logicLast.";", "SUM(cost)");
 $data['costThis'] = (int)$arrThis[0]['SUM(cost)'];
 $data['costLast'] = (int)$arrLast[0]['SUM(cost)'];
+
+
+
 $json = json_encode($data);
 echo($json);
 ?>

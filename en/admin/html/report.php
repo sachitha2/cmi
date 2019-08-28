@@ -32,7 +32,13 @@ $main = new Main;
   <!-- endbuild -->
   <link rel="stylesheet" href="../assets/styles/font.css" type="text/css" />
   <script src="scripts/cMain.js"></script> 
+  <script>
+    var from = document.getElementById("from").value;
+    var to = document.getElementById("to").value;
+    window.location.assign('viewReport.php?btn=5&from='+from+'&to='+to);
+  </script>
 </head>
+
 <body>
 
   <div class="app" id="app">
@@ -53,10 +59,10 @@ $main = new Main;
     <div class="container h-100" id="cStage">
     	
         <center> 
-            <button type="button" class="btn btn-primary btn-lg" onClick="viewReport(1);"  style="width: 40%;margin-bottom: 5px;">Today</button>
-            <button type="button" class="btn btn-primary btn-lg" onClick="viewReport(2);"  style="width: 40%;margin-bottom: 5px;">This Week</button>
-            <button type="button" class="btn btn-primary btn-lg" onClick="viewReport(3);"  style="width: 40%;margin-bottom: 5px;">This Month</button>
-            <button type="button" class="btn btn-primary btn-lg" onClick="viewReport(4)"  style="width: 40%;margin-bottom: 5px;">This Year</button>
+            <button type="button" id="1" class="btn btn-primary btn-lg" onClick="window.location.assign('viewReport.php?btn=1')"  style="width: 40%;margin-bottom: 5px;">Today</button>
+            <button type="button" id="2" class="btn btn-primary btn-lg" onClick="window.location.assign('viewReport.php?btn=2')"  style="width: 40%;margin-bottom: 5px;">This Week</button>
+            <button type="button" id="3" class="btn btn-primary btn-lg" onClick="window.location.assign('viewReport.php?btn=3')"  style="width: 40%;margin-bottom: 5px;">This Month</button>
+            <button type="button" id="4" class="btn btn-primary btn-lg" onClick="window.location.assign('viewReport.php?btn=4')"  style="width: 40%;margin-bottom: 5px;">This Year</button>
 		    </center>
         <br><hr><br>
 		<div class="row">
@@ -90,7 +96,7 @@ $main = new Main;
 			<div class="col-md-2"></div>
 		</div>
 		<center>
-		<button type="button" class="btn btn-primary btn-lg" onclick="viewReport(5);"  style="width: 40%;margin-bottom: 5px; align: center;">Specific Time Period</button>
+		<button type="button" class="btn btn-primary btn-lg" onclick="window.location.assign('viewReport.php&btn=5')"  style="width: 40%;margin-bottom: 5px; align: center;">Specific Time Period</button>
 		</center>
 		<br>
      	
