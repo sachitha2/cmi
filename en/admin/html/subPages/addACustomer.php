@@ -12,7 +12,7 @@ $DB->conn = $conn;?>
 	
 	
      
-      <h1>Add a Customer - Without a Idcard Number</h1>
+      <h1>Add a Customer - Without NIC Number</h1>
  			
  			 	<?php
 //					echo($DB->nRow("area"," "));
@@ -34,8 +34,22 @@ $DB->conn = $conn;?>
 	  				if($x == 2){
 						?>
 						<form>
-		<div>Name</div>
+
+		<div>Select Designation</div>
+		<select  class="form-control" id="desi">
+			<option value="0">Select Designation</option>
+			<option value="Mr.">Mr.</option>
+			<option value="Mrs.">Mrs.</option>
+			<option value="Ms.">Ms.</option>
+			<option value="Miss.">Miss.</option>
+		</select>
+		
+		<div>Full Name</div>
 		<div><input type="text" class="form-control" name="name" id="name" placeholder="Enter Name"></div>
+		
+		<div>Short Name</div>
+		<div><input type="text" class="form-control" name="sName" id="sName" placeholder="Enter Short Name"></div>
+
 		<div>Address</div>
 		<div><input type="text" class="form-control" name="address" id="address" placeholder="Enter Address"></div>
 		
@@ -94,6 +108,7 @@ $DB->conn = $conn;?>
 		<div id="imgTest" style="width: 100px;height: auto"><img src="" id="img" width="100"></div>
 -->
 		
+		<br>
 		<div id="msg"> </div>
 		<br>
 		<div><button class="btn btn-primary btn-lg" type="button" onclick="addCustomerWithoutAIdCardN();">Next</button></div>

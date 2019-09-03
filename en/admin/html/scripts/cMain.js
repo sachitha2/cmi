@@ -309,7 +309,6 @@ function addCustomer(){
 		msg = document.getElementById("msg");
 		if(desi == 0){
 			msg.innerHTML  = "Select Designation";
-
 		}
 		else if(name.length == "" ){
 			msg.innerHTML = "Insert name"
@@ -352,12 +351,12 @@ function addCustomerWithoutAIdCardN(){
 	
 	var name = document.getElementById('name').value;
 	var address = document.getElementById('address').value;
+
+	var sName = document.getElementById('sName').value;
+	var desi = document.getElementById('desi').value;
 	
 	var dob = document.getElementById('dob').value;
 	var route = document.getElementById('route').value;
-	
-	
-	
 	
 	var tp = document.getElementById('tp').value;
 	var area = document.getElementById('area').value;
@@ -376,13 +375,15 @@ function addCustomerWithoutAIdCardN(){
 	
 	
 
-	data = {'name':name , 'address':address,  'tp':tp, 'area':area, 'date':date, 'agent':agent ,'dob':dob,'route':route,'image':image,'areaAgent':areaAgent};
+	data = {'name':name , 'address':address,  'tp':tp, 'area':area, 'date':date, 'agent':agent ,'dob':dob,'route':route,'image':image,'areaAgent':areaAgent, 'sName':sName,'desi':desi};
 		////Valida ting data 
 		msg = document.getElementById("msg");
-		if(name.length == "" ){
+		if(desi == "0"){
+			msg.innerHTML  = "Select Designation";
+		}
+		else if(name.length == "" ){
 			msg.innerHTML = "Insert name"
 		}
-		
 		else if(address.length == ""){
 			msg.innerHTML = " Insert Address"
 		}
@@ -1433,6 +1434,12 @@ function enterEditCustomer(e,id) {
 	  loadEditFormsCustomer(id);
 	  }
 }
+function enterEditCustomerByCustomerId(e,id) {
+	if (e.which == 13) { 
+		
+		loadEditFormsCustomer(id);
+		}
+  }
 function enteradditemsToFastCustomerBill(e,billId) {
   if (e.which == 13) { 
 	  document.getElementById("qty").disabled = true;
@@ -2021,9 +2028,11 @@ function editSaveCostType(costType,id){
 			document.getElementById("msg").innerHTML = "Enter valid item";
 		}
 }
-function editSaveCustomer(){
+function editSaveCustomer(id){
 	alert("edit save customer");
 	var name = document.getElementById('name').value;
+	var sName = document.getElementById('sName').value;
+	var desi = document.getElementById('desi').value;
 	var address = document.getElementById('address').value;
 	var nic = document.getElementById('nic').value;
 	var tp = document.getElementById('tp').value;
@@ -2037,13 +2046,15 @@ function editSaveCustomer(){
 	var agent = document.getElementById('agent').value;
 	var s = document.getElementById('status').value;
 
-	data = {'name':name , 'address':address, 'nic':nic, 'tp':tp, 'area':area, 'date':date, 'agent':agent,'s':s};
-		////Valida ting data 
+	data = {'id':id, 'name':name , 'sName':sName, 'desi':desi, 'address':address, 'nic':nic, 'tp':tp, 'area':area, 'date':date, 'agent':agent,'s':s};
+		////Validating data 
 		msg = document.getElementById("msg");
-		if(name.length == "" ){
+		if(desi == "0"){
+			msg.innerHTML  = "Select Designation";
+		}
+		else if(name.length == "" ){
 			msg.innerHTML = "Insert name"
 		}
-		
 		else if(address.length == ""){
 			msg.innerHTML = " Insert Address"
 		}
@@ -2056,12 +2067,15 @@ function editSaveCustomer(){
 			var ajax = _ajax();
 			ajax.onreadystatechange = function() {
 				if (this.readyState == 4 && this.status == 200) {
-	    		alert(this.responseText);
+				alert(this.responseText);
+				emt("id");
+				emt("desi");
 				emt("name");
+				emt("sNAme");
 				emt("address");
 				emt("nic");
 				emt("tp");
-				msg.innerHTML = " Account Created successfully"
+				msg.innerHTML = "Account Created successfully";
 				}
 	  		}
 
@@ -2397,3 +2411,146 @@ $(document).ready(function(){
 
 
 //image uploading part
+
+
+//----SANDALI-----------------------
+function addSalary(){
+	var employeeId = document.getElementById("employeeId").value;
+	var amount = document.getElementById("amount").value;
+	console.log(amount + employeeId);
+	if(employeeId != "" && amount != ""){
+				///ajax part
+				loadingModal();
+				showModal();
+				var xmlhttp = new XMLHttpRequest();
+				xmlhttp.onreadystatechange = function() {
+				if (this.readyState === 4 && this.status == 200) {
+						document.getElementById("msg").innerHTML  =  this.responseText;
+						emt("employeeId");
+						emt("amount");
+						hideModal();
+					   }
+				};
+				xmlhttp.open("GET", "../workers/addSalary.worker.php?empId="+employeeId+"&amount="+amount, true);//generating  get method link
+				xmlhttp.send();
+				////ajax part
+	}else{
+		document.getElementById("msg").innerHTML = "Enter valid data";
+	}
+}
+
+function viewSalary(i, agentId = -1){
+	if (i ==1){
+		var employeeId = document.getElementById("employeeId").value;
+		if(employeeId != -1){
+			var logic = "WHERE employeeId = '" + employeeId + "' AND MONTH(date) = MONTH(CURRENT_DATE()) AND YEAR(date) = YEAR(CURRENT_DATE());";
+		}else if(employeeId == -1){
+			var logic = "WHERE MONTH(date) = MONTH(CURRENT_DATE()) AND YEAR(date) = YEAR(CURRENT_DATE());";
+		}	
+	}else if(i==2){
+		var employeeId = document.getElementById("employeeId").value;
+		if(employeeId != -1){
+			var logic = "WHERE employeeId = '" + employeeId + "' AND YEAR(date) = YEAR(CURRENT_DATE());";
+		}else if(employeeId == -1){
+			var logic = "WHERE YEAR(date) = YEAR(CURRENT_DATE());";
+		}
+	}else if(i==3){
+		var employeeId = document.getElementById("employeeId").value;
+		var from = document.getElementById("from").value;
+		var to = document.getElementById("to").value;
+		if(employeeId != -1){
+			var logic = "WHERE employeeId = " + employeeId + " AND (DATE(date)<='" + to + "' AND DATE(date)>='" + from + "');";
+		}else if(employeeId == -1){
+			var logic = "WHERE (DATE(date)<='" + to + "' AND DATE(date)>='" + from + "');";
+		}
+	}else if(i==4){
+		var employeeId = agentId;
+		if(employeeId != -1){
+			var logic = "WHERE employeeId = " + employeeId + " AND MONTH(date) = MONTH(CURRENT_DATE()) AND YEAR(date) = YEAR(CURRENT_DATE());";
+		}
+	}else if(i==5){
+		var employeeId = agentId;
+		if(employeeId != -1){
+			var logic = "WHERE employeeId = " + employeeId + " AND YEAR(date) = YEAR(CURRENT_DATE());";
+		}
+	}else if(i==6){
+		var employeeId = agentId;
+		var from = document.getElementById("from").value;
+		var to = document.getElementById("to").value;
+		if(employeeId != -1){
+			var logic = "WHERE employeeId = " + employeeId + " AND (DATE(date)<='" + to + "' AND DATE(date)>='" + from + "');";
+		}
+	}
+
+	if(i != "" && agentId != ""){
+				///ajax part
+				loadingModal();
+				showModal();
+				var xmlhttp = new XMLHttpRequest();
+				xmlhttp.onreadystatechange = function() {
+				if (this.readyState === 4 && this.status == 200) {
+						document.getElementById("content").innerHTML  =  this.responseText;
+						emt("to");
+						emt("from");
+						emt("employeeId");
+						hideModal();
+					   }
+				};
+				xmlhttp.open("GET", "../workers/viewSalary.worker.php?logic="+logic, true);//generating  get method link
+				xmlhttp.send();
+				////ajax part
+	}else{
+		document.getElementById("msg").innerHTML = "Enter valid data";
+	}
+}
+
+
+function viewReport(i){
+	var logic = "";
+	var logicLast = "";
+	var periodL = "";
+	var periodT = "";
+	if (i == 1){
+		logic = "DATE(date) = DATE(CURRENT_DATE())";
+		logicLast = "DATE(date) = DATE(CURRENT_DATE()-1)";
+		periodL = "Yesterday";
+		periodT = "Today";
+	}else if(i == 2){
+		logic = "WEEK(date) = WEEK(CURRENT_DATE()) AND MONTH(date) = MONTH(CURRENT_DATE()) AND YEAR(date) = YEAR(CURRENT_DATE())";
+		logicLast = "WEEK(date) = WEEK(CURRENT_DATE())-1 AND MONTH(date) = MONTH(CURRENT_DATE()) AND YEAR(date) = YEAR(CURRENT_DATE())";
+		periodL = "Last Week";
+		periodT = "This Week";
+	}else if(i == 3){
+		logic = "MONTH(date) = MONTH(CURRENT_DATE()) AND YEAR(date) = YEAR(CURRENT_DATE())";
+		logicLast = "MONTH(date) = MONTH(CURRENT_DATE())-1 AND YEAR(date) = YEAR(CURRENT_DATE())";
+		periodL = "Last Month";
+		periodT = "This Month";
+	}else if(i == 4){
+		logic = "YEAR(date) = YEAR(CURRENT_DATE())";
+		logicLast = "YEAR(date) = YEAR(CURRENT_DATE())-1";
+		periodL = "Last Year";
+		periodT = "This Year";
+	}else if(i == 5){
+		var from = document.getElementById("from").value;
+		var to = document.getElementById("to").value;
+		logic = "(DATE(date)<='" + to + "' AND DATE(date)>='" + from + "')";
+	}
+
+	if(i != "" && logic != ""){
+				///ajax part
+				loadingModal();
+				showModal();
+				var xmlhttp = new XMLHttpRequest();
+				xmlhttp.onreadystatechange = function() {
+				if (this.readyState === 4 && this.status == 200) {
+						document.getElementById("content").innerHTML  =  this.responseText;
+						hideModal();
+					   }
+				};
+				xmlhttp.open("GET", "../workers/viewReport.worker.php?logic="+logic+"&logicLast="+logicLast+"&periodL="+periodL+"&periodT="+periodT, true);//generating  get method link
+				xmlhttp.send();
+				////ajax part
+	}else{
+		document.getElementById("msg").innerHTML = "Enter valid data";
+	}
+}

@@ -6,7 +6,7 @@ $main = new Main;
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>CMS - Salary</title>
+  <title>CMI - Reports</title>
   <meta name="description" content="cms" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimal-ui" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -31,8 +31,14 @@ $main = new Main;
   <link rel="stylesheet" href="../assets/styles/app.css" type="text/css" />
   <!-- endbuild -->
   <link rel="stylesheet" href="../assets/styles/font.css" type="text/css" />
-   <script src="scripts/cMain.js"></script> 
+  <script src="scripts/cMain.js"></script> 
+  <script>
+    var from = document.getElementById("from").value;
+    var to = document.getElementById("to").value;
+    window.location.assign('viewReport.php?btn=5&from='+from+'&to='+to);
+  </script>
 </head>
+
 <body>
 
   <div class="app" id="app">
@@ -49,14 +55,51 @@ $main = new Main;
     <div ui-view class="app-body" id="view">
 		<?php $main->modal() ?>
       <!-- ############ PAGE START-->
-        <?php $main->head("Salary") ?>
+    <?php $main->head("Reports") ?>
     <div class="container h-100" id="cStage">
-		<!--  	This is sales stage		-->
-      <center> 
-        <button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/addSalary.php','cStage')"  style="width: 40%;margin-bottom: 5px;">Add Salary</button>
-				<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/viewSalary.php','cStage')"  style="width: 40%;margin-bottom: 5px;">View Salary</button>
-      </center>
-		<!--  	This is sales stage		-->
+    	
+        <center> 
+            <button type="button" id="1" class="btn btn-primary btn-lg" onClick="window.location.assign('viewReport.php?btn=1')"  style="width: 40%;margin-bottom: 5px;">Today</button>
+            <button type="button" id="2" class="btn btn-primary btn-lg" onClick="window.location.assign('viewReport.php?btn=2')"  style="width: 40%;margin-bottom: 5px;">This Week</button>
+            <button type="button" id="3" class="btn btn-primary btn-lg" onClick="window.location.assign('viewReport.php?btn=3')"  style="width: 40%;margin-bottom: 5px;">This Month</button>
+            <button type="button" id="4" class="btn btn-primary btn-lg" onClick="window.location.assign('viewReport.php?btn=4')"  style="width: 40%;margin-bottom: 5px;">This Year</button>
+		    </center>
+        <br><hr><br>
+		<div class="row">
+			<div class="col-md-2"></div>
+					
+			<div class="col-md-4" align="center">
+					
+				<div>
+							
+					<label>From</label>
+					<hr width="70%">
+
+					<input type="date" id="from" class="form-control" ><br>
+
+				</div>
+						
+			</div>
+					
+			<div class="col-md-4" align="center">
+					
+				<div>
+							
+					<label>To</label>
+					<hr width="70%">
+
+					<input type="date" id="to"  class="form-control" ><br>
+				</div>
+						
+			</div>
+
+			<div class="col-md-2"></div>
+		</div>
+		<center>
+		<button type="button" class="btn btn-primary btn-lg" onclick="window.location.assign('viewReport.php&btn=5')"  style="width: 40%;margin-bottom: 5px; align: center;">Specific Time Period</button>
+		</center>
+		<br>
+     	
 	</div>
 
       <!-- ############ PAGE END-->

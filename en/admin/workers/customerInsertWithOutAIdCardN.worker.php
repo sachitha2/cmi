@@ -17,7 +17,7 @@ $agent = $postData['agent'];
 
 
 
-$conn->query("INSERT INTO customer (id, name, address, tp, regdate, areaid, nic, agentid, status,route,gps,dob,img,areaAgent) VALUES (NULL, '{$name}', '{$address}', '{$tp}', '{$date}', {$area}, '0000000000', '{$agent}', '1','{$postData['route']}','','{$postData['dob']}','{$postData['image']}','{$postData['areaAgent']}'); ");
+$conn->query("INSERT INTO customer (id, name, shortName , designation , address, tp, regdate, areaid, nic, agentid, status,route,gps,dob,img,areaAgent) VALUES (NULL, '{$name}','{$postData['sName']}','{$postData['desi']}', '{$address}', '{$tp}', '{$date}', {$area}, '0000000000', '{$agent}', '1','{$postData['route']}','','{$postData['dob']}','{$postData['image']}','{$postData['areaAgent']}'); ");
 
 
 $arr = $DB->select("customer","ORDER BY customer.id DESC","id");
