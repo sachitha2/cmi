@@ -59,7 +59,7 @@ if($DB->nRow("deals"," WHERE cid = $cid") != 0){
 														<td scope="row"><?php echo($dataInstallment['installmentid']) ?></td>
 														<td><?php echo($dataInstallment['payment']) ?></td>
 														<td><?php echo($dataInstallment['rpayment']) ?></td>
-														<td><?php echo($dataInstallment['date']) ?></td>
+														<td id="due<?php echo($dataInstallment['installmentid']) ?>" onDblClick="editDueDateInBillingShow(<?php echo($dataInstallment['installmentid'].",".$dataInstallment['id']) ?>)"><?php echo($dataInstallment['date']) ?></td>
 
 													</tr>
 													<?php
@@ -85,7 +85,7 @@ if($DB->nRow("deals"," WHERE cid = $cid") != 0){
 															<input id="input<?php echo($id) ?>" placeholder="<?php echo($val) ?>" type="number" style="width: 100px;" onKeyPress="enterAddAgentInstallmentCollect(event,this.value,<?php echo($id) ?>,<?php echo($dataInstallment['id']) ?>,<?php echo($nRow) ?>,<?php echo($dataInstallment['installmentid']) ?>,<?php echo($dataInstallment['dealid']) ?>,1,1)"> <div id="msg<?php echo($id) ?>"></div>
 								
 														</td>
-														<td><?php echo($dataInstallment['date']) ?></td>
+														<td id="due<?php echo($dataInstallment['installmentid']) ?>" onDblClick="editDueDateInBillingShow(<?php echo($dataInstallment['installmentid'].",".$dataInstallment['id']) ?>)"><?php echo($dataInstallment['date']) ?></td>
 
 													</tr>		
 												

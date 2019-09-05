@@ -227,6 +227,9 @@ function addAgent(){
 					////ajax part
 		}
 	}
+	  function editDueDateInBillingShow(id,IID){
+			document.getElementById("due"+id).innerHTML = "<input class='form-control' type='date' id='dueD"+id+"' onChange='changeDueDate("+id+","+IID+")'>";
+	  }
 	  function editAreaPageLoader(area){
 		if(area.length != 0){
 					///ajax part
@@ -245,6 +248,23 @@ function addAgent(){
 		}
 		  
 	}
+function changeDueDate(id,IID){
+					///ajax part
+					date = document.getElementById("dueD"+id).value;
+					console.log("date changing init"+date);
+					document.getElementById("due"+id).innerHTML  = ""+date;
+					showModal();
+					var xmlhttp = new XMLHttpRequest();
+        			xmlhttp.onreadystatechange = function() {
+        			if (this.readyState === 4 && this.status == 200) {
+							hideModal();
+							alert(this.responseText);
+           				}
+        			};
+        			xmlhttp.open("GET", "../workers/changeDueDate.worker.php?date="+date+"&iid="+IID, true);//generating  get method link
+        			xmlhttp.send();
+					//ajax part
+}
 function addPackItems(pId){
 	var itemId = gValue("itemId");
 	var qty = gValue("qty");
