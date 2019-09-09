@@ -102,17 +102,28 @@ $DB->conn = $conn;
 		<div>Route</div>
 		<div><textarea id="route" placeholder="Enter Route" class="form-control"></textarea></div>
 		
-		<div>your area</div>
-		<div><select name="area" id="area" class="form-control"  style="width: 200px">
+		<div>SELECT MAIN AREA</div>
+		<div>
+		<select name="area" id="area" class="form-control"  style="width: 200px" onChange="loadSubAreas(this.value)">
+			<option class='form-control' value='0'>SELECT MAIN AREA</option>
 			<?php
-		$queryForSelection = $conn->query("SELECT * FROM area");
-		while ($row = mysqli_fetch_assoc($queryForSelection)) {
-		 	echo "<option class='form-control' value='{$row['id']}'>".$row['name']."</option>";
-		 } 
+			$queryForSelection = $conn->query("SELECT * FROM area");
+			while ($row = mysqli_fetch_assoc($queryForSelection)) {
+		 		echo "<option class='form-control' value='{$row['id']}'>".$row['name']."</option>";
+			} 
 
 
 		?>
 		</select></div>
+		<!--	SUB AREA	-->
+		<div id="subAreaDiv" style="display: none">
+			SELECT SUB AREA
+			<div id="subAreas">
+				
+			</div>
+		</div>
+		
+		
 		<div>Staf Agent name</div>
 		<div>
 			<select class="form-control" name="agent" id="agent"  style="width: 200px">

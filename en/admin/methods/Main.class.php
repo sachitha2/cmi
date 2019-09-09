@@ -117,6 +117,11 @@ class Main{
                       </a>
                     </li>
                     <li>
+                      <a  onClick="window.location.assign('subArea.php')">
+                        <span class="nav-text">Sub Area</span>
+                      </a>
+                    </li>
+                    <li>
                       <a onClick="window.location.assign('user.php')">
                         <span class="nav-text">User</span>
                       </a>

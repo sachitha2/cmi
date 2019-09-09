@@ -44,6 +44,32 @@ function loadingModal(){
 	document.getElementById("mainModal").innerHTML = "<center><img src='load.gif' class='lImg'><h1 style='color:black'>Loading...Please wait</h1></center>";
   	showModal();
 }
+function loadSubAreas(id){
+	
+	console.log('load sub areas'+id);
+	document.getElementById("subAreaDiv").style = "display:block";
+	document.getElementById("subAreas").innerHTML = "hellooo";
+		if(id != 0){
+			console.log("Select sub areas");
+					///ajax part
+					loadingModal();
+					showModal();
+					hideModal();
+//					var xmlhttp = new XMLHttpRequest();
+//        			xmlhttp.onreadystatechange = function() {
+//        			if (this.readyState === 4 && this.status == 200) {
+//							document.getElementById("msg").innerHTML  =  this.responseText;
+//							emt("area");
+//							
+//           				}
+//        			};
+//        			xmlhttp.open("GET", "../workers/addArea.worker.php?area="+area, true);//generating  get method link
+//        			xmlhttp.send();
+//					////ajax part
+		}
+	
+	
+}
 function enterItemNameInAddPendingPrices(e,id){
 	if (e.which == 13) {
 		conte = document.getElementById("item"+id).innerText;
@@ -93,6 +119,35 @@ function addArea(area){
 			document.getElementById("msg").innerHTML = "Enter valid area";
 		}
 	}
+
+
+function addSubArea(){
+		
+		areaId = document.getElementById("area").value;
+		subArea = document.getElementById("subArea").value;
+	
+	
+		console.log("this is add sub area worker"+areaId+"sub area"+subArea);
+	
+		if(areaId != 0){
+					///ajax part
+					loadingModal();
+					showModal();
+					var xmlhttp = new XMLHttpRequest();
+        			xmlhttp.onreadystatechange = function() {
+        			if (this.readyState === 4 && this.status == 200) {
+							document.getElementById("msg").innerHTML  =  this.responseText;
+							hideModal();
+           				}
+        			};
+        			xmlhttp.open("GET", "../workers/addSubArea.worker.php?areaId="+areaId+"&subArea="+subArea, true);//generating  get method link
+        			xmlhttp.send();
+					////ajax part
+		}else{
+			document.getElementById("msg").innerHTML = "Select A Area";
+		}
+	}
+
 function addPendingPrices(){
 		itemId = document.getElementById("itemId").value;
 		cPrice = document.getElementById("cPrice").value;
@@ -1119,6 +1174,26 @@ function delArea(id){
 	  }
 
 		ajax.open("POST", "../workers/area.del.php", true);
+		ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		ajax.send("id="+id);
+	}
+		}
+
+
+function delSubArea(id){	
+	var r = confirm("Are you sure want to delete this!");
+	if(r == true){
+		showModal();
+		var ajax = _ajax();
+		ajax.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+//	   	 		alert(this.responseText);
+				ajaxCommonGetFromNet('subPages/viewSubArea.php','cStage');
+				hideModal();
+			}
+	  }
+
+		ajax.open("POST", "../workers/subArea.del.php", true);
 		ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 		ajax.send("id="+id);
 	}
