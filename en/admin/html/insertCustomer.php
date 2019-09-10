@@ -84,19 +84,19 @@ $DB->conn = $conn;
 			<option value="Miss.">Miss.</option>
 		</select>
 		<div>Full Name</div>
-		<div><input type="text" class="form-control" name="name" id="name" placeholder="Enter Name"></div>
+		<div><input type="text" class="form-control" name="name" id="name" placeholder="Enter Name" onKeyPress="enterNext(event,'sName');"></div>
 		
 		<div>Short Name</div>
-		<div><input type="text" class="form-control" name="sName" id="sName" placeholder="Enter Short Name"></div>
+		<div><input type="text" class="form-control" name="sName" id="sName" placeholder="Enter Short Name"  onKeyPress="enterNext(event,'address');"></div>
 		<div>Address</div>
-		<div><input type="text" class="form-control" name="address" id="address" placeholder="Enter Address"></div>
+		<div><input type="text" class="form-control" name="address" id="address" placeholder="Enter Address"  onKeyPress="enterNext(event,'tp');"></div>
 		<div>NIC</div>
 		<div><input type="text" class="form-control" name="nic" id="nic" value="<?php echo $_GET['nic']; ?>" readonly></div>
 		<div>Telephone</div>
-		<div><input type="text" class="form-control" name="tp" id="tp" placeholder="Enter Telephone Number"></div>
+		<div><input type="text" class="form-control" name="tp" id="tp" placeholder="Enter Telephone Number"   onKeyPress="enterNext(event,'dob');"></div>
 		
 		<div>Date of Birth</div>
-		<div><input type="date" class="form-control" name="dob" id="dob" style="width: 200px"></div>
+		<div><input type="date" class="form-control" name="dob" id="dob" style="width: 200px"   onKeyPress="enterNext(event,'route');"></div>
 		
 		
 		<div>Route</div>
@@ -150,7 +150,10 @@ $DB->conn = $conn;
 				?>
 			</select>
 		</div>
-		
+		<div>Enter Collection Date</div>
+		<div>
+			<input type="date" id="collectionDate" class="form-control"  style="width: 200px">
+		</div>
 		
 <!--
 		<div>Select Image</div>

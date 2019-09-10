@@ -26,6 +26,8 @@ $DB->conn = $conn;?>
       <th id="sPrice" scope="col">Reg.Date</th>
       <th id="mfd" scope="col">NIC</th>
       <th id="exDate" scope="col">Area</th>
+      <th id="exDate" scope="col">S.Area</th>
+      <th id="exDate" scope="col">C.Date</th>
 <!--      <th id="exDate" scope="col">DOB</th>-->
       <th id="exDate" scope="col">More</th>
       
@@ -50,6 +52,8 @@ $DB->conn = $conn;?>
 					<td><?php echo($data['regdate']) ?></td>
 					<td><?php echo($data['nic']) ?></td>
 					<td><?php $DB->getAreaById($data['areaid'])?></td>
+					<td><?php $DB->getSubAreaById($data['subAreaId'])?></td>
+					<td><?php echo($data['collectionDate'])?></td>
 <!--					<td><?php echo($data['dob'])?></td>-->
 					<td><a href="viewCustomer.php?cid=<?php echo($data['id']) ?>"><button class="btn btn-md btn-primary">More</button></a></td>
 

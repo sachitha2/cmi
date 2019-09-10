@@ -377,9 +377,11 @@ function addCustomer(){
 	
 	var image = "NULL";
 	
+	var collectionDate = document.getElementById("collectionDate").value;
+	
 	
 
-	data = {'name':name , 'address':address, 'nic':nic, 'tp':tp, 'area':area, 'date':date, 'agent':agent ,'dob':dob,'route':route,'image':image,'areaAgent':areaAgent,'sName':sName,'desi':desi};
+	data = {'name':name , 'address':address, 'nic':nic, 'tp':tp, 'area':area, 'date':date, 'agent':agent ,'dob':dob,'route':route,'image':image,'areaAgent':areaAgent,'sName':sName,'desi':desi,'collectionDate':collectionDate};
 		////Valida ting data 
 		msg = document.getElementById("msg");
 		if(desi == 0){
@@ -394,6 +396,8 @@ function addCustomer(){
 		}
 		else if(tp.length != 10){
 			msg.innerHTML = " Insert Telephone number"
+		}else if(collectionDate == ""){
+			msg.innerHTML = "Enter a collection Date"
 		}
 		else{
 			showModal();

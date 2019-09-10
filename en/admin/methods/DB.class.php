@@ -154,6 +154,21 @@ class DB{
 	function Histry($msg){
 		
 	}
+	function getSubAreaById($id,$d = 1){
+		if($id != 0){
+			$sql = "SELECT * FROM subarea WHERE id = $id";
+			$result = $this->conn->query($sql);
+			$row = mysqli_fetch_assoc($result);
+			$name = $row['name'];	  	
+			if($d == 0){
+				return($name);
+			}else{
+				echo($name);
+			}
+		}else{
+			echo("<center>-</center>");
+		}
+	}
 	function getAreaById($id,$d = 1){
 		$sql = "SELECT * FROM area WHERE id = $id";
 	  	$result = $this->conn->query($sql);
