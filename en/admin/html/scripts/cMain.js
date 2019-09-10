@@ -44,12 +44,12 @@ function loadingModal(){
 	document.getElementById("mainModal").innerHTML = "<center><img src='load.gif' class='lImg'><h1 style='color:black'>Loading...Please wait</h1></center>";
   	showModal();
 }
-function loadSubAreas(id){
+function loadSubAreas(areaId){
 	
-	console.log('load sub areas'+id);
+	console.log('load sub areas'+areaId);
 	document.getElementById("subAreaDiv").style = "display:block";
 	document.getElementById("subAreas").innerHTML = "hellooo";
-		if(id != 0){
+		if(areaId != 0){
 			console.log("Select sub areas");
 					///ajax part
 					loadingModal();
@@ -64,7 +64,7 @@ function loadSubAreas(id){
 							
            				}
         			};
-        			xmlhttp.open("GET", "../workers/loadSubAreasToInsertCustomer.worker.php?area="+area, true);//generating  get method link
+        			xmlhttp.open("GET", "../workers/loadSubAreasToInsertCustomer.worker.php?subAreaId="+areaId, true);//generating  get method link
         			xmlhttp.send();
 					////ajax part
 		}
@@ -374,6 +374,9 @@ function addCustomer(){
 	var agent = document.getElementById('agent').value;
 	
 	var areaAgent = document.getElementById('areaAgent').value;
+	
+	var subAreaId = document.getElementById("subAreaData").value;
+	console.log("Sub area id "+subAreaId);
 	///convertingimage in to base 64
 	
 	var image = "NULL";
@@ -382,7 +385,7 @@ function addCustomer(){
 	
 	
 
-	data = {'name':name , 'address':address, 'nic':nic, 'tp':tp, 'area':area, 'date':date, 'agent':agent ,'dob':dob,'route':route,'image':image,'areaAgent':areaAgent,'sName':sName,'desi':desi,'collectionDate':collectionDate};
+	data = {'name':name , 'address':address, 'nic':nic, 'tp':tp, 'area':area, 'date':date, 'agent':agent ,'dob':dob,'route':route,'image':image,'areaAgent':areaAgent,'sName':sName,'desi':desi,'collectionDate':collectionDate,'subAreaId':subAreaId};
 		////Valida ting data 
 		msg = document.getElementById("msg");
 		if(desi == 0){
