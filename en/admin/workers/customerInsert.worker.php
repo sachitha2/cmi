@@ -14,7 +14,6 @@ $agent = $postData['agent'];
 print_r($_FILES);
 
 
-$conn->query("INSERT INTO `customer` (`id`, `name`,`shortName`,`designation`, `address`, `tp`, `regdate`, `areaid`, `nic`, `agentid`, `status`,`route`,`gps`,`dob`,`img`,`areaAgent`) VALUES (NULL, '{$name}','{$postData['sName']}','{$postData['desi']}', '{$address}', '{$tp}', '{$date}', {$area}, '{$nic}', '{$agent}', '1','{$postData['route']}','','{$postData['dob']}','{$postData['image']}','{$postData['areaAgent']}'); ");
-
+$conn->query("INSERT INTO `customer` (`id`, `name`,`shortName`,`designation`, `address`, `tp`, `regdate`, `areaid`, `nic`, `agentid`, `status`,`route`,`gps`,`dob`,`img`,`areaAgent`,`subAreaId`,`collectionDate`) VALUES (NULL, '{$name}','{$postData['sName']}','{$postData['desi']}', '{$address}', '{$tp}', '{$date}', {$area}, '{$nic}', '{$agent}', '1','{$postData['route']}','','{$postData['dob']}','{$postData['image']}','{$postData['areaAgent']}','{$postData['areaAgent']}','{$postData['collectionDate']}'); ");
 
 ?>

@@ -54,18 +54,19 @@ function loadSubAreas(id){
 					///ajax part
 					loadingModal();
 					showModal();
-					hideModal();
-//					var xmlhttp = new XMLHttpRequest();
-//        			xmlhttp.onreadystatechange = function() {
-//        			if (this.readyState === 4 && this.status == 200) {
-//							document.getElementById("msg").innerHTML  =  this.responseText;
+					
+					var xmlhttp = new XMLHttpRequest();
+        			xmlhttp.onreadystatechange = function() {
+        			if (this.readyState === 4 && this.status == 200) {
+							document.getElementById("subAreas").innerHTML  =  this.responseText;
+							hideModal();
 //							emt("area");
-//							
-//           				}
-//        			};
-//        			xmlhttp.open("GET", "../workers/addArea.worker.php?area="+area, true);//generating  get method link
-//        			xmlhttp.send();
-//					////ajax part
+							
+           				}
+        			};
+        			xmlhttp.open("GET", "../workers/loadSubAreasToInsertCustomer.worker.php?area="+area, true);//generating  get method link
+        			xmlhttp.send();
+					////ajax part
 		}
 	
 	
@@ -377,9 +378,11 @@ function addCustomer(){
 	
 	var image = "NULL";
 	
+	var collectionDate = document.getElementById("collectionDate").value;
+	
 	
 
-	data = {'name':name , 'address':address, 'nic':nic, 'tp':tp, 'area':area, 'date':date, 'agent':agent ,'dob':dob,'route':route,'image':image,'areaAgent':areaAgent,'sName':sName,'desi':desi};
+	data = {'name':name , 'address':address, 'nic':nic, 'tp':tp, 'area':area, 'date':date, 'agent':agent ,'dob':dob,'route':route,'image':image,'areaAgent':areaAgent,'sName':sName,'desi':desi,'collectionDate':collectionDate};
 		////Valida ting data 
 		msg = document.getElementById("msg");
 		if(desi == 0){
@@ -394,6 +397,8 @@ function addCustomer(){
 		}
 		else if(tp.length != 10){
 			msg.innerHTML = " Insert Telephone number"
+		}else if(collectionDate == ""){
+			msg.innerHTML = "Enter a collection Date"
 		}
 		else{
 			showModal();
@@ -1400,6 +1405,14 @@ function enterAddExpenses(e,costTypeid){
 		addExpenses(costTypeid);
 	}
 }
+
+function enterAddCustomer(e){
+	if (e.which == 13) {
+		addCustomer();
+	}
+}
+
+
 function enteraddPendingPrices(e){
 	if (e.which == 13) {
 		addPendingPrices();
