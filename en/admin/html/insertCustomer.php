@@ -152,7 +152,7 @@ $DB->conn = $conn;
 		</div>
 		<div>Enter Collection Date</div>
 		<div>
-			<input type="date" id="collectionDate" class="form-control"  style="width: 200px">
+			<input type="number" id="collectionDate" onKeyPress="enterAddCustomer(event)" class="form-control"  style="width: 200px">
 		</div>
 		
 <!--

@@ -54,18 +54,19 @@ function loadSubAreas(id){
 					///ajax part
 					loadingModal();
 					showModal();
-					hideModal();
-//					var xmlhttp = new XMLHttpRequest();
-//        			xmlhttp.onreadystatechange = function() {
-//        			if (this.readyState === 4 && this.status == 200) {
-//							document.getElementById("msg").innerHTML  =  this.responseText;
+					
+					var xmlhttp = new XMLHttpRequest();
+        			xmlhttp.onreadystatechange = function() {
+        			if (this.readyState === 4 && this.status == 200) {
+							document.getElementById("subAreas").innerHTML  =  this.responseText;
+							hideModal();
 //							emt("area");
-//							
-//           				}
-//        			};
-//        			xmlhttp.open("GET", "../workers/addArea.worker.php?area="+area, true);//generating  get method link
-//        			xmlhttp.send();
-//					////ajax part
+							
+           				}
+        			};
+        			xmlhttp.open("GET", "../workers/loadSubAreasToInsertCustomer.worker.php?area="+area, true);//generating  get method link
+        			xmlhttp.send();
+					////ajax part
 		}
 	
 	
@@ -1404,6 +1405,14 @@ function enterAddExpenses(e,costTypeid){
 		addExpenses(costTypeid);
 	}
 }
+
+function enterAddCustomer(e){
+	if (e.which == 13) {
+		addCustomer();
+	}
+}
+
+
 function enteraddPendingPrices(e){
 	if (e.which == 13) {
 		addPendingPrices();
