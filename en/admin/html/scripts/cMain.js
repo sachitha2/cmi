@@ -2146,7 +2146,6 @@ function editSaveCostType(costType,id){
 		}
 }
 function editSaveCustomer(id){
-	alert("edit save customer");
 	var name = document.getElementById('name').value;
 	var sName = document.getElementById('sName').value;
 	var desi = document.getElementById('desi').value;
@@ -2162,8 +2161,11 @@ function editSaveCustomer(id){
 	var date = year+"/"+months+"/"+day;
 	var agent = document.getElementById('agent').value;
 	var s = document.getElementById('status').value;
+	var subArea = document.getElementById('subAreaData').value;
+	var areaAgent = document.getElementById('areaAgent').value;
+	var collectionDate = document.getElementById('collectionDate').value;
 
-	data = {'id':id, 'name':name , 'sName':sName, 'desi':desi, 'address':address, 'nic':nic, 'tp':tp, 'area':area, 'date':date, 'agent':agent,'s':s};
+	data = {'id':id, 'name':name , 'sName':sName, 'desi':desi, 'address':address, 'nic':nic, 'tp':tp, 'area':area, 'date':date, 'agent':agent,'s':s,'subArea':subArea,'areaAgent':areaAgent,'collectionDate':collectionDate};
 		////Validating data 
 		msg = document.getElementById("msg");
 		if(desi == "0"){
@@ -2181,18 +2183,20 @@ function editSaveCustomer(id){
 		else{
 			
 			msg.innerHTML = "";
+			showModal();
 			var ajax = _ajax();
 			ajax.onreadystatechange = function() {
 				if (this.readyState == 4 && this.status == 200) {
-				alert(this.responseText);
-				emt("id");
-				emt("desi");
-				emt("name");
-				emt("sNAme");
-				emt("address");
-				emt("nic");
-				emt("tp");
-				msg.innerHTML = "Account Created successfully";
+//					msg.innerHTML = this.responseText;
+//				emt("id");
+//				emt("desi");
+//				emt("name");
+//				emt("sNAme");
+//				emt("address");
+//				emt("nic");
+//				emt("tp");
+				hideModal();
+				msg.innerHTML = "Saved successfully";
 				}
 	  		}
 

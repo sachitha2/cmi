@@ -6,7 +6,7 @@ $DB = new DB;
 $DB->conn = $conn;
 $data = $_POST['data'];
 $arr = json_decode($data,true);
-//print_r($arr);
+print_r($arr);
 $id = $arr['id'];
 $nic = $arr['nic'];
 $desi = $arr['desi'];
@@ -17,6 +17,6 @@ $tp = $arr['tp'];
 $areaId = $arr['area'];
 $agentID = $arr['agent'];
 $status = $arr['s'];
-$sql = "UPDATE customer SET name = '$name',shortName = '$sName', nic = '$nic',designation = '$desi', address = '$address', tp = '$tp', areaid = '$areaId', agentid = '$agentID', status = '$status' WHERE (customer.nic LIKE '$nic' OR customer.id LIKE '$id');";
+$sql = "UPDATE customer SET name = '$name',shortName = '$sName', nic = '$nic',designation = '$desi', address = '$address', tp = '$tp', areaid = '$areaId', agentid = '$agentID', status = '$status' ,subAreaId = {$arr['subArea']},areaAgent = {$arr['areaAgent']},collectionDate = {$arr['collectionDate']} WHERE (customer.nic LIKE '$nic' OR customer.id LIKE '$id');";
 $conn->query($sql);
 ?>

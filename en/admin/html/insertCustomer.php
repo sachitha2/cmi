@@ -118,7 +118,7 @@ $DB->conn = $conn;
 		<!--	SUB AREA	-->
 		<div id="subAreaDiv" style="display: none">
 			SELECT SUB AREA
-			<div id="subAreas">
+			<div id="subAreaData">
 				
 			</div>
 		</div>
