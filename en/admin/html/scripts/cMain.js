@@ -48,7 +48,6 @@ function loadSubAreas(areaId){
 	
 	console.log('load sub areas'+areaId);
 	document.getElementById("subAreaDiv").style = "display:block";
-	document.getElementById("subAreas").innerHTML = "hellooo";
 		if(areaId != 0){
 			console.log("Select sub areas");
 					///ajax part
@@ -58,7 +57,7 @@ function loadSubAreas(areaId){
 					var xmlhttp = new XMLHttpRequest();
         			xmlhttp.onreadystatechange = function() {
         			if (this.readyState === 4 && this.status == 200) {
-							document.getElementById("subAreas").innerHTML  =  this.responseText;
+							document.getElementById("subAreaDiv").innerHTML  =  this.responseText;
 							hideModal();
 //							emt("area");
 							
@@ -316,7 +315,7 @@ function changeDueDate(id,IID){
         			xmlhttp.onreadystatechange = function() {
         			if (this.readyState === 4 && this.status == 200) {
 							hideModal();
-							alert(this.responseText);
+//							alert(this.responseText);
            				}
         			};
         			xmlhttp.open("GET", "../workers/changeDueDate.worker.php?date="+date+"&iid="+IID, true);//generating  get method link
@@ -389,29 +388,31 @@ function addCustomer(){
 
 	data = {'name':name , 'address':address, 'nic':nic, 'tp':tp, 'area':area, 'date':date, 'agent':agent ,'dob':dob,'route':route,'image':image,'areaAgent':areaAgent,'sName':sName,'desi':desi,'collectionDate':collectionDate,'subAreaId':subAreaId};
 		////Valida ting data 
-		msg = document.getElementById("msg");
+		
 		if(desi == 0){
-			msg.innerHTML  = "Select Designation";
+			msg("msg","Select Designation");
 		}
 		else if(name.length == "" ){
-			msg.innerHTML = "Insert name"
+			msg("msg", "Insert name");
 		}
 		
 		else if(address.length == ""){
-			msg.innerHTML = " Insert Address"
+			msg("msg"," Insert Address");
 		}
 		else if(tp.length != 10){
-			msg.innerHTML = " Insert Telephone number"
+			msg("msg", " Insert Telephone number");
 		}else if(collectionDate == ""){
-			msg.innerHTML = "Enter a collection Date"
+			msg("msg","Enter a collection Date");
+		}else if(area == "0"){
+			msg("msg","Select a Area");
 		}
 		else{
 			showModal();
-			msg.innerHTML = "";
+			msg("msg","")
 			var ajax = _ajax();
 			ajax.onreadystatechange = function() {
 				if (this.readyState == 4 && this.status == 200) {
-//	    		alert(this.responseText);
+	    			
 //				emt("name");
 //				emt("address");
 ////				emt("nic");
@@ -419,7 +420,11 @@ function addCustomer(){
 //				emt("route");
 					hideModal();
 //					ajaxCommonGetFromNet('createCustomer.php','cStage');
-					window.location.assign('createCustomer.php');
+					dataResponse = JSON.parse(this.responseText);
+//					msg.innerHTML = this.responseText;
+//					msg.innerHTML += dataResponse[0].id;
+					creditCustomer(dataResponse[0].id);
+//					window.location.assign('createCustomer.php');
 //				msg.innerHTML = " Account Created successfully"
 				}
 	  		}
