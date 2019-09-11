@@ -138,6 +138,8 @@ function addSubArea(){
         			xmlhttp.onreadystatechange = function() {
         			if (this.readyState === 4 && this.status == 200) {
 							document.getElementById("msg").innerHTML  =  this.responseText;
+							
+							emt("subArea");
 							hideModal();
            				}
         			};
@@ -1414,7 +1416,11 @@ function enterAddCustomer(e){
 		addCustomer();
 	}
 }
-
+function enterAddSubArea(e){
+	if (e.which == 13) {
+		 addSubArea();
+	}
+}
 
 function enteraddPendingPrices(e){
 	if (e.which == 13) {
