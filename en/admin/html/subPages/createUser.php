@@ -18,8 +18,7 @@
 		<div>
 			<select class="form-control" id="type" name="type">
 				<option value="1">Admin</option>
-				<option value="2">Agent</option>
-			
+				<option value="2" selected>Agent</option>
 			</select>
 		</div>
 		

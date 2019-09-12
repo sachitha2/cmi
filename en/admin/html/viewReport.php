@@ -350,6 +350,12 @@ $main = new Main;
 
             </div>
           <!--------------------------------------------->
+
+          <br>
+          <center> 
+            <button type="button" class="btn btn-primary btn-lg" onClick="window.location.assign('PDF/viewReportPDF.php?i=<?php echo($i);?>')"  style="width: 40%;margin-bottom: 5px;">Get PDF Report</button>
+          </center>
+
           </div>
       	<!-- ############ PAGE END-->
     </div>
