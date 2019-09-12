@@ -144,7 +144,7 @@ $DB->conn = $conn;?>
 
     <br>
     <center> 
-        <button type="button" id="1" class="btn btn-primary btn-lg" onClick="window.location.assign('viewReport.php?btn=1')"  style="width: 40%;margin-bottom: 5px;">Get PDF Report</button>
+        <button type="button" id="5" class="btn btn-primary btn-lg" onClick="window.location.assign('PDF/viewReportTimePeriodPDF.php?from=<?php echo($from); ?>&to=<?php echo($to); ?>')"  style="width: 40%;margin-bottom: 5px;">Get PDF Report</button>
     </center>
 
 	<!------------------------------------------------------------------------------------------------->

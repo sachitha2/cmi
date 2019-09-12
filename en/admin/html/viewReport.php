@@ -353,7 +353,7 @@ $main = new Main;
 
           <br>
           <center> 
-            <button type="button" id="1" class="btn btn-primary btn-lg" onClick="window.location.assign('viewReport.php?btn=1')"  style="width: 40%;margin-bottom: 5px;">Get PDF Report</button>
+            <button type="button" class="btn btn-primary btn-lg" onClick="window.location.assign('PDF/viewReportPDF.php?i=<?php echo($i);?>')"  style="width: 40%;margin-bottom: 5px;">Get PDF Report</button>
           </center>
 
           </div>
