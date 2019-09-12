@@ -10,7 +10,28 @@ $tmpBillId = $_SESSION['credit']['bill']['id'];
 if($_SESSION['credit']['bill']['s']  == 1){ ?>
 	<h1 align="center">Credit customer bill</h1>
 	<h1 align="center">Bill - <?php echo($tmpBillId) ?></h1>
-	<h2 align="center">Date <?php echo(date("y-m-d")) ?></h2>
+	<h2 align="center">
+	
+		
+		<?php
+			if($_SESSION['login']['type'] == 1){
+				$date = date("Y-m-d");
+					if($DB->isAvailable("deals"," where id = $tmpBillId ") == true){
+						$arrDate = $DB->select("deals","where id = $tmpBillId","date");
+//						print_r($arrDate);
+						$date = $arrDate[0]['date'];
+					}	
+					?>
+						<center><input type="date" class="form-control" value="<?php echo($date) ?>" id="date" readonly style="width: 200px;" onDblClick="document.getElementById('date').readOnly = false;" onChange="setDateInCreditCustomer(<?php echo($tmpBillId) ?>)"></center>
+					<?php
+			}else{
+				?>
+					Date <?php echo(date("y-m-d")) ?>
+				<?php
+			}
+		
+		?>
+	</h2>
 	<h2 align="center">Total <?php 
 		$total = $DB->select("purchaseditems","where dealid = $tmpBillId","SUM(amount * uprice)");
 	

@@ -2390,6 +2390,27 @@ function sendCreditBill(data){
 			ajax.send();
 }
 
+
+//set date in credit customer bill
+function setDateInCreditCustomer(billId){
+			var date = document.getElementById("date").value;
+			console.log(date);
+			showModal();
+			var ajax = _ajax();
+			ajax.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+					document.getElementById('date').readOnly = true;
+					hideModal();
+//					alert(this.responseText);
+				}
+	  		}
+
+			ajax.open("GET", "../workers/setDateInCreditCustomer.worker.php?id="+billId+"&date="+date, true);
+			ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+			ajax.send();
+	
+}
+
 ///update stock prices
 
 function updateStockPrices(itemId){
@@ -2446,13 +2467,13 @@ function sendOrderBill(data){
 			ajax.send();
 }
 function sendInstallmentBill(data){
-			alert("installments bill sending");
+//			alert("installments bill sending");
 			var ajax = _ajax();
 			ajax.onreadystatechange = function() {
 				if (this.readyState == 4 && this.status == 200) {
 //	    			msg("out",this.responseText);
 				//setTimeout(fastCustomer,20000);	
-					alert("Done");
+//					alert("Done");
 				}
 	  		}
 
