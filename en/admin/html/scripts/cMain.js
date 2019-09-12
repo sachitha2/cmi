@@ -322,6 +322,26 @@ function changeDueDate(id,IID){
         			xmlhttp.send();
 					//ajax part
 }
+
+function flush(pass){
+	if(pass.length != 0){
+			showModal();
+			document.getElementById("msg").innerHTML = "LOADING......";
+			var xmlhttp = new XMLHttpRequest();
+        	xmlhttp.onreadystatechange = function() {
+        	if (this.readyState === 4 && this.status == 200) {
+				hideModal();
+				document.getElementById("msg").innerHTML = this.responseText;
+				emt("pass");
+           		}
+        	};
+        	xmlhttp.open("GET", "../workers/flusher.php?pass="+pass, true);//generating  get method link
+        	xmlhttp.send();
+ }else{
+	 document.getElementById("msg").innerHTML = "enter password";
+ }
+
+}
 function addPackItems(pId){
 	var itemId = gValue("itemId");
 	var qty = gValue("qty");
@@ -1415,7 +1435,11 @@ function enterAddExpenses(e,costTypeid){
 		addExpenses(costTypeid);
 	}
 }
-
+function enterFlush(e,password){
+	if (e.which == 13) {
+		flush(password);
+	}
+}
 function enterAddCustomer(e){
 	if (e.which == 13) {
 		addCustomer();

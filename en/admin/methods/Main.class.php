@@ -161,6 +161,11 @@ class Main{
                         <span class="nav-text">Seller</span>
                       </a>
                     </li>
+                    <li>
+                      <a onClick="window.location.assign('settings.php')">
+                        <span class="nav-text">Settings</span>
+                      </a>
+                    </li>
                   </ul>
                 </li>
             
@@ -291,16 +296,34 @@ class Main{
                     <span class="nav-text">Reports</span>
                   </a>
                 </li>
+				<!-- SMS               -->
                  <li>
-                  <a onClick="window.location.assign('SMS.php')">
+                  <a>
+                    <span class="nav-caret">
+                      <i class="fa fa-caret-down"></i>
+                    </span>
                     <span class="nav-icon">
-                      <i class="material-icons">&#xe870;
-                        <span ui-include="'../assets/images/i_7.svg'"></span>
+                      <i class="material-icons">&#xe429;
+                        <span ui-include="'../assets/images/i_1.svg'"></span>
                       </i>
                     </span>
                     <span class="nav-text">SMS</span>
                   </a>
+                  <ul class="nav-sub">
+                    
+                    <li>
+                      <a onClick="window.location.assign('SMS.php')">
+                        <span class="nav-text">SMS Settings</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a onClick="window.location.assign('SMS.php')">
+                        <span class="nav-text">Sent SMS</span>
+                      </a>
+                    </li>
+                  </ul>
                 </li>
+                <!-- SMS               -->
                 
             
               </ul>
