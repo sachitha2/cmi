@@ -1413,6 +1413,7 @@ function delFastBillData(id){
 	//alert(id);//fastBillData.del.php
 	var r = confirm("Are you sure want to delete this!");
 	if(r == true){
+		loadingModal();
 		showModal();
 		var ajax = _ajax();
 		ajax.onreadystatechange = function() {
@@ -2380,8 +2381,8 @@ function finishBill(cash){
 		var ajax = _ajax();
 			ajax.onreadystatechange = function() {
 				if (this.readyState == 4 && this.status == 200) {
-	    			alert(this.responseText);
-					sendBill(this.responseText);
+//	    			alert(this.responseText);
+					sendBill(this.responseText); 
 				}
 	  		}
 
