@@ -96,10 +96,10 @@ $main = new Main;
 			<div class="col-md-2"></div>
 		</div>
 		<center>
-		<button type="button" class="btn btn-primary btn-lg" onclick="window.location.assign('viewReport.php&btn=5')"  style="width: 40%;margin-bottom: 5px; align: center;">Specific Time Period</button>
+		<button type="button" class="btn btn-primary btn-lg" id="5" onclick="viewReport(5);"  style="width: 40%;margin-bottom: 5px; align: center;">Specific Time Period</button>
 		</center>
 		<br>
-     	
+
 	</div>
 
       <!-- ############ PAGE END-->

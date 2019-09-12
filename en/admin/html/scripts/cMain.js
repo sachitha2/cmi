@@ -709,7 +709,7 @@ function addUser(){
 		ajax.open("POST", "../workers/userInserter.worker.php", true);
 		ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 		ajax.send("data="+(JSON.stringify(data)));
-			alert("password matchings");
+			//alert("password matches");
 			
 		}
 		}
@@ -2615,30 +2615,7 @@ function viewSalary(i, agentId = -1){
 
 function viewReport(i){
 	var logic = "";
-	var logicLast = "";
-	var periodL = "";
-	var periodT = "";
-	if (i == 1){
-		logic = "DATE(date) = DATE(CURRENT_DATE())";
-		logicLast = "DATE(date) = DATE(CURRENT_DATE()-1)";
-		periodL = "Yesterday";
-		periodT = "Today";
-	}else if(i == 2){
-		logic = "WEEK(date) = WEEK(CURRENT_DATE()) AND MONTH(date) = MONTH(CURRENT_DATE()) AND YEAR(date) = YEAR(CURRENT_DATE())";
-		logicLast = "WEEK(date) = WEEK(CURRENT_DATE())-1 AND MONTH(date) = MONTH(CURRENT_DATE()) AND YEAR(date) = YEAR(CURRENT_DATE())";
-		periodL = "Last Week";
-		periodT = "This Week";
-	}else if(i == 3){
-		logic = "MONTH(date) = MONTH(CURRENT_DATE()) AND YEAR(date) = YEAR(CURRENT_DATE())";
-		logicLast = "MONTH(date) = MONTH(CURRENT_DATE())-1 AND YEAR(date) = YEAR(CURRENT_DATE())";
-		periodL = "Last Month";
-		periodT = "This Month";
-	}else if(i == 4){
-		logic = "YEAR(date) = YEAR(CURRENT_DATE())";
-		logicLast = "YEAR(date) = YEAR(CURRENT_DATE())-1";
-		periodL = "Last Year";
-		periodT = "This Year";
-	}else if(i == 5){
+	if(i == 5){
 		var from = document.getElementById("from").value;
 		var to = document.getElementById("to").value;
 		logic = "(DATE(date)<='" + to + "' AND DATE(date)>='" + from + "')";
@@ -2655,7 +2632,7 @@ function viewReport(i){
 						hideModal();
 					   }
 				};
-				xmlhttp.open("GET", "../workers/viewReport.worker.php?logic="+logic+"&logicLast="+logicLast+"&periodL="+periodL+"&periodT="+periodT, true);//generating  get method link
+				xmlhttp.open("GET", "viewReportTimePeriod.php?logic="+logic+"&from="+from+"&to="+to, true);//generating  get method link
 				xmlhttp.send();
 				////ajax part
 	}else{

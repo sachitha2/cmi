@@ -10,7 +10,7 @@ $user = $DB->select("user","WHERE id = $id");
 $userData = $DB->select("userdata","WHERE id = $id");
 //print_r($user);
 //print_r($userData);
-$main->b("user.STE.php");
+$main->b("user.php");
 include("../../workers/readSesson.worker.php");
 ?>
 	<h2>Edit User</h2>
