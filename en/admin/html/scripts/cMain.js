@@ -1540,9 +1540,9 @@ function enterfinishBill(e,cash) {
   }
 }
 
-function enterfinishBillCreditCustomer(e,cash,installment){
+function enterfinishBillCreditCustomer(e,cash,installment,cid){
 	if (e.which == 13) {
-  finishBillCreditCustomer(cash,installment);
+  finishBillCreditCustomer(cash,installment,cid);
   }
 }
 
@@ -2353,7 +2353,7 @@ function finishBill(cash){
 }
 
 
-function finishBillCreditCustomer(cash,installments){
+function finishBillCreditCustomer(cash,installments,cid){
 //			alert("finish bill");
 	////get bill data json
 	if(cash != ""){
@@ -2367,7 +2367,7 @@ function finishBillCreditCustomer(cash,installments){
 
 			ajax.open("POST", "../json/getBillDataCreditCustomer.json.php", true);
 			ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-			ajax.send("cash="+cash+"&installments="+installments);
+			ajax.send("cash="+cash+"&installments="+installments+"&cid="+cid);
 	}else{
 		alert("Enter cash");
 	}
@@ -2460,7 +2460,7 @@ function sendInstallmentBill(data){
 			ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 			ajax.send();
 }
-function creditsCustomerFinish(){
+function creditsCustomerFinish(cid){
 			showModal();
 			stage = document.getElementById("mainModal");
 			stage.style.opacity = 0.9;
@@ -2478,7 +2478,7 @@ function creditsCustomerFinish(){
 				}
 	  		}
 
-			ajax.open("POST", "subPages/creditCustomerFinishBill.php", true);
+			ajax.open("POST", "subPages/creditCustomerFinishBill.php?cid="+cid, true);
 			ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 			ajax.send();
 }

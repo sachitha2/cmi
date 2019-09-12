@@ -6,7 +6,7 @@ $DB = new DB;
 $DB->conn = $conn;
 $main = new Main;
 $tmpBillId = $_SESSION['credit']['bill']['id'];
-
+$cid = $_GET['cid'];
 $total = $DB->select("purchaseditems","where dealid = $tmpBillId","SUM(amount * uprice)");
 //print_r($total);
 ?>
@@ -25,8 +25,8 @@ $total = $DB->select("purchaseditems","where dealid = $tmpBillId","SUM(amount * 
 	
 	
 	<h1><br>Cash </h1>
-	<input type='number' id='cash' autofocus  placeholder='Enter Cash' class='form-control' style='width:300px;' onKeyUp='fastCustomerBalance(event)'  onKeyPress="enterfinishBillCreditCustomer(event,this.value,install.value)"
+	<input type='number' id='cash' autofocus  placeholder='Enter Cash' class='form-control' style='width:300px;' onKeyUp='fastCustomerBalance(event)'  onKeyPress="enterfinishBillCreditCustomer(event,this.value,install.value,<?php echo($cid) ?>)"
 	><h1>Balance <strong id='balance'></strong></h1>
-	<button onclick='finishBillCreditCustomer(cash.value,install.value)' class="btn btn-primary btn-lg">Finish Bill</button>
+	<button onclick='finishBillCreditCustomer(cash.value,install.value,<?php echo($cid) ?>)' class="btn btn-primary btn-lg">Finish Bill</button>
 	<div id='out' ></div>
 </center>
