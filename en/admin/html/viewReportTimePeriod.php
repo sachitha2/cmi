@@ -18,7 +18,7 @@ $DB->conn = $conn;?>
 		$to = $_GET['to'];
 	?>
 
-    <h1 class="my-0 font-weight-normal text-info">From <?php echo($from) ?> To <?php echo($to) ?></h2>
+    <h1 class="my-0 font-weight-normal text-info" align="center"> Report <?php echo($from) ?> - <?php echo($to) ?></h1><br><br>
 	<!------Expences----------------------------------------------------------------------------------->
 	<h2 class="my-0 font-weight-normal text-info">Expences</h2>
 
@@ -129,7 +129,7 @@ $DB->conn = $conn;?>
 							$totProfit += $data['amount'] * ($arr2[0]['sprice']-$arr2[0]['bprice']);
 						?>
 						<?php } ?>
-						<th scope="col"><?php echo($totCost); ?></th>
+						<th scope="col"><?php echo($totProfit); ?></th>
 					</tr>
 
 		</thead>
