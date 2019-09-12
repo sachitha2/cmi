@@ -53,7 +53,7 @@ $main = new Main;
     <div class="container h-100" id="cStage">
     
     		<center>
-				<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/addArea.php','cStage')"  style="width: 40%;margin-bottom: 5px;">Main Configurations</button>
+				<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/masterData.php','cStage')"  style="width: 40%;margin-bottom: 5px;">Main Configurations</button>
 				
 				<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('flush.php','cStage')"  style="width: 40%;margin-bottom: 5px;">Clear Data</button>
     		</center>
