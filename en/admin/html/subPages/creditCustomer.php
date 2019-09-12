@@ -15,7 +15,7 @@ $cid = $cidSql[0]['id'];
 
 
 
-$sql = "INSERT INTO deals (id, date, time, fdate, ftime, tprice, rprice, status, ni, cid) VALUES ($totalId, curdate(), curtime(),curdate(), curtime(), '0', '0', '0', '4', '$cid');";
+$sql = "INSERT INTO deals (id, date, time, fdate, ftime, tprice, rprice, status, ni, cid) VALUES ($totalId, curdate(), curtime(),curdate(), curtime(), '0', '0', '2', '4', '$cid');";
 
 
 
@@ -113,7 +113,7 @@ if(isset($_SESSION['credit']['bill'])){
 		
 		?>
 		
-		<input type="button" value="Finish" class="btn btn-danger btn-lg" style="width: 100%" onClick="creditsCustomerFinish(<?php echo($total[0]['SUM(amount * uprice)']) ?>)">
+		<input type="button" value="Finish" class="btn btn-danger btn-lg" style="width: 100%" onClick="creditsCustomerFinish(idCard.value)">
 		<br>
 		<br>
 		<input type="button" value="Cancel"  class="btn btn-danger btn-lg" style="width: 100%" onClick="alert('Cancel function not available. remove items manualy from bill')">

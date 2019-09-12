@@ -48,7 +48,6 @@ function loadSubAreas(areaId){
 	
 	console.log('load sub areas'+areaId);
 	document.getElementById("subAreaDiv").style = "display:block";
-	document.getElementById("subAreas").innerHTML = "hellooo";
 		if(areaId != 0){
 			console.log("Select sub areas");
 					///ajax part
@@ -58,7 +57,7 @@ function loadSubAreas(areaId){
 					var xmlhttp = new XMLHttpRequest();
         			xmlhttp.onreadystatechange = function() {
         			if (this.readyState === 4 && this.status == 200) {
-							document.getElementById("subAreas").innerHTML  =  this.responseText;
+							document.getElementById("subAreaDiv").innerHTML  =  this.responseText;
 							hideModal();
 //							emt("area");
 							
@@ -138,6 +137,8 @@ function addSubArea(){
         			xmlhttp.onreadystatechange = function() {
         			if (this.readyState === 4 && this.status == 200) {
 							document.getElementById("msg").innerHTML  =  this.responseText;
+							
+							emt("subArea");
 							hideModal();
            				}
         			};
@@ -314,12 +315,32 @@ function changeDueDate(id,IID){
         			xmlhttp.onreadystatechange = function() {
         			if (this.readyState === 4 && this.status == 200) {
 							hideModal();
-							alert(this.responseText);
+//							alert(this.responseText);
            				}
         			};
         			xmlhttp.open("GET", "../workers/changeDueDate.worker.php?date="+date+"&iid="+IID, true);//generating  get method link
         			xmlhttp.send();
 					//ajax part
+}
+
+function flush(pass){
+	if(pass.length != 0){
+			showModal();
+			document.getElementById("msg").innerHTML = "LOADING......";
+			var xmlhttp = new XMLHttpRequest();
+        	xmlhttp.onreadystatechange = function() {
+        	if (this.readyState === 4 && this.status == 200) {
+				hideModal();
+				document.getElementById("msg").innerHTML = this.responseText;
+				emt("pass");
+           		}
+        	};
+        	xmlhttp.open("GET", "../workers/flusher.php?pass="+pass, true);//generating  get method link
+        	xmlhttp.send();
+ }else{
+	 document.getElementById("msg").innerHTML = "enter password";
+ }
+
 }
 function addPackItems(pId){
 	var itemId = gValue("itemId");
@@ -387,29 +408,31 @@ function addCustomer(){
 
 	data = {'name':name , 'address':address, 'nic':nic, 'tp':tp, 'area':area, 'date':date, 'agent':agent ,'dob':dob,'route':route,'image':image,'areaAgent':areaAgent,'sName':sName,'desi':desi,'collectionDate':collectionDate,'subAreaId':subAreaId};
 		////Valida ting data 
-		msg = document.getElementById("msg");
+		
 		if(desi == 0){
-			msg.innerHTML  = "Select Designation";
+			msg("msg","Select Designation");
 		}
 		else if(name.length == "" ){
-			msg.innerHTML = "Insert name"
+			msg("msg", "Insert name");
 		}
 		
 		else if(address.length == ""){
-			msg.innerHTML = " Insert Address"
+			msg("msg"," Insert Address");
 		}
 		else if(tp.length != 10){
-			msg.innerHTML = " Insert Telephone number"
+			msg("msg", " Insert Telephone number");
 		}else if(collectionDate == ""){
-			msg.innerHTML = "Enter a collection Date"
+			msg("msg","Enter a collection Date");
+		}else if(area == "0"){
+			msg("msg","Select a Area");
 		}
 		else{
 			showModal();
-			msg.innerHTML = "";
+			msg("msg","")
 			var ajax = _ajax();
 			ajax.onreadystatechange = function() {
 				if (this.readyState == 4 && this.status == 200) {
-//	    		alert(this.responseText);
+	    			
 //				emt("name");
 //				emt("address");
 ////				emt("nic");
@@ -417,7 +440,11 @@ function addCustomer(){
 //				emt("route");
 					hideModal();
 //					ajaxCommonGetFromNet('createCustomer.php','cStage');
-					window.location.assign('createCustomer.php');
+					dataResponse = JSON.parse(this.responseText);
+//					msg.innerHTML = this.responseText;
+//					msg.innerHTML += dataResponse[0].id;
+					creditCustomer(dataResponse[0].id);
+//					window.location.assign('createCustomer.php');
 //				msg.innerHTML = " Account Created successfully"
 				}
 	  		}
@@ -1408,13 +1435,21 @@ function enterAddExpenses(e,costTypeid){
 		addExpenses(costTypeid);
 	}
 }
-
+function enterFlush(e,password){
+	if (e.which == 13) {
+		flush(password);
+	}
+}
 function enterAddCustomer(e){
 	if (e.which == 13) {
 		addCustomer();
 	}
 }
-
+function enterAddSubArea(e){
+	if (e.which == 13) {
+		 addSubArea();
+	}
+}
 
 function enteraddPendingPrices(e){
 	if (e.which == 13) {
@@ -1505,9 +1540,9 @@ function enterfinishBill(e,cash) {
   }
 }
 
-function enterfinishBillCreditCustomer(e,cash,installment){
+function enterfinishBillCreditCustomer(e,cash,installment,cid){
 	if (e.which == 13) {
-  finishBillCreditCustomer(cash,installment);
+  finishBillCreditCustomer(cash,installment,cid);
   }
 }
 
@@ -2140,7 +2175,6 @@ function editSaveCostType(costType,id){
 		}
 }
 function editSaveCustomer(id){
-	alert("edit save customer");
 	var name = document.getElementById('name').value;
 	var sName = document.getElementById('sName').value;
 	var desi = document.getElementById('desi').value;
@@ -2156,8 +2190,11 @@ function editSaveCustomer(id){
 	var date = year+"/"+months+"/"+day;
 	var agent = document.getElementById('agent').value;
 	var s = document.getElementById('status').value;
+	var subArea = document.getElementById('subAreaData').value;
+	var areaAgent = document.getElementById('areaAgent').value;
+	var collectionDate = document.getElementById('collectionDate').value;
 
-	data = {'id':id, 'name':name , 'sName':sName, 'desi':desi, 'address':address, 'nic':nic, 'tp':tp, 'area':area, 'date':date, 'agent':agent,'s':s};
+	data = {'id':id, 'name':name , 'sName':sName, 'desi':desi, 'address':address, 'nic':nic, 'tp':tp, 'area':area, 'date':date, 'agent':agent,'s':s,'subArea':subArea,'areaAgent':areaAgent,'collectionDate':collectionDate};
 		////Validating data 
 		msg = document.getElementById("msg");
 		if(desi == "0"){
@@ -2175,18 +2212,20 @@ function editSaveCustomer(id){
 		else{
 			
 			msg.innerHTML = "";
+			showModal();
 			var ajax = _ajax();
 			ajax.onreadystatechange = function() {
 				if (this.readyState == 4 && this.status == 200) {
-				alert(this.responseText);
-				emt("id");
-				emt("desi");
-				emt("name");
-				emt("sNAme");
-				emt("address");
-				emt("nic");
-				emt("tp");
-				msg.innerHTML = "Account Created successfully";
+//					msg.innerHTML = this.responseText;
+//				emt("id");
+//				emt("desi");
+//				emt("name");
+//				emt("sNAme");
+//				emt("address");
+//				emt("nic");
+//				emt("tp");
+				hideModal();
+				msg.innerHTML = "Saved successfully";
 				}
 	  		}
 
@@ -2314,7 +2353,7 @@ function finishBill(cash){
 }
 
 
-function finishBillCreditCustomer(cash,installments){
+function finishBillCreditCustomer(cash,installments,cid){
 //			alert("finish bill");
 	////get bill data json
 	if(cash != ""){
@@ -2328,7 +2367,7 @@ function finishBillCreditCustomer(cash,installments){
 
 			ajax.open("POST", "../json/getBillDataCreditCustomer.json.php", true);
 			ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-			ajax.send("cash="+cash+"&installments="+installments);
+			ajax.send("cash="+cash+"&installments="+installments+"&cid="+cid);
 	}else{
 		alert("Enter cash");
 	}
@@ -2349,6 +2388,27 @@ function sendCreditBill(data){
 			ajax.open("GET", "http://localhost/CMIPrinter/example/interface/windows-usb.php?data="+data, true);
 			ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 			ajax.send();
+}
+
+
+//set date in credit customer bill
+function setDateInCreditCustomer(billId){
+			var date = document.getElementById("date").value;
+			console.log(date);
+			showModal();
+			var ajax = _ajax();
+			ajax.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+					document.getElementById('date').readOnly = true;
+					hideModal();
+//					alert(this.responseText);
+				}
+	  		}
+
+			ajax.open("GET", "../workers/setDateInCreditCustomer.worker.php?id="+billId+"&date="+date, true);
+			ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+			ajax.send();
+	
 }
 
 ///update stock prices
@@ -2407,13 +2467,13 @@ function sendOrderBill(data){
 			ajax.send();
 }
 function sendInstallmentBill(data){
-			alert("installments bill sending");
+//			alert("installments bill sending");
 			var ajax = _ajax();
 			ajax.onreadystatechange = function() {
 				if (this.readyState == 4 && this.status == 200) {
 //	    			msg("out",this.responseText);
 				//setTimeout(fastCustomer,20000);	
-					alert("Done");
+//					alert("Done");
 				}
 	  		}
 
@@ -2421,7 +2481,7 @@ function sendInstallmentBill(data){
 			ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 			ajax.send();
 }
-function creditsCustomerFinish(){
+function creditsCustomerFinish(cid){
 			showModal();
 			stage = document.getElementById("mainModal");
 			stage.style.opacity = 0.9;
@@ -2439,7 +2499,7 @@ function creditsCustomerFinish(){
 				}
 	  		}
 
-			ajax.open("POST", "subPages/creditCustomerFinishBill.php", true);
+			ajax.open("POST", "subPages/creditCustomerFinishBill.php?cid="+cid, true);
 			ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 			ajax.send();
 }

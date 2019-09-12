@@ -9,8 +9,10 @@ $main->b("subArea.php");
 ?>
 <?php
 	include("../../workers/readSesson.worker.php");
-?>
-	<h2>Add a Sub Area</h2>
+
+	if($DB->isAvailable("area","") == true){ ?>
+	
+		<h2>Add a Sub Area</h2>
 	
      
       <div class="form-group">
@@ -40,4 +42,12 @@ $main->b("subArea.php");
       </div>
       <label id="msg"></label><br>
       <button type="button" class="btn btn-primary btn-lg" onClick="addSubArea()">Save</button>
+	
+	<?php
+		
+	}else{
+		$main->Msgwarning("Main Areas Not Available");
+	}
+?>
+	
       

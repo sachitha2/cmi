@@ -39,9 +39,9 @@ $main->b("customer.php");
 		
 		<div>Telephone</div>
 		<div><input type="text" class="form-control" name="tp" value="<?php echo($arr[0]['tp']) ?>" id="tp"></div>
-		<div>your area</div>
+		<div>Customer area</div>
 		<div>
-		<select name="area" id="area" class="form-control" >
+		<select name="area" id="area" class="form-control" onChange="loadSubAreas(this.value)">
 			<?php
 					$areaArr = $DB->select("area","");
 					foreach($areaArr as $areaData){
@@ -58,7 +58,28 @@ $main->b("customer.php");
 		?>
 		</select>
 		</div>
-		<div>Agent name</div>
+		<div>Customer Sub Area</div>
+		
+		
+		<div id="subAreaDiv">
+			SELECT SUB AREA
+			<div id="subAreas">
+				<select class="form-control" id="subAreaData">
+				<option value="0">No Sub Area</option>
+			
+				<?php
+					$arrCustomerSubArea = $DB->select("subarea"," Where  areaId = {$arr[0]['areaid']} ");
+						foreach($arrCustomerSubArea as $dataSubArea){
+							?>
+							<option value="<?php echo($dataSubArea['id']); ?>" <?php if($arr[0]['subAreaId'] == $dataSubArea['id']){echo("selected");} ?>><?php echo($dataSubArea['name']) ?></option>
+							<?php
+						}
+				?>
+				</select>
+			</div>
+		</div>
+		
+		<div>Staf Agent name</div>
 		<div>
 			<select class="form-control" name="agent" id="agent">
 				<?php
@@ -78,18 +99,40 @@ $main->b("customer.php");
 			</select>
 		</div>
 		
+		
+		<div>Agent name (Regional)</div>
+		<div>
+			<select class="form-control" name="areaAgent" id="areaAgent"  style="width: 200px">
+				<option value='0'>NO</option>
+				<?php
+					$queryForAgentSelection = $conn->query("SELECT * FROM agent");
+					while ($rowAgent = mysqli_fetch_assoc($queryForAgentSelection)) {
+							?>
+							
+								<option value='<?php echo($rowAgent['id']) ?>' <?php if($arr[0]['areaAgent'] == $rowAgent['id']){echo("selected");} ?> ><?php echo($rowAgent['name']) ?></option>
+							<?php
+						
+					}
+				?>
+			</select>
+		</div>
+		<div>Enter Collection Date</div>
+		<div>
+			<input type="number" value="<?php echo($arr[0]['collectionDate']) ?>" id="collectionDate"  class="form-control"  style="width: 200px">
+		</div>
+		
 		<!--	Status	-->
 		<div>Status</div>
 		<div>
 			<select class="form-control" name="status" id="status">
 						<?php
 							if($arr[0]['status'] == 1){ ?>
-								<option value='Active' selected>Active</option>
-								<option value='Inactive'>Inactive</option>
+								<option value='1' selected>Active</option>
+								<option value='0'>Inactive</option>
 							<?php }else{
 								?>
-								<option value='Active'>Active</option>
-								<option value='Inactive' selected>Inactive</option>
+								<option value='1'>Active</option>
+								<option value='0' selected>Inactive</option>
 								<?php
 							}
 						?>

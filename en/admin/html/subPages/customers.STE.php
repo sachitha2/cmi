@@ -19,7 +19,7 @@ $customer = $DB->select("customer","");
 	
 	<div>
 			<label for="color">Enter Customer NIC number or name</label>
-			<input list="colors" name="color" class="form-control" style="width: 200px" onKeyPress="enterEditCustomer(event,this.value)">
+			<input list="colors" name="color" class="form-control" id="nic" style="width: 200px" onKeyPress="enterEditCustomer(event,this.value)">
 			<datalist id="colors">
 				
     			<?php
@@ -32,13 +32,14 @@ $customer = $DB->select("customer","");
 	
 				?>
 			</datalist>
-   			
+  			<br>
+   			<div><button class="btn btn-primary btn-lg" type="button" onclick="loadEditFormsCustomer(nic.value)">Next</button></div>
 		
 	</div>
 	<br><br>
-	<div>
+	<!--<div>
 			<label for="color1">Enter Customer id</label>
-			<input list="colors1" name="color1" class="form-control" style="width: 200px" onKeyPress="enterEditCustomerByCustomerId(event,this.value)">
+			<input list="colors1" name="color1" class="form-control" style="width: 200px" onKeyPress="enterEditCustomerByCustomerId(event,this.value)" id="id">
 			<datalist id="colors1">
 				
     			<?php
@@ -51,8 +52,9 @@ $customer = $DB->select("customer","");
 	
 				?>
 			</datalist>
-   			
+  			<br>
+   			<div><button class="btn btn-primary btn-lg" type="button" onclick="loadEditFormsCustomer(id)" onclick="loadEditFormsCustomer(id.value)">Next</button></div>
 		
-	</div>
+	</div>-->
 	
 	
