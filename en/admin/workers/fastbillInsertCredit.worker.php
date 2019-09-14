@@ -88,7 +88,7 @@ if(isset($_POST['data'])){
 
 
 
-						$arrStockRowOne = $DB->select("stock","WHERE itemid = ".$dataPackItemsMain['itemid']." AND status = 1 ORDER BY stock.adate DESC");
+						$arrStockRowOne = $DB->select("stock","WHERE itemid = ".$dataPackItemsMain['itemid']." AND status = 1 ORDER BY stock.adate ASC");
 	//					echo($arrStockRowOne[0]['ramount']);
 						if($arrStockRowOne[0]['ramount'] >= $tmpQty){
 							////////////////////////////////////////////////////
@@ -145,7 +145,7 @@ if(isset($_POST['data'])){
 							//////////////////////////////
 					///Multiple attempts need START
 					//////////////////////////////
-					$arrMultipleAttempts = $DB->select("stock","WHERE itemid = ".$dataPackItemsMain['itemid']." AND status = 1 ORDER BY stock.adate DESC");
+					$arrMultipleAttempts = $DB->select("stock","WHERE itemid = ".$dataPackItemsMain['itemid']." AND status = 1 ORDER BY stock.adate ASC");
 					foreach($arrMultipleAttempts as $dataMultipleAttempts){
 						/////checking adding is finished or not
 						if($tmpQty != 0){
@@ -278,7 +278,7 @@ if(isset($_POST['data'])){
 				///////////////////////////////////////////////////
 				////Stock Available Start
 				///////////////////////////////////////////////////
-				$arrStockRowOne = $DB->select("stock","WHERE itemid = $itemId AND status = 1 ORDER BY stock.adate DESC");
+				$arrStockRowOne = $DB->select("stock","WHERE itemid = $itemId AND status = 1 ORDER BY stock.adate ASC");
 	//			echo($arrStockRowOne[0]['ramount']);
 				if($arrStockRowOne[0]['ramount'] >= $qty){
 					//////////////////////////////////
@@ -316,7 +316,7 @@ if(isset($_POST['data'])){
 					//////////////////////////////
 					///Multiple attempts need START
 					//////////////////////////////
-					$arrMultipleAttempts = $DB->select("stock","WHERE itemid = $itemId AND status = 1 ORDER BY stock.adate DESC");
+					$arrMultipleAttempts = $DB->select("stock","WHERE itemid = $itemId AND status = 1 ORDER BY stock.adate ASC");
 					foreach($arrMultipleAttempts as $dataMultipleAttempts){
 						/////checking adding is finished or not
 						if($qty != 0){

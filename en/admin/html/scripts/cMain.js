@@ -120,7 +120,49 @@ function addArea(area){
 		}
 	}
 
-
+function updateSystmeMC(){
+	var bName = document.getElementById("bName").value;
+	var bDes = document.getElementById("bDesc").value;
+	var bIR = document.getElementById("bIR").value;
+	var bPos = document.getElementById("bPos").value;
+	var bIcon = document.getElementById("bIcon").value;
+	
+	
+	if(bName == ""){
+		msg("msg","Enter a Bussiness name");
+		
+	}else if(bIR == ""){
+		msg("msg","Enter a Bussiness Installment range days difference");
+		
+	}else {
+			var dataS = {
+						"bName":bName,
+						"bDes":bDes,
+						"bIR":bIR,
+						"bPos":bPos,
+						"bIcon":bIcon
+					};
+		
+			
+			
+					///ajax part
+					loadingModal();
+					showModal();
+					var xmlhttp = new XMLHttpRequest();
+        			xmlhttp.onreadystatechange = function() {
+        			if (this.readyState === 4 && this.status == 200) {
+							document.getElementById("msg").innerHTML  =  this.responseText;
+							
+							hideModal();
+							ajaxCommonGetFromNet('subPages/masterData.php','cStage');
+           				}
+        			};
+        			xmlhttp.open("GET", "../workers/updateMasterData.worker.php?data="+JSON.stringify(dataS), true);//generating  get method link
+        			xmlhttp.send();
+					////ajax part
+			
+	}
+}
 function addSubArea(){
 		
 		areaId = document.getElementById("area").value;
@@ -1371,6 +1413,7 @@ function delFastBillData(id){
 	//alert(id);//fastBillData.del.php
 	var r = confirm("Are you sure want to delete this!");
 	if(r == true){
+		loadingModal();
 		showModal();
 		var ajax = _ajax();
 		ajax.onreadystatechange = function() {
@@ -2338,8 +2381,8 @@ function finishBill(cash){
 		var ajax = _ajax();
 			ajax.onreadystatechange = function() {
 				if (this.readyState == 4 && this.status == 200) {
-	    			alert(this.responseText);
-					sendBill(this.responseText);
+//	    			alert(this.responseText);
+					sendBill(this.responseText); 
 				}
 	  		}
 
@@ -2360,7 +2403,7 @@ function finishBillCreditCustomer(cash,installments,cid){
 		var ajax = _ajax();
 			ajax.onreadystatechange = function() {
 				if (this.readyState == 4 && this.status == 200) {
-	    			alert(this.responseText);
+//	    			alert(this.responseText);
 					sendCreditBill(this.responseText);
 				}
 	  		}

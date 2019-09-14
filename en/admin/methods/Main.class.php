@@ -6,6 +6,9 @@ if(session_id()== '')
    session_start();
 }
 
+
+
+
 $logOutUrl = "../../../L";
 if(!isset($_SESSION['login'])){
 	header("location:$logOutUrl");
