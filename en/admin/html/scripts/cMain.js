@@ -86,9 +86,12 @@ function enterItemNameInFastCustomer(e,id){
 }
 function enterItemNameInCreditCustomer(e,id){
 	if (e.which == 13) {
-		conte = document.getElementById("item"+id).innerText;
-		document.getElementById("itemName").value = conte;
-		enterNext(event,"qty");
+		if(id != ""){
+			conte = document.getElementById("item"+id).innerText;
+			document.getElementById("itemName").value = conte;
+			enterNext(event,"qty");
+		}
+		
 	}
 }
 function enterItemNameInAddOrder(e,id){
@@ -144,6 +147,14 @@ function addVehicle(){
 			document.getElementById("msg").innerHTML = "Enter a valid Vehicle Number";
 		}
 	}
+function discountToTotal(maxD,disc,total){
+	if(disc <= maxD){
+		document.getElementById("totalAD").innerHTML = (total /( 100)) * (100 - disc);
+		
+	}else{
+		
+	}
+}
 function updateSystmeMC(){
 	var bName = document.getElementById("bName").value;
 	var bDes = document.getElementById("bDesc").value;
@@ -700,12 +711,12 @@ function additemsToCreditCustomerBill(billId){
 	data = {'itemId':itemId , 'qty':qty, 'date':date,'billNumber':billId };
 		////Valida ting data 
 		
-		if(itemId.length == "" ){
-			alert("enter item id");
+		if(itemId.length == 0 || itemId == "" ){
+			
 		}
 		
-		else if(qty.length == ""){
-			alert("enter qty");
+		else if(qty.length ==  0 || qty == ""){
+			
 		}
 		else{
 			//loading logo
@@ -1633,9 +1644,9 @@ function enterfinishBill(e,cash) {
   }
 }
 
-function enterfinishBillCreditCustomer(e,cash,installment,cid){
+function enterfinishBillCreditCustomer(e,cash,installment,cid,disc){
 	if (e.which == 13) {
-  finishBillCreditCustomer(cash,installment,cid);
+  finishBillCreditCustomer(cash,installment,cid,disc);
   }
 }
 
@@ -1692,9 +1703,13 @@ function enterAdditemsToOrderBill(e,billId) {
 	  }
 }
 function enterAdditemsToCreditCustomerBill(e,billId){
-	if (e.which == 13) { 
-	  document.getElementById("qty").disabled = true;
-	  additemsToCreditCustomerBill(billId);
+	if (e.which == 13) {
+		var qty = document.getElementById("qty").value;
+		if(qty != ""){
+			document.getElementById("qty").disabled = true;
+	  		additemsToCreditCustomerBill(billId);
+		}
+	  
 	  }
 }
 
@@ -2426,9 +2441,16 @@ function ordersCustomerFinish(){
 }
 function fastCustomerBalance(e){
 	var total = document.getElementById("total").value;
+	var disc = document.getElementById("disc").value;
 	value = document.getElementById("cash").value;
-	document.getElementById("balance").innerHTML = value - total ;
-	console.log(value);
+	if(disc != 0 || disc.length != 0){
+		document.getElementById("balance").innerHTML = value - (total/100 * (100 - disc)) ;
+	}else{
+		
+		document.getElementById("balance").innerHTML = value - total ;
+		console.log(value);
+	}
+	
 }
 function finishBill(cash){
 //			alert("finish bill");
@@ -2452,21 +2474,46 @@ function finishBill(cash){
 }
 
 
-function finishBillCreditCustomer(cash,installments,cid){
+function finishBillCreditCustomer(cash,installments,cid,disc = 0){
 //			alert("finish bill");
 	////get bill data json
+	loadingModal();
+	showModal();
 	if(cash != ""){
+		if(disc == ""){
+			disc = 0;
+		}
 		var ajax = _ajax();
 			ajax.onreadystatechange = function() {
 				if (this.readyState == 4 && this.status == 200) {
-//	    			alert(this.responseText);
-					sendCreditBill(this.responseText);
+	    			alert(this.responseText);
+					var POS = JSON.parse(this.responseText);
+					console.log(POS);
+					if(POS.POS == 1){
+						sendCreditBill(this.responseText);
+						hideModal();
+					}else{
+						var r = confirm("Do you want to print a Bill");
+						if(r == true){
+							window.location.assign('sell.php');
+							alert("hey");
+							hideModal();
+							//print function here
+							//TODO 
+							//check print function from here
+						}else{
+							window.location.assign('sell.php');
+						}
+//						window.location.assign('viewCustomer.php?cid='+cid);
+					}
+					
+					
 				}
 	  		}
 
 			ajax.open("POST", "../json/getBillDataCreditCustomer.json.php", true);
 			ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-			ajax.send("cash="+cash+"&installments="+installments+"&cid="+cid);
+			ajax.send("cash="+cash+"&installments="+installments+"&cid="+cid+"&disc="+disc);
 	}else{
 		alert("Enter cash");
 	}

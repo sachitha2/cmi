@@ -81,7 +81,7 @@ class Main{
         <!-- brand -->
         <a class="navbar-brand" href="dashboard.php">
         	<img src="../assets/images/logo.png" alt="">
-        	<span class="hidden-folded inline" style="font-size: 22px">CMS</span>
+        	<span class="hidden-folded inline" style="font-size: 22px">INFI V1</span>
         </a>
         <!-- / brand -->
       </div>

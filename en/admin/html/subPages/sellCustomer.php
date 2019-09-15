@@ -9,7 +9,9 @@ $main->b("sell.php");
 $customer = $DB->select("customer","");
 
 $numNotSaved = $DB->nRow("deals","WHERE status = 2 ");
-echo($numNotSaved);
+if($numNotSaved != 0){
+	$main->Msgwarning("Please finish unfinished jobs or Delete them");
+}
 ?>
 			<h1>Select Customer From NIC</h1>
 			<input list="colors" name="color" id="idCard" class="form-control" style="width: 200px" onKeyPress="enterCheckCustomerForMakeBill(event,this.value)">
