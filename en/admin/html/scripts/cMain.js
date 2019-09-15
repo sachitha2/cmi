@@ -1992,7 +1992,13 @@ function fastCustomerItemadd(){
 		
 		
 	}
-
+function loadEditFormsVehicle(id){
+		if(id != 0){
+			ajaxCommonGetFromNet("subPages/editVehicle.php?id="+id,"cStage");
+		}
+		
+		
+	}
 
 function loadEditFormsAgent(value){
 		if(value != 0){
