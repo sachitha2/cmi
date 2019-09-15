@@ -119,7 +119,31 @@ function addArea(area){
 			document.getElementById("msg").innerHTML = "Enter valid area";
 		}
 	}
-
+function addVehicle(){
+		vNumber = document.getElementById("vNumber").value;
+		user = document.getElementById("user").value;
+		if(user == 0){
+			msg("msg","Select a User");
+		}
+		else if(vNumber.length != 0){
+					///ajax part
+					loadingModal();
+					showModal();
+					var xmlhttp = new XMLHttpRequest();
+        			xmlhttp.onreadystatechange = function() {
+        			if (this.readyState === 4 && this.status == 200) {
+							document.getElementById("msg").innerHTML  =  this.responseText;
+							emt("vNumber");
+							hideModal();
+           				}
+        			};
+        			xmlhttp.open("GET", "../workers/addVehicle.worker.php?vNumber="+vNumber+"&user="+user, true);//generating  get method link
+        			xmlhttp.send();
+					////ajax part
+		}else{
+			document.getElementById("msg").innerHTML = "Enter a valid Vehicle Number";
+		}
+	}
 function updateSystmeMC(){
 	var bName = document.getElementById("bName").value;
 	var bDes = document.getElementById("bDesc").value;
@@ -1312,6 +1336,27 @@ function delPack(id){
 	}
 		}
 
+
+function delVehicle(id){	
+	var r = confirm("Are you sure want to delete this!");
+	if(r == true){
+		showModal();
+		var ajax = _ajax();
+		ajax.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+//	   	 		alert(this.responseText);
+				ajaxCommonGetFromNet('subPages/viewVehicle.php','cStage');
+				hideModal();
+			}
+	  }
+
+		ajax.open("POST", "../workers/vehicle.del.php", true);
+		ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		ajax.send("id="+id);
+	}
+		}
+
+
 function delItem(id){	
 	var r = confirm("Are you sure want to delete this!");
 	if(r == true){
@@ -1497,6 +1542,11 @@ function enterAddSubArea(e){
 function enteraddPendingPrices(e){
 	if (e.which == 13) {
 		addPendingPrices();
+	}
+}
+function enterAddVehicle(e){
+	if(e.which == 13){
+		addVehicle();
 	}
 }
 

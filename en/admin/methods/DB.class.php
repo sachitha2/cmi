@@ -219,19 +219,28 @@ public	function itemList($DB,$onKey = "",$extra = ""){
 	
 	<?php
 }
+	
+	//---------------SANDALI----------------------------------------------------------
+
+ function getUserById($id,$d = 1){
+ 	$sql = "SELECT * FROM user WHERE id = $id";
+ 	  $result = $this->conn->query($sql);
+ 	  $row = mysqli_fetch_assoc($result);
+ 	$name = $row['username'];	  	
+ 	if($d == 0){
+ 		return($name);
+ 	}else{
+ 		echo($name);
+ 	}
+ }
+	function status($value){
+		if($value){
+			echo("Active");
+		}else{
+			echo("Not Active");
+		}
+	}
 }
 
 
-//---------------SANDALI----------------------------------------------------------
 
-// function getUserById($id,$d = 1){
-// 	$sql = "SELECT * FROM user WHERE id = $id";
-// 	  $result = $this->conn->query($sql);
-// 	  $row = mysqli_fetch_assoc($result);
-// 	$name = $row['username'];	  	
-// 	if($d == 0){
-// 		return($name);
-// 	}else{
-// 		echo($name);
-// 	}
-// }
