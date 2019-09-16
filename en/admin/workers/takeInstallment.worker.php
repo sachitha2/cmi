@@ -93,7 +93,7 @@ $deal = $DB->select("deals","where id = {$data['dealId']}");
 if(round($deal[0]['rprice'],0) <= 0){
 	$conn->query("UPDATE deals SET status = '1' WHERE deals.id = {$data['dealId']} ;");
 	//update all as marked
-	$con->query("UPDATE installment SET status = '1'  WHERE dealid =  {$data['dealId']} ");
+	$conn->query("UPDATE installment SET status = '1'  WHERE dealid =  {$data['dealId']} ");
 }
 $arrInstallment = $DB->select("installment"," WHERE dealid = {$data['dealId']} ORDER BY installmentid ASC");
 //print_r($arrInstallment);

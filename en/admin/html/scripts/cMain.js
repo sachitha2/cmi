@@ -1588,7 +1588,8 @@ function enterAddAgentInstallmentCollect(e,amount,inputId,ID,nRow,IID,dealId,FN 
 									console.log("Bill needs to be printed");
 									sendInstallmentBill(this.responseText);
 								}else{
-									console.log("No bill needed");
+									console.log("Normal needed");
+									
 								}
 							}
 					  }
@@ -2477,6 +2478,10 @@ function finishBill(cash){
 function finishBillCreditCustomer(cash,installments,cid,disc = 0){
 //			alert("finish bill");
 	////get bill data json
+	
+	
+	
+	
 	loadingModal();
 	showModal();
 	if(cash != ""){
@@ -2486,7 +2491,7 @@ function finishBillCreditCustomer(cash,installments,cid,disc = 0){
 		var ajax = _ajax();
 			ajax.onreadystatechange = function() {
 				if (this.readyState == 4 && this.status == 200) {
-	    			alert(this.responseText);
+//	    			alert(this.responseText);
 					var POS = JSON.parse(this.responseText);
 					console.log(POS);
 					if(POS.POS == 1){
@@ -2495,9 +2500,11 @@ function finishBillCreditCustomer(cash,installments,cid,disc = 0){
 					}else{
 						var r = confirm("Do you want to print a Bill");
 						if(r == true){
-							window.location.assign('sell.php');
-							alert("hey");
+							window.open('subPages/print.php', '_blank');
+							
+							window.location.assign('viewCustomer.php?cid='+cid);
 							hideModal();
+							
 							//print function here
 							//TODO 
 							//check print function from here

@@ -1,6 +1,9 @@
 <?php
 require_once("../methods/Main.class.php");
 $main = new Main;
+if(isset($_GET['print'])){
+	echo($_GET['print']);
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -32,6 +35,13 @@ $main = new Main;
   <!-- endbuild -->
   <link rel="stylesheet" href="../assets/styles/font.css" type="text/css" />
    <script src="scripts/cMain.js"></script> 
+   
+   
+   
+   <!--  PDF-->
+  <link rel="stylesheet" href="https://printjs-4de6.kxcdn.com/print.min.css" type="text/css" />
+  
+  <script src="https://printjs-4de6.kxcdn.com/print.min.js"></script>
 </head>
 <body>
 
