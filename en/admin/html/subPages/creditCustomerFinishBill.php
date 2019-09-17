@@ -42,12 +42,12 @@ $total = $DB->select("purchaseditems","where dealid = $tmpBillId","SUM(amount * 
 	
 	?>
 	<h3>Discount (MAX Discount <?php echo(round(($profit / $total[0]['SUM(amount * uprice)'] * 100)-1,0)) ?> )</h3>
-	<input type="number" value="0" id="disc" placeholder="Enter Discount" class='form-control' style='width:300px;' onKeyPress="enterNext(event,'cash')" >
+	<input type="number" value="0" id="disc" placeholder="Enter Discount" class='form-control' style='width:300px;' onKeyPress="enterNext(event,'cash');" onKeyUp="discountToTotal(<?php echo(round(($profit / $total[0]['SUM(amount * uprice)'] * 100)-1,0)) ?>,this.value,<?php echo($total[0]['SUM(amount * uprice)']) ?>)">
 	
-	<h3><br>Total After Discount<br></h3>
+	<h3><br>Total After Discount<br><strong id="totalAD" style="font-size: 50px"></strong></h3>
 	<h3>Cash </h3>
-	<input type='number' id='cash' autofocus  placeholder='Enter Cash' class='form-control' style='width:300px;' onKeyUp='fastCustomerBalance(event)'  onKeyPress="enterfinishBillCreditCustomer(event,this.value,install.value,<?php echo($cid) ?>)"
+	<input type='number' id='cash' autofocus  placeholder='Enter Cash' class='form-control' style='width:300px;' onKeyUp='fastCustomerBalance(event)'  onKeyPress="enterfinishBillCreditCustomer(event,this.value,install.value,<?php echo($cid) ?>,disc.value)"
 	><h1>Balance <strong id='balance'></strong></h1>
-	<button onclick='finishBillCreditCustomer(cash.value,install.value,<?php echo($cid) ?>)' class="btn btn-primary btn-lg">Finish Bill</button>
+	<button onclick='finishBillCreditCustomer(cash.value,install.value,<?php echo($cid) ?>,disc.value)' class="btn btn-primary btn-lg">Finish Bill</button>
 	<div id='out' ></div>
 </center>

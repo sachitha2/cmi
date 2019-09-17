@@ -86,9 +86,12 @@ function enterItemNameInFastCustomer(e,id){
 }
 function enterItemNameInCreditCustomer(e,id){
 	if (e.which == 13) {
-		conte = document.getElementById("item"+id).innerText;
-		document.getElementById("itemName").value = conte;
-		enterNext(event,"qty");
+		if(id != ""){
+			conte = document.getElementById("item"+id).innerText;
+			document.getElementById("itemName").value = conte;
+			enterNext(event,"qty");
+		}
+		
 	}
 }
 function enterItemNameInAddOrder(e,id){
@@ -119,14 +122,46 @@ function addArea(area){
 			document.getElementById("msg").innerHTML = "Enter valid area";
 		}
 	}
-
+function addVehicle(){
+		vNumber = document.getElementById("vNumber").value;
+		user = document.getElementById("user").value;
+		if(user == 0){
+			msg("msg","Select a User");
+		}
+		else if(vNumber.length != 0){
+					///ajax part
+					loadingModal();
+					showModal();
+					var xmlhttp = new XMLHttpRequest();
+        			xmlhttp.onreadystatechange = function() {
+        			if (this.readyState === 4 && this.status == 200) {
+							document.getElementById("msg").innerHTML  =  this.responseText;
+							emt("vNumber");
+							hideModal();
+           				}
+        			};
+        			xmlhttp.open("GET", "../workers/addVehicle.worker.php?vNumber="+vNumber+"&user="+user, true);//generating  get method link
+        			xmlhttp.send();
+					////ajax part
+		}else{
+			document.getElementById("msg").innerHTML = "Enter a valid Vehicle Number";
+		}
+	}
+function discountToTotal(maxD,disc,total){
+	if(disc <= maxD){
+		document.getElementById("totalAD").innerHTML = (total /( 100)) * (100 - disc);
+		
+	}else{
+		
+	}
+}
 function updateSystmeMC(){
 	var bName = document.getElementById("bName").value;
 	var bDes = document.getElementById("bDesc").value;
 	var bIR = document.getElementById("bIR").value;
 	var bPos = document.getElementById("bPos").value;
 	var bIcon = document.getElementById("bIcon").value;
-	
+	var bSMS = document.getElementById("bSMS").value;
 	
 	if(bName == ""){
 		msg("msg","Enter a Bussiness name");
@@ -140,18 +175,20 @@ function updateSystmeMC(){
 						"bDes":bDes,
 						"bIR":bIR,
 						"bPos":bPos,
-						"bIcon":bIcon
+						"bIcon":bIcon,
+						"bSMS":bSMS
 					};
 		
 			
 			
 					///ajax part
+					console.log(dataS);
 					loadingModal();
 					showModal();
 					var xmlhttp = new XMLHttpRequest();
         			xmlhttp.onreadystatechange = function() {
         			if (this.readyState === 4 && this.status == 200) {
-							document.getElementById("msg").innerHTML  =  this.responseText;
+							msg("msg",this.responseText) ;
 							
 							hideModal();
 							ajaxCommonGetFromNet('subPages/masterData.php','cStage');
@@ -676,12 +713,12 @@ function additemsToCreditCustomerBill(billId){
 	data = {'itemId':itemId , 'qty':qty, 'date':date,'billNumber':billId };
 		////Valida ting data 
 		
-		if(itemId.length == "" ){
-			alert("enter item id");
+		if(itemId.length == 0 || itemId == "" ){
+			
 		}
 		
-		else if(qty.length == ""){
-			alert("enter qty");
+		else if(qty.length ==  0 || qty == ""){
+			
 		}
 		else{
 			//loading logo
@@ -1312,6 +1349,27 @@ function delPack(id){
 	}
 		}
 
+
+function delVehicle(id){	
+	var r = confirm("Are you sure want to delete this!");
+	if(r == true){
+		showModal();
+		var ajax = _ajax();
+		ajax.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+//	   	 		alert(this.responseText);
+				ajaxCommonGetFromNet('subPages/viewVehicle.php','cStage');
+				hideModal();
+			}
+	  }
+
+		ajax.open("POST", "../workers/vehicle.del.php", true);
+		ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		ajax.send("id="+id);
+	}
+		}
+
+
 function delItem(id){	
 	var r = confirm("Are you sure want to delete this!");
 	if(r == true){
@@ -1478,6 +1536,12 @@ function enterAddExpenses(e,costTypeid){
 		addExpenses(costTypeid);
 	}
 }
+
+function enterUpdateSystmeMC(e){
+	if (e.which == 13) {
+		updateSystmeMC();
+	}
+}
 function enterFlush(e,password){
 	if (e.which == 13) {
 		flush(password);
@@ -1497,6 +1561,11 @@ function enterAddSubArea(e){
 function enteraddPendingPrices(e){
 	if (e.which == 13) {
 		addPendingPrices();
+	}
+}
+function enterAddVehicle(e){
+	if(e.which == 13){
+		addVehicle();
 	}
 }
 
@@ -1527,7 +1596,8 @@ function enterAddAgentInstallmentCollect(e,amount,inputId,ID,nRow,IID,dealId,FN 
 									console.log("Bill needs to be printed");
 									sendInstallmentBill(this.responseText);
 								}else{
-									console.log("No bill needed");
+									console.log("Normal needed");
+									
 								}
 							}
 					  }
@@ -1583,9 +1653,9 @@ function enterfinishBill(e,cash) {
   }
 }
 
-function enterfinishBillCreditCustomer(e,cash,installment,cid){
+function enterfinishBillCreditCustomer(e,cash,installment,cid,disc){
 	if (e.which == 13) {
-  finishBillCreditCustomer(cash,installment,cid);
+  finishBillCreditCustomer(cash,installment,cid,disc);
   }
 }
 
@@ -1642,9 +1712,13 @@ function enterAdditemsToOrderBill(e,billId) {
 	  }
 }
 function enterAdditemsToCreditCustomerBill(e,billId){
-	if (e.which == 13) { 
-	  document.getElementById("qty").disabled = true;
-	  additemsToCreditCustomerBill(billId);
+	if (e.which == 13) {
+		var qty = document.getElementById("qty").value;
+		if(qty != ""){
+			document.getElementById("qty").disabled = true;
+	  		additemsToCreditCustomerBill(billId);
+		}
+	  
 	  }
 }
 
@@ -1942,7 +2016,13 @@ function fastCustomerItemadd(){
 		
 		
 	}
-
+function loadEditFormsVehicle(id){
+		if(id != 0){
+			ajaxCommonGetFromNet("subPages/editVehicle.php?id="+id,"cStage");
+		}
+		
+		
+	}
 
 function loadEditFormsAgent(value){
 		if(value != 0){
@@ -2370,9 +2450,16 @@ function ordersCustomerFinish(){
 }
 function fastCustomerBalance(e){
 	var total = document.getElementById("total").value;
+	var disc = document.getElementById("disc").value;
 	value = document.getElementById("cash").value;
-	document.getElementById("balance").innerHTML = value - total ;
-	console.log(value);
+	if(disc != 0 || disc.length != 0){
+		document.getElementById("balance").innerHTML = value - (total/100 * (100 - disc)) ;
+	}else{
+		
+		document.getElementById("balance").innerHTML = value - total ;
+		console.log(value);
+	}
+	
 }
 function finishBill(cash){
 //			alert("finish bill");
@@ -2396,21 +2483,52 @@ function finishBill(cash){
 }
 
 
-function finishBillCreditCustomer(cash,installments,cid){
+function finishBillCreditCustomer(cash,installments,cid,disc = 0){
 //			alert("finish bill");
 	////get bill data json
+	
+	
+	
+	
+	loadingModal();
+	showModal();
 	if(cash != ""){
+		if(disc == ""){
+			disc = 0;
+		}
 		var ajax = _ajax();
 			ajax.onreadystatechange = function() {
 				if (this.readyState == 4 && this.status == 200) {
 //	    			alert(this.responseText);
-					sendCreditBill(this.responseText);
+					var POS = JSON.parse(this.responseText);
+					console.log(POS);
+					if(POS.POS == 1){
+						sendCreditBill(this.responseText);
+						hideModal();
+					}else{
+						var r = confirm("Do you want to print a Bill");
+						if(r == true){
+							window.open('subPages/print.php', '_blank');
+							
+							window.location.assign('viewCustomer.php?cid='+cid);
+							hideModal();
+							
+							//print function here
+							//TODO 
+							//check print function from here
+						}else{
+							window.location.assign('sell.php');
+						}
+//						window.location.assign('viewCustomer.php?cid='+cid);
+					}
+					
+					
 				}
 	  		}
 
 			ajax.open("POST", "../json/getBillDataCreditCustomer.json.php", true);
 			ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-			ajax.send("cash="+cash+"&installments="+installments+"&cid="+cid);
+			ajax.send("cash="+cash+"&installments="+installments+"&cid="+cid+"&disc="+disc);
 	}else{
 		alert("Enter cash");
 	}

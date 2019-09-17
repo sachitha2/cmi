@@ -43,8 +43,26 @@ $main->b("settings.php");
 					?>
 				</select>
 				
+				<label>SMS</label>
+				<select id="bSMS" class="form-control" style="width: 200px"> 
+					<?php
+						if($arrM[0]['sms'] == 1){
+							?>
+							<option value="0" >No</option>
+							<option value="1" selected>Yes</option>
+							<?php
+						}
+						else{
+							?>
+							<option value="0" selected>No</option>
+							<option value="1">Yes</option>
+							<?php
+						}
+					?>
+				</select>
+				
 				<label>Icon</label>
-				<input type="text" id="bIcon" class="form-control" placeholder="Icon URL" onKeyPress="" value="<?php echo($arrM[0]['logo']) ?>">
+				<input type="text" id="bIcon" class="form-control" placeholder="Icon URL" onKeyPress="enterUpdateSystmeMC(event)" value="<?php echo($arrM[0]['logo']) ?>">
 				<br>
 				<div id="msg"></div>
 				<button  type="button" class="btn btn-primary btn-lg" onClick="updateSystmeMC()">Update</button>

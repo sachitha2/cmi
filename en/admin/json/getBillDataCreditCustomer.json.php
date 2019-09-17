@@ -29,6 +29,17 @@ if(isset($_SESSION['credit']['bill'])){
 //	echo("session available");
 	///bill id
 	$billid = $_SESSION['credit']['bill']['id'];
+	if($_POST['disc'] != 0){
+		//Apply discount
+		$arrDisc = $DB->select("purchaseditems","where dealid = $billid");
+		foreach($arrDisc as $dataDisc){
+			$newUprice = ($dataDisc['uprice'] / 100 ) * (100 - $_POST['disc']);
+			$conn->query("UPDATE purchaseditems SET uprice = '$newUprice' WHERE purchaseditems.id = {$dataDisc['id']};");
+		}
+	}
+	
+	
+	
 	
 	$arrGetDate = $DB->select("deals","where id = $billid");
 	$date = $arrGetDate[0]['date'];
@@ -65,7 +76,7 @@ if(isset($_SESSION['credit']['bill'])){
 			$remain = $total[0]['SUM(amount * uprice)'] - $cash;
 	
 		//update deal data
-				$sqlDealData = "UPDATE deals SET tprice = '{$total[0]['SUM(amount * uprice)']}', rprice = '{$remain}' WHERE deals.id = $billid;";
+				$sqlDealData = "UPDATE deals SET tprice = '{$total[0]['SUM(amount * uprice)']}', rprice = '{$remain}' ,discount = {$_POST['disc']} WHERE deals.id = $billid;";
 				$conn->query($sqlDealData);
 		//update deal data
 		
@@ -132,6 +143,9 @@ if(isset($_SESSION['credit']['bill'])){
 		$arr['data']['tp'] = $arrCus[0]['tp'];
 		$arr['data']['i'] = $perOneI;
 		$arr['data']['invoiceN'] = $billid;
+		$arrPOS = $DB->select("masterdata","where id = 1");
+		$arr['POS'] =  $arrPOS[0]['posPrinter'];
+		$arr['data']['disc'] = $_POST['disc'];
 	
 	$json = json_encode($arr);
 	$_SESSION['credit']['bill']['s'] = 0;

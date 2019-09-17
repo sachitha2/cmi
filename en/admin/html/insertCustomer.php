@@ -5,6 +5,11 @@ require_once("../methods/DB.class.php");
 $main = new Main;
 $DB = new DB;
 $DB->conn = $conn;
+
+//check user in table again
+if($DB->nRow("customer","WHERE nic = '{$_GET['nic']}'") == 0){
+	
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -84,10 +89,10 @@ $DB->conn = $conn;
 			<option value="Miss.">Miss.</option>
 		</select>
 		<div>Full Name</div>
-		<div><input type="text" class="form-control" name="name" id="name" placeholder="Enter Name" onKeyPress="enterNext(event,'sName');"></div>
+		<div><input type="text" class="form-control" style="text-transform: uppercase" name="name" id="name" placeholder="Enter Name" onKeyPress="enterNext(event,'sName');"></div>
 		
 		<div>Short Name</div>
-		<div><input type="text" class="form-control" name="sName" id="sName" placeholder="Enter Short Name"  onKeyPress="enterNext(event,'address');"></div>
+		<div><input type="text" class="form-control" name="sName" id="sName" placeholder="Enter Short Name"  onKeyPress="enterNext(event,'address');"  style="text-transform: uppercase" ></div>
 		<div>Address</div>
 		<div><input type="text" class="form-control" name="address" id="address" placeholder="Enter Address"  onKeyPress="enterNext(event,'tp');"></div>
 		<div>NIC</div>
@@ -218,6 +223,15 @@ $DB->conn = $conn;
 </body>
 </html>
 
+<?php
+	}else{
+	?>
+		<script>
+				window.location.assign('viewCustomer.php?nic=<?php echo($_GET['nic']) ?>');
+		</script>
+	<?php
+}
+	?>
 
 
 
