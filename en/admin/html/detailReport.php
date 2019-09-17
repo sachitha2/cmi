@@ -55,11 +55,11 @@ $main = new Main;
     <div ui-view class="app-body" id="view">
 		<?php $main->modal() ?>
       <!-- ############ PAGE START-->
-    <?php $main->head("Reports") ?>
+    <?php $main->head("Detail Reports") ?>
     <div class="container h-100" id="cStage">
     	
         <center> 
-            <button type="button" id="1" class="btn btn-primary btn-lg" onClick="window.location.assign('viewReport.php?btn=1')"  style="width: 40%;margin-bottom: 5px;">Today</button>
+            <button type="button" id="1" class="btn btn-primary btn-lg" onClick="detailReportToday();"  style="width: 40%;margin-bottom: 5px;">Today</button>
             <button type="button" id="2" class="btn btn-primary btn-lg" onClick="window.location.assign('viewReport.php?btn=2')"  style="width: 40%;margin-bottom: 5px;">This Week</button>
             <button type="button" id="3" class="btn btn-primary btn-lg" onClick="window.location.assign('viewReport.php?btn=3')"  style="width: 40%;margin-bottom: 5px;">This Month</button>
             <button type="button" id="4" class="btn btn-primary btn-lg" onClick="window.location.assign('viewReport.php?btn=4')"  style="width: 40%;margin-bottom: 5px;">This Year</button>
@@ -99,13 +99,6 @@ $main = new Main;
 		<button type="button" class="btn btn-primary btn-lg" id="5" onclick="viewReport(5);"  style="width: 40%;margin-bottom: 5px; align: center;">Specific Time Period</button>
 		</center>
 		<br>
-
-<br><br>
-    <center>
-		<button type="button" class="btn btn-primary btn-lg" id="6" onclick="window.location.assign('pdfReports.php')"  style="width: 40%;margin-bottom: 5px; align: center;">PDF Reports</button>
-		</center>
-		<br>
-
 	</div>
 
       <!-- ############ PAGE END-->
