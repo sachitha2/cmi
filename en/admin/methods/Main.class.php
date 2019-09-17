@@ -6,6 +6,9 @@ if(session_id()== '')
    session_start();
 }
 
+
+
+
 $logOutUrl = "../../../L";
 if(!isset($_SESSION['login'])){
 	header("location:$logOutUrl");
@@ -78,7 +81,7 @@ class Main{
         <!-- brand -->
         <a class="navbar-brand" href="dashboard.php">
         	<img src="../assets/images/logo.png" alt="">
-        	<span class="hidden-folded inline" style="font-size: 22px">CMS</span>
+        	<span class="hidden-folded inline" style="font-size: 22px">INFI V1</span>
         </a>
         <!-- / brand -->
       </div>
@@ -159,6 +162,11 @@ class Main{
                     <li>
                       <a onClick="window.location.assign('seller.php')">
                         <span class="nav-text">Seller</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a onClick="window.location.assign('settings.php')">
+                        <span class="nav-text">Settings</span>
                       </a>
                     </li>
                   </ul>
@@ -291,6 +299,34 @@ class Main{
                     <span class="nav-text">Reports</span>
                   </a>
                 </li>
+				<!-- SMS               -->
+                 <li>
+                  <a>
+                    <span class="nav-caret">
+                      <i class="fa fa-caret-down"></i>
+                    </span>
+                    <span class="nav-icon">
+                      <i class="material-icons">&#xe429;
+                        <span ui-include="'../assets/images/i_1.svg'"></span>
+                      </i>
+                    </span>
+                    <span class="nav-text">SMS</span>
+                  </a>
+                  <ul class="nav-sub">
+                    
+                    <li>
+                      <a onClick="window.location.assign('SMS.php')">
+                        <span class="nav-text">Dashboard</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a onClick="window.location.assign('compose.sms.php')">
+                        <span class="nav-text">compose</span>
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+                <!-- SMS               -->
                 
             
               </ul>

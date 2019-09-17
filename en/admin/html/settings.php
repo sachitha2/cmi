@@ -1,15 +1,12 @@
 <?php
 require_once("../methods/Main.class.php");
 $main = new Main;
-if(isset($_GET['print'])){
-	echo($_GET['print']);
-}
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>CMS - Make a Sale</title>
+  <title>CMS - Settings</title>
   <meta name="description" content="cms" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimal-ui" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -35,20 +32,13 @@ if(isset($_GET['print'])){
   <!-- endbuild -->
   <link rel="stylesheet" href="../assets/styles/font.css" type="text/css" />
    <script src="scripts/cMain.js"></script> 
-   
-   
-   
-   <!--  PDF-->
-  <link rel="stylesheet" href="https://printjs-4de6.kxcdn.com/print.min.css" type="text/css" />
-  
-  <script src="https://printjs-4de6.kxcdn.com/print.min.js"></script>
 </head>
 <body>
 
   <div class="app" id="app">
 
 <!-- ############ LAYOUT START-->
-	
+
   <?php $main->menuBar() ?>
   <!-- / -->
   
@@ -56,15 +46,19 @@ if(isset($_GET['print'])){
   <div id="content" class="app-content box-shadow-z0" role="main">
     <?php $main->modal() ?> 
     <?php $main->topBar() ?>
-    <div ui-view class="app-body" id="view" style="overflow: hidden">
+    <div ui-view class="app-body" id="view">
 		<?php $main->modal() ?>
       <!-- ############ PAGE START-->
-    	<h1>Sales</h1>
+        <?php $main->head("Settings") ?>
     <div class="container h-100" id="cStage">
-  			<center>
-  				<button  type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/sellCustomer.php','cStage')" style="width: 40%;margin-bottom: 5px;">Credit</button>
-  				<button  type="button" class="btn btn-primary btn-lg" onClick="fastCustomer()" style="width: 40%;margin-bottom: 5px;">Cash</button>
-  			</center>
+    
+    		<center>
+				<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/masterData.php','cStage')"  style="width: 40%;margin-bottom: 5px;">Main Configurations</button>
+				
+				<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('flush.php','cStage')"  style="width: 40%;margin-bottom: 5px;">Clear Data</button>
+    		</center>
+  			
+     	
 	</div>
 
       <!-- ############ PAGE END-->

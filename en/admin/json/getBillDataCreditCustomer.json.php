@@ -3,14 +3,14 @@ require_once("../html/db.php");
 require_once("../methods/DB.class.php");
 if(isset($_POST['cash'])){
 	
-
+$cid = $_POST['cid'];
 $cash = $_POST['cash'];
 $installments = $_POST['installments'];
 $DB = new DB;
 $DB->conn = $conn;
 	
 $timezone  = +5.30; 
-$date =  gmdate("Y-m-j", time() + 3600*($timezone+date("I")));
+$date =  "0000-01-01";//gmdate("Y-m-j", time() + 3600*($timezone+date("I")));
 	
 	
 if(isset($_SESSION['credit']['bill'])){
@@ -29,15 +29,28 @@ if(isset($_SESSION['credit']['bill'])){
 //	echo("session available");
 	///bill id
 	$billid = $_SESSION['credit']['bill']['id'];
+	if($_POST['disc'] != 0){
+		//Apply discount
+		$arrDisc = $DB->select("purchaseditems","where dealid = $billid");
+		foreach($arrDisc as $dataDisc){
+			$newUprice = ($dataDisc['uprice'] / 100 ) * (100 - $_POST['disc']);
+			$conn->query("UPDATE purchaseditems SET uprice = '$newUprice' WHERE purchaseditems.id = {$dataDisc['id']};");
+		}
+	}
 	
 	
 	
+	
+	$arrGetDate = $DB->select("deals","where id = $billid");
+	$date = $arrGetDate[0]['date'];
+
+		
 	$total = $DB->select("purchaseditems","where dealid = $billid","SUM(amount * uprice)");
 //	echo("<br>bill id $billid<br>");
 	$billData = $DB->select("purchaseditems","where dealid = $billid");
 	
 	//update status of deal
-	$dealSql = "UPDATE deals SET status = '0' WHERE deals.id = $billid;";
+	$dealSql = "UPDATE deals SET status = '0',cid = $cid,ni = $installments WHERE deals.id = $billid;";
 	$conn->query($dealSql);
 	
 	//update purchaseditem table cc
@@ -47,7 +60,7 @@ if(isset($_SESSION['credit']['bill'])){
 	
 	//get cid
 	
-		$cid = $DB->select("deals","where id = $billid");
+//		$cid = $DB->select("deals","where id = $billid");
 		
 	//get cid
 	
@@ -56,14 +69,14 @@ if(isset($_SESSION['credit']['bill'])){
 	//make installments
 	//make first installment
 	
-		$sqlFirstI = "INSERT INTO installment (id, dealid, installmentid, payment, time, date, rdate, status, rpayment, cid) VALUES (NULL, '$billid', '1', '$cash', curtime(), curdate(), curdate(), '1', '$cash', '{$cid[0]['cid']}');";
+		$sqlFirstI = "INSERT INTO installment (id, dealid, installmentid, payment, time, date, rdate, status, rpayment, cid) VALUES (NULL, '$billid', '1', '$cash', curtime(), '$date', '$date', '1', '$cash', '{$cid}');";
 		$conn->query($sqlFirstI);
 			
 	
 			$remain = $total[0]['SUM(amount * uprice)'] - $cash;
 	
 		//update deal data
-				$sqlDealData = "UPDATE deals SET tprice = '{$total[0]['SUM(amount * uprice)']}', rprice = '{$remain}' WHERE deals.id = $billid;";
+				$sqlDealData = "UPDATE deals SET tprice = '{$total[0]['SUM(amount * uprice)']}', rprice = '{$remain}' ,discount = {$_POST['disc']} WHERE deals.id = $billid;";
 				$conn->query($sqlDealData);
 		//update deal data
 		
@@ -72,14 +85,20 @@ if(isset($_SESSION['credit']['bill'])){
 		
 		
 		$perOneI = round(($remain / $installments),2);
+		
+		//get installment days limit
+			$arrDayLimit = $DB->select("masterdata"," where id = 1","installmentDaysLimit");
+//			print_r($arrDayLimit);
 	
 		for($x = 0;$x < $installments;$x++){
 			
-			$days = (($x+1) * 7);
+			
+			
+			$days = (($x+1) * $arrDayLimit[0]['installmentDaysLimit']);
 			$iDate = 	date('Y-m-d', strtotime($date. ' + '.$days.'  days'));
 			
 			
-			$sqlI = "INSERT INTO installment (id, dealid, installmentid, payment, time, date, rdate, status, rpayment, cid) VALUES (NULL, '$billid', '".($x + 2)."', '$perOneI', curtime(), '$iDate', '0000-00-00' , '0', '0', '{$cid[0]['cid']}');";
+			$sqlI = "INSERT INTO installment (id, dealid, installmentid, payment, time, date, rdate, status, rpayment, cid) VALUES (NULL, '$billid', '".($x + 2)."', '$perOneI', curtime(), '$iDate', '0000-00-00' , '0', '0', '{$cid}');";
 			$conn->query($sqlI);
 //			echo($sqlI);
 		}
@@ -117,13 +136,16 @@ if(isset($_SESSION['credit']['bill'])){
 	$arr['data']['cid'] = "0";
 	$arr['data']['tp'] = "0";
 	$arr['data']['i'] = "0";
-		$arrCus = $DB->select("customer","where id = {$cid[0]['cid']}");
+		$arrCus = $DB->select("customer","where id = {$cid}");
 //		print_r($arrCus);
 		$arr['data']['customerName'] = $arrCus[0]['name'];
-		$arr['data']['cid'] = $cid[0]['cid'];
+		$arr['data']['cid'] = $cid;
 		$arr['data']['tp'] = $arrCus[0]['tp'];
 		$arr['data']['i'] = $perOneI;
 		$arr['data']['invoiceN'] = $billid;
+		$arrPOS = $DB->select("masterdata","where id = 1");
+		$arr['POS'] =  $arrPOS[0]['posPrinter'];
+		$arr['data']['disc'] = $_POST['disc'];
 	
 	$json = json_encode($arr);
 	$_SESSION['credit']['bill']['s'] = 0;

@@ -48,7 +48,6 @@ function loadSubAreas(areaId){
 	
 	console.log('load sub areas'+areaId);
 	document.getElementById("subAreaDiv").style = "display:block";
-	document.getElementById("subAreas").innerHTML = "hellooo";
 		if(areaId != 0){
 			console.log("Select sub areas");
 					///ajax part
@@ -58,7 +57,7 @@ function loadSubAreas(areaId){
 					var xmlhttp = new XMLHttpRequest();
         			xmlhttp.onreadystatechange = function() {
         			if (this.readyState === 4 && this.status == 200) {
-							document.getElementById("subAreas").innerHTML  =  this.responseText;
+							document.getElementById("subAreaDiv").innerHTML  =  this.responseText;
 							hideModal();
 //							emt("area");
 							
@@ -87,9 +86,12 @@ function enterItemNameInFastCustomer(e,id){
 }
 function enterItemNameInCreditCustomer(e,id){
 	if (e.which == 13) {
-		conte = document.getElementById("item"+id).innerText;
-		document.getElementById("itemName").value = conte;
-		enterNext(event,"qty");
+		if(id != ""){
+			conte = document.getElementById("item"+id).innerText;
+			document.getElementById("itemName").value = conte;
+			enterNext(event,"qty");
+		}
+		
 	}
 }
 function enterItemNameInAddOrder(e,id){
@@ -120,8 +122,84 @@ function addArea(area){
 			document.getElementById("msg").innerHTML = "Enter valid area";
 		}
 	}
-
-
+function addVehicle(){
+		vNumber = document.getElementById("vNumber").value;
+		user = document.getElementById("user").value;
+		if(user == 0){
+			msg("msg","Select a User");
+		}
+		else if(vNumber.length != 0){
+					///ajax part
+					loadingModal();
+					showModal();
+					var xmlhttp = new XMLHttpRequest();
+        			xmlhttp.onreadystatechange = function() {
+        			if (this.readyState === 4 && this.status == 200) {
+							document.getElementById("msg").innerHTML  =  this.responseText;
+							emt("vNumber");
+							hideModal();
+           				}
+        			};
+        			xmlhttp.open("GET", "../workers/addVehicle.worker.php?vNumber="+vNumber+"&user="+user, true);//generating  get method link
+        			xmlhttp.send();
+					////ajax part
+		}else{
+			document.getElementById("msg").innerHTML = "Enter a valid Vehicle Number";
+		}
+	}
+function discountToTotal(maxD,disc,total){
+	if(disc <= maxD){
+		document.getElementById("totalAD").innerHTML = (total /( 100)) * (100 - disc);
+		
+	}else{
+		
+	}
+}
+function updateSystmeMC(){
+	var bName = document.getElementById("bName").value;
+	var bDes = document.getElementById("bDesc").value;
+	var bIR = document.getElementById("bIR").value;
+	var bPos = document.getElementById("bPos").value;
+	var bIcon = document.getElementById("bIcon").value;
+	var bSMS = document.getElementById("bSMS").value;
+	
+	if(bName == ""){
+		msg("msg","Enter a Bussiness name");
+		
+	}else if(bIR == ""){
+		msg("msg","Enter a Bussiness Installment range days difference");
+		
+	}else {
+			var dataS = {
+						"bName":bName,
+						"bDes":bDes,
+						"bIR":bIR,
+						"bPos":bPos,
+						"bIcon":bIcon,
+						"bSMS":bSMS
+					};
+		
+			
+			
+					///ajax part
+					console.log(dataS);
+					loadingModal();
+					showModal();
+					var xmlhttp = new XMLHttpRequest();
+        			xmlhttp.onreadystatechange = function() {
+        			if (this.readyState === 4 && this.status == 200) {
+							msg("msg",this.responseText) ;
+							
+							hideModal();
+							ajaxCommonGetFromNet('subPages/masterData.php','cStage');
+           				}
+        			};
+        			xmlhttp.open("GET", "../workers/updateMasterData.worker.php?data="+JSON.stringify(dataS), true);//generating  get method link
+        			xmlhttp.send();
+					////ajax part
+			
+	}
+}
 function addSubArea(){
 		
 		areaId = document.getElementById("area").value;
@@ -138,6 +216,8 @@ function addSubArea(){
         			xmlhttp.onreadystatechange = function() {
         			if (this.readyState === 4 && this.status == 200) {
 							document.getElementById("msg").innerHTML  =  this.responseText;
+							
+							emt("subArea");
 							hideModal();
            				}
         			};
@@ -314,12 +394,32 @@ function changeDueDate(id,IID){
         			xmlhttp.onreadystatechange = function() {
         			if (this.readyState === 4 && this.status == 200) {
 							hideModal();
-							alert(this.responseText);
+//							alert(this.responseText);
            				}
         			};
         			xmlhttp.open("GET", "../workers/changeDueDate.worker.php?date="+date+"&iid="+IID, true);//generating  get method link
         			xmlhttp.send();
 					//ajax part
+}
+
+function flush(pass){
+	if(pass.length != 0){
+			showModal();
+			document.getElementById("msg").innerHTML = "LOADING......";
+			var xmlhttp = new XMLHttpRequest();
+        	xmlhttp.onreadystatechange = function() {
+        	if (this.readyState === 4 && this.status == 200) {
+				hideModal();
+				document.getElementById("msg").innerHTML = this.responseText;
+				emt("pass");
+           		}
+        	};
+        	xmlhttp.open("GET", "../workers/flusher.php?pass="+pass, true);//generating  get method link
+        	xmlhttp.send();
+ }else{
+	 document.getElementById("msg").innerHTML = "enter password";
+ }
+
 }
 function addPackItems(pId){
 	var itemId = gValue("itemId");
@@ -387,29 +487,31 @@ function addCustomer(){
 
 	data = {'name':name , 'address':address, 'nic':nic, 'tp':tp, 'area':area, 'date':date, 'agent':agent ,'dob':dob,'route':route,'image':image,'areaAgent':areaAgent,'sName':sName,'desi':desi,'collectionDate':collectionDate,'subAreaId':subAreaId};
 		////Valida ting data 
-		msg = document.getElementById("msg");
+		
 		if(desi == 0){
-			msg.innerHTML  = "Select Designation";
+			msg("msg","Select Designation");
 		}
 		else if(name.length == "" ){
-			msg.innerHTML = "Insert name"
+			msg("msg", "Insert name");
 		}
 		
 		else if(address.length == ""){
-			msg.innerHTML = " Insert Address"
+			msg("msg"," Insert Address");
 		}
 		else if(tp.length != 10){
-			msg.innerHTML = " Insert Telephone number"
+			msg("msg", " Insert Telephone number");
 		}else if(collectionDate == ""){
-			msg.innerHTML = "Enter a collection Date"
+			msg("msg","Enter a collection Date");
+		}else if(area == "0"){
+			msg("msg","Select a Area");
 		}
 		else{
 			showModal();
-			msg.innerHTML = "";
+			msg("msg","")
 			var ajax = _ajax();
 			ajax.onreadystatechange = function() {
 				if (this.readyState == 4 && this.status == 200) {
-//	    		alert(this.responseText);
+	    			
 //				emt("name");
 //				emt("address");
 ////				emt("nic");
@@ -417,7 +519,11 @@ function addCustomer(){
 //				emt("route");
 					hideModal();
 //					ajaxCommonGetFromNet('createCustomer.php','cStage');
-					window.location.assign('createCustomer.php');
+					dataResponse = JSON.parse(this.responseText);
+//					msg.innerHTML = this.responseText;
+//					msg.innerHTML += dataResponse[0].id;
+					creditCustomer(dataResponse[0].id);
+//					window.location.assign('createCustomer.php');
 //				msg.innerHTML = " Account Created successfully"
 				}
 	  		}
@@ -607,12 +713,12 @@ function additemsToCreditCustomerBill(billId){
 	data = {'itemId':itemId , 'qty':qty, 'date':date,'billNumber':billId };
 		////Valida ting data 
 		
-		if(itemId.length == "" ){
-			alert("enter item id");
+		if(itemId.length == 0 || itemId == "" ){
+			
 		}
 		
-		else if(qty.length == ""){
-			alert("enter qty");
+		else if(qty.length ==  0 || qty == ""){
+			
 		}
 		else{
 			//loading logo
@@ -1243,6 +1349,27 @@ function delPack(id){
 	}
 		}
 
+
+function delVehicle(id){	
+	var r = confirm("Are you sure want to delete this!");
+	if(r == true){
+		showModal();
+		var ajax = _ajax();
+		ajax.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+//	   	 		alert(this.responseText);
+				ajaxCommonGetFromNet('subPages/viewVehicle.php','cStage');
+				hideModal();
+			}
+	  }
+
+		ajax.open("POST", "../workers/vehicle.del.php", true);
+		ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		ajax.send("id="+id);
+	}
+		}
+
+
 function delItem(id){	
 	var r = confirm("Are you sure want to delete this!");
 	if(r == true){
@@ -1344,6 +1471,7 @@ function delFastBillData(id){
 	//alert(id);//fastBillData.del.php
 	var r = confirm("Are you sure want to delete this!");
 	if(r == true){
+		loadingModal();
 		showModal();
 		var ajax = _ajax();
 		ajax.onreadystatechange = function() {
@@ -1409,16 +1537,35 @@ function enterAddExpenses(e,costTypeid){
 	}
 }
 
+function enterUpdateSystmeMC(e){
+	if (e.which == 13) {
+		updateSystmeMC();
+	}
+}
+function enterFlush(e,password){
+	if (e.which == 13) {
+		flush(password);
+	}
+}
 function enterAddCustomer(e){
 	if (e.which == 13) {
 		addCustomer();
 	}
 }
-
+function enterAddSubArea(e){
+	if (e.which == 13) {
+		 addSubArea();
+	}
+}
 
 function enteraddPendingPrices(e){
 	if (e.which == 13) {
 		addPendingPrices();
+	}
+}
+function enterAddVehicle(e){
+	if(e.which == 13){
+		addVehicle();
 	}
 }
 
@@ -1449,7 +1596,8 @@ function enterAddAgentInstallmentCollect(e,amount,inputId,ID,nRow,IID,dealId,FN 
 									console.log("Bill needs to be printed");
 									sendInstallmentBill(this.responseText);
 								}else{
-									console.log("No bill needed");
+									console.log("Normal needed");
+									
 								}
 							}
 					  }
@@ -1505,9 +1653,9 @@ function enterfinishBill(e,cash) {
   }
 }
 
-function enterfinishBillCreditCustomer(e,cash,installment){
+function enterfinishBillCreditCustomer(e,cash,installment,cid,disc){
 	if (e.which == 13) {
-  finishBillCreditCustomer(cash,installment);
+  finishBillCreditCustomer(cash,installment,cid,disc);
   }
 }
 
@@ -1564,9 +1712,13 @@ function enterAdditemsToOrderBill(e,billId) {
 	  }
 }
 function enterAdditemsToCreditCustomerBill(e,billId){
-	if (e.which == 13) { 
-	  document.getElementById("qty").disabled = true;
-	  additemsToCreditCustomerBill(billId);
+	if (e.which == 13) {
+		var qty = document.getElementById("qty").value;
+		if(qty != ""){
+			document.getElementById("qty").disabled = true;
+	  		additemsToCreditCustomerBill(billId);
+		}
+	  
 	  }
 }
 
@@ -1864,7 +2016,13 @@ function fastCustomerItemadd(){
 		
 		
 	}
-
+function loadEditFormsVehicle(id){
+		if(id != 0){
+			ajaxCommonGetFromNet("subPages/editVehicle.php?id="+id,"cStage");
+		}
+		
+		
+	}
 
 function loadEditFormsAgent(value){
 		if(value != 0){
@@ -2140,7 +2298,6 @@ function editSaveCostType(costType,id){
 		}
 }
 function editSaveCustomer(id){
-	alert("edit save customer");
 	var name = document.getElementById('name').value;
 	var sName = document.getElementById('sName').value;
 	var desi = document.getElementById('desi').value;
@@ -2156,8 +2313,11 @@ function editSaveCustomer(id){
 	var date = year+"/"+months+"/"+day;
 	var agent = document.getElementById('agent').value;
 	var s = document.getElementById('status').value;
+	var subArea = document.getElementById('subAreaData').value;
+	var areaAgent = document.getElementById('areaAgent').value;
+	var collectionDate = document.getElementById('collectionDate').value;
 
-	data = {'id':id, 'name':name , 'sName':sName, 'desi':desi, 'address':address, 'nic':nic, 'tp':tp, 'area':area, 'date':date, 'agent':agent,'s':s};
+	data = {'id':id, 'name':name , 'sName':sName, 'desi':desi, 'address':address, 'nic':nic, 'tp':tp, 'area':area, 'date':date, 'agent':agent,'s':s,'subArea':subArea,'areaAgent':areaAgent,'collectionDate':collectionDate};
 		////Validating data 
 		msg = document.getElementById("msg");
 		if(desi == "0"){
@@ -2175,18 +2335,20 @@ function editSaveCustomer(id){
 		else{
 			
 			msg.innerHTML = "";
+			showModal();
 			var ajax = _ajax();
 			ajax.onreadystatechange = function() {
 				if (this.readyState == 4 && this.status == 200) {
-				alert(this.responseText);
-				emt("id");
-				emt("desi");
-				emt("name");
-				emt("sNAme");
-				emt("address");
-				emt("nic");
-				emt("tp");
-				msg.innerHTML = "Account Created successfully";
+//					msg.innerHTML = this.responseText;
+//				emt("id");
+//				emt("desi");
+//				emt("name");
+//				emt("sNAme");
+//				emt("address");
+//				emt("nic");
+//				emt("tp");
+				hideModal();
+				msg.innerHTML = "Saved successfully";
 				}
 	  		}
 
@@ -2288,9 +2450,16 @@ function ordersCustomerFinish(){
 }
 function fastCustomerBalance(e){
 	var total = document.getElementById("total").value;
+	var disc = document.getElementById("disc").value;
 	value = document.getElementById("cash").value;
-	document.getElementById("balance").innerHTML = value - total ;
-	console.log(value);
+	if(disc != 0 || disc.length != 0){
+		document.getElementById("balance").innerHTML = value - (total/100 * (100 - disc)) ;
+	}else{
+		
+		document.getElementById("balance").innerHTML = value - total ;
+		console.log(value);
+	}
+	
 }
 function finishBill(cash){
 //			alert("finish bill");
@@ -2299,8 +2468,8 @@ function finishBill(cash){
 		var ajax = _ajax();
 			ajax.onreadystatechange = function() {
 				if (this.readyState == 4 && this.status == 200) {
-	    			alert(this.responseText);
-					sendBill(this.responseText);
+//	    			alert(this.responseText);
+					sendBill(this.responseText); 
 				}
 	  		}
 
@@ -2314,21 +2483,52 @@ function finishBill(cash){
 }
 
 
-function finishBillCreditCustomer(cash,installments){
+function finishBillCreditCustomer(cash,installments,cid,disc = 0){
 //			alert("finish bill");
 	////get bill data json
+	
+	
+	
+	
+	loadingModal();
+	showModal();
 	if(cash != ""){
+		if(disc == ""){
+			disc = 0;
+		}
 		var ajax = _ajax();
 			ajax.onreadystatechange = function() {
 				if (this.readyState == 4 && this.status == 200) {
-	    			alert(this.responseText);
-					sendCreditBill(this.responseText);
+//	    			alert(this.responseText);
+					var POS = JSON.parse(this.responseText);
+					console.log(POS);
+					if(POS.POS == 1){
+						sendCreditBill(this.responseText);
+						hideModal();
+					}else{
+						var r = confirm("Do you want to print a Bill");
+						if(r == true){
+							window.open('subPages/print.php', '_blank');
+							
+							window.location.assign('viewCustomer.php?cid='+cid);
+							hideModal();
+							
+							//print function here
+							//TODO 
+							//check print function from here
+						}else{
+							window.location.assign('sell.php');
+						}
+//						window.location.assign('viewCustomer.php?cid='+cid);
+					}
+					
+					
 				}
 	  		}
 
 			ajax.open("POST", "../json/getBillDataCreditCustomer.json.php", true);
 			ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-			ajax.send("cash="+cash+"&installments="+installments);
+			ajax.send("cash="+cash+"&installments="+installments+"&cid="+cid+"&disc="+disc);
 	}else{
 		alert("Enter cash");
 	}
@@ -2349,6 +2549,27 @@ function sendCreditBill(data){
 			ajax.open("GET", "http://localhost/CMIPrinter/example/interface/windows-usb.php?data="+data, true);
 			ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 			ajax.send();
+}
+
+
+//set date in credit customer bill
+function setDateInCreditCustomer(billId){
+			var date = document.getElementById("date").value;
+			console.log(date);
+			showModal();
+			var ajax = _ajax();
+			ajax.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+					document.getElementById('date').readOnly = true;
+					hideModal();
+//					alert(this.responseText);
+				}
+	  		}
+
+			ajax.open("GET", "../workers/setDateInCreditCustomer.worker.php?id="+billId+"&date="+date, true);
+			ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+			ajax.send();
+	
 }
 
 ///update stock prices
@@ -2407,13 +2628,13 @@ function sendOrderBill(data){
 			ajax.send();
 }
 function sendInstallmentBill(data){
-			alert("installments bill sending");
+//			alert("installments bill sending");
 			var ajax = _ajax();
 			ajax.onreadystatechange = function() {
 				if (this.readyState == 4 && this.status == 200) {
 //	    			msg("out",this.responseText);
 				//setTimeout(fastCustomer,20000);	
-					alert("Done");
+//					alert("Done");
 				}
 	  		}
 
@@ -2421,7 +2642,7 @@ function sendInstallmentBill(data){
 			ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 			ajax.send();
 }
-function creditsCustomerFinish(){
+function creditsCustomerFinish(cid){
 			showModal();
 			stage = document.getElementById("mainModal");
 			stage.style.opacity = 0.9;
@@ -2439,7 +2660,7 @@ function creditsCustomerFinish(){
 				}
 	  		}
 
-			ajax.open("POST", "subPages/creditCustomerFinishBill.php", true);
+			ajax.open("POST", "subPages/creditCustomerFinishBill.php?cid="+cid, true);
 			ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 			ajax.send();
 }
