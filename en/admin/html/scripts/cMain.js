@@ -161,7 +161,7 @@ function updateSystmeMC(){
 	var bIR = document.getElementById("bIR").value;
 	var bPos = document.getElementById("bPos").value;
 	var bIcon = document.getElementById("bIcon").value;
-	
+	var bSMS = document.getElementById("bSMS").value;
 	
 	if(bName == ""){
 		msg("msg","Enter a Bussiness name");
@@ -175,18 +175,20 @@ function updateSystmeMC(){
 						"bDes":bDes,
 						"bIR":bIR,
 						"bPos":bPos,
-						"bIcon":bIcon
+						"bIcon":bIcon,
+						"bSMS":bSMS
 					};
 		
 			
 			
 					///ajax part
+					console.log(dataS);
 					loadingModal();
 					showModal();
 					var xmlhttp = new XMLHttpRequest();
         			xmlhttp.onreadystatechange = function() {
         			if (this.readyState === 4 && this.status == 200) {
-							document.getElementById("msg").innerHTML  =  this.responseText;
+							msg("msg",this.responseText) ;
 							
 							hideModal();
 							ajaxCommonGetFromNet('subPages/masterData.php','cStage');
@@ -1532,6 +1534,12 @@ function delOrderBillData(id){
 function enterAddExpenses(e,costTypeid){
 	if (e.which == 13) {
 		addExpenses(costTypeid);
+	}
+}
+
+function enterUpdateSystmeMC(e){
+	if (e.which == 13) {
+		updateSystmeMC();
 	}
 }
 function enterFlush(e,password){

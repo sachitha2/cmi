@@ -24,7 +24,7 @@ if($DB->nRow("vehicle","WHERE driver_id = $id") == 0){
 	
 
 	$data = $DB->select("vehicle","WHERE driver_id = $id");
-	print_r($data);
+//	print_r($data);
 	?>
 		<h2>Edit a Vehicle</h2>
 		

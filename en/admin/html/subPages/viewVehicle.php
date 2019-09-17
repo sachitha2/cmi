@@ -44,7 +44,7 @@ $main->b("vehicle.php");
 					<td><?php echo($data['number'])?></td>
 					<td><?php $DB->getUserById($data['driver_id'])?></td>
 					<td><?php $DB->status($data['status'])?></td>
-					<td><button type="button" class="btn btn-md btn-primary" onClick="loadEditFormsArea(<?php echo($data['id']) ?>,81)">Edit</button></td>
+					<td><button type="button" class="btn btn-md btn-primary" onClick="loadEditFormsVehicle(<?php echo($data['driver_id']) ?>)">Edit</button></td>
 					<td><button onClick="delVehicle(<?php echo($data['id']) ?>)" type="button" class="btn btn-md btn-danger ">X</button></td>
 					
 				</tr>

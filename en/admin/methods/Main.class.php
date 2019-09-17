@@ -316,12 +316,12 @@ class Main{
                     
                     <li>
                       <a onClick="window.location.assign('SMS.php')">
-                        <span class="nav-text">SMS Settings</span>
+                        <span class="nav-text">Dashboard</span>
                       </a>
                     </li>
                     <li>
-                      <a onClick="window.location.assign('SMS.php')">
-                        <span class="nav-text">Sent SMS</span>
+                      <a onClick="window.location.assign('compose.sms.php')">
+                        <span class="nav-text">compose</span>
                       </a>
                     </li>
                   </ul>
