@@ -2642,4 +2642,3 @@ function viewReport(i){
 		document.getElementById("msg").innerHTML = "Enter valid data";
 	}
 }
-
