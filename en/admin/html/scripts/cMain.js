@@ -2643,25 +2643,3 @@ function viewReport(i){
 	}
 }
 
-function detailReportToday(){
-	// var logic = "";
-	// if(i == 5){
-	// 	var from = document.getElementById("from").value;
-	// 	var to = document.getElementById("to").value;
-	// 	logic = "(DATE(date)<='" + to + "' AND DATE(date)>='" + from + "')";
-	// }
-
-	///ajax part
-	loadingModal();
-	showModal();
-	var xmlhttp = new XMLHttpRequest();
-	xmlhttp.onreadystatechange = function() {
-	if (this.readyState === 4 && this.status == 200) {
-			document.getElementById("content").innerHTML  =  this.responseText;
-			hideModal();
-			}
-	};
-	xmlhttp.open("GET", "subPages/detailReportToday.php", true);//generating  get method link
-	xmlhttp.send();
-	////ajax part
-}
