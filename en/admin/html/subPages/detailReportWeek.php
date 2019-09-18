@@ -11,9 +11,6 @@ include("../../workers/readSesson.worker.php");
 
 ?>
 
-<!-- $logic = "DATE(date) = DATE(CURRENT_DATE())" -->
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -54,7 +51,7 @@ include("../../workers/readSesson.worker.php");
 
   <?php 
     $main->menuBar();
-    $main->head("Detail Reports - Today");
+    $main->head("Detail Reports - This week");
     echo ("<br>");
     $main->b("detailReport.php");
   ?>
@@ -79,43 +76,37 @@ include("../../workers/readSesson.worker.php");
           
               <div class="card mb-4 shadow-sm">
 
-                    <?php if($DB->nRow("cost","WHERE DATE(date) = DATE(CURRENT_DATE());") != 0){ ?>
+                    <?php if($DB->nRow("cost","WHERE WEEK(date) = WEEK(CURRENT_DATE()) AND MONTH(date) = MONTH(CURRENT_DATE()) AND YEAR(date) = YEAR(CURRENT_DATE());") != 0){ ?>
                     
                     <table class="table table-hover table-bordered table-striped table-dark">
                     <thead class="thead-dark">
                         <tr>
-                        <th scope="col">ID</th>
-                        <th scope="col">Purpose</th>
-                        <th scope="col">Cost Type</th>
-                        <th scope="col">Expense</th>
+                        <td align="center" scope="col"><b>Date</b></td>
+                        <td align="center" scope="col"><b>Exepenses</b></td>
                         </tr>
                     </thead>
                     <tbody>
                         
                             <?php
                                 $totExpenses = 0;
-                                $arr = $DB->select("cost","WHERE DATE(date) = DATE(CURRENT_DATE());");
-                                foreach($arr as $data){
+
+                                for($i=1; $i<=7; $i++){
+                                    $arr = $DB->select("cost"," WHERE DAYOFWEEK(date) = {$i} AND WEEK(date) = WEEK(CURRENT_DATE()) AND MONTH(date) = MONTH(CURRENT_DATE()) AND YEAR(date) = YEAR(CURRENT_DATE());", "SUM(cost)");
+                                    foreach($arr as $data){
                             ?>
-                                    <tr>
-                                        <td align="left"><?php echo($data['id']) ?></td>
-                                        <td align="left"><?php echo($data['purpose']) ?></td>
-                                        <td align="left"> 
-                                            <?php 
-                                                $arr2 = $DB->select("costtype","WHERE id = ".$data['costTypeId'].";");
-                                                echo($arr2[0]['costtype']);
-                                            ?>
-                                        </td>
-                                        <td align="right"><?php echo($data['cost']) ?></td>
-                                    </tr>
+                                        <tr>
+                                            <td align="left"><?php echo("Day 0".$i) ?></td>
+                                            <td align="right"><?php echo($data['SUM(cost)']) ?></td>
+                                        </tr>
                                     
                             <?php
-                                    $totExpenses += $data['cost'];
+                                        $totExpenses += $data['SUM(cost)'];
+                                    }
                                 }
                             ?>
                         
                         <tr>
-                        <td scope="col" align="left" colspan='3'><b>Total</b></td>
+                        <td scope="col" align="left"><b>Total</b></td>
                         <td scope="col" align="right"><b><?php echo($totExpenses); ?></b></td>
                         </tr>
                         
