@@ -126,7 +126,7 @@ $DB->conn = $conn;?>
 						<?php foreach($arr as $data){ ?>
 						<?php
 							$arr2 = $DB->select("stock", "WHERE id = ".$data['stockid'].";");
-							$totProfit += $data['amount'] * ($arr2[0]['sprice']-$arr2[0]['bprice']);
+							$totProfit += $data['amount'] * ($data['uprice']-$arr2[0]['bprice']);
 						?>
 						<?php } ?>
 						<th scope="col"><?php echo($totProfit); ?></th>
