@@ -61,7 +61,7 @@ $main = new Main;
         <center> 
             <button type="button" id="1" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/detailReportToday.php', 'content');"  style="width: 40%;margin-bottom: 5px;">Today</button>
             <button type="button" id="2" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/detailReportWeek.php', 'content');"  style="width: 40%;margin-bottom: 5px;">This Week</button>
-            <button type="button" id="3" class="btn btn-primary btn-lg" onClick="window.location.assign('viewReport.php?btn=3')"  style="width: 40%;margin-bottom: 5px;">This Month</button>
+            <button type="button" id="3" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/detailReportMonth.php', 'content');"  style="width: 40%;margin-bottom: 5px;">This Month</button>
             <button type="button" id="4" class="btn btn-primary btn-lg" onClick="window.location.assign('viewReport.php?btn=4')"  style="width: 40%;margin-bottom: 5px;">This Year</button>
 		    </center>
         <br><hr><br>
