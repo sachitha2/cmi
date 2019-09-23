@@ -338,7 +338,7 @@ include("../../workers/readSesson.worker.php");
 
           <br>
           <center> 
-            <button type="button" class="btn btn-primary btn-lg" onClick="window.location.assign('../PDF/viewUsersPDF.php')"  style="width: 40%;margin-bottom: 5px;">Get PDF Report</button>
+            <button type="button" class="btn btn-primary btn-lg" onClick="window.location.assign('PDF/detailReportWeekPDF.php')"  style="width: 40%;margin-bottom: 5px;">Get PDF Report</button>
           </center>
 
           </div>
