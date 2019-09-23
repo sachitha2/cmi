@@ -33,9 +33,11 @@ $main = new Main;
   <link rel="stylesheet" href="../assets/styles/font.css" type="text/css" />
   <script src="scripts/cMain.js"></script> 
   <script>
-    var from = document.getElementById("from").value;
-    var to = document.getElementById("to").value;
-    window.location.assign('viewReport.php?btn=5&from='+from+'&to='+to);
+    function periodRedirect(){
+      var from = document.getElementById("from").value;
+      var to = document.getElementById("to").value;
+      window.location.assign('subPages/detailReportPeriod.php?from='+from+'&to='+to);
+    }
   </script>
 </head>
 
@@ -96,7 +98,7 @@ $main = new Main;
 			<div class="col-md-2"></div>
 		</div>
 		<center>
-		<button type="button" class="btn btn-primary btn-lg" id="5" onclick="viewReport(5);"  style="width: 40%;margin-bottom: 5px; align: center;">Specific Time Period</button>
+		<button type="button" class="btn btn-primary btn-lg" id="5" onclick="periodRedirect();"  style="width: 40%;margin-bottom: 5px; align: center;">Specific Time Period</button>
 		</center>
 		<br>
 	</div>
@@ -143,5 +145,7 @@ $main = new Main;
 <!-- endbuild -->
   
   <script src="../libs/main.js"></script>
+  <script
+
 </body>
 </html>
