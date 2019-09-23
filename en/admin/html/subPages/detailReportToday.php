@@ -86,7 +86,7 @@ include("../../workers/readSesson.worker.php");
                         <tr>
                         <th scope="col">ID</th>
                         <th scope="col">Purpose</th>
-                        <th scope="col">Cost Type</th>
+                        <th scope="col">Expense Type</th>
                         <th scope="col">Expense</th>
                         </tr>
                     </thead>

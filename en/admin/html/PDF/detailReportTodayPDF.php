@@ -19,6 +19,52 @@ $pdf->AddPage("L",'A4');
 $pdf->SetFont('Times','B',18);
 $pdf->Cell("",10,"Detail Report - Today (".$Date.')','','',"C");
 
+
+//Expenses-----------------------------------
+$pdf->ln(15);
+$pdf->SetFont('Times','B',16);
+$pdf->Cell("",10,"Expenses",'','',"L");
+$pdf->ln(10);
+
+if($DB->nRow("cost","WHERE DATE(date) = DATE(CURRENT_DATE());") != 0){
+                
+    $pdf->SetFont('Times','B',12);
+    $pdf->Cell(30,10,'ID','1','',"L");
+    $pdf->Cell(145,10,'Purpose','1','',"L");
+    $pdf->Cell(50,10,'Expense Type','1','',"L");
+    $pdf->Cell(50,10,'Expense','1','',"L");
+
+    $pdf->SetFont('Times','',12);
+    $pdf->ln(4);
+
+        $totExpenses = 0;
+        $arr = $DB->select("cost","WHERE DATE(date) = DATE(CURRENT_DATE());");
+        foreach($arr as $data){
+            $pdf->ln(6);
+            $pdf->Cell(30,6,$data['id'],'1','',"L");
+            $pdf->Cell(145,6,$data['purpose'],'1','',"L");
+
+            $arr2 = $DB->select("costtype","WHERE id = ".$data['costTypeId'].";");
+            $pdf->Cell(50,6,$arr2[0]['costtype'],'1','',"L");
+            $pdf->Cell(50,6,$data['cost'],'1','',"R");
+                                
+            $totExpenses += $data['cost'];
+        }
+
+        $pdf->ln(6);
+        $pdf->SetFont('Times','B',12);
+        $pdf->Cell(225,6,"Total",'1','',"L");
+        $pdf->Cell(50,6,$totExpenses,'1','',"R");
+        $pdf->ln(6);
+        
+}else{
+    $pdf->SetFont('Times','',12);
+    $pdf->Cell("",10,"No Data Found",'','',"L");
+    $pdf->ln(6);
+}
+
+//---------------------------------------------
+
 //Income-----------------------------------
     $pdf->ln(15);
     $pdf->SetFont('Times','B',16);
@@ -57,6 +103,7 @@ $pdf->Cell("",10,"Detail Report - Today (".$Date.')','','',"C");
             }
 
             $pdf->ln(6);
+            $pdf->SetFont('Times','B',12);
             $pdf->Cell(220,6,"Total",'1','',"L");
             $pdf->Cell(55,6,$totIncome,'1','',"R");
             $pdf->ln(6);
