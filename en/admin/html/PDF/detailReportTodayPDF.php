@@ -68,7 +68,7 @@ if($DB->nRow("cost","WHERE DATE(date) = DATE(CURRENT_DATE());") != 0){
 //Income-----------------------------------
     $pdf->ln(15);
     $pdf->SetFont('Times','B',16);
-    $pdf->Cell("",10,"Cost",'','',"L");
+    $pdf->Cell("",10,"Income",'','',"L");
     $pdf->ln(10);
 
     if($DB->nRow("purchaseditems", "WHERE DATE(date) = DATE(CURRENT_DATE());") != 0){
@@ -113,6 +113,116 @@ if($DB->nRow("cost","WHERE DATE(date) = DATE(CURRENT_DATE());") != 0){
         $pdf->Cell("",10,"No Data Found",'','',"L");
         $pdf->ln(6);
     }
+
+//---------------------------------------------
+
+//Cost-----------------------------------
+$pdf->ln(15);
+$pdf->SetFont('Times','B',16);
+$pdf->Cell("",10,"Cost",'','',"L");
+$pdf->ln(10);
+
+if($DB->nRow("purchaseditems", "WHERE DATE(date) = DATE(CURRENT_DATE());") != 0){
+                
+    $pdf->SetFont('Times','B',12);
+    $pdf->Cell(15,10,'ID','1','',"L");
+    $pdf->Cell(40,10,'Deal ID','1','',"L");
+    $pdf->Cell(20,10,'Item ID','1','',"L");
+    $pdf->Cell(75,10,'Item','1','',"L");
+    $pdf->Cell(35,10,'Amount','1','',"L");
+    $pdf->Cell(35,10,'Buying Price','1','',"L");
+    $pdf->Cell(55,10,'Cost','1','',"L");
+
+    $pdf->SetFont('Times','',12);
+    $pdf->ln(4);
+
+        $totCost = 0;
+        $arr = $DB->select("purchaseditems", "WHERE DATE(date) = DATE(CURRENT_DATE());");
+        foreach($arr as $data){
+            $pdf->ln(6);
+            $pdf->Cell(15,6,$data['id'],'1','',"L");
+            $pdf->Cell(40,6,$data['dealid'],'1','',"L");
+            $pdf->Cell(20,6,$data['itemid'],'1','',"L");
+
+            $arr2 = $DB->select("item","WHERE id = ".$data['itemid'].";");
+            $pdf->Cell(75,6,$arr2[0]['name'],'1','',"L");
+            $pdf->Cell(35,6,$data['amount'],'1','',"R");
+
+            $arr3 = $DB->select("stock", "WHERE id = ".$data['stockid'].";");
+            $pdf->Cell(35,6,$arr3[0]['bprice'],'1','',"R");
+            $pdf->Cell(55,6,$data['amount'] * $arr3[0]['bprice'],'1','',"R");
+                                
+            $totCost += $data['amount'] * $arr3[0]['bprice'];
+        }
+
+        $pdf->ln(6);
+        $pdf->SetFont('Times','B',12);
+        $pdf->Cell(220,6,"Total",'1','',"L");
+        $pdf->Cell(55,6,$totCost,'1','',"R");
+        $pdf->ln(6);
+        
+}else{
+    $pdf->SetFont('Times','',12);
+    $pdf->Cell("",10,"No Data Found",'','',"L");
+    $pdf->ln(6);
+}
+
+//---------------------------------------------
+
+//Profit-----------------------------------
+$pdf->ln(15);
+$pdf->SetFont('Times','B',16);
+$pdf->Cell("",10,"Profit",'','',"L");
+$pdf->ln(10);
+
+if($DB->nRow("purchaseditems", "WHERE DATE(date) = DATE(CURRENT_DATE());") != 0){
+                
+    $pdf->SetFont('Times','B',12);
+    $pdf->Cell(10,10,'ID','1','',"L");
+    $pdf->Cell(35,10,'Deal ID','1','',"L");
+    $pdf->Cell(20,10,'Item ID','1','',"L");
+    $pdf->Cell(70,10,'Item','1','',"L");
+    $pdf->Cell(20,10,'Amount','1','',"L");
+    $pdf->Cell(25,10,'Buying Price','1','',"L");
+    $pdf->Cell(25,10,'Selling Price','1','',"L");
+    $pdf->Cell(30,10,'Profit per Unit','1','',"L");
+    $pdf->Cell(40,10,'Profit','1','',"L");
+
+    $pdf->SetFont('Times','',12);
+    $pdf->ln(4);
+
+        $totProfit = 0;
+        $arr = $DB->select("purchaseditems", "WHERE DATE(date) = DATE(CURRENT_DATE());");
+        foreach($arr as $data){
+            $pdf->ln(6);
+            $pdf->Cell(10,6,$data['id'],'1','',"L");
+            $pdf->Cell(35,6,$data['dealid'],'1','',"L");
+            $pdf->Cell(20,6,$data['itemid'],'1','',"L");
+
+            $arr2 = $DB->select("item","WHERE id = ".$data['itemid'].";");
+            $pdf->Cell(70,6,$arr2[0]['name'],'1','',"L");
+            $pdf->Cell(20,6,$data['amount'],'1','',"R");
+
+            $arr3 = $DB->select("stock", "WHERE id = ".$data['stockid'].";");
+            $pdf->Cell(25,6,$arr3[0]['bprice'],'1','',"R");
+            $pdf->Cell(25,6,$data['uprice'],'1','',"R");
+            $pdf->Cell(30,6,$data['uprice'] - $arr3[0]['bprice'],'1','',"R");
+            $pdf->Cell(40,6,$data['amount']*($data['uprice'] - $arr3[0]['bprice']),'1','',"R");
+                                
+            $totProfit += $data['amount']*($data['uprice'] - $arr3[0]['bprice']);
+        }
+
+        $pdf->ln(6);
+        $pdf->SetFont('Times','B',12);
+        $pdf->Cell(235,6,"Total",'1','',"L");
+        $pdf->Cell(40,6,$totProfit,'1','',"R");
+        $pdf->ln(6);
+        
+}else{
+    $pdf->SetFont('Times','',12);
+    $pdf->Cell("",10,"No Data Found",'','',"L");
+    $pdf->ln(6);
+}
 
 //---------------------------------------------
 

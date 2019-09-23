@@ -213,7 +213,7 @@ include("../../workers/readSesson.worker.php");
           <!--------------------------------------------->
 
           <!-- Cost----------------------------------->
-          <div class="card-header" style="margin-bottom: 5px;margin-top: 5px;">
+            <div class="card-header" style="margin-bottom: 5px;margin-top: 5px;">
               <center><h1 class="my-0 font-weight-normal text-info" >Cost</h1></center>
             </div>
 
