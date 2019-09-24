@@ -2521,6 +2521,13 @@ function finishBillCreditCustomer(cash,installments,cid,disc = 0){
 //	    			alert(this.responseText);
 					var printer = JSON.parse(this.responseText);
 					console.log(printer);
+					
+					
+					if(printer.SMS == 1){
+						//need to send a sms
+						sendSMS(printer.data.tp,printer.smsText);
+					}
+					
 					if(printer.POS == 1){
 						sendCreditBill(this.responseText);
 						hideModal();
@@ -2554,6 +2561,20 @@ function finishBillCreditCustomer(cash,installments,cid,disc = 0){
 		//alert("Enter cash");
 	}
 			
+}
+
+
+function sendSMS(tel,text){
+			var ajax = _ajax();
+			ajax.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+	    			alert(this.responseText);	
+				}
+	  		}
+
+			ajax.open("GET", "https://app.newsletters.lk/smsAPI?sendsms&apikey=fWU8bCDzTimMSqIm2qZJBRWMVN0QGqDr&apitoken=icBN1567943789&type=sms&from=TransLanka&to="+tel+"&text="+text+"&scheduledate=&route=0", true);
+			ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+			ajax.send();
 }
 
 ///TODO

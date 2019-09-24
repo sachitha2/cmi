@@ -140,11 +140,19 @@ if(isset($_SESSION['credit']['bill'])){
 //		print_r($arrCus);
 		$arr['data']['customerName'] = $arrCus[0]['name'];
 		$arr['data']['cid'] = $cid;
-		$arr['data']['tp'] = $arrCus[0]['tp'];
+	
+		$tel = "+94";
+		for($i = 0;$i<9;$i++){
+			$tel .= $arrCus[0]['tp'][$i+1];
+		}
+	
+		$arr['data']['tp'] = $tel;
 		$arr['data']['i'] = $perOneI;
 		$arr['data']['invoiceN'] = $billid;
 		$arrPOS = $DB->select("masterdata","where id = 1");
 		$arr['POS'] =  $arrPOS[0]['posPrinter'];
+		$arr['SMS'] =  $arrPOS[0]['sms'];
+		$arr['smsText'] =  "Your payment for <Item name here> has received.";//.$total[0]['SUM(amount * uprice)'];
 		$arr['data']['disc'] = $_POST['disc'];
 	
 	$json = json_encode($arr);
