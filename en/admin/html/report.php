@@ -100,12 +100,6 @@ $main = new Main;
 		</center>
 		<br>
 
-<br><br>
-    <center>
-		<button type="button" class="btn btn-primary btn-lg" id="6" onclick="window.location.assign('pdfReports.php')"  style="width: 40%;margin-bottom: 5px; align: center;">PDF Reports</button>
-		</center>
-		<br>
-
 	</div>
 
       <!-- ############ PAGE END-->

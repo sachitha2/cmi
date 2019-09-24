@@ -139,7 +139,7 @@ $totProfit = 0;
 $arr = $DB->select("purchaseditems", "WHERE ".$logic.";");
 foreach($arr as $data){				
     $arr2 = $DB->select("stock", "WHERE id = ".$data['stockid'].";");
-    $totProfit += $data['amount'] * ($arr2[0]['uprice']-$arr2[0]['bprice']);
+    $totProfit += $data['amount'] * ($data['uprice']-$arr2[0]['bprice']);
 }
 $arrThis = $totProfit;
 
@@ -147,7 +147,7 @@ $totProfit = 0;
 $arr = $DB->select("purchaseditems", "WHERE ".$logicLast.";");
 foreach($arr as $data){				
     $arr2 = $DB->select("stock", "WHERE id = ".$data['stockid'].";");
-    $totProfit += $data['amount'] * ($arr2[0]['uprice']-$arr2[0]['bprice']);
+    $totProfit += $data['amount'] * ($data['uprice']-$arr2[0]['bprice']);
 }
 $arrLast = $totProfit;
 

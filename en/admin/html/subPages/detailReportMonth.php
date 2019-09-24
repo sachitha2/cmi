@@ -51,9 +51,36 @@ include("../../workers/readSesson.worker.php");
 
   <?php 
     $main->menuBar();
-    $main->head("Detail Reports - This week");
+    $main->head("Detail Reports - This Month");
     echo ("<br>");
     $main->b("detailReport.php");
+  ?>
+
+  <?php
+    date_default_timezone_set("Asia/Kolkata");
+    $month = date('m');
+    switch($month){
+        case 1:
+        case 3:
+        case 5:
+        case 7:
+        case 8:
+        case 10:
+        case 12:
+            $days = 31;
+            break;
+        case 4:
+        case 6:
+        case 9:
+        case 11:
+            $days = 30;
+            break;
+        case 2:
+            $year = date('y');
+            $leap = date('L', mktime(0, 0, 0, 1, 1, $year));
+            $leap ? $days = 29 : $days = 28;
+            break;
+    }
   ?>
   
   <!-- content -->
@@ -76,7 +103,7 @@ include("../../workers/readSesson.worker.php");
           
               <div class="card mb-4 shadow-sm">
 
-                    <?php if($DB->nRow("cost","WHERE WEEK(date) = WEEK(CURRENT_DATE()) AND MONTH(date) = MONTH(CURRENT_DATE()) AND YEAR(date) = YEAR(CURRENT_DATE());") != 0){ ?>
+                    <?php if($DB->nRow("cost","WHERE MONTH(date) = MONTH(CURRENT_DATE()) AND YEAR(date) = YEAR(CURRENT_DATE());") != 0){ ?>
                     
                     <table class="table table-hover table-bordered table-striped table-dark">
                     <thead class="thead-dark">
@@ -89,9 +116,8 @@ include("../../workers/readSesson.worker.php");
                         
                             <?php
                                 $totExpenses = 0;
-
-                                for($i=1; $i<=7; $i++){
-                                    $arr = $DB->select("cost"," WHERE DAYOFWEEK(date) = {$i} AND WEEK(date) = WEEK(CURRENT_DATE()) AND MONTH(date) = MONTH(CURRENT_DATE()) AND YEAR(date) = YEAR(CURRENT_DATE());", "SUM(cost), date");
+                                for($i=1; $i<=$days; $i++){
+                                    $arr = $DB->select("cost"," WHERE DAY(date) = {$i} AND MONTH(date) = MONTH(CURRENT_DATE()) AND YEAR(date) = YEAR(CURRENT_DATE());", "SUM(cost), date");
                                     foreach($arr as $data){
                                         $dash = "";
                                         if(!empty($data['SUM(cost)'])){
@@ -99,7 +125,7 @@ include("../../workers/readSesson.worker.php");
                                         }
                             ?>
                                         <tr>
-                                            <td align="left"><?php echo("Day 0".$i.$dash.$data['date']) ?></td>
+                                            <td align="left"><?php echo("Day ".$i.$dash.$data['date']) ?></td>
                                             <td align="right"><?php echo($data['SUM(cost)']) ?></td>
                                         </tr>
                                     
@@ -142,7 +168,7 @@ include("../../workers/readSesson.worker.php");
           
               <div class="card mb-4 shadow-sm">
 
-              <?php if($DB->nRow("purchaseditems", "WHERE WEEK(date) = WEEK(CURRENT_DATE()) AND MONTH(date) = MONTH(CURRENT_DATE()) AND YEAR(date) = YEAR(CURRENT_DATE());") != 0){ ?>
+              <?php if($DB->nRow("purchaseditems", "WHERE MONTH(date) = MONTH(CURRENT_DATE()) AND YEAR(date) = YEAR(CURRENT_DATE());") != 0){ ?>
                     
                     <table class="table table-hover table-bordered table-striped table-dark">
                     <thead class="thead-dark">
@@ -155,8 +181,8 @@ include("../../workers/readSesson.worker.php");
                       
                         <?php
                             $totIncome = 0;
-                            for($i=1; $i<=7; $i++){
-                                $arr = $DB->select("purchaseditems"," WHERE DAYOFWEEK(date) = {$i} AND WEEK(date) = WEEK(CURRENT_DATE()) AND MONTH(date) = MONTH(CURRENT_DATE()) AND YEAR(date) = YEAR(CURRENT_DATE());", "SUM(amount*uprice), date");
+                            for($i=1; $i<=$days; $i++){
+                                $arr = $DB->select("purchaseditems"," WHERE DAY(date) = {$i} AND MONTH(date) = MONTH(CURRENT_DATE()) AND YEAR(date) = YEAR(CURRENT_DATE());", "SUM(amount*uprice), date");
                                 foreach($arr as $data){
                                     $dash = "";
                                     if(!empty($data['SUM(amount*uprice)'])){
@@ -164,7 +190,7 @@ include("../../workers/readSesson.worker.php");
                                     }
                         ?>
                                     <tr>
-                                        <td align="left"><?php echo("Day 0".$i.$dash.$data['date']) ?></td>
+                                        <td align="left"><?php echo("Day ".$i.$dash.$data['date']) ?></td>
                                         <td align="right"><?php echo($data['SUM(amount*uprice)']) ?></td>
                                     </tr>
                                     
@@ -208,7 +234,7 @@ include("../../workers/readSesson.worker.php");
           
               <div class="card mb-4 shadow-sm">
 
-                    <?php if($DB->nRow("purchaseditems", "WHERE WEEK(date) = WEEK(CURRENT_DATE()) AND MONTH(date) = MONTH(CURRENT_DATE()) AND YEAR(date) = YEAR(CURRENT_DATE());") != 0){ ?>
+                    <?php if($DB->nRow("purchaseditems", "WHERE MONTH(date) = MONTH(CURRENT_DATE()) AND YEAR(date) = YEAR(CURRENT_DATE());") != 0){ ?>
                     
                     <table class="table table-hover table-bordered table-striped table-dark">
                     <thead class="thead-dark">
@@ -221,28 +247,28 @@ include("../../workers/readSesson.worker.php");
                         
                             <?php
                                 $totCost = 0;
-                                for($i=1; $i<=7; $i++){
-                                    $arr = $DB->select("purchaseditems", " WHERE DAYOFWEEK(date) = {$i} AND WEEK(date) = WEEK(CURRENT_DATE()) AND MONTH(date) = MONTH(CURRENT_DATE()) AND YEAR(date) = YEAR(CURRENT_DATE());");
+                                for($i=1; $i<=$days; $i++){
+                                    $arr = $DB->select("purchaseditems", " WHERE DAY(date) = {$i} AND MONTH(date) = MONTH(CURRENT_DATE()) AND YEAR(date) = YEAR(CURRENT_DATE());");
                                     if(empty($arr)){
                             ?>
                                         <tr>
-                                            <td align="left"><?php echo("Day 0".$i) ?></td>
+                                            <td align="left"><?php echo("Day ".$i) ?></td>
                                             <td align="right"></td>
                                         </tr>
                             <?php
                                     }else{
-                                        $tempCost = NULL;
-                                        foreach($arr as $data){
-                                            $arr2 = $DB->select("stock", "WHERE id = ".$data['stockid'].";");
-                                            $tempCost += $data['amount'] * $arr2[0]['bprice'];
-                                        }
+                                      $tempCost = NULL;
+                                      foreach($arr as $data){
+                                          $arr2 = $DB->select("stock", "WHERE id = ".$data['stockid'].";");
+                                          $tempCost += $data['amount'] * $arr2[0]['bprice'];
+                                      }
                             ?>
-                                        <tr>
-                                                <td align="left"><?php echo("Day 0".$i." - ".$data['date']) ?></td>
-                                                <td align="right"><?php echo($tempCost) ?></td>
-                                        </tr>
+                                      <tr>
+                                          <td align="left"><?php echo("Day ".$i." - ".$data['date']) ?></td>
+                                          <td align="right"><?php echo($tempCost) ?></td>
+                                      </tr>
                             <?php
-                                        $totCost += $tempCost;
+                                      $totCost += $tempCost;
                                     }
                                 }
                             ?>
@@ -279,7 +305,7 @@ include("../../workers/readSesson.worker.php");
           
               <div class="card mb-4 shadow-sm">
 
-                    <?php if($DB->nRow("purchaseditems", "WHERE WEEK(date) = WEEK(CURRENT_DATE()) AND MONTH(date) = MONTH(CURRENT_DATE()) AND YEAR(date) = YEAR(CURRENT_DATE());") != 0){ ?>
+                    <?php if($DB->nRow("purchaseditems", "WHERE MONTH(date) = MONTH(CURRENT_DATE()) AND YEAR(date) = YEAR(CURRENT_DATE());") != 0){ ?>
                     
                         <table class="table table-hover table-bordered table-striped table-dark">
                         <thead class="thead-dark">
@@ -292,29 +318,29 @@ include("../../workers/readSesson.worker.php");
                             
                             <?php
                                 $totProfit = 0;
-                                for($i=1; $i<=7; $i++){
-                                    $arr = $DB->select("purchaseditems", " WHERE DAYOFWEEK(date) = {$i} AND WEEK(date) = WEEK(CURRENT_DATE()) AND MONTH(date) = MONTH(CURRENT_DATE()) AND YEAR(date) = YEAR(CURRENT_DATE());");
+                                for($i=1; $i<=$days; $i++){
+                                    $arr = $DB->select("purchaseditems", " WHERE DAY(date) = {$i} AND MONTH(date) = MONTH(CURRENT_DATE()) AND YEAR(date) = YEAR(CURRENT_DATE());");
                                     if(empty($arr)){
                             ?>
                                         <tr>
-                                            <td align="left"><?php echo("Day 0".$i) ?></td>
+                                            <td align="left"><?php echo("Day ".$i) ?></td>
                                             <td align="right"></td>
                                         </tr>
                             <?php
                                     }else{
-                                        $tempProfit = NULL;
-                                        foreach($arr as $data){
-                                            $arr2 = $DB->select("stock", "WHERE id = ".$data['stockid'].";");
-                                            $tempProfit += $data['amount'] * ($data['uprice']-$arr2[0]['bprice']);
-                                        }
+                                      $tempProfit = NULL;
+                                      foreach($arr as $data){
+                                          $arr2 = $DB->select("stock", "WHERE id = ".$data['stockid'].";");
+                                          $tempProfit += $data['amount'] * ($data['uprice']-$arr2[0]['bprice']);
+                                      }
                             ?>
-                                        <tr>
-                                            <td align="left"><?php echo("Day 0".$i." - ".$data['date']) ?></td>
-                                            <td align="right"><?php echo($tempProfit) ?></td>
-                                        </tr>
+                                      <tr>
+                                          <td align="left"><?php echo("Day ".$i." - ".$data['date']) ?></td>
+                                          <td align="right"><?php echo($tempProfit) ?></td>
+                                      </tr>
                             <?php
-                                        $totProfit += $tempProfit;
-                                        
+                                      $totProfit += $tempProfit;
+                                    
                                     }
                                 }
                             ?>
@@ -345,7 +371,7 @@ include("../../workers/readSesson.worker.php");
 
           <br>
           <center> 
-            <button type="button" class="btn btn-primary btn-lg" onClick="window.location.assign('PDF/detailReportWeekPDF.php')"  style="width: 40%;margin-bottom: 5px;">Get PDF Report</button>
+            <button type="button" class="btn btn-primary btn-lg" onClick="window.location.assign('../PDF/viewUsersPDF.php')"  style="width: 40%;margin-bottom: 5px;">Get PDF Report</button>
           </center>
 
           </div>

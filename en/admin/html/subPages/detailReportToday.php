@@ -86,7 +86,7 @@ include("../../workers/readSesson.worker.php");
                         <tr>
                         <th scope="col">ID</th>
                         <th scope="col">Purpose</th>
-                        <th scope="col">Cost Type</th>
+                        <th scope="col">Expense Type</th>
                         <th scope="col">Expense</th>
                         </tr>
                     </thead>
@@ -213,7 +213,7 @@ include("../../workers/readSesson.worker.php");
           <!--------------------------------------------->
 
           <!-- Cost----------------------------------->
-          <div class="card-header" style="margin-bottom: 5px;margin-top: 5px;">
+            <div class="card-header" style="margin-bottom: 5px;margin-top: 5px;">
               <center><h1 class="my-0 font-weight-normal text-info" >Cost</h1></center>
             </div>
 
@@ -379,7 +379,7 @@ include("../../workers/readSesson.worker.php");
 
           <br>
           <center> 
-            <button type="button" class="btn btn-primary btn-lg" onClick="window.location.assign('../PDF/viewUsersPDF.php')"  style="width: 40%;margin-bottom: 5px;">Get PDF Report</button>
+            <button type="button" class="btn btn-primary btn-lg" onClick="window.location.assign('PDF/detailReportTodayPDF.php')"  style="width: 40%;margin-bottom: 5px;">Get PDF Report</button>
           </center>
 
           </div>

@@ -11,6 +11,12 @@ include("../../workers/readSesson.worker.php");
 
 ?>
 
+<?php
+	$from = $_GET['from'];
+	$to = $_GET['to'];
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -51,7 +57,7 @@ include("../../workers/readSesson.worker.php");
 
   <?php 
     $main->menuBar();
-    $main->head("Detail Reports - This week");
+    $main->head("Detail Reports ( ".$from." - ".$to." )");
     echo ("<br>");
     $main->b("detailReport.php");
   ?>
@@ -76,41 +82,45 @@ include("../../workers/readSesson.worker.php");
           
               <div class="card mb-4 shadow-sm">
 
-                    <?php if($DB->nRow("cost","WHERE WEEK(date) = WEEK(CURRENT_DATE()) AND MONTH(date) = MONTH(CURRENT_DATE()) AND YEAR(date) = YEAR(CURRENT_DATE());") != 0){ ?>
+                    <?php if($DB->nRow("cost","WHERE DATE(date) >= DATE('{$from}') AND DATE(date) <= DATE('{$to}');") != 0){ ?>
                     
                     <table class="table table-hover table-bordered table-striped table-dark">
                     <thead class="thead-dark">
                         <tr>
-                        <td align="center" scope="col"><b>Date</b></td>
-                        <td align="center" scope="col"><b>Exepenses</b></td>
+                        <th scope="col">ID</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Purpose</th>
+                        <th scope="col">Expense Type</th>
+                        <th scope="col">Expense</th>
                         </tr>
                     </thead>
                     <tbody>
                         
                             <?php
                                 $totExpenses = 0;
-
-                                for($i=1; $i<=7; $i++){
-                                    $arr = $DB->select("cost"," WHERE DAYOFWEEK(date) = {$i} AND WEEK(date) = WEEK(CURRENT_DATE()) AND MONTH(date) = MONTH(CURRENT_DATE()) AND YEAR(date) = YEAR(CURRENT_DATE());", "SUM(cost), date");
-                                    foreach($arr as $data){
-                                        $dash = "";
-                                        if(!empty($data['SUM(cost)'])){
-                                            $dash = "  -  ";
-                                        }
+                                $arr = $DB->select("cost","WHERE DATE(date) >= DATE('{$from}') AND DATE(date) <= DATE('{$to}');");
+                                foreach($arr as $data){
                             ?>
-                                        <tr>
-                                            <td align="left"><?php echo("Day 0".$i.$dash.$data['date']) ?></td>
-                                            <td align="right"><?php echo($data['SUM(cost)']) ?></td>
-                                        </tr>
+                                    <tr>
+                                        <td align="left"><?php echo($data['id']) ?></td>
+                                        <td align="left"><?php echo($data['date']) ?></td>
+                                        <td align="left"><?php echo($data['purpose']) ?></td>
+                                        <td align="left"> 
+                                            <?php 
+                                                $arr2 = $DB->select("costtype","WHERE id = ".$data['costTypeId'].";");
+                                                echo($arr2[0]['costtype']);
+                                            ?>
+                                        </td>
+                                        <td align="right"><?php echo($data['cost']) ?></td>
+                                    </tr>
                                     
                             <?php
-                                        $totExpenses += $data['SUM(cost)'];
-                                    }
+                                    $totExpenses += $data['cost'];
                                 }
                             ?>
                         
                         <tr>
-                        <td scope="col" align="left"><b>Total</b></td>
+                        <td scope="col" align="left" colspan='4'><b>Total</b></td>
                         <td scope="col" align="right"><b><?php echo($totExpenses); ?></b></td>
                         </tr>
                         
@@ -142,43 +152,53 @@ include("../../workers/readSesson.worker.php");
           
               <div class="card mb-4 shadow-sm">
 
-              <?php if($DB->nRow("purchaseditems", "WHERE WEEK(date) = WEEK(CURRENT_DATE()) AND MONTH(date) = MONTH(CURRENT_DATE()) AND YEAR(date) = YEAR(CURRENT_DATE());") != 0){ ?>
+              <?php if($DB->nRow("purchaseditems", "WHERE DATE(date) >= DATE('{$from}') AND DATE(date) <= DATE('{$to}');") != 0){ ?>
                     
                     <table class="table table-hover table-bordered table-striped table-dark">
                     <thead class="thead-dark">
                         <tr>
-                        <td align="center" scope="col"><b>Date</b></td>
-                        <td align="center" scope="col"><b>Income</b></td>
+                        <th scope="col">ID</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Deal ID</th>
+                        <th scope="col">Item ID</th>
+                        <th scope="col">Item</th>
+                        <th scope="col">Amount</th>
+                        <th scope="col">Unit Price</th>
+                        <th scope="col">Income</th>
                         </tr>
                     </thead>
                     <tbody>
-                      
-                        <?php
-                            $totIncome = 0;
-                            for($i=1; $i<=7; $i++){
-                                $arr = $DB->select("purchaseditems"," WHERE DAYOFWEEK(date) = {$i} AND WEEK(date) = WEEK(CURRENT_DATE()) AND MONTH(date) = MONTH(CURRENT_DATE()) AND YEAR(date) = YEAR(CURRENT_DATE());", "SUM(amount*uprice), date");
+                        
+                            <?php
+                                $totIncome = 0;
+                                $arr = $DB->select("purchaseditems", "WHERE DATE(date) >= DATE('{$from}') AND DATE(date) <= DATE('{$to}');");
                                 foreach($arr as $data){
-                                    $dash = "";
-                                    if(!empty($data['SUM(amount*uprice)'])){
-                                        $dash = "  -  ";
-                                    }
-                        ?>
+                            ?>
                                     <tr>
-                                        <td align="left"><?php echo("Day 0".$i.$dash.$data['date']) ?></td>
-                                        <td align="right"><?php echo($data['SUM(amount*uprice)']) ?></td>
+                                        <td align="left"><?php echo($data['id']) ?></td>
+                                        <td align="left"><?php echo($data['date']) ?></td>
+                                        <td align="left"><?php echo($data['dealid']) ?></td>
+                                        <td align="left"><?php echo($data['itemid']) ?></td>
+                                        <td align="left"> 
+                                            <?php 
+                                                $arr2 = $DB->select("item","WHERE id = ".$data['itemid'].";");
+                                                echo($arr2[0]['name']);
+                                            ?>
+                                        </td>
+                                        <td align="right"><?php echo($data['amount']) ?></td>
+                                        <td align="right"><?php echo($data['uprice']) ?></td>
+                                        <td align="right"><?php echo($data['amount']*$data['uprice']) ?></td>
                                     </tr>
                                     
-                        <?php
-                                    $totIncome += $data['SUM(amount*uprice)'];
+                            <?php
+                                    $totIncome += $data['amount']*$data['uprice'];
                                 }
-                            }
-                        ?>
+                            ?>
 
-
-                        <tr>
-                            <td scope="col" align="left"><b>Total</b></td>
-                            <td scope="col" align="right"><b><?php echo($totIncome); ?></b></td>
-                        </tr>
+                            <tr>
+                                <td scope="col" align="left" colspan='7'><b>Total</b></td>
+                                <td scope="col" align="right"><b><?php echo($totIncome); ?></b></td>
+                            </tr>
 
                     </tbody>
                     </table>
@@ -208,47 +228,56 @@ include("../../workers/readSesson.worker.php");
           
               <div class="card mb-4 shadow-sm">
 
-                    <?php if($DB->nRow("purchaseditems", "WHERE WEEK(date) = WEEK(CURRENT_DATE()) AND MONTH(date) = MONTH(CURRENT_DATE()) AND YEAR(date) = YEAR(CURRENT_DATE());") != 0){ ?>
+                    <?php if($DB->nRow("purchaseditems", "WHERE DATE(date) >= DATE('{$from}') AND DATE(date) <= DATE('{$to}');") != 0){ ?>
                     
                     <table class="table table-hover table-bordered table-striped table-dark">
                     <thead class="thead-dark">
                         <tr>
-                        <td align="center" scope="col"><b>Date</b></td>
-                        <td align="center" scope="col"><b>Cost</b></td>
+                        <th scope="col">ID</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Deal ID</th>
+                        <th scope="col">Item ID</th>
+                        <th scope="col">Item</th>
+                        <th scope="col">Amount</th>
+                        <th scope="col">Buying Price</th>
+                        <th scope="col">Cost</th>
                         </tr>
                     </thead>
                     <tbody>
                         
                             <?php
                                 $totCost = 0;
-                                for($i=1; $i<=7; $i++){
-                                    $arr = $DB->select("purchaseditems", " WHERE DAYOFWEEK(date) = {$i} AND WEEK(date) = WEEK(CURRENT_DATE()) AND MONTH(date) = MONTH(CURRENT_DATE()) AND YEAR(date) = YEAR(CURRENT_DATE());");
-                                    if(empty($arr)){
+                                $arr = $DB->select("purchaseditems", "WHERE DATE(date) >= DATE('{$from}') AND DATE(date) <= DATE('{$to}');");
+                                foreach($arr as $data){
                             ?>
-                                        <tr>
-                                            <td align="left"><?php echo("Day 0".$i) ?></td>
-                                            <td align="right"></td>
-                                        </tr>
+                                    <tr>
+                                        <td align="left"><?php echo($data['id']) ?></td>
+                                        <td align="left"><?php echo($data['date']) ?></td>
+                                        <td align="left"><?php echo($data['dealid']) ?></td>
+                                        <td align="left"><?php echo($data['itemid']) ?></td>
+                                        <td align="left"> 
+                                            <?php 
+                                                $arr2 = $DB->select("item","WHERE id = ".$data['itemid'].";");
+                                                echo($arr2[0]['name']);
+                                            ?>
+                                        </td>
+                                        <td align="right"><?php echo($data['amount']) ?></td>
+                                        <td align="right">
+                                            <?php
+                                                $arr3 = $DB->select("stock", "WHERE id = ".$data['stockid'].";");
+                                                echo($arr3[0]['bprice']);
+                                            ?>
+                                        </td>
+                                        <td align="right"><?php echo($data['amount'] * $arr3[0]['bprice']) ?></td>
+                                    </tr>
+                                    
                             <?php
-                                    }else{
-                                        $tempCost = NULL;
-                                        foreach($arr as $data){
-                                            $arr2 = $DB->select("stock", "WHERE id = ".$data['stockid'].";");
-                                            $tempCost += $data['amount'] * $arr2[0]['bprice'];
-                                        }
-                            ?>
-                                        <tr>
-                                                <td align="left"><?php echo("Day 0".$i." - ".$data['date']) ?></td>
-                                                <td align="right"><?php echo($tempCost) ?></td>
-                                        </tr>
-                            <?php
-                                        $totCost += $tempCost;
-                                    }
+                                    $totCost += $data['amount'] * $arr3[0]['bprice'];
                                 }
                             ?>
                         
                         <tr>
-                        <td scope="col" align="left"><b>Total</b></td>
+                        <td scope="col" align="left" colspan='7'><b>Total</b></td>
                         <td scope="col" align="right"><b><?php echo($totCost); ?></b></td>
                         </tr>
                         
@@ -279,48 +308,64 @@ include("../../workers/readSesson.worker.php");
           
               <div class="card mb-4 shadow-sm">
 
-                    <?php if($DB->nRow("purchaseditems", "WHERE WEEK(date) = WEEK(CURRENT_DATE()) AND MONTH(date) = MONTH(CURRENT_DATE()) AND YEAR(date) = YEAR(CURRENT_DATE());") != 0){ ?>
+                    <?php if($DB->nRow("purchaseditems", "WHERE DATE(date) >= DATE('{$from}') AND DATE(date) <= DATE('{$to}');") != 0){ ?>
                     
                         <table class="table table-hover table-bordered table-striped table-dark">
                         <thead class="thead-dark">
                             <tr>
-                            <td align="center" scope="col"><b>Date</b></td>
-                            <td align="center" scope="col"><b>Profit</b></td>
+                            <th scope="col">ID</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Deal ID</th>
+                            <th scope="col">Item ID</th>
+                            <th scope="col">Item</th>
+                            <th scope="col">Amount</th>
+                            <th scope="col">Buying Price</th>
+                            <th scope="col">Selling Price</th>
+                            <th scope="col">Profit per Unit</th>
+                            <th scope="col">Profit</th>
                             </tr>
                         </thead>
                         <tbody>
                             
-                            <?php
-                                $totProfit = 0;
-                                for($i=1; $i<=7; $i++){
-                                    $arr = $DB->select("purchaseditems", " WHERE DAYOFWEEK(date) = {$i} AND WEEK(date) = WEEK(CURRENT_DATE()) AND MONTH(date) = MONTH(CURRENT_DATE()) AND YEAR(date) = YEAR(CURRENT_DATE());");
-                                    if(empty($arr)){
-                            ?>
+                                <?php
+                                    $totProfit = 0;
+                                    $arr = $DB->select("purchaseditems", "WHERE DATE(date) >= DATE('{$from}') AND DATE(date) <= DATE('{$to}');");
+                                    foreach($arr as $data){
+                                ?>
                                         <tr>
-                                            <td align="left"><?php echo("Day 0".$i) ?></td>
-                                            <td align="right"></td>
+                                            <td align="left"><?php echo($data['id']) ?></td>
+                                            <td align="left"><?php echo($data['date']) ?></td>
+                                            <td align="left"><?php echo($data['dealid']) ?></td>
+                                            <td align="left"><?php echo($data['itemid']) ?></td>
+                                            <td align="left"> 
+                                                <?php 
+                                                    $arr2 = $DB->select("item","WHERE id = ".$data['itemid'].";");
+                                                    echo($arr2[0]['name']);
+                                                ?>
+                                            </td>
+                                            <td align="right"><?php echo($data['amount']) ?></td>
+                                            <td align="right">
+                                                <?php
+                                                    $arr3 = $DB->select("stock", "WHERE id = ".$data['stockid'].";");
+                                                    echo($arr3[0]['bprice']);
+                                                ?>
+                                            </td>
+                                            <td align="right">
+                                                <?php
+                                                    echo($data['uprice']);
+                                                ?>
+                                            </td>
+                                            <td align="right"><?php echo($data['uprice'] - $arr3[0]['bprice']) ?></td>
+                                            <td align="right"><?php echo($data['amount']*($data['uprice'] - $arr3[0]['bprice'])) ?></td>
                                         </tr>
-                            <?php
-                                    }else{
-                                        $tempProfit = NULL;
-                                        foreach($arr as $data){
-                                            $arr2 = $DB->select("stock", "WHERE id = ".$data['stockid'].";");
-                                            $tempProfit += $data['amount'] * ($data['uprice']-$arr2[0]['bprice']);
-                                        }
-                            ?>
-                                        <tr>
-                                            <td align="left"><?php echo("Day 0".$i." - ".$data['date']) ?></td>
-                                            <td align="right"><?php echo($tempProfit) ?></td>
-                                        </tr>
-                            <?php
-                                        $totProfit += $tempProfit;
                                         
+                                <?php
+                                        $totProfit += $data['amount']*($data['uprice'] - $arr3[0]['bprice']);
                                     }
-                                }
-                            ?>
+                                ?>
                             
                             <tr>
-                            <td scope="col" align="left"><b>Total</b></td>
+                            <td scope="col" align="left" colspan='9'><b>Total</b></td>
                             <td scope="col" align="right"><b><?php echo($totProfit); ?></b></td>
                             </tr>
                             
@@ -345,7 +390,7 @@ include("../../workers/readSesson.worker.php");
 
           <br>
           <center> 
-            <button type="button" class="btn btn-primary btn-lg" onClick="window.location.assign('PDF/detailReportWeekPDF.php')"  style="width: 40%;margin-bottom: 5px;">Get PDF Report</button>
+            <button type="button" class="btn btn-primary btn-lg" onClick="window.location.assign('../PDF/viewUsersPDF.php')"  style="width: 40%;margin-bottom: 5px;">Get PDF Report</button>
           </center>
 
           </div>
