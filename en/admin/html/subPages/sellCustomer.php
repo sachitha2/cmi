@@ -9,12 +9,17 @@ $main->b("sell.php");
 $customer = $DB->select("customer","");
 
 $numNotSaved = $DB->nRow("deals","WHERE status = 2 ");
+	$disabled = "";
 if($numNotSaved != 0){
-	$main->Msgwarning("Please finish unfinished jobs or Delete them");
+	$disabled = "disabled";
+	$sandali = 'ajaxCommonGetFromNet("subPages/unfinishedJobs.php","cStage");';
+	$main->Msgwarning("Please finish unfinished jobs or Delete them <buttpn type='button' class='btn btn-primary btn-sm' onclick='$sandali'>View</button>");
+}else{
+	$disabled = "";
 }
 ?>
 			<h1>Select Customer From NIC</h1>
-			<input list="colors" name="color" id="idCard" class="form-control" style="width: 200px" onKeyPress="enterCheckCustomerForMakeBill(event,this.value)">
+			<input list="colors" name="color" id="idCard" class="form-control" style="width: 200px" onKeyPress="enterCheckCustomerForMakeBill(event,this.value)" <?php echo($disabled) ?>>
 			<datalist id="colors">
 				
     			<?php
@@ -32,13 +37,13 @@ if($numNotSaved != 0){
 			</datalist>
 			<div id="msg"></div>
 			<br>
-			<input type="button" value="Next"  class="btn btn-primary btn-lg" onClick="CheckCustomerForMakeBill(idCard.value);">
+			<input type="button" value="Next"  class="btn btn-primary btn-lg" onClick="CheckCustomerForMakeBill(idCard.value);" <?php echo($disabled) ?>>
 			
 			
 			
 			<!---///TODO--->
 			<h1>Select Customer From CID</h1>
-			<input list="cids" name="color" id="CID" class="form-control" style="width: 200px" onKeyPress="enterCheckCustomerForMakeBill(event,this.value)">
+			<input list="cids" name="color" id="CID" class="form-control" style="width: 200px" onKeyPress="enterCheckCustomerForMakeBill(event,this.value)" <?php echo($disabled) ?>>
 			<datalist id="cids">
 				
     			<?php
@@ -53,4 +58,4 @@ if($numNotSaved != 0){
 			</datalist>
 			<div id="msg2"></div>
 			<br>
-			<input type="button" value="Next"  class="btn btn-primary btn-lg" onClick="CheckCustomerForMakeBillCID(CID.value);">
+			<input type="button" value="Next"  class="btn btn-primary btn-lg" onClick="CheckCustomerForMakeBillCID(CID.value);" <?php echo($disabled) ?>>

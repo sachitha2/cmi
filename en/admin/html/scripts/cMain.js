@@ -1252,6 +1252,32 @@ function addItem(){
 
 
 /////deleters
+function delADeal(cid,dealId,f = 0){
+	var r = confirm("Are you sure want to delete this!");
+	if(r == true){
+		showModal();
+		var ajax = _ajax();
+		ajax.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+//	   	 		alert(this.responseText);
+				if(f == 1){
+					ajaxCommonGetFromNet("subPages/sellCustomer.php?cid="+cid,"cStage");
+				}else{
+					ajaxCommonGetFromNet("subPages/customerBilling.php?cid="+cid,"customerStage");
+				}
+				
+				hideModal();
+			}
+	  }
+
+		ajax.open("POST", "../workers/aDeal.del.php", true);
+		ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		ajax.send("cid="+cid+"&dealId="+dealId);
+	}
+}
+
+
+
 function delAgent(id){	
 	var r = confirm("Are you sure want to delete this!");
 	if(r == true){
@@ -1270,10 +1296,6 @@ function delAgent(id){
 		ajax.send("id="+id);
 	}
 		}
-
-
-
-
 function delArea(id){	
 	var r = confirm("Are you sure want to delete this!");
 	if(r == true){
@@ -2487,9 +2509,6 @@ function finishBillCreditCustomer(cash,installments,cid,disc = 0){
 //			alert("finish bill");
 	////get bill data json
 	
-	
-	
-	
 	loadingModal();
 	showModal();
 	if(cash != ""){
@@ -2500,9 +2519,9 @@ function finishBillCreditCustomer(cash,installments,cid,disc = 0){
 			ajax.onreadystatechange = function() {
 				if (this.readyState == 4 && this.status == 200) {
 //	    			alert(this.responseText);
-					var POS = JSON.parse(this.responseText);
-					console.log(POS);
-					if(POS.POS == 1){
+					var printer = JSON.parse(this.responseText);
+					console.log(printer);
+					if(printer.POS == 1){
 						sendCreditBill(this.responseText);
 						hideModal();
 					}else{
@@ -2517,7 +2536,8 @@ function finishBillCreditCustomer(cash,installments,cid,disc = 0){
 							//TODO 
 							//check print function from here
 						}else{
-							window.location.assign('sell.php');
+							window.location.assign('viewCustomer.php?cid='+cid);
+//							window.location.assign('sell.php');
 						}
 //						window.location.assign('viewCustomer.php?cid='+cid);
 					}
@@ -2530,7 +2550,8 @@ function finishBillCreditCustomer(cash,installments,cid,disc = 0){
 			ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 			ajax.send("cash="+cash+"&installments="+installments+"&cid="+cid+"&disc="+disc);
 	}else{
-		alert("Enter cash");
+		//alert("Enter cash");
+		//alert("Enter cash");
 	}
 			
 }
