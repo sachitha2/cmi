@@ -299,6 +299,16 @@ class Main{
                     <span class="nav-text">Reports</span>
                   </a>
                 </li>
+                <li>
+                  <a onClick="window.location.assign('detailReport.php')">
+                    <span class="nav-icon">
+                      <i class="material-icons">&#xe870;
+                        <span ui-include="'../assets/images/i_7.svg'"></span>
+                      </i>
+                    </span>
+                    <span class="nav-text">Detail Reports</span>
+                  </a>
+                </li>
 				<!-- SMS               -->
                  <li>
                   <a>
