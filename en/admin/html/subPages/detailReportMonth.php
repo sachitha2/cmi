@@ -116,7 +116,6 @@ include("../../workers/readSesson.worker.php");
                         
                             <?php
                                 $totExpenses = 0;
-
                                 for($i=1; $i<=$days; $i++){
                                     $arr = $DB->select("cost"," WHERE DAY(date) = {$i} AND MONTH(date) = MONTH(CURRENT_DATE()) AND YEAR(date) = YEAR(CURRENT_DATE());", "SUM(cost), date");
                                     foreach($arr as $data){
@@ -257,16 +256,19 @@ include("../../workers/readSesson.worker.php");
                                             <td align="right"></td>
                                         </tr>
                             <?php
-                                    }
-                                    foreach($arr as $data){
-                                        $arr2 = $DB->select("stock", "WHERE id = ".$data['stockid'].";");
+                                    }else{
+                                      $tempCost = NULL;
+                                      foreach($arr as $data){
+                                          $arr2 = $DB->select("stock", "WHERE id = ".$data['stockid'].";");
+                                          $tempCost += $data['amount'] * $arr2[0]['bprice'];
+                                      }
                             ?>
-                                        <tr>
-                                            <td align="left"><?php echo("Day ".$i." - ".$data['date']) ?></td>
-                                            <td align="right"><?php echo($data['amount'] * $arr2[0]['bprice']) ?></td>
-                                        </tr>
+                                      <tr>
+                                          <td align="left"><?php echo("Day ".$i." - ".$data['date']) ?></td>
+                                          <td align="right"><?php echo($tempCost) ?></td>
+                                      </tr>
                             <?php
-                                        $totCost += $data['amount'] * $arr2[0]['bprice'];
+                                      $totCost += $tempCost;
                                     }
                                 }
                             ?>
@@ -325,16 +327,20 @@ include("../../workers/readSesson.worker.php");
                                             <td align="right"></td>
                                         </tr>
                             <?php
-                                    }
-                                    foreach($arr as $data){
-                                        $arr2 = $DB->select("stock", "WHERE id = ".$data['stockid'].";");
+                                    }else{
+                                      $tempProfit = NULL;
+                                      foreach($arr as $data){
+                                          $arr2 = $DB->select("stock", "WHERE id = ".$data['stockid'].";");
+                                          $tempProfit += $data['amount'] * ($data['uprice']-$arr2[0]['bprice']);
+                                      }
                             ?>
-                                        <tr>
-                                            <td align="left"><?php echo("Day ".$i." - ".$data['date']) ?></td>
-                                            <td align="right"><?php echo($data['amount'] * ($data['uprice']-$arr2[0]['bprice'])) ?></td>
-                                        </tr>
+                                      <tr>
+                                          <td align="left"><?php echo("Day ".$i." - ".$data['date']) ?></td>
+                                          <td align="right"><?php echo($tempProfit) ?></td>
+                                      </tr>
                             <?php
-                                        $totProfit += $data['amount'] * ($data['uprice']-$arr2[0]['bprice']);
+                                      $totProfit += $tempProfit;
+                                    
                                     }
                                 }
                             ?>
