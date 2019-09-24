@@ -15,6 +15,7 @@ if($DB->nRow("item","") != 0){
 	  <thead class="thead-dark">
 		<tr>
 		  <th scope="col" width="10">ID</th>
+		  <th scope="col">TYPE</th>
 		  <th scope="col">Item</th>
 		  <th scope="col" width="50"></th>
 		  <th scope="col" width="50"></th>
@@ -28,6 +29,7 @@ if($DB->nRow("item","") != 0){
 					?>
 					<tr>
 						<td scope="row"><?php echo($data['id']) ?></td>
+						<td><?php echo($data['itemTypeId']) ?></td>
 						<td><?php $DB->getItemNameByStockId($data['id'])?></td>
 						<td><button type="button" class="btn btn-md btn-primary" onClick="loadEditFormsItem(<?php echo($data['id']) ?>)">Edit</button></td>
 						<td><button onClick="delItem(<?php echo($data['id']) ?>)" type="button" class="btn btn-md btn-danger ">X</button></td>
