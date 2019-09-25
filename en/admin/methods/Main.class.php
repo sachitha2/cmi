@@ -290,6 +290,16 @@ class Main{
                   </a>
                 </li>
                 <li>
+                  <a onClick="window.location.assign('collection.php')">
+                    <span class="nav-icon">
+                      <i class="material-icons">&#xe870;
+                        <span ui-include="'../assets/images/i_7.svg'"></span>
+                      </i>
+                    </span>
+                    <span class="nav-text">Collection</span>
+                  </a>
+                </li>
+                <li>
                   <a onClick="window.location.assign('report.php')">
                     <span class="nav-icon">
                       <i class="material-icons">&#xe870;
