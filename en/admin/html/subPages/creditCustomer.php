@@ -15,7 +15,7 @@ $cid = $cidSql[0]['id'];
 
 
 
-$sql = "INSERT INTO deals (id, date, time, fdate, ftime, tprice, rprice, status, ni, cid) VALUES ($totalId, curdate(), curtime(),curdate(), curtime(), '0', '0', '2', '4', '$cid');";
+$sql = "INSERT INTO deals (id, date, time, fdate, ftime, tprice, rprice, status, ni, cid,discount) VALUES ($totalId, curdate(), curtime(),curdate(), curtime(), '0', '0', '2', '4', '$cid','0');";
 
 
 
