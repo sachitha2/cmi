@@ -214,7 +214,7 @@ include("../../workers/readSesson.worker.php");
                             <?php
                                 $totCost = 0;
                                 for($i=1; $i<=12; $i++){
-                                    $arr = $DB->select("purchaseditems", " WHERE MONTH(date) = {$i} AND YEAR(date) = YEAR(CURRENT_DATE());");
+                                    $arr = $DB->select("purchaseditems", "WHERE MONTH(date) = {$i} AND YEAR(date) = YEAR(CURRENT_DATE());");
                                     if(empty($arr)){
                             ?>
                                         <tr>
@@ -336,7 +336,7 @@ include("../../workers/readSesson.worker.php");
 
           <br>
           <center> 
-            <button type="button" class="btn btn-primary btn-lg" onClick="window.location.assign('../PDF/viewUsersPDF.php')"  style="width: 40%;margin-bottom: 5px;">Get PDF Report</button>
+            <button type="button" class="btn btn-primary btn-lg" onClick="window.location.assign('PDF/detailReportYearPDF.php')"  style="width: 40%;margin-bottom: 5px;">Get PDF Report</button>
           </center>
 
           </div>
