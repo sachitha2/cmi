@@ -102,7 +102,10 @@ if($DB->nRow("deals"," WHERE cid = $cid") != 0){
       						</div>
       						<div class="card-header">
         						<h2 class="my-0 font-weight-normal text-primary" id="totalToday"><?php echo(round(($data['tprice']-$data['rprice']),0)."/".$data['tprice']) ?></h2>
-        						<button class="btn btn-primary btn-sm">Print</button>
+        							<a href="subPages/print.php" target="_blank" class="link"><button class="btn btn-primary btn-sm">Print</button></a>
+        						
+        						
+        						<button class="btn btn-danger btn-sm" onClick="delADeal('<?php echo($cid)  ?>','<?php echo($data['id'])  ?>')">Delete</button>
         					</div>
 						</div>
 	
