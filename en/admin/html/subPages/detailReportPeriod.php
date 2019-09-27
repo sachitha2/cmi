@@ -13,7 +13,8 @@ include("../../workers/readSesson.worker.php");
 
 <?php
 	$from = $_GET['from'];
-	$to = $_GET['to'];
+    $to = $_GET['to'];
+    $redirect = "../PDF/detailReportPeriodPDF.php?from=".$from."&to=".$to;
 ?>
 
 
@@ -48,6 +49,13 @@ include("../../workers/readSesson.worker.php");
   <link rel="stylesheet" href="../../assets/styles/font.css" type="text/css" />
   <script src="../scripts/cMain.js"></script>
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+  <script>
+    function periodRedirect(){
+      window.location.assign('<?php echo($redirect); ?>');
+    }
+  </script>
+
 </head>
 
 <body>
@@ -390,7 +398,7 @@ include("../../workers/readSesson.worker.php");
 
           <br>
           <center> 
-            <button type="button" class="btn btn-primary btn-lg" onClick="window.location.assign('../PDF/viewUsersPDF.php')"  style="width: 40%;margin-bottom: 5px;">Get PDF Report</button>
+            <button type="button" class="btn btn-primary btn-lg" onClick="periodRedirect();"  style="width: 40%;margin-bottom: 5px;">Get PDF Report</button>
           </center>
 
           </div>
