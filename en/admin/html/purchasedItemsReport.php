@@ -6,7 +6,7 @@ $main = new Main;
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>CMI - Purchesed Items Reports</title>
+  <title>CMI - Purchesed Items Report</title>
   <meta name="description" content="cms" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimal-ui" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -36,7 +36,8 @@ $main = new Main;
     function periodRedirect(){
       var from = document.getElementById("from").value;
       var to = document.getElementById("to").value;
-      window.location.assign('subPages/purchasedItemsPeriod.php?from='+from+'&to='+to);
+      ajaxCommonGetFromNet('subPages/purchasedItemsRe.php?id=5&from='+from+'&to='+to, 'content');
+      //window.location.assign('subPages/purchasedItemsRe.php?id=5&from='+from+'&to='+to);
     }
   </script>
 </head>
@@ -57,14 +58,14 @@ $main = new Main;
     <div ui-view class="app-body" id="view">
 		<?php $main->modal() ?>
       <!-- ############ PAGE START-->
-    <?php $main->head("Purchased Items Reports") ?>
+    <?php $main->head("Purchased Items Report") ?>
     <div class="container h-100" id="cStage">
     	
         <center> 
-            <button type="button" id="1" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/purchasedItemsToday.php', 'content');"  style="width: 40%;margin-bottom: 5px;">Today</button>
-            <button type="button" id="2" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/purchasedItemsWeek.php', 'content');"  style="width: 40%;margin-bottom: 5px;">This Week</button>
-            <button type="button" id="3" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/purchasedItemsMonth.php', 'content');"  style="width: 40%;margin-bottom: 5px;">This Month</button>
-            <button type="button" id="4" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/purchasedItemsYear.php', 'content');"  style="width: 40%;margin-bottom: 5px;">This Year</button>
+            <button type="button" id="1" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/purchasedItemsRe.php?id=1', 'content');"  style="width: 40%;margin-bottom: 5px;">Today</button>
+            <button type="button" id="2" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/purchasedItemsRe.php?id=2', 'content');"  style="width: 40%;margin-bottom: 5px;">This Week</button>
+            <button type="button" id="3" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/purchasedItemsRe.php?id=3', 'content');"  style="width: 40%;margin-bottom: 5px;">This Month</button>
+            <button type="button" id="4" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/purchasedItemsRe.php?id=4', 'content');"  style="width: 40%;margin-bottom: 5px;">This Year</button>
 		    </center>
         <br><hr><br>
 		<div class="row">
