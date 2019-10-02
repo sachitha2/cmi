@@ -1607,20 +1607,25 @@ function enterAddAgentInstallmentCollect(e,amount,inputId,ID,nRow,IID,dealId,FN 
 
 						var ajax = _ajax();
 						showModal();
-						msg("msg"+inputId,"Wait");
+//						msg("msg"+inputId,"Wait");
 						ajax.onreadystatechange = function() {
 							if (this.readyState == 4 && this.status == 200) {
 								hideModal();
 								console.log(this.responseText);
-								document.getElementById("input"+inputId).readOnly = true;
-								msg("msg"+inputId,"Done Saving");
-								if(p == 1){
+//								document.getElementById("input"+inputId).readOnly = true;
+//								msg("msg"+inputId,"Done Saving");
+								
+								res = JSON.parse(this.responseText);
+								console.log("Customer id " +res.data.cid);
+								if(p == 3){
 									console.log("Bill needs to be printed");
 									sendInstallmentBill(this.responseText);
 								}else{
+									
 									console.log("Normal needed");
 									
 								}
+								ajaxCommonGetFromNet("subPages/customerBilling.php?cid="+res.data.cid,"customerStage");
 							}
 					  }
 
