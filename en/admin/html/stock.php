@@ -281,6 +281,8 @@ $main = new Main;
 -->
      		<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/viewStock.php','cStage')">View</button>
      		<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/newStock.php','cStage')">New Stock</button>
+     		
+     		<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/newStock.php','cStage')">Transfer GRN</button>
      		<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/selectItemToChangePrices.php','cStage')">Change prices</button>
      		<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/priceTable.php','cStage')">Price Table</button>
      		

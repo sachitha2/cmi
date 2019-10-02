@@ -42,6 +42,8 @@ if($DB->nRow("deals"," WHERE cid = $cid") != 0){
 													<th scope="col">Payment</th>
 													<th scope="col">Received Payment</th>
 													<th scope="col">Due date</th>
+													<th scope="col">Received Date</th>
+													<th scope="col">Settings</th>
 												</tr>
 											</thead>
 											<tbody>
@@ -60,6 +62,9 @@ if($DB->nRow("deals"," WHERE cid = $cid") != 0){
 														<td><?php echo($dataInstallment['payment']) ?></td>
 														<td><?php echo($dataInstallment['rpayment']) ?></td>
 														<td id="due<?php echo($dataInstallment['installmentid']) ?>" onDblClick="editDueDateInBillingShow(<?php echo($dataInstallment['installmentid'].",".$dataInstallment['id']) ?>)"><?php echo($dataInstallment['date']) ?></td>
+														
+														<td><?php echo($dataInstallment['rdate']) ?></td>
+														<td><button class="btn btn-danger btn-sm" onClick="delAInstallment(<?php echo($dataInstallment['id']) ?>,<?php echo($cid) ?>)">Delete</button></td>
 
 													</tr>
 													<?php

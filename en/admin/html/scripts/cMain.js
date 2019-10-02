@@ -1252,6 +1252,26 @@ function addItem(){
 
 
 /////deleters
+
+function delAInstallment(id,cid){
+	var r = confirm("Are you sure want to delete this!");
+	if(r == true){
+		showModal();
+		var ajax = _ajax();
+		ajax.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+	   	 		alert(this.responseText);
+				ajaxCommonGetFromNet("subPages/customerBilling.php?cid="+cid,"customerStage");
+				hideModal();
+			}
+	  }
+
+		ajax.open("POST", "../workers/aInstallment.del.php", true);
+		ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		ajax.send("cid="+cid+"&iId="+id);
+	}
+}
+
 function delADeal(cid,dealId,f = 0){
 	var r = confirm("Are you sure want to delete this!");
 	if(r == true){
@@ -1602,7 +1622,7 @@ function enterAddAgentInstallmentCollect(e,amount,inputId,ID,nRow,IID,dealId,FN 
 						data = { 'ID':ID, 'amount':amount,'IID':IID,'dealId':dealId};
 						console.log("Nr "+nRow+"input"+inputId);
 						if(nRow != inputId){
-							enterNext(event,"input"+(inputId+1));
+//							enterNext(event,"input"+(inputId+1));
 						}
 
 						var ajax = _ajax();
