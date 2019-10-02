@@ -1607,20 +1607,25 @@ function enterAddAgentInstallmentCollect(e,amount,inputId,ID,nRow,IID,dealId,FN 
 
 						var ajax = _ajax();
 						showModal();
-						msg("msg"+inputId,"Wait");
+//						msg("msg"+inputId,"Wait");
 						ajax.onreadystatechange = function() {
 							if (this.readyState == 4 && this.status == 200) {
 								hideModal();
 								console.log(this.responseText);
-								document.getElementById("input"+inputId).readOnly = true;
-								msg("msg"+inputId,"Done Saving");
-								if(p == 1){
+//								document.getElementById("input"+inputId).readOnly = true;
+//								msg("msg"+inputId,"Done Saving");
+								
+								res = JSON.parse(this.responseText);
+								console.log("Customer id " +res.data.cid);
+								if(p == 3){
 									console.log("Bill needs to be printed");
 									sendInstallmentBill(this.responseText);
 								}else{
+									
 									console.log("Normal needed");
 									
 								}
+								ajaxCommonGetFromNet("subPages/customerBilling.php?cid="+res.data.cid,"customerStage");
 							}
 					  }
 
@@ -2504,6 +2509,64 @@ function finishBill(cash){
 			
 }
 
+function getShortName(name,output){
+//	var name = "S H P R M Sachitha Hirushan Premarathna";
+		var name = document.getElementById(name).value;
+
+
+		console.log("full name with . :"+name);
+
+
+		var  arr = name.split(".");
+
+		console.log("arr name . "+arr);
+
+
+		//name with . and spaces
+
+
+		var initials = "";
+
+		namelen = name.length;
+
+		console.log("name length"+namelen);
+
+
+		arrIni = name.split(".");
+
+		var nameLetters = 0;
+		for(i = 0;i<arrIni.length;i++){
+
+			console.log(arrIni[i]);
+			if(arrIni[i].length == 1){
+				initials +=arrIni[i]+" ";
+				nameLetters++;
+			}
+		}
+		console.log("this name contains initials "+nameLetters);
+		console.log("initials of this name is -" + initials);
+
+
+		var nextPart = arrIni[arr.length - 1];
+
+		console.log("last part to process "+nextPart);
+
+
+		arrLastPart = nextPart.split(" ");
+
+
+		lastPart = initials;
+		for(x = 0;x<arrLastPart.length-1;x++){
+			lastPart += arrLastPart[x][0]+" ";
+		}
+
+		lastPart += arrLastPart[arrLastPart.length-1];
+
+
+		console.log("processed name === "+lastPart);
+	
+		document.getElementById(output).value = lastPart;
+}
 
 function finishBillCreditCustomer(cash,installments,cid,disc = 0){
 //			alert("finish bill");

@@ -16,75 +16,87 @@ $installment = $DB->select("installment","WHERE id = {$data['ID']}");
 
 //print_r($installment);
 
-if($data['IID'] == 2){
+
+//equal amount
+if($installment[0]['rpayment'] == 0){
 	if($installment[0]['payment'] == $data['amount']){
-		$sql = "UPDATE installment SET rdate = curdate(), status = '1', rpayment = {$data['amount']} WHERE installment.id = {$data['ID']};";
-		
+//		echo("Equal amount");
+		//Equal Amount Start
+		$sql = "UPDATE installment SET rdate = curdate(), status = '1', rpayment =rpayment + {$data['amount']} WHERE installment.id = {$data['ID']};";
+		$conn->query($sql);
+
+		//Equal Amount End
 	}else if($installment[0]['payment'] > $data['amount']){
-		
-		
-				
-				$sql = "UPDATE installment SET rdate = curdate(), status = '1', rpayment = {$data['amount']} WHERE installment.id = {$data['ID']};";
-				$tmp = $DB->select("installment","where id = {$data['ID']}");
-		
-//				echo("tmp");
-//				print_r($tmp);
-				$forwadedAmount = $tmp[0]['payment'] - $data['amount'];
-				$sql2 = "UPDATE installment SET  payment = payment + $forwadedAmount WHERE installment.id = {$data['ID']}+1;";
-				$conn->query($sql2);
-		
-	}
-	
-}else {
-	//check last or not here
-	if($ni == $data['IID']){
-		///Final installment part Start
-			if($installment[0]['payment'] == $data['amount']){
-				$sql = "UPDATE installment SET rdate = curdate(), status = '1', rpayment = rpayment + {$data['amount']} WHERE installment.id = {$data['ID']};";
-
-			}else{
-				if(($installment[0]['payment'] - $installment[0]['rpayment'])  == $data['amount']){
-					$sql = "UPDATE installment SET rdate = curdate(), status = '1', rpayment = rpayment + {$data['amount']} WHERE installment.id = {$data['ID']};";
-					
-				}else{
-					$sql = "UPDATE installment SET rdate = curdate(), status = '0', rpayment =rpayment + {$data['amount']} WHERE installment.id = {$data['ID']};";
-				}
-				
-				
-			}
-
-		
-		///Final installment part End
-		
+//		echo("Less amount");
+		//Less amount Start
+		$sql = "UPDATE installment SET rdate = curdate(), status = '0', rpayment = rpayment + {$data['amount']} WHERE installment.id = {$data['ID']};";
+		$conn->query($sql);
+		//Less amount End
 	}else{
+		//High amount Start
+		$money = $data['amount'];
+		$x = 0;
+		echo($money);
+		while($money >= 0){
+			if($money > $installment[$x]['payment']){
+				echo("\n{$installment[$x]['payment']}");
+				$money -= $installment[$x]['payment'];
+			}
+			
+			$x++;
+		}
 		
+		
+//		while($money >= 0){
+//			if($money > $installment[$x]['payment']){
+////				$sql = "UPDATE installment SET rdate = curdate(), status = '0', rpayment = rpayment + {$installment[$x]['payment']} WHERE installment.id = {$installment[$x]['id']};";
+////				$conn->query($sql);
+//				$money -=  $installment[$x]['payment'];
+//				
+//			}else{
+////				$sql = "UPDATE installment SET rdate = curdate(), status = '0', rpayment = rpayment + {$money} WHERE installment.id = {$installment[$x]['id']};";
+////				$conn->query($sql);
+//				$money -=  $money;
+//			}
+//			echo("<br>$money");
+//			$x++;
+//		}
+
+		//High amount End
+	}
+}else{
+	//R payment is not empty
+//	echo("Rpayment not empty");
 	
 	
 	
-		if($installment[0]['payment'] == $data['amount']){
-			$sql = "UPDATE installment SET rdate = curdate(), status = '1', rpayment = {$data['amount']} WHERE installment.id = {$data['ID']};";
+	
+	if(($installment[0]['payment'] - $installment[0]['rpayment']) == $data['amount']){
+//		echo("Rpayment Equal amount");
+		//Equal Amount Start
+		$sql = "UPDATE installment SET rdate = curdate(), status = '1', rpayment =rpayment + {$data['amount']} WHERE installment.id = {$data['ID']};";
+		$conn->query($sql);
 
-		}else if($installment[0]['payment'] > $data['amount']){
+		//Equal Amount End
+	}else if(($installment[0]['payment'] - $installment[0]['rpayment']) > $data['amount']){
+//		echo("Rpayment Less amount");
+		//Less amount Start
+		$sql = "UPDATE installment SET rdate = curdate(), status = '0', rpayment = rpayment + {$data['amount']} WHERE installment.id = {$data['ID']};";
+		$conn->query($sql);
+		//Less amount End
+	}else{
+//		echo("\n High amount");
+		//High amount Start
+		
 
-					$sql = "UPDATE installment SET rdate = curdate(), status = '1', rpayment = {$data['amount']} WHERE installment.id = {$data['ID']};";
-					$tmp = $DB->select("installment","where id = {$data['ID']}");
-
-//					echo("tmp");
-//					print_r($tmp);
-					$forwadedAmount = $tmp[0]['payment'] - $data['amount'];
-					$sql2 = "UPDATE installment SET  payment = payment + $forwadedAmount WHERE installment.id = {$data['ID']}+1;";
-					$conn->query($sql2);
-		}
-		}
+		//High amount End
+	}
 }
+	
 
 $sqlDeal = "UPDATE deals SET rprice = rprice - {$data['amount']} WHERE deals.id = {$data['dealId']};";
-
-$conn->query($sql);
 $conn->query($sqlDeal);
 	
-	//if commands in mysql
-//update deal status if it is final
 
 
 
@@ -95,6 +107,7 @@ if(round($deal[0]['rprice'],0) <= 0){
 	//update all as marked
 	$conn->query("UPDATE installment SET status = '1'  WHERE dealid =  {$data['dealId']} ");
 }
+
 $arrInstallment = $DB->select("installment"," WHERE dealid = {$data['dealId']} ORDER BY installmentid ASC");
 //print_r($arrInstallment);
 $x = 0;
@@ -116,7 +129,7 @@ foreach($arrInstallment as $dataInstall){
 	$arrInstall['data']['mainData']['dueAmount'] = $insTotal - $insRAmount;
 	///TODO
 	$arrInstall['data']['customerName'] = "sachitha Hirushan";
-	$arrInstall['data']['cid'] = "50";
+	$arrInstall['data']['cid'] = $deal[0]['cid'];
 	$arrInstall['data']['tp'] =  "0715591137";
 $json = json_encode($arrInstall);
 echo($json);
