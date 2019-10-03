@@ -1578,7 +1578,13 @@ function enterAddExpenses(e,costTypeid){
 		addExpenses(costTypeid);
 	}
 }
-
+function enterChangePricesLoader(e,itemId){
+	if(e.which == 13){
+		if(itemId != ""){
+			ajaxCommonGetFromNet('subPages/changePrices.php?id='+itemId,'cStage');
+		}
+	}	
+}
 function enterUpdateSystmeMC(e){
 	if (e.which == 13) {
 		updateSystmeMC();

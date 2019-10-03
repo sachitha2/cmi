@@ -646,7 +646,7 @@ body{
   <!-- endbuild -->
   <link rel="stylesheet" href="../assets/styles/font.css" type="text/css" />
 </head>
-<body >
+<body>
 <!-- onLoad='ajaxCommonGetFromNet("subPages/customerBilling.php?nic=<?php echo($_GET['id']) ?>","customerStage");'-->
   <div class="app" id="app">
 
@@ -861,7 +861,7 @@ body{
   <script src="scripts/ajax.js"></script>
 <!-- endbuild -->
 <script >
-	
+	ajaxCommonGetFromNet("subPages/customerDashBoard.php?cid=<?php echo($customer[0]['id']) ?>","customerStage");
 </script>
 </body>
 </html>

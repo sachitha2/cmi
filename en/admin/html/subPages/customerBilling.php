@@ -9,6 +9,7 @@ $DB->conn = $conn;
 
 $cid = $_GET['cid'];
 //Select Customers deals
+$main->head("Billing");
 
 if($DB->nRow("deals"," WHERE cid = $cid") != 0){
 	
