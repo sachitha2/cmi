@@ -35,33 +35,35 @@ if($installment[0]['rpayment'] == 0){
 	}else{
 		//High amount Start
 		$money = $data['amount'];
-		$x = 0;
-		echo($money);
-		while($money >= 0){
-			if($money > $installment[$x]['payment']){
-				echo("\n{$installment[$x]['payment']}");
-				$money -= $installment[$x]['payment'];
+		
+//		echo("money ".$money);
+//		echo("\n");
+		
+		$installmentNum = $installment[0]['installmentid'];
+		
+//		echo("Installment number is  - ".$installmentNum);
+		
+		$arrNext = $DB->select("installment","WHERE dealid = {$data['dealId']} AND installmentid = $installmentNum");
+		
+		
+		while($money > 0){
+			if($money >= $arrNext[0]['payment']){
+				
+				$sql = "UPDATE installment SET rdate = curdate(), status = '1', rpayment = payment WHERE id = {$arrNext[0]['id']};";
+				$conn->query($sql);
+				$money -= $arrNext[0]['payment'];
+			}else{
+				$sql = "UPDATE installment SET rdate = curdate(), status = '0', rpayment = '$money' WHERE id = {$arrNext[0]['id']};";
+				$conn->query($sql);
+				
+				$money = 0;
 			}
+//			echo("\n money - $money \n");
+			$installmentNum++;
+			$arrNext = $DB->select("installment","WHERE dealid = {$data['dealId']} AND installmentid = $installmentNum");
 			
-			$x++;
+			
 		}
-		
-		
-//		while($money >= 0){
-//			if($money > $installment[$x]['payment']){
-////				$sql = "UPDATE installment SET rdate = curdate(), status = '0', rpayment = rpayment + {$installment[$x]['payment']} WHERE installment.id = {$installment[$x]['id']};";
-////				$conn->query($sql);
-//				$money -=  $installment[$x]['payment'];
-//				
-//			}else{
-////				$sql = "UPDATE installment SET rdate = curdate(), status = '0', rpayment = rpayment + {$money} WHERE installment.id = {$installment[$x]['id']};";
-////				$conn->query($sql);
-//				$money -=  $money;
-//			}
-//			echo("<br>$money");
-//			$x++;
-//		}
-
 		//High amount End
 	}
 }else{
@@ -87,7 +89,36 @@ if($installment[0]['rpayment'] == 0){
 	}else{
 //		echo("\n High amount");
 		//High amount Start
+		$money = $data['amount'];
 		
+//		echo("money ".$money);
+//		echo("\n");
+		
+		$installmentNum = $installment[0]['installmentid'];
+		
+//		echo("Installment number is  - ".$installmentNum);
+		
+		$arrNext = $DB->select("installment","WHERE dealid = {$data['dealId']} AND installmentid = $installmentNum");
+		
+		
+		while($money > 0){
+			if($money >= ($arrNext[0]['payment'] - $arrNext[0]['rpayment'])){
+				
+				$sql = "UPDATE installment SET rdate = curdate(), status = '1', rpayment = payment WHERE id = {$arrNext[0]['id']};";
+				$conn->query($sql);
+				$money -= $arrNext[0]['payment'] - $arrNext[0]['rpayment'];
+			}else{
+				$sql = "UPDATE installment SET rdate = curdate(), status = '0', rpayment = '$money' WHERE id = {$arrNext[0]['id']};";
+				$conn->query($sql);
+				
+				$money = 0;
+			}
+//			echo("\n money - $money \n");
+			$installmentNum++;
+			$arrNext = $DB->select("installment","WHERE dealid = {$data['dealId']} AND installmentid = $installmentNum");
+			
+			
+		}
 
 		//High amount End
 	}

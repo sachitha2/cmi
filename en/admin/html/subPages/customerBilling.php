@@ -10,7 +10,6 @@ $DB->conn = $conn;
 $cid = $_GET['cid'];
 //Select Customers deals
 $main->head("Billing");
-
 if($DB->nRow("deals"," WHERE cid = $cid") != 0){
 	
 	$deals = $DB->select("deals"," WHERE cid = $cid  ORDER BY date DESC ");
@@ -44,7 +43,16 @@ if($DB->nRow("deals"," WHERE cid = $cid") != 0){
 													<th scope="col">Received Payment</th>
 													<th scope="col">Due date</th>
 													<th scope="col">Received Date</th>
-													<th scope="col">Settings</th>
+													
+													<?php 
+															if($_SESSION['login']['type'] == 1){
+																?>
+																
+																	<th scope="col">Settings</th>	
+																<?php
+															}
+														
+														?>
 												</tr>
 											</thead>
 											<tbody>
@@ -65,7 +73,16 @@ if($DB->nRow("deals"," WHERE cid = $cid") != 0){
 														<td id="due<?php echo($dataInstallment['installmentid']) ?>" onDblClick="editDueDateInBillingShow(<?php echo($dataInstallment['installmentid'].",".$dataInstallment['id']) ?>)"><?php echo($dataInstallment['date']) ?></td>
 														
 														<td><?php echo($dataInstallment['rdate']) ?></td>
-														<td><button class="btn btn-danger btn-sm" onClick="delAInstallment(<?php echo($dataInstallment['id']) ?>,<?php echo($cid) ?>)">Delete</button></td>
+														<?php 
+															if($_SESSION['login']['type'] == 1){
+																?>
+																
+																	<td><button class="btn btn-danger btn-sm" onClick="delAInstallment(<?php echo($dataInstallment['id']) ?>,<?php echo($cid) ?>)">Delete</button></td>
+																<?php
+															}
+														
+														?>
+														
 
 													</tr>
 													<?php
@@ -92,6 +109,22 @@ if($DB->nRow("deals"," WHERE cid = $cid") != 0){
 								
 														</td>
 														<td id="due<?php echo($dataInstallment['installmentid']) ?>" onDblClick="editDueDateInBillingShow(<?php echo($dataInstallment['installmentid'].",".$dataInstallment['id']) ?>)"><?php echo($dataInstallment['date']) ?></td>
+														<td><?php 
+															if($dataInstallment['rdate'] != "0000-00-00"){
+																echo($dataInstallment['rdate']);
+															}else{
+																echo("<center>-</center>");
+															}
+															?></td>
+														<?php 
+															if($_SESSION['login']['type'] == 1){
+																?>
+																
+																	<td><button class="btn btn-danger btn-sm" onClick="delAInstallment(<?php echo($dataInstallment['id']) ?>,<?php echo($cid) ?>)">Delete</button></td>
+																<?php
+															}
+														
+														?>
 
 													</tr>		
 												
@@ -107,7 +140,7 @@ if($DB->nRow("deals"," WHERE cid = $cid") != 0){
 	      							</center>
       						</div>
       						<div class="card-header">
-        						<h2 class="my-0 font-weight-normal text-primary" id="totalToday"><?php echo(round(($data['tprice']-$data['rprice']),0)."/".$data['tprice']) ?></h2>
+        						<h2 class="my-0 font-weight-normal text-primary" id="totalToday">Received Price - <?php echo(round(($data['tprice']-$data['rprice']),0)."<br>Balance - ".round($data['rprice'])."<br>Total - ".$data['tprice']) ?></h2>
         							<a href="subPages/print.php" target="_blank" class="link"><button class="btn btn-primary btn-sm">Print</button></a>
         						
         						
