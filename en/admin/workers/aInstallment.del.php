@@ -13,10 +13,12 @@ print_r($arr);
 
 
 
-$conn->query("UPDATE installment SET rpayment = '0',status = '0' WHERE installment.id = {$arr[0]['id']};");
+	$conn->query("UPDATE installment SET rpayment = '0',status = '0' WHERE installment.id = {$arr[0]['id']};");
 
 
-$conn->query("UPDATE deals SET rprice = rprice + {$arr[0]['rpayment']}, status = '0' WHERE deals.id = {$arr[0]['dealid']};");
+	$conn->query("UPDATE deals SET rprice = rprice + {$arr[0]['rpayment']}, status = '0' WHERE deals.id = {$arr[0]['dealid']};");
 
+
+	$history['data'] = ""; 
 
 ?>

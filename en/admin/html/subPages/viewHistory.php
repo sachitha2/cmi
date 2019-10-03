@@ -13,6 +13,13 @@ $main->b("profile.php");
 
 	
 
+   <button class="btn">Today</button>
+   <button  class="btn">Last Week</button>
+   <button  class="btn">Week</button>
+   <button  class="btn">Last Month</button>
+   <button  class="btn">Month</button>
+   <button  class="btn">Last Year</button>
+   <button  class="btn">Year</button>
     
     <?php
 	  
@@ -22,22 +29,23 @@ $main->b("profile.php");
   					<thead class="thead-dark">
     					<tr>
       						<th scope="col" width="10">ID</th>
-      						<th scope="col">Area</th>
-      						<th scope="col" width="50"></th>
-      						<th scope="col" width="50"></th>
+      						<th scope="col" width="110">Date</th>
+      						<th scope="col"  width="110">Time</th>
+      						<th scope="col">Task</th>
     					</tr>
   					</thead>
   					<tbody>
 				<?php
 			
-			$arr = $DB->select("area","");
+			$arr = $DB->select("histry","");
 			foreach($arr as $data){
+//				print_r($data);
 				?>
 				<tr>
 					<td scope="row"><?php echo($data['id']) ?></td>
-					<td><?php echo($data['name'])?></td>
-					<td><button type="button" class="btn btn-md btn-primary" onClick="loadEditFormsArea(<?php echo($data['id']) ?>,81)">Edit</button></td>
-					<td><button onClick="delArea(<?php echo($data['id']) ?>)" type="button" class="btn btn-md btn-danger ">X</button></td>
+					<td><?php echo($data['date'])?></td>
+					<td><?php echo($data['time'])?></td>
+					<td><?php echo($data['task'])?></td>
 					
 				</tr>
 				<?php
