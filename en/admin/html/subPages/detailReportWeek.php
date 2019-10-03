@@ -20,9 +20,6 @@ include("../../workers/readSesson.worker.php");
     $main->b("detailReport.php");
   ?>
   
-    
-    <?php $main->modal() ?> 
-    <?php $main->topBar() ?>
     <div ui-view class="app-body" id="view">
 		<?php $main->modal() ?>
       	<!-- ############ PAGE START-->
