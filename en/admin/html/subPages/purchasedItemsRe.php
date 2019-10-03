@@ -49,13 +49,6 @@ include("../../workers/readSesson.worker.php");
     $x='PDF/purchasedItemsRePDF.php?logic='.$logic.'&period='.$period;
   ?>
 
-<script>
-    function periodRedirect2(){
-      var logic = <?php echo($logic); ?>;
-      var period = <?php echo($period); ?>;
-      window.location.assign('PDF/purchasedItemsRePDF.php?logic='+logic+'&period='+period);
-    }
-</script>
   
   <!-- content -->
   <div id="content" class="app-content box-shadow-z0" role="main">
@@ -121,7 +114,7 @@ include("../../workers/readSesson.worker.php");
 
           <br>
           <center> 
-            <button type="button" class="btn btn-primary btn-lg" onClick="window.location.assign(<?php echo($x) ?>);"  style="width: 40%;margin-bottom: 5px;">Get PDF Report</button>
+            <button type="button" class="btn btn-primary btn-lg" onClick="window.location.assign('PDF/purchasedItemsRePDF.php?logic=<?php echo($from) ?>&period=<?php echo($to) ?>')"  style="width: 40%;margin-bottom: 5px;">Get PDF Report</button>
           </center>
 
           </div>

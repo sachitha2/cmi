@@ -393,7 +393,7 @@ class Main{
 		
 			$pdf->ln(5);
 			$pdf->SetFont('Times','',10);
-			$pdf->Cell('',10,"Powered by Infini solutions - http://infinisolutionslk.com",'','',"C");
+			$pdf->Cell('',10,"Powered by Infini solutions - https://infinisolutionslk.com",'','',"C");
 			$pdf->ln(5);
 			$pdf->Cell('',10,"077-1466460",'','',"C");
 		

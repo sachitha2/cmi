@@ -17,7 +17,16 @@ $DB->conn = $conn;
 $pdf = new FPDF('L','mm','A4');
 $pdf->AddPage("L",'A4');
 $pdf->SetFont('Times','B',18);
-$pdf->Cell("",10,"Detail Report - Today (".$Date.')','','',"C");
+
+if(isset($_GET['date'])){
+    $sql = "WHERE DATE(date) = '{$_GET['date']}';";
+    $pdf->Cell("",10,"Detail Report - (".$_GET['date'].')','','',"C");
+}else{
+    $sql = "WHERE DATE(date) = DATE(CURRENT_DATE());";
+    $pdf->Cell("",10,"Detail Report - Today (".$Date.')','','',"C");
+}
+
+
 
 
 //Expenses-----------------------------------
@@ -26,7 +35,7 @@ $pdf->SetFont('Times','B',16);
 $pdf->Cell("",10,"Expenses",'','',"L");
 $pdf->ln(10);
 
-if($DB->nRow("cost","WHERE DATE(date) = DATE(CURRENT_DATE());") != 0){
+if($DB->nRow("cost",$sql) != 0){
                 
     $pdf->SetFont('Times','B',12);
     $pdf->Cell(30,10,'ID','1','',"L");
@@ -38,7 +47,7 @@ if($DB->nRow("cost","WHERE DATE(date) = DATE(CURRENT_DATE());") != 0){
     $pdf->ln(4);
 
         $totExpenses = 0;
-        $arr = $DB->select("cost","WHERE DATE(date) = DATE(CURRENT_DATE());");
+        $arr = $DB->select("cost",$sql);
         foreach($arr as $data){
             $pdf->ln(6);
             $pdf->Cell(30,6,$data['id'],'1','',"L");
@@ -71,7 +80,7 @@ if($DB->nRow("cost","WHERE DATE(date) = DATE(CURRENT_DATE());") != 0){
     $pdf->Cell("",10,"Income",'','',"L");
     $pdf->ln(10);
 
-    if($DB->nRow("purchaseditems", "WHERE DATE(date) = DATE(CURRENT_DATE());") != 0){
+    if($DB->nRow("purchaseditems", $sql) != 0){
                     
         $pdf->SetFont('Times','B',12);
         $pdf->Cell(15,10,'ID','1','',"L");
@@ -86,7 +95,7 @@ if($DB->nRow("cost","WHERE DATE(date) = DATE(CURRENT_DATE());") != 0){
         $pdf->ln(4);
 
             $totIncome = 0;
-            $arr = $DB->select("purchaseditems", "WHERE DATE(date) = DATE(CURRENT_DATE());");
+            $arr = $DB->select("purchaseditems", $sql);
             foreach($arr as $data){
                 $pdf->ln(6);
                 $pdf->Cell(15,6,$data['id'],'1','',"L");
@@ -122,7 +131,7 @@ $pdf->SetFont('Times','B',16);
 $pdf->Cell("",10,"Cost",'','',"L");
 $pdf->ln(10);
 
-if($DB->nRow("purchaseditems", "WHERE DATE(date) = DATE(CURRENT_DATE());") != 0){
+if($DB->nRow("purchaseditems", $sql) != 0){
                 
     $pdf->SetFont('Times','B',12);
     $pdf->Cell(15,10,'ID','1','',"L");
@@ -137,7 +146,7 @@ if($DB->nRow("purchaseditems", "WHERE DATE(date) = DATE(CURRENT_DATE());") != 0)
     $pdf->ln(4);
 
         $totCost = 0;
-        $arr = $DB->select("purchaseditems", "WHERE DATE(date) = DATE(CURRENT_DATE());");
+        $arr = $DB->select("purchaseditems", $sql);
         foreach($arr as $data){
             $pdf->ln(6);
             $pdf->Cell(15,6,$data['id'],'1','',"L");
@@ -175,7 +184,7 @@ $pdf->SetFont('Times','B',16);
 $pdf->Cell("",10,"Profit",'','',"L");
 $pdf->ln(10);
 
-if($DB->nRow("purchaseditems", "WHERE DATE(date) = DATE(CURRENT_DATE());") != 0){
+if($DB->nRow("purchaseditems", $sql) != 0){
                 
     $pdf->SetFont('Times','B',12);
     $pdf->Cell(10,10,'ID','1','',"L");
@@ -192,7 +201,7 @@ if($DB->nRow("purchaseditems", "WHERE DATE(date) = DATE(CURRENT_DATE());") != 0)
     $pdf->ln(4);
 
         $totProfit = 0;
-        $arr = $DB->select("purchaseditems", "WHERE DATE(date) = DATE(CURRENT_DATE());");
+        $arr = $DB->select("purchaseditems", $sql);
         foreach($arr as $data){
             $pdf->ln(6);
             $pdf->Cell(10,6,$data['id'],'1','',"L");
@@ -228,7 +237,11 @@ if($DB->nRow("purchaseditems", "WHERE DATE(date) = DATE(CURRENT_DATE());") != 0)
 
 $main->pdfFooter($pdf);
 
-$pdf->Output('',"Detail Report - Today (".$Date.').pdf',true);
+if(isset($_GET['date'])){
+    $pdf->Output('',"Detail Report - (".$_GET['date'].').pdf',true);
+}else{
+    $pdf->Output('',"Detail Report - Today (".$Date.').pdf',true);
+}
 
 //Cell(float w [, float h [, string txt [, mixed border [, int ln [, string align [, boolean fill [, mixed link]]]]]]])
 
