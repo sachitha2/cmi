@@ -105,7 +105,7 @@ class DB{
 	
 	function isAvailable($table,$logic){
 		$rows = $this->nRow($table,$logic);
-		if($rows >= 1){
+		if($rows == 1){
 			return(true);
 		}
 		else{
