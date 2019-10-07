@@ -10,7 +10,7 @@ $main->b("subArea.php");
 <?php
 	include("../../workers/readSesson.worker.php");
 
-	if($DB->isAvailable("area","") == true){ ?>
+	if($DB->nRow("area","") >= 1){ ?>
 	
 		<h2>Add a Sub Area</h2>
 	

@@ -167,8 +167,11 @@ if($installment[0]['rpayment'] == 0){
 $sqlDeal = "UPDATE deals SET rprice = rprice - {$data['amount']} WHERE deals.id = {$data['dealId']};";
 $conn->query($sqlDeal);
 	
-$DB->insertCollection($data['dealId'],round($data['amount'],2),$installmentNum,$_SESSION['login']['userId']);
 
+//Edited got a error
+$sqlCollection = "INSERT INTO collection (id, userId, installmentId, dealid, payment, date, time, dateTime) VALUES (NULL, '{$_SESSION['login']['userId']}', '$installmentNum', '{$data['dealId']}', '{$data['amount']}', curdate(), curtime(), CURRENT_TIMESTAMP);";
+
+$conn->query($sqlCollection);
 
 
 
