@@ -79,7 +79,7 @@ if($DB->nRow("customer","WHERE nic = '{$_GET['nic']}'") == 0){
 	  
 	  				if($x == 2){
 						?>
-						<form>
+						<form autocomplete="off">
 		<div>Select Designation</div>
 		<select  class="form-control" id="desi">
 			<option value="0">Select Designation</option>
@@ -89,12 +89,12 @@ if($DB->nRow("customer","WHERE nic = '{$_GET['nic']}'") == 0){
 			<option value="Miss.">Miss.</option>
 		</select>
 		<div>Full Name</div>
-		<div><input type="text" class="form-control" style="text-transform: uppercase" name="name" id="name" placeholder="Enter Name" onKeyPress="enterNext(event,'sName');"></div>
+		<div><input type="text" class="form-control" style="text-transform: uppercase" name="name" id="name" placeholder="Enter Name" onKeyPress="enterNext(event,'sName');" autocomplete="false"></div>
 		
 		<div>Short Name</div>
-		<div><input type="text" class="form-control" name="sName" id="sName" placeholder="Enter Short Name"  onKeyPress="enterNext(event,'address');"  style="text-transform: uppercase" onClick="getShortName('name','sName')"></div>
+		<div><input type="text" class="form-control" name="sName" id="sName" placeholder="Enter Short Name"  onKeyPress="enterNext(event,'address');"  style="text-transform: uppercase" onClick="getShortName('name','sName')" autocomplete="false"></div>
 		<div>Address</div>
-		<div><input type="text" class="form-control" name="address" id="address" placeholder="Enter Address"  onKeyPress="enterNext(event,'tp');"></div>
+		<div><input type="text" class="form-control" name="address" id="address" placeholder="Enter Address"  onKeyPress="enterNext(event,'tp');" autocomplete="false"></div>
 		<div>NIC</div>
 		<div><input type="text" class="form-control" name="nic" id="nic" value="<?php echo $_GET['nic']; ?>" readonly></div>
 		<div>Telephone</div>
@@ -154,7 +154,7 @@ if($DB->nRow("customer","WHERE nic = '{$_GET['nic']}'") == 0){
 		</div>
 		<div>Enter Collection Date</div>
 		<div>
-			<input type="number" id="collectionDate" onKeyPress="enterAddCustomer(event)" class="form-control"  style="width: 200px">
+			<input type="number" value="25" id="collectionDate" onKeyPress="enterAddCustomer(event)" class="form-control"  style="width: 200px">
 		</div>
 		
 <!--
