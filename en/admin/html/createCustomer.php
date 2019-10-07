@@ -109,7 +109,7 @@ if(isset($_GET['nic'])){
      
       		<div class="form-group">
         	<label for="formGroupExampleInput2">ENTER NIC</label>
-        	<input type="text" class="form-control"  name="nic" id="nic" placeholder="Enter NIC" required="" list="customersList">
+        	<input type="text" class="form-control"  name="nic" id="nic" placeholder="Enter NIC" required="" list="customersList"  autocomplete="off">
         	
 			<datalist id="customersList">
 				
@@ -130,7 +130,7 @@ if(isset($_GET['nic'])){
         	
       		</div>
       		<label id="msg"><?php echo($y) ?></label><br>
-      		<input type="submit"  class="btn btn-primary btn-lg" name="submit" value="Find">
+      		<input type="submit"  class="btn btn-primary btn-lg" name="submit" value="Find"  >
     	</form>
     	
     	
@@ -141,7 +141,7 @@ if(isset($_GET['nic'])){
      
       		<div class="form-group">
         	<label for="formGroupExampleInput2">ENTER Customer Id</label>
-        	<input type="text" class="form-control"  name="cid" id="cid" placeholder="Enter Customer Id" required="" list="customersListCID">
+        	<input type="text" class="form-control"  name="cid" id="cid" placeholder="Enter Customer Id" required="" list="customersListCID" autocomplete="off">
         	
 			<datalist id="customersListCID">
 				

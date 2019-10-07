@@ -19,9 +19,9 @@ if($numNotSaved != 0){
 }
 ?>
 			<h1>Select Customer From NIC</h1>
-			<input list="colors" name="color" id="idCard" class="form-control" style="width: 200px" onKeyPress="enterCheckCustomerForMakeBill(event,this.value)" <?php echo($disabled) ?>>
+			<input list="colors" name="color" id="idCard" class="form-control" style="width: 200px" onKeyPress="enterCheckCustomerForMakeBill(event,this.value)" <?php echo($disabled) ?> autocomplete="off">
 			<datalist id="colors">
-				
+				s
     			<?php
 					foreach($customer as $data){
 						if($data['nic'] != "0000000000"){
@@ -37,7 +37,7 @@ if($numNotSaved != 0){
 			</datalist>
 			<div id="msg"></div>
 			<br>
-			<input type="button" value="Next"  class="btn btn-primary btn-lg" onClick="CheckCustomerForMakeBill(idCard.value);" <?php echo($disabled) ?>>
+			<input type="button" value="Next"  class="btn btn-primary btn-lg" onClick="CheckCustomerForMakeBill(idCard.value);" <?php echo($disabled) ?>  autocomplete="off">
 			
 			
 			

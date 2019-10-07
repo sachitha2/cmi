@@ -13,7 +13,7 @@ $deal = $DB->select("deals","where id = {$data['dealId']}");
 $ni = $deal[0]['ni'];
 
 $installment = $DB->select("installment","WHERE id = {$data['ID']}");
-
+$installmentNum = $installment[0]['installmentid'];
 //print_r($installment);
 
 
@@ -24,13 +24,23 @@ if($installment[0]['rpayment'] == 0){
 		//Equal Amount Start
 		$sql = "UPDATE installment SET rdate = curdate(), status = '1', rpayment =rpayment + {$data['amount']} WHERE installment.id = {$data['ID']};";
 		$conn->query($sql);
-
+		
+		//update collection table
+//		$DB->insertCollection($data['dealId'],round($data['amount'],2),$installmentNum,'25');
+		
+		
 		//Equal Amount End
 	}else if($installment[0]['payment'] > $data['amount']){
 //		echo("Less amount");
 		//Less amount Start
 		$sql = "UPDATE installment SET rdate = curdate(), status = '0', rpayment = rpayment + {$data['amount']} WHERE installment.id = {$data['ID']};";
 		$conn->query($sql);
+		
+		
+		//update collection table
+//		$DB->insertCollection($data['dealId'],round($data['amount'],2),$installmentNum,'25');
+		
+		
 		//Less amount End
 	}else{
 		//High amount Start
@@ -39,7 +49,7 @@ if($installment[0]['rpayment'] == 0){
 //		echo("money ".$money);
 //		echo("\n");
 		
-		$installmentNum = $installment[0]['installmentid'];
+		
 		
 //		echo("Installment number is  - ".$installmentNum);
 		
@@ -52,9 +62,20 @@ if($installment[0]['rpayment'] == 0){
 				$sql = "UPDATE installment SET rdate = curdate(), status = '1', rpayment = payment WHERE id = {$arrNext[0]['id']};";
 				$conn->query($sql);
 				$money -= $arrNext[0]['payment'];
+				
+				
+				//update collection table
+//				$DB->insertCollection($data['dealId'],round($arrNext[0]['payment'],2),$installmentNum,'25');
+		
+		
+				
 			}else{
 				$sql = "UPDATE installment SET rdate = curdate(), status = '0', rpayment = '$money' WHERE id = {$arrNext[0]['id']};";
 				$conn->query($sql);
+				
+				
+				//update collection table
+//				$DB->insertCollection($data['dealId'],round($money,2),$installmentNum,'25');
 				
 				$money = 0;
 			}
@@ -64,6 +85,7 @@ if($installment[0]['rpayment'] == 0){
 			
 			
 		}
+		$installmentNum--;
 		//High amount End
 	}
 }else{
@@ -79,12 +101,24 @@ if($installment[0]['rpayment'] == 0){
 		$sql = "UPDATE installment SET rdate = curdate(), status = '1', rpayment =rpayment + {$data['amount']} WHERE installment.id = {$data['ID']};";
 		$conn->query($sql);
 
+		
+		
+		//update collection table
+//		$DB->insertCollection($data['dealId'],round($data['amount'],2),$installmentNum,'20');
+		
 		//Equal Amount End
 	}else if(($installment[0]['payment'] - $installment[0]['rpayment']) > $data['amount']){
 //		echo("Rpayment Less amount");
 		//Less amount Start
 		$sql = "UPDATE installment SET rdate = curdate(), status = '0', rpayment = rpayment + {$data['amount']} WHERE installment.id = {$data['ID']};";
 		$conn->query($sql);
+		
+		
+		
+		//update collection table
+//		$DB->insertCollection($data['dealId'],round($data['amount'],2),$installmentNum,'20');
+		
+		
 		//Less amount End
 	}else{
 //		echo("\n High amount");
@@ -106,10 +140,15 @@ if($installment[0]['rpayment'] == 0){
 				
 				$sql = "UPDATE installment SET rdate = curdate(), status = '1', rpayment = payment WHERE id = {$arrNext[0]['id']};";
 				$conn->query($sql);
+				
+				
+				
 				$money -= $arrNext[0]['payment'] - $arrNext[0]['rpayment'];
 			}else{
 				$sql = "UPDATE installment SET rdate = curdate(), status = '0', rpayment = '$money' WHERE id = {$arrNext[0]['id']};";
 				$conn->query($sql);
+				
+//				$DB->insertCollection($data['dealId'],round($money,2),$installmentNum,'20');
 				
 				$money = 0;
 			}
@@ -119,7 +158,7 @@ if($installment[0]['rpayment'] == 0){
 			
 			
 		}
-
+		$installmentNum--;
 		//High amount End
 	}
 }
@@ -128,6 +167,7 @@ if($installment[0]['rpayment'] == 0){
 $sqlDeal = "UPDATE deals SET rprice = rprice - {$data['amount']} WHERE deals.id = {$data['dealId']};";
 $conn->query($sqlDeal);
 	
+$DB->insertCollection($data['dealId'],round($data['amount'],2),$installmentNum,$_SESSION['login']['userId']);
 
 
 

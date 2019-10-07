@@ -1,3 +1,6 @@
+<?php
+	session_start();
+?>
 <!doctype html>
 <html>
 <head>
@@ -37,6 +40,78 @@
 </script>
 </head>
 
-<body onLoad="printJS({printable: someJSONdata,type: 'json',properties: ['Description', 'Unit_Cost', 'Qty','Amount'],header: head,style: '.custom-h3 { color: red; }'});">
+<body onLoad="">
+	<h1 align="left" style="font-size: 50px;margin: 20px">INVOICE</h1>
+	
+	
+	
+	<table border="0">
+		<tr>
+			<th><h1 align="left" style="font-size: 15px;padding-right: 20px">INVOICE NUMBER <br>1570115091252 </h1></th>
+			<td><h1 align="left" style="font-size: 15px;">Date of issue <br>2019-10-10 </h1></td>
+		</tr>
+	</table>
+	<table border="0" width="100%">
+		<tr>
+			<td valign="top">
+				<br>
+				<b>Billed to</b>
+				<br>
+				Client name
+				<br>
+				Address
+			</td>
+			<td valign="top">
+				<b>Your Company name</b><br>
+				Address<br>
+				Tel1<br>
+				Tel2<br>
+				Mail<br>
+				web<br>
+			</td>
+		</tr>
+	</table>
+	
+	<center>
+	<table border="1" width="80%">
+		<tr>
+			<th>Description</th>
+			<th>Unit Cost</th>
+			<th>QTY</th>
+			<th>Amount</th>
+		</tr>
+		<tr>
+			<td>Dresssing table</td>
+			<td>10</td>
+			<td>10</td>
+			<td>100</td>
+		</tr>
+		<tr>
+			<td>Dresssing table</td>
+			<td>10</td>
+			<td>10</td>
+			<td>100</td>
+		</tr>
+		<tr>
+			<td>Dresssing table</td>
+			<td>10</td>
+			<td>10</td>
+			<td>100</td>
+		</tr>
+		<tr>
+			<td>Dresssing table</td>
+			<td>10</td>
+			<td>10</td>
+			<td>100</td>
+		</tr>
+	</table>
+	</center>
+	<?php
+//		print_r($_SESSION['login']);
+	
+	?>
 </body>
 </html>
+
+
+<!--printJS({printable: someJSONdata,type: 'json',properties: ['Description', 'Unit_Cost', 'Qty','Amount'],header: head,style: '.custom-h3 { color: red; }'});-->
