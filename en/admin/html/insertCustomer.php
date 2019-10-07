@@ -71,7 +71,7 @@ if($DB->nRow("customer","WHERE nic = '{$_GET['nic']}'") == 0){
 					}else{
 						$x++;
 					}
-	  				if($DB->nRow('user',' WHERE type = 2') == 0){
+	  				if($DB->nRow('user',' ') == 0){
 						$main->Msgwarning("No data Found in User Table");
 					}else{
 						$x++;
@@ -130,7 +130,7 @@ if($DB->nRow("customer","WHERE nic = '{$_GET['nic']}'") == 0){
 		<div>
 			<select class="form-control" name="agent" id="agent"  style="width: 200px">
 				<?php
-					$queryForAgentSelection = $conn->query("SELECT * FROM user WHERE type = 2 ;");
+					$queryForAgentSelection = $conn->query("SELECT * FROM user;");
 					while ($rowAgent = mysqli_fetch_assoc($queryForAgentSelection)) {
 
 						echo "<option value='{$rowAgent['id']}'>".$rowAgent['username']."</option>";

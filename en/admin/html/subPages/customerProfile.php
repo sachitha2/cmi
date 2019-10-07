@@ -9,7 +9,7 @@ $DB->conn = $conn;
 $cid = $_GET['cid'];
 
 //echo($cid);
-
+$main->head("Profile");
 $customer = $DB->select("customer","where id like '$cid';");
 
 
@@ -21,7 +21,6 @@ $customer = $DB->select("customer","where id like '$cid';");
 <h2>Status - <?php echo($customer[0]['status']) ?></h2>
 <h2>Route - <?php echo($customer[0]['route']) ?></h2>
 -->
-			<h2>Profile</h2>
 			<br>
 			<br>
 			<br>

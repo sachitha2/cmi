@@ -5,7 +5,5 @@ require_once("../../methods/Main.class.php");
 $DB = new DB;
 $main = new Main;
 $DB->conn = $conn;
-
-
+$main->head("Remainders");
 ?>
-<h1>This  is customer Remainders</h1>

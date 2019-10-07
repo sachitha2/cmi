@@ -151,6 +151,12 @@ class DB{
 		}
 		
 	}
+	
+	
+	function insertCollection($dealId,$amount,$installmentId,$userId){
+		$sqlCollection = "INSERT INTO collection (id, userId, installmentId, dealid, payment, date, time, dateTime) VALUES (NULL, '$userId', '$installmentId', '$dealId', '$amount', curdate(), curtime(), CURRENT_TIMESTAMP);";
+		$this->conn->query($sqlCollection);
+	}
 	function Histry($msg){
 		
 	}

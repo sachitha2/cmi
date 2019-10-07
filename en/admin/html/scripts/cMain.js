@@ -1260,7 +1260,7 @@ function delAInstallment(id,cid){
 		var ajax = _ajax();
 		ajax.onreadystatechange = function() {
 			if (this.readyState == 4 && this.status == 200) {
-	   	 		alert(this.responseText);
+//	   	 		alert(this.responseText);
 				ajaxCommonGetFromNet("subPages/customerBilling.php?cid="+cid,"customerStage");
 				hideModal();
 			}
@@ -1578,7 +1578,13 @@ function enterAddExpenses(e,costTypeid){
 		addExpenses(costTypeid);
 	}
 }
-
+function enterChangePricesLoader(e,itemId){
+	if(e.which == 13){
+		if(itemId != ""){
+			ajaxCommonGetFromNet('subPages/changePrices.php?id='+itemId,'cStage');
+		}
+	}	
+}
 function enterUpdateSystmeMC(e){
 	if (e.which == 13) {
 		updateSystmeMC();
@@ -1632,8 +1638,6 @@ function enterAddAgentInstallmentCollect(e,amount,inputId,ID,nRow,IID,dealId,FN 
 							if (this.readyState == 4 && this.status == 200) {
 								hideModal();
 								console.log(this.responseText);
-//								document.getElementById("input"+inputId).readOnly = true;
-//								msg("msg"+inputId,"Done Saving");
 								
 								res = JSON.parse(this.responseText);
 								console.log("Customer id " +res.data.cid);

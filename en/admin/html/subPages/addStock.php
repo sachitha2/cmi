@@ -8,6 +8,9 @@ $main = new Main;
 $arr = $DB->select("item","");
 $main->b("stock.php");
 
+	include("../../workers/readSesson.worker.php");
+
+
 if( ($DB->nRow("item","") != 0 ) && ($DB->nRow("item_type","") != 0 )){
 	?>
 	<h2>Select Item to load</h2>
