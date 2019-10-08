@@ -34,7 +34,7 @@ if(isset($_GET['data'])){
   					<thead class="thead-dark">
     					<tr>
       						<th scope="col" width="10">ID</th>
-      						<th scope="col">Deal Id</th>
+      						<th scope="col" onDblClick="ajaxCommonGetFromNet('subPages/menu.dateInMySales.php','date');">Deal Id</th>
       						<th scope="col">CID</th>
       						<th scope="col">C.Name</th>
       						<th scope="col">Items</th>

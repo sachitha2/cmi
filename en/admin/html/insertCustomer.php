@@ -112,7 +112,7 @@ if($DB->nRow("customer","WHERE nic = '{$_GET['nic']}'") == 0){
 		<select name="area" id="area" class="form-control"  style="width: 200px" onChange="loadSubAreas(this.value)">
 			<option class='form-control' value='0'>SELECT MAIN AREA</option>
 			<?php
-			$queryForSelection = $conn->query("SELECT * FROM area");
+			$queryForSelection = $conn->query("SELECT * FROM area ORDER BY area.name ASC");
 			while ($row = mysqli_fetch_assoc($queryForSelection)) {
 		 		echo "<option class='form-control' value='{$row['id']}'>".$row['name']."</option>";
 			} 
