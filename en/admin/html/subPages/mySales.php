@@ -10,7 +10,7 @@ $main->b("profile.php");
 if(isset($_GET['data'])){
 	$dataArr = json_decode($_GET['data'],true);
 	
-	print_r($dataArr);
+//	print_r($dataArr);
 	
 	if($dataArr['mode'] == "date"){
 		$logic = "WHERE fdate BETWEEN '".$dataArr['from']."' AND '".$dataArr['to']."' AND  agentId = {$_SESSION['login']['userId']};";
@@ -18,9 +18,6 @@ if(isset($_GET['data'])){
 		$logic = "WHERE id LIKE '%{$dataArr['dealId']}%'  AND  agentId = {$_SESSION['login']['userId']};";
 	}else if($dataArr['mode'] == "cid"){
 		$logic = "WHERE cid LIKE '%{$dataArr['cid']}%'  AND  agentId = {$_SESSION['login']['userId']};";
-	}else if($dataArr['mode'] == "name"){
-		//TODO
-//		$logic = "WHERE cid LIKE '%{$dataArr['cid']}%'  AND  agentId = {$_SESSION['login']['userId']};";
 	}
 }else{
 	echo("Default");
@@ -43,7 +40,7 @@ if(isset($_GET['data'])){
       						<th scope="col" width="10">ID</th>
       						<th width="100" scope="col" id="dealId" onDblClick="ajaxCommonGetFromNet('subPages/menu.dealIdMySales.php','dealId');">Deal Id</th>
       						<th scope="col" id="cid" onDblClick="ajaxCommonGetFromNet('subPages/menu.CIDMySales.php','cid');" width="120" >CID</th>
-      						<th scope="col" id="name"  onDblClick="ajaxCommonGetFromNet('subPages/menu.nameMySales.php','name');">C.Name</th>
+      						<th scope="col" id="name">C.Name</th>
       						<th scope="col">Items</th>
       						<th scope="col">Status</th>
       						<th scope="col" onDblClick="ajaxCommonGetFromNet('subPages/menu.dateInMySales.php','date');" id="date">Date</th>
