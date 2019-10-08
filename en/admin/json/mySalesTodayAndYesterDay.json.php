@@ -11,6 +11,12 @@ $arrThisM = $DB->select("deals","WHERE fdate = curdate() AND agentId = {$_SESSIO
 $arrLastM = $DB->select("deals"," WHERE fdate =  curdate() - 1 AND agentId = {$_SESSION['login']['userId']}","SUM(tprice)");
 $data['salesThisD'] = (int)$arrThisM[0]['SUM(tprice)'];
 $data['salesLastD'] = (int)$arrLastM[0]['SUM(tprice)'];
+
+
+
+$data['dealThis'] = $DB->nRow("deals","WHERE fdate = curdate() AND agentId = {$_SESSION['login']['userId']}");
+$data['dealLast'] = $DB->nRow("deals"," WHERE fdate =  curdate() - 1 AND agentId = {$_SESSION['login']['userId']}");
+
 $json = json_encode($data);
 echo($json);
 ?>

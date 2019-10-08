@@ -11,6 +11,11 @@ $arrThisM = $DB->select("deals","WHERE MONTH(fdate)  = MONTH(curdate()) AND YEAR
 $arrLastM = $DB->select("deals"," WHERE YEAR(fdate) = YEAR(CURRENT_DATE - INTERVAL 1 MONTH) AND MONTH(fdate) = MONTH(CURRENT_DATE - INTERVAL 1 MONTH)  AND agentId = {$_SESSION['login']['userId']}","SUM(tprice)");
 $data['costThisM'] = (int)$arrThisM[0]['SUM(tprice)'];
 $data['costLastM'] = (int)$arrLastM[0]['SUM(tprice)'];
+
+
+$data['dealThis'] = $DB->nRow("deals","WHERE MONTH(fdate)  = MONTH(curdate()) AND YEAR(fdate) = YEAR(curdate())  AND agentId = {$_SESSION['login']['userId']}");
+$data['dealLast'] = $DB->nRow("deals"," WHERE YEAR(fdate) = YEAR(CURRENT_DATE - INTERVAL 1 MONTH) AND MONTH(fdate) = MONTH(CURRENT_DATE - INTERVAL 1 MONTH)  AND agentId = {$_SESSION['login']['userId']}");
+ 
 $json = json_encode($data);
 echo($json);
 ?>
