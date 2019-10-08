@@ -33,7 +33,7 @@ $main = new Main;
   <link rel="stylesheet" href="../assets/styles/font.css" type="text/css" />
    <script src="scripts/cMain.js"></script> 
 </head>
-<body>
+<body onLoad="chartTDandYDay();chartThisWandLWeek();chartThisMandLMonth()">
 
   <div class="app" id="app">
 
@@ -51,6 +51,52 @@ $main = new Main;
       <!-- ############ PAGE START-->
       	<?php $main->head("Profile") ?>
     <div class="container h-100" id="cStage">
+    
+    
+    
+    <div class="card-header" style="margin-bottom: 5px;margin-top: 5px;">
+        		<center><h1 class="my-0 font-weight-normal text-info" >Sales Summary</h1></center>
+    </div>
+<!--    Charts Start		-->
+	<div class="card-deck mb-3 text-center">  
+ 			
+    <div class="card mb-4 shadow-sm">
+      <div class="card-header">
+        <h4 class="my-0 font-weight-normal text-primary">Today / Yesterday</h4>
+      </div>
+      <div class="card-body" id="piechartToday">
+      
+      </div>
+      <div class="card-header">
+      		<center><h4 class="my-0 font-weight-normal text-primary" id="TYTotal">0000</h4></center>
+      </div>
+    </div>
+    <div class="card mb-4 shadow-sm">
+      <div class="card-header">
+        <h4 class="my-0 font-weight-normal text-primary">This Week / Last Week</h4>
+      </div>
+      <div class="card-body" id="piechartWeek">
+        
+      </div>
+      <div class="card-header">
+      		<center><h4 class="my-0 font-weight-normal text-primary" id="TWLWTotal">0000</h4></center>
+      </div>
+      </div>
+    <div class="card mb-4 shadow-sm" >
+      <div class="card-header">
+        <h4 class="my-0 font-weight-normal text-primary">This Month / Last Month</h4>
+      </div>
+      <div class="card-body" id="piechartMonth">
+        
+      </div>
+      <div class="card-header">
+      	<center><h4 class="my-0 font-weight-normal text-primary" id="TMLMTotal">000</h4></center>
+      </div>
+    </div>
+  </div>
+<!--   Charts ending  -->
+    
+    
   			<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/viewHistory.php','cStage')">History</button>
   			<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/mySales.php','cStage')">Sales</button>
   			<a href="logOut.php"><button type="button" class="btn btn-primary btn-lg" >Logout</button></a>
@@ -96,7 +142,122 @@ $main = new Main;
   <script src="../libs/jquery/jquery-pjax/jquery.pjax.js"></script>
   <script src="scripts/ajax.js"></script>
 <!-- endbuild -->
-  
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
   <script src="../libs/main.js"></script>
+  
+  
+  <script>
+	function chartTDandYDay(){	
+	   		var ajax = _ajax();
+			ajax.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+					
+//					 alert(this.responseText);
+					var jsonThisMandLM = JSON.parse(this.responseText);
+					 
+      				 google.charts.load('current', {'packages':['corechart']});
+       				 google.charts.setOnLoadCallback(drawChart);
+
+      				 function drawChart() {
+						 	console.log(jsonThisMandLM);
+						 	msg("TYTotal",jsonThisMandLM.salesThisD+" / "+jsonThisMandLM.salesLastD);
+        			 var data = google.visualization.arrayToDataTable([
+          				['Task', 'Hours per Day'],
+          				['Today',   jsonThisMandLM.salesThisD ],
+          				['Yesterday',    jsonThisMandLM.salesLastD]
+          
+        				]);
+						 
+        			var options = {
+          				title: 'Sales Today / Yesterday'
+        				};
+
+        			var chart = new google.visualization.PieChart(document.getElementById('piechartToday'));
+
+        			chart.draw(data, options);
+      				}}
+			
+					}
+			ajax.open("GET", "../json/mySalesTodayAndYesterDay.json.php", true);
+			ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+			ajax.send();
+		
+	}
+	function chartThisWandLWeek(){	
+			 
+	   		var ajax = _ajax();
+			ajax.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+					
+//					 alert(this.responseText);
+					var jsonThisMandLM = JSON.parse(this.responseText);
+					 
+      				 google.charts.load('current', {'packages':['corechart']});
+       				 google.charts.setOnLoadCallback(drawChart);
+
+      				 function drawChart() {
+						 	console.log(jsonThisMandLM);
+						 	msg("TWLWTotal",jsonThisMandLM.salesThisW+" / "+jsonThisMandLM.salesLastW)
+        			 var data = google.visualization.arrayToDataTable([
+          				['Task', 'Hours per Day'],
+          				['This Week',   jsonThisMandLM.salesThisW ],
+          				['Last Week',    jsonThisMandLM.salesLastW]
+          
+        				]);
+						 
+        			var options = {
+          				title: 'Sales This Week / Last Week'
+        				};
+
+        			var chart = new google.visualization.PieChart(document.getElementById('piechartWeek'));
+
+        			chart.draw(data, options);
+      				}}
+			
+					}
+			ajax.open("GET", "../json/mySalesThisWeekAndLastWeekTotal.json.php", true);
+			ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+			ajax.send();
+		
+	}
+	  
+	  function chartThisMandLMonth(){	
+			 
+	   		var ajax = _ajax();
+				ajax.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+					
+//					 alert(this.responseText);
+					var jsonThisMandLM = JSON.parse(this.responseText);
+					 
+      				 google.charts.load('current', {'packages':['corechart']});
+       				 google.charts.setOnLoadCallback(drawChart);
+
+      				 function drawChart() {
+						 	console.log(jsonThisMandLM);
+						 	msg("TMLMTotal",jsonThisMandLM.costThisM+" / "+jsonThisMandLM.costLastM);
+        			 var data = google.visualization.arrayToDataTable([
+          				['Task', 'Hours per Day'],
+          				['This Month',   jsonThisMandLM.costThisM ],
+          				['Last Month',    jsonThisMandLM.costLastM]
+          
+        				]);
+						 
+        				var options = {
+          				title: 'Expenses This Month / Last Month'
+        				};
+
+        			var chart = new google.visualization.PieChart(document.getElementById('piechartMonth'));
+
+        			chart.draw(data, options);
+      				}}
+			
+					}
+			ajax.open("GET", "../json/mySalesThisMonthAndLastMonthTotal.json.php", true);
+			ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+			ajax.send();
+		
+	}
+	</script>
 </body>
 </html>
