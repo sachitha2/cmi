@@ -78,6 +78,10 @@ if(isset($_SESSION['credit']['bill'])){
 				$remain = $total[0]['SUM(amount * uprice)'] - $cash;
 
 			
+				$sqlCollection = "INSERT INTO collection (id, userId, installmentId, dealid, payment, date, time, dateTime) VALUES (NULL, '{$_SESSION['login']['userId']}', '1', '$billid', '$cash', curdate(), curtime(), CURRENT_TIMESTAMP);";
+
+				$conn->query($sqlCollection);
+			
 
 		///make installments
 			$installments -= 1;
