@@ -68,21 +68,27 @@ if(isset($_SESSION['credit']['bill'])){
 	
 	//make installments
 	//make first installment
-	
-		$sqlFirstI = "INSERT INTO installment (id, dealid, installmentid, payment, time, date, rdate, status, rpayment, cid) VALUES (NULL, '$billid', '1', '$cash', curtime(), '$date', '$date', '1', '$cash', '{$cid}');";
-		$conn->query($sqlFirstI);
+		if($cash >0){
 			
-	
+		
+			$sqlFirstI = "INSERT INTO installment (id, dealid, installmentid, payment, time, date, rdate, status, rpayment, cid) VALUES (NULL, '$billid', '1', '$cash', curtime(), '$date', '$date', '1', '$cash', '{$cid}');";
+			$conn->query($sqlFirstI);
+
+
+				$remain = $total[0]['SUM(amount * uprice)'] - $cash;
+
+			
+
+		///make installments
+			$installments -= 1;
+		}else if($cash == 0){
 			$remain = $total[0]['SUM(amount * uprice)'] - $cash;
+		}
 	
 		//update deal data
-				$sqlDealData = "UPDATE deals SET tprice = '{$total[0]['SUM(amount * uprice)']}', rprice = '{$remain}' ,discount = {$_POST['disc']} WHERE deals.id = $billid;";
-				$conn->query($sqlDealData);
+					$sqlDealData = "UPDATE deals SET tprice = '{$total[0]['SUM(amount * uprice)']}', rprice = '{$remain}' ,discount = {$_POST['disc']} WHERE deals.id = $billid;";
+					$conn->query($sqlDealData);
 		//update deal data
-		
-	///make installments
-		$installments -= 1;
-		
 		
 		$perOneI = round(($remain / $installments),2);
 		
