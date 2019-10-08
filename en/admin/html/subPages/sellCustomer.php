@@ -8,7 +8,7 @@ $main = new Main;
 $main->b("sell.php");
 $customer = $DB->select("customer","");
 
-$numNotSaved = $DB->nRow("deals","WHERE status = 2 ");
+$numNotSaved = $DB->nRow("deals","WHERE status = 2 AND agentId = {$_SESSION['login']['userId']}");
 	$disabled = "";
 if($numNotSaved != 0){
 	$disabled = "disabled";
