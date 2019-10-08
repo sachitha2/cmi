@@ -7,7 +7,7 @@ $DB->conn = $conn;
 $main = new Main;
 ?>
 	
-	<input type="text" placeholder="Enter Deal Id" style="width: 100px" onKeyPress="enterMySalesShortByDealId(event,this.value)">
+	<input type="text" placeholder="Enter Customer Name" style="width: 200px" onKeyPress="enterMySalesShortByName(event,this.value)">
 
 	
 	

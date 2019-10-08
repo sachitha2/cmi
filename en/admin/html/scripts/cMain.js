@@ -1790,6 +1790,43 @@ function enterMySalesShortBydate(from,to) {
 		  		console.log(data);
 	  			ajaxCommonGetFromNet('subPages/mySales.php?data='+JSON.stringify(data),'cStage');
 }
+
+function enterMySalesShortByDealId(e,id) {
+	if(e.which == 13){
+//				console.log(readStockMenu());
+//		  		var menu = readStockMenu();
+		    	data = {'mode':'dealId','dealId':id,'status':0,"day":""};
+		  		data.status = 0;
+//		  		data.day = menu.day;
+		  		console.log(data);
+	  			ajaxCommonGetFromNet('subPages/mySales.php?data='+JSON.stringify(data),'cStage');
+	}
+}
+
+function enterMySalesShortByCID(e,id){
+	if(e.which == 13){
+//				console.log(readStockMenu());
+//		  		var menu = readStockMenu();
+		    	data = {'mode':'cid','cid':id,'status':0,"day":""};
+		  		data.status = 0;
+//		  		data.day = menu.day;
+		  		console.log(data);
+	  			ajaxCommonGetFromNet('subPages/mySales.php?data='+JSON.stringify(data),'cStage');
+		
+	}
+}
+
+function enterMySalesShortByName(e,name){
+	if(e.which == 13){
+//				console.log(readStockMenu());
+//		  		var menu = readStockMenu();
+		    	data = {'mode':'name','name':name,'status':0,"day":""};
+		  		data.status = 0;
+//		  		data.day = menu.day;
+		  		console.log(data);
+	  			ajaxCommonGetFromNet('subPages/mySales.php?data='+JSON.stringify(data),'cStage');
+	}
+}
 //mysales
 
 function enterStockShortByItem(e,id) { //this is mode 
