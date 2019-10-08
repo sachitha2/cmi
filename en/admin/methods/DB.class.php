@@ -186,17 +186,30 @@ class DB{
 			echo($name);
 		}
 	}
+	
+	function getCustomerById($id,$d = 1){
+		$sql = "SELECT name FROM customer WHERE id = $id";
+	  	$result = $this->conn->query($sql);
+	  	$row = mysqli_fetch_assoc($result);
+		$name = $row['name'];	  	
+		if($d == 0){
+			return($name);
+		}else{
+			echo($name);
+		}
+	}
+	
 	function getAgentById($id,$d = 1){
-///TODO
-//		$sql = "SELECT * FROM area WHERE id = $id";
-//	  	$result = $this->conn->query($sql);
-//	  	$row = mysqli_fetch_assoc($result);
-//		$name = $row['name'];	  	
-//		if($d == 0){
-//			return($name);
-//		}else{
-//			echo($name);
-//		}
+
+		$sql = "SELECT username FROM user WHERE id = $id";
+	  	$result = $this->conn->query($sql);
+	  	$row = mysqli_fetch_assoc($result);
+		$name = $row['username'];	  	
+		if($d == 0){
+			return($name);
+		}else{
+			echo($name);
+		}
 	}
 public	function itemList($DB,$onKey = "",$extra = ""){
 	?>

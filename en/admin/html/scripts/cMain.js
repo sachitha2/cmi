@@ -1778,6 +1778,20 @@ function enterAddPackitems(e,packId) {
 	  addPackItems(packId);
 	  }
 }
+
+
+//mysales
+function enterMySalesShortBydate(from,to) {
+//				console.log(readStockMenu());
+//		  		var menu = readStockMenu();
+		    	data = {'mode':'date','from':from,'to':to,'status':0,"day":""};
+		  		data.status = 0;
+//		  		data.day = menu.day;
+		  		console.log(data);
+	  			ajaxCommonGetFromNet('subPages/mySales.php?data='+JSON.stringify(data),'cStage');
+}
+//mysales
+
 function enterStockShortByItem(e,id) { //this is mode 
   if (e.which == 13) { 
 	  if(id == ""){

@@ -43,6 +43,9 @@ if($DB->nRow("purchaseditems",$sql,$col) != 0){ ?>
     <tr>
       <th scope="col" width="10">ID</th>
       <th scope="col">Deal ID</th>
+      <th scope="col">Agent</th>
+      <th scope="col">CID</th>
+      <th scope="col">C.Name</th>
       <th scope="col">Items</th>
       
       <th scope="col">Status</th>
@@ -69,6 +72,14 @@ if($DB->nRow("purchaseditems",$sql,$col) != 0){ ?>
 			>
 				<td><?php echo($x) ?></td>
 				<td><?php echo($data['dealid']) ?></td>
+				
+				<?php 
+					$arrDeal = $DB->select("deals","WHERE id = {$data['dealid']}");
+				
+				?>
+				<td><?php $DB->getAgentById($arrDeal[0]['agentId']) ?></td>
+				<td><?php  echo($arrDeal[0]['cid'])?></td>
+				<td><?php $DB->getCustomerById($arrDeal[0]['cid']) ?></td>
 				<td>
 					
 					<?php 
@@ -110,7 +121,7 @@ if($DB->nRow("purchaseditems",$sql,$col) != 0){ ?>
 		}
 		?>
 		<tr>
-			<td colspan="4">Total</td>
+			<td colspan="7">Total</td>
 			<td><?php echo($tot) ?></td>
 		</tr>
   </tbody>

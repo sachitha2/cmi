@@ -133,7 +133,11 @@ if($DB->nRow("customer","WHERE nic = '{$_GET['nic']}'") == 0){
 					$queryForAgentSelection = $conn->query("SELECT * FROM user;");
 					while ($rowAgent = mysqli_fetch_assoc($queryForAgentSelection)) {
 
-						echo "<option value='{$rowAgent['id']}'>".$rowAgent['username']."</option>";
+						if($rowAgent['id'] == $_SESSION['login']['userId']){
+							echo "<option value='{$rowAgent['id']}' selected>".$rowAgent['username']."</option>";
+						}else{
+							echo "<option value='{$rowAgent['id']}'>".$rowAgent['username']."</option>";
+						}
 					}
 				?>
 			</select>

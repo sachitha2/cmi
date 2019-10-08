@@ -37,4 +37,7 @@ $DB->delete("installment","where dealid = {$_POST['dealId']}");
 $DB->delete("deals","where id = {$_POST['dealId']}");
 
 $main->createSettionError("Deleted a Deal -> {$_POST['dealId']} ");
+
+
+$_SESSION['credit']['bill']['s'] = 0;
 ?>
