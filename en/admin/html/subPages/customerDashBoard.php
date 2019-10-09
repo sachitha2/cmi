@@ -7,5 +7,6 @@
 	$DB->conn = $conn;
 
 	$cid = $_GET['cid'];
-$main->head("Dashboard");
+	$main->head("Dashboard");
+	
 ?>
