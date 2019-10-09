@@ -43,7 +43,7 @@ $main->b("customer.php");
 		<div>
 		<select name="area" id="area" class="form-control" onChange="loadSubAreas(this.value)">
 			<?php
-					$areaArr = $DB->select("area","");
+					$areaArr = $DB->select("area"," ORDER BY area.name ASC");
 					foreach($areaArr as $areaData){
 						if($arr[0]['areaid'] == $areaData['id']){	?>
 							<option value="<?php echo($areaData['id']) ?>" selected><?php echo($areaData['name']) ?></option>

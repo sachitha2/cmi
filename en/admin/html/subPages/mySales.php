@@ -20,7 +20,7 @@ if(isset($_GET['data'])){
 		$logic = "WHERE cid LIKE '%{$dataArr['cid']}%'  AND  agentId = {$_SESSION['login']['userId']};";
 	}
 }else{
-	echo("Default");
+//	echo("Default");
 	
 	$logic = "WHERE agentId = {$_SESSION['login']['userId']}";
 }

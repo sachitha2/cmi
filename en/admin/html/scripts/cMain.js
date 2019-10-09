@@ -1682,6 +1682,14 @@ function enterCheckCustomerForMakeBill(e,idCard) {
   }
 }
 
+
+
+function enterCheckCustomerForMakeBillCID(e,cid){
+	if(e.which == 13){
+		CheckCustomerForMakeBillCID(cid);
+	}
+}
+
 function enterCheckCustomerForNewOrder(e,idCard) {
   if (e.which == 13) {
 	  	CheckCustomerForNewOrder(idCard);
@@ -2040,6 +2048,18 @@ function stockDefaultMenu() { //this is mode
 		  	data.day = menu.day;
 		  	console.log(data);
 	  		ajaxCommonGetFromNet('subPages/viewStock.php?data='+JSON.stringify(data),'cStage');
+	  
+}
+
+
+function salesDefaultMenu() { //this is mode 
+		  	console.log(readSalesMenu());
+		  	var menu = readSalesMenu();
+		    data = {'mode':'default','status':0,"day":""};
+		  	data.status = menu.status;
+		  	data.day = menu.day;
+		  	console.log(data);
+	  		ajaxCommonGetFromNet('subPages/salesView.php?data='+JSON.stringify(data),'cStage');
 	  
 }
 ////menu bars
@@ -2508,6 +2528,46 @@ function readStockMenu(){
 	return data;
 	
 }
+
+function readSalesMenu(){
+	var data = {'status':'all','day':'today'};
+	////reading status radio btns
+	if(rChecked("cre") == 1){
+		data.status = "cre";
+	}else if(rChecked("cash") == 1){
+		data.status = "cash";
+	}else if(rChecked("all") == 1){
+		data.status = "all";
+	}
+	////reading day radio btns
+	if(rChecked("dayToday") == 1){
+		data.day = "dayToday";
+	}else if(rChecked("dayYester") == 1){
+		data.day = "dayYester";
+	}
+	else if(rChecked("dayWeek") == 1){
+		data.day = "dayWeek";
+	}else if(rChecked("dayLWeek") == 1){
+		data.day = "dayLWeek";
+	}
+	else if(rChecked("dayMonth") == 1){
+		data.day = "dayMonth";
+	}
+	else if(rChecked("dayLMonth") == 1){
+		data.day = "dayLMonth";
+	}
+	else if(rChecked("dayYear") == 1){
+		data.day = "dayYear";
+	}
+	else{
+		data.day = "dayCustom";
+	}
+	return data;
+	
+}
+
+
+
 var fastCustomerBillTotal ;
 function fastCustomerFinish(total){
 			fastCustomerBillTotal = total;
@@ -2656,7 +2716,7 @@ function finishBillCreditCustomer(cash,installments,cid,disc = 0){
 		var ajax = _ajax();
 			ajax.onreadystatechange = function() {
 				if (this.readyState == 4 && this.status == 200) {
-//	    			alert(this.responseText);
+	    			alert(this.responseText);
 					var printer = JSON.parse(this.responseText);
 					console.log(printer);
 					

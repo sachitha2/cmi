@@ -33,7 +33,7 @@ $main = new Main;
   <link rel="stylesheet" href="../assets/styles/font.css" type="text/css" />
    <script src="scripts/cMain.js"></script> 
 </head>
-<body onLoad="chartTDandYDay();chartThisWandLWeek();chartThisMandLMonth()">
+<body onLoad="chartTDandYDay();chartThisWandLWeek();chartThisMandLMonth();chartThisYearAndLastYear()">
 
   <div class="app" id="app">
 
@@ -69,28 +69,53 @@ $main = new Main;
       </div>
       <div class="card-header">
       		<center><h4 class="my-0 font-weight-normal text-primary" id="TYTotal">0000</h4></center>
+      		<h4  class="my-0 font-weight-normal text-primary" id="dealDay"></h4>
       </div>
     </div>
     <div class="card mb-4 shadow-sm">
       <div class="card-header">
-        <h4 class="my-0 font-weight-normal text-primary">This Week / Last Week</h4>
+        <h4 class="my-0 font-weight-normal text-primary">T Week / L Week</h4>
       </div>
       <div class="card-body" id="piechartWeek">
         
       </div>
       <div class="card-header">
       		<center><h4 class="my-0 font-weight-normal text-primary" id="TWLWTotal">0000</h4></center>
+      		<h4  class="my-0 font-weight-normal text-primary" id="dealWeek"></h4>
       </div>
       </div>
     <div class="card mb-4 shadow-sm" >
       <div class="card-header">
-        <h4 class="my-0 font-weight-normal text-primary">This Month / Last Month</h4>
+        <h4 class="my-0 font-weight-normal text-primary">T Month / L Month</h4>
       </div>
       <div class="card-body" id="piechartMonth">
         
       </div>
       <div class="card-header">
-      	<center><h4 class="my-0 font-weight-normal text-primary" id="TMLMTotal">000</h4></center>
+      	<center>
+      	
+      		<h4 class="my-0 font-weight-normal text-primary" id="TMLMTotal">000</h4>
+      		<h4  class="my-0 font-weight-normal text-primary" id="dealMonth"></h4>
+      	</center>
+      </div>
+    </div>
+    
+    
+    
+    
+    <div class="card mb-4 shadow-sm" >
+      <div class="card-header">
+        <h4 class="my-0 font-weight-normal text-primary">T Year / L Year</h4>
+      </div>
+      <div class="card-body" id="piechartYear">
+        
+      </div>
+      <div class="card-header">
+      	<center>
+      	
+      		<h4 class="my-0 font-weight-normal text-primary" id="TYLYTotal">000</h4>
+      		<h4  class="my-0 font-weight-normal text-primary" id="dealYear"></h4>
+      	</center>
       </div>
     </div>
   </div>
@@ -161,6 +186,7 @@ $main = new Main;
       				 function drawChart() {
 						 	console.log(jsonThisMandLM);
 						 	msg("TYTotal",jsonThisMandLM.salesThisD+" / "+jsonThisMandLM.salesLastD);
+						 	msg("dealDay","Today - "+jsonThisMandLM.dealThis+" <br>Yesterday - "+jsonThisMandLM.dealLast+"");
         			 var data = google.visualization.arrayToDataTable([
           				['Task', 'Hours per Day'],
           				['Today',   jsonThisMandLM.salesThisD ],
@@ -197,7 +223,8 @@ $main = new Main;
 
       				 function drawChart() {
 						 	console.log(jsonThisMandLM);
-						 	msg("TWLWTotal",jsonThisMandLM.salesThisW+" / "+jsonThisMandLM.salesLastW)
+						 	msg("TWLWTotal",jsonThisMandLM.salesThisW+" / "+jsonThisMandLM.salesLastW);
+						 	msg("dealWeek","T Week - "+jsonThisMandLM.dealThis+" <br>L Week - "+jsonThisMandLM.dealLast);
         			 var data = google.visualization.arrayToDataTable([
           				['Task', 'Hours per Day'],
           				['This Week',   jsonThisMandLM.salesThisW ],
@@ -236,6 +263,7 @@ $main = new Main;
       				 function drawChart() {
 						 	console.log(jsonThisMandLM);
 						 	msg("TMLMTotal",jsonThisMandLM.costThisM+" / "+jsonThisMandLM.costLastM);
+						 	msg("dealMonth","T Month - "+jsonThisMandLM.dealThis+" <br>L Month - "+jsonThisMandLM.dealLast);
         			 var data = google.visualization.arrayToDataTable([
           				['Task', 'Hours per Day'],
           				['This Month',   jsonThisMandLM.costThisM ],
@@ -254,6 +282,46 @@ $main = new Main;
 			
 					}
 			ajax.open("GET", "../json/mySalesThisMonthAndLastMonthTotal.json.php", true);
+			ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+			ajax.send();
+		
+	}
+	  
+	  
+	  function chartThisYearAndLastYear(){	
+			 
+	   		var ajax = _ajax();
+				ajax.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+					
+//					 alert(this.responseText);
+					var jsonThisMandLM = JSON.parse(this.responseText);
+					 
+      				 google.charts.load('current', {'packages':['corechart']});
+       				 google.charts.setOnLoadCallback(drawChart);
+
+      				 function drawChart() {
+						 	console.log(jsonThisMandLM);
+						 	msg("TYLYTotal",jsonThisMandLM.salesThisY+" / "+jsonThisMandLM.salesLastY);
+						 	msg("dealYear","T Year - "+jsonThisMandLM.dealThis+" <br>L Year - "+jsonThisMandLM.dealLast);
+        			 var data = google.visualization.arrayToDataTable([
+          				['Task', 'Hours per Day'],
+          				['This Year',   jsonThisMandLM.salesThisY],
+          				['Last Year',    jsonThisMandLM.salesLastY]
+          
+        				]);
+						 
+        				var options = {
+          				title: 'Expenses This Year / Last Year'
+        				};
+
+        			var chart = new google.visualization.PieChart(document.getElementById('piechartYear'));
+
+        			chart.draw(data, options);
+      				}}
+			
+					}
+			ajax.open("GET", "../json/mySalesThisYearAndLastYearTotal.json.php", true);
 			ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 			ajax.send();
 		

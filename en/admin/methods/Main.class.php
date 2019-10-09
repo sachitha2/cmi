@@ -81,7 +81,7 @@ class Main{
         <!-- brand -->
         <a class="navbar-brand" href="dashboard.php">
         	<img src="../assets/images/logo.png" alt="">
-        	<span class="hidden-folded inline" style="font-size: 22px">INFI V1</span>
+        	<span class="hidden-folded inline" style="font-size: 22px">INFI V2</span>
         </a>
         <!-- / brand -->
       </div>
@@ -463,6 +463,37 @@ class Main{
 		}
 		return( $logic);
 	}
+	public function mySalesSqlLgc($x){
+		if($x == "dayToday"){
+			$logic = " AND date = curdate()";
+		}else if($x == "dayYester"){
+			$logic = " AND date = curdate()-1";
+		}
+		else if($x == "dayWeek"){
+			$logic = " AND WEEK(date) = WEEK(curdate()) AND MONTH(date) = MONTH(curdate()) AND YEAR(date) = YEAR(curdate())";
+		}else if($x == "dayLWeek"){
+			$logic = " AND WEEK(date) = WEEK(CURRENT_DATE - INTERVAL 1 WEEK) AND MONTH(date) = MONTH(CURRENT_DATE - INTERVAL 1 WEEK) AND YEAR(date) = YEAR(CURRENT_DATE - INTERVAL 1 WEEK)";
+		}
+		else if($x == "dayMonth"){
+			$logic = " AND MONTH(date) = MONTH(curdate()) AND YEAR(date) = YEAR(curdate())";
+		}
+		else if($x == "dayLMonth"){
+//			$logic = " AND MONTH(date) = MONTH(curdate()) AND YEAR(date) = YEAR(curdate())";
+			$logic = " AND MONTH(date) = MONTH(CURRENT_DATE - INTERVAL 1 MONTH) AND YEAR(date) = YEAR(CURRENT_DATE - INTERVAL 1 MONTH) ";
+		}
+		else if($x == "dayYear"){
+//			$logic = " AND MONTH(date) = MONTH(curdate()) AND YEAR(date) = YEAR(curdate())";
+			$logic = " AND  YEAR(date) = YEAR(CURRENT_DATE)";
+		}
+		else if($x == "dayCustom"){
+//			$logic = " AND MONTH(date) = MONTH(curdate()) AND YEAR(date) = YEAR(curdate())";
+			$logic = " ";
+		}
+		else{
+			$logic = " ";
+		}
+		return( $logic);
+	}
 	public function head($title){
 		?>
 		<div class="card-header" style="margin-bottom: 5px;margin-top: 5px;position: sticky;top: 50px;z-index: 10;text-transform: uppercase">
@@ -490,5 +521,180 @@ class Main{
         </div>
 		<?php
 	}
+	
+	public function checkNic($nic){
+		if($nic != "0000000000"){
+			 if(strlen($nic) == 10){
+				if($nic[9] == "x" || $nic[9] == "X" || $nic[9] == "v" || $nic[9] == "V"){
+
+					return(true);	
+				}else{
+					return(false);
+				}
+			}else if(strlen($nic) == 12){
+					if(is_numeric($nic)){
+						return(true);
+					}
+					return(false);
+			 }else{
+				 return(false);
+			 }
+
+
+		}else{
+			return(false);
+		}
+}
+
+
+public function nicToDOB($nic){
+	 			 
+                 $dayText = 0;
+                 $year = "";
+                 $month = "";
+                 $day = "";
+                 $gender = "";
+				 $g;
+				 $dob = "";
+	
+				$arr['year'] = ""; 
+				$arr['s'] = 0;
+				$arr['msg'] = "";
+				$arr['month'] = "";
+				$arr['monthN'] = "";
+				$arr['day'] = 0;
+				$arr['gender'] = 0;
+		
+	
+                if (strlen($nic) != 10 && strlen($nic) != 12) {
+                    $arr['msg'] = "Invalid NIC NO 10 12";
+					$arr['s'] = 0;
+                } else if (strlen($nic) == 10 && !is_numeric(substr($nic,0,9))) {
+                    $arr['msg'] = "Invalid NIC NO numeric check";
+					$arr['s'] = 0;
+                }
+                else {
+                    $arr['msg'] = "NIC Correct";
+					$arr['s'] = 1;
+					
+// Year
+                    if (strlen($nic) == 10) {
+                        $year = "19" . substr($nic,0,2);//$nic.substr(0, 2);
+                        $dayText = (int)substr($nic,2,3);
+                    } else {
+                        $year = (int)substr($nic,0,4);
+                        $dayText = (int)substr($nic,4,3);
+                    }
+
+                    // Gender
+                    if ($dayText > 500) {
+                        $gender = "Female";
+						$g = 0;
+                        $dayText = $dayText - 500;
+                    } else {
+                        $gender = "Male";
+						$g = 1;
+                    }
+
+                    // Day Digit Validation
+                    if ($dayText < 1 && $dayText > 366) {
+                        $msg = "Invalid NIC NO";
+                    } else {
+
+                        //Month
+                        if ($dayText > 335) {
+                            $day = dayText - 335;
+                            $month = "December";
+							$monthNumber = "12" ;
+                        }
+                        else if ($dayText > 305) {
+                            $day = $dayText - 305;
+                            $month = "November";
+							$monthNumber = "11" ;
+                        }
+                        else if ($dayText > 274) {
+                            $day = $dayText - 274;
+                            $month = "October";
+							$monthNumber = "10" ;
+                        }
+                        else if ($dayText > 244) {
+                            $day = $dayText - 244;
+                            $month = "September";
+							$monthNumber = "09" ;
+                        }
+                        else if ($dayText > 213) {
+                            $day = $dayText - 213;
+                            $month = "Auguest";
+							$monthNumber = "08" ;
+                        }
+                        else if ($dayText > 182) {
+                            $day = $dayText - 182;
+                            $month = "July";
+							$monthNumber = "07";
+                        }
+                        else if ($dayText > 152) {
+                            $day = $dayText - 152;
+                            $month = "June";
+							$monthNumber = "06" ;
+                        }
+                        else if ($dayText > 121) {
+                            $day = $dayText - 121;
+                            $month = "May";
+							$monthNumber = "05" ;
+                        }
+                        else if ($dayText > 91) {
+                            $day = $dayText - 91;
+                            $month = "April";
+							$monthNumber = "04" ;
+                        }
+                        else if ($dayText > 60) {
+                            $day = $dayText - 60;
+                            $month = "March";
+							$monthNumber = "03" ;
+                        }
+                        else if ($dayText < 32) {
+                            $month = "January";
+                            $day = $dayText;
+							$monthNumber = "01" ;
+                        }
+                        else if ($dayText > 31) {
+                            $day = $dayText - 31;
+                            $month = "Febuary";
+							$monthNumber = "02" ;
+                        }
+						
+						
+						
+											
+//						echo("<br>Year ".$year);
+//						echo("<br>".$month);
+//						echo("<br>".$day);
+//						echo("<br>Month Number".$monthNumber);
+//						echo("<br>");
+//						echo("<br>Gender ".$gender);
+//						echo("<br>Gender ".$g);
+//						echo("<br>$dob<br>");
+						$arr['year'] = $year; 
+						$arr['month'] = $month;
+						$arr['monthN'] = $monthNumber;
+						if($day > 9){
+							$arr['day'] = $day;
+						}else{
+							$arr['day'] = "0".$day;
+						}
+						
+						$dob = $year."-".$monthNumber."-".$arr['day'];	
+						$arr['g'] = $g;
+						$arr['gender'] = $gender;
+						$arr['dob'] = $dob;
+						
+						
+					}
+					
+					
+				}
+	return($arr);
+}
+	
 }
 ?>
