@@ -43,7 +43,7 @@ if($numNotSaved != 0){
 			
 			<!---///TODO--->
 			<h1>Select Customer From CID</h1>
-			<input list="cids" name="color" id="CID" class="form-control" style="width: 200px" onKeyPress="enterCheckCustomerForMakeBill(event,this.value)" <?php echo($disabled) ?>>
+			<input list="cids" name="color" id="CID" class="form-control" style="width: 200px" onKeyPress="enterCheckCustomerForMakeBillCID(event,this.value)" <?php echo($disabled) ?>>
 			<datalist id="cids">
 				
     			<?php

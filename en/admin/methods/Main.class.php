@@ -463,6 +463,37 @@ class Main{
 		}
 		return( $logic);
 	}
+	public function mySalesSqlLgc($x){
+		if($x == "dayToday"){
+			$logic = " AND date = curdate()";
+		}else if($x == "dayYester"){
+			$logic = " AND date = curdate()-1";
+		}
+		else if($x == "dayWeek"){
+			$logic = " AND WEEK(date) = WEEK(curdate()) AND MONTH(date) = MONTH(curdate()) AND YEAR(date) = YEAR(curdate())";
+		}else if($x == "dayLWeek"){
+			$logic = " AND WEEK(date) = WEEK(CURRENT_DATE - INTERVAL 1 WEEK) AND MONTH(date) = MONTH(CURRENT_DATE - INTERVAL 1 WEEK) AND YEAR(date) = YEAR(CURRENT_DATE - INTERVAL 1 WEEK)";
+		}
+		else if($x == "dayMonth"){
+			$logic = " AND MONTH(date) = MONTH(curdate()) AND YEAR(date) = YEAR(curdate())";
+		}
+		else if($x == "dayLMonth"){
+//			$logic = " AND MONTH(date) = MONTH(curdate()) AND YEAR(date) = YEAR(curdate())";
+			$logic = " AND MONTH(date) = MONTH(CURRENT_DATE - INTERVAL 1 MONTH) AND YEAR(date) = YEAR(CURRENT_DATE - INTERVAL 1 MONTH) ";
+		}
+		else if($x == "dayYear"){
+//			$logic = " AND MONTH(date) = MONTH(curdate()) AND YEAR(date) = YEAR(curdate())";
+			$logic = " AND  YEAR(date) = YEAR(CURRENT_DATE)";
+		}
+		else if($x == "dayCustom"){
+//			$logic = " AND MONTH(date) = MONTH(curdate()) AND YEAR(date) = YEAR(curdate())";
+			$logic = " ";
+		}
+		else{
+			$logic = " ";
+		}
+		return( $logic);
+	}
 	public function head($title){
 		?>
 		<div class="card-header" style="margin-bottom: 5px;margin-top: 5px;position: sticky;top: 50px;z-index: 10;text-transform: uppercase">

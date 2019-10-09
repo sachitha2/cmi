@@ -93,9 +93,12 @@ if(isset($_SESSION['credit']['bill'])){
 					$sqlDealData = "UPDATE deals SET tprice = '{$total[0]['SUM(amount * uprice)']}', rprice = '{$remain}' ,discount = {$_POST['disc']} WHERE deals.id = $billid;";
 					$conn->query($sqlDealData);
 		//update deal data
-		
-		$perOneI = round(($remain / $installments),2);
-		
+		if($installments != 0){
+			$perOneI = round(($remain / $installments),2);
+		}else{
+			$perOneI = 0;
+			$conn->query("UPDATE deals SET status = '1' WHERE deals.id = $billid;");
+		}
 		//get installment days limit
 			$arrDayLimit = $DB->select("masterdata"," where id = 1","installmentDaysLimit");
 //			print_r($arrDayLimit);

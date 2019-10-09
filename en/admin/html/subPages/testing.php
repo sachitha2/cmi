@@ -6,7 +6,7 @@ $main = new Main;
 $DB = new DB;
 $DB->conn = $conn;
 
-$arr = $DB->select("purchaseditems","","DISTINCT dealid");
+$arr = $DB->select("purchaseditems","WHERE cc = 1","DISTINCT dealid");
 
 //print_r($arr);
 
