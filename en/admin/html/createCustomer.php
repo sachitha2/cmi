@@ -10,19 +10,22 @@ $y = "";
 if(isset($_GET['nic'])){
 	$nic = $_GET['nic'];
 	
-	if($nic != "0000000000"){
-		$sql = "SELECT * FROM customer WHERE nic LIKE '$nic'";
-		$query = $conn->query($sql);
-		$numberOfRow = mysqli_num_rows($query);
-		$numberOfid = strlen($nic);
-		echo $numberOfid;
-
-		if($numberOfRow == 1){
-			header("Location:viewCustomer.php?nic=$nic");
-		}
-		else{
-			header("Location:insertCustomer.php?nic=$nic");
-		}
+	
+	 if($nic != "0000000000"){
+		 if(strlen($nic) == 10){
+			if($nic[9] == "x" || $nic[9] == "X" || $nic[9] == "v" || $nic[9] == "V"){
+				
+				routing($nic,$conn);	
+			}else{
+				$y = "Invalid IdCard Number";
+			}
+		}else if(strlen($nic) == 12){
+			 routing($nic,$conn);
+		 }else{
+			 $y = "Invalid IdCard Number";
+		 }
+		 
+		
 	}else{
 		$y = "Invalid Id Card Number";
 	}
@@ -109,7 +112,7 @@ if(isset($_GET['nic'])){
      
       		<div class="form-group">
         	<label for="formGroupExampleInput2">ENTER NIC</label>
-        	<input type="text" class="form-control"  name="nic" id="nic" placeholder="Enter NIC" required="" list="customersList"  autocomplete="off">
+        	<input type="text" class="form-control"  name="nic" id="nic" placeholder="Enter NIC" required="" list="customersList"  autocomplete="off" autofocus>
         	
 			<datalist id="customersList">
 				
@@ -211,7 +214,24 @@ if(isset($_GET['nic'])){
 
 
 
+<?php 
+	
+	function routing($nic,$conn){
+		$sql = "SELECT * FROM customer WHERE nic LIKE '$nic'";
+		$query = $conn->query($sql);
+		$numberOfRow = mysqli_num_rows($query);
+		$numberOfid = strlen($nic);
+		echo $numberOfid;
 
+		if($numberOfRow == 1){
+			header("Location:viewCustomer.php?nic=$nic");
+		}
+		else{
+			header("Location:insertCustomer.php?nic=$nic");
+		}
+	}
+	
+	?>
 
 
 

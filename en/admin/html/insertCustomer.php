@@ -9,6 +9,10 @@ $DB->conn = $conn;
 //check user in table again
 if($DB->nRow("customer","WHERE nic = '{$_GET['nic']}'") == 0){
 	
+	
+	$arrNIC = $main->nicToDOB($_GET['nic']);
+	
+	
 
 ?>
 <!DOCTYPE html>
@@ -46,7 +50,7 @@ if($DB->nRow("customer","WHERE nic = '{$_GET['nic']}'") == 0){
 
 <!-- ############ LAYOUT START-->
 
-  <?php $main->menuBar(s) ?>
+  <?php $main->menuBar() ?>
   <!-- / -->
   
   <!-- content -->
@@ -59,7 +63,7 @@ if($DB->nRow("customer","WHERE nic = '{$_GET['nic']}'") == 0){
 			
 			
  			<h1>Insert a Customer</h1>
- 			
+<!-- 				<?php print_r($arrNIC); ?>-->
  			 	<?php
 //					echo($DB->nRow("area"," "));
 //					if(1 == 1){
@@ -83,9 +87,9 @@ if($DB->nRow("customer","WHERE nic = '{$_GET['nic']}'") == 0){
 		<div>Select Designation</div>
 		<select  class="form-control" id="desi">
 			<option value="0">Select Designation</option>
-			<option value="Mr.">Mr.</option>
+			<option value="Mr." <?php if($arrNIC['s'] == 1 && $arrNIC['g'] == 1){echo("selected");} ?> >Mr.</option>
 			<option value="Mrs.">Mrs.</option>
-			<option value="Ms.">Ms.</option>
+			<option value="Ms." <?php if($arrNIC['s'] == 1 && $arrNIC['g'] == 0){echo("selected");} ?>>Ms.</option>
 			<option value="Miss.">Miss.</option>
 		</select>
 		<div>Full Name</div>
@@ -101,7 +105,7 @@ if($DB->nRow("customer","WHERE nic = '{$_GET['nic']}'") == 0){
 		<div><input type="text" class="form-control" name="tp" id="tp" placeholder="Enter Telephone Number"   onKeyPress="enterNext(event,'dob');"></div>
 		
 		<div>Date of Birth</div>
-		<div><input type="date" class="form-control" name="dob" id="dob" style="width: 200px"   onKeyPress="enterNext(event,'route');"></div>
+		<div><input type="date" class="form-control" name="dob" id="dob" style="width: 200px"   onKeyPress="enterNext(event,'route');" <?php if($arrNIC['s'] == 1){echo("value=\"{$arrNIC['dob']}\"");} ?>></div>
 		
 		
 		<div>Route</div>

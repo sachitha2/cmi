@@ -199,7 +199,7 @@ if($DB->nRow("purchaseditems",$logic,$col) != 0){ ?>
 					<?php
 						$total = $DB->select("purchaseditems","where dealid = {$data['dealid']}","SUM(amount*uprice) AS total");
 //						print_r($total);
-						echo($total[0]['total']);							
+						echo(round($total[0]['total'],2));							
 			
 					?>
 					
@@ -215,7 +215,7 @@ if($DB->nRow("purchaseditems",$logic,$col) != 0){ ?>
 		?>
 		<tr>
 			<td colspan="8">Total</td>
-			<td><?php echo($tot) ?></td>
+			<td><?php echo(round($tot,2)) ?></td>
 		</tr>
   </tbody>
 </table>
