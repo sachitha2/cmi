@@ -603,7 +603,7 @@ public function nicToDOB($nic){
 
                         //Month
                         if ($dayText > 335) {
-                            $day = dayText - 335;
+                            $day = $dayText - 335;
                             $month = "December";
 							$monthNumber = "12" ;
                         }
