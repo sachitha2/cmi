@@ -2716,7 +2716,7 @@ function finishBillCreditCustomer(cash,installments,cid,disc = 0){
 		var ajax = _ajax();
 			ajax.onreadystatechange = function() {
 				if (this.readyState == 4 && this.status == 200) {
-	    			alert(this.responseText);
+//	    			alert(this.responseText);
 					var printer = JSON.parse(this.responseText);
 					console.log(printer);
 					
