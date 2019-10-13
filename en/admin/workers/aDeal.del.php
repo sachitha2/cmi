@@ -36,6 +36,11 @@ $DB->delete("installment","where dealid = {$_POST['dealId']}");
 //delete deal
 $DB->delete("deals","where id = {$_POST['dealId']}");
 
+
+//New code to delete collecction data from database
+$DB->delete("collection"," WHERE dealid = {$_POST['dealId']}");
+
+
 $main->createSettionError("Deleted a Deal -> {$_POST['dealId']} ");
 
 
