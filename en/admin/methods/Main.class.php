@@ -709,7 +709,7 @@ public function nicToDOB($nic){
 	$year = date("Y", strtotime($x));
 	$month = (int)date("m", strtotime($x));
 	$d = date("d", strtotime($x));
-	if($d > $date){
+	if($d >= $date){
 		if($month == 12){
 			$month = 1;
 			$year++;
