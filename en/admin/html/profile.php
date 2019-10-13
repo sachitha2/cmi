@@ -124,6 +124,7 @@ $main = new Main;
     
   			<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/viewHistory.php','cStage')">History</button>
   			<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/mySales.php','cStage')">Sales</button>
+  			<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/myCollection.php','cStage')">Collection</button>
   			<a href="logOut.php"><button type="button" class="btn btn-primary btn-lg" >Logout</button></a>
 	</div>
 
