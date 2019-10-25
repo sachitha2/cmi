@@ -3103,3 +3103,33 @@ function viewReport(i){
 		document.getElementById("msg").innerHTML = "Enter valid data";
 	}
 }
+
+function addBDay(tp, bday){
+	tp = document.getElementById("tp").value;
+	bday = document.getElementById("bday").value;
+	if(tp.length == 10 && bday.length != 0){
+				///ajax part
+				loadingModal();
+				showModal();
+				var xmlhttp = new XMLHttpRequest();
+				xmlhttp.onreadystatechange = function() {
+				if (this.readyState === 4 && this.status == 200) {
+						document.getElementById("msg").innerHTML  =  this.responseText;
+						emt("tp");
+						emt("bday");
+						hideModal();
+					   }
+				};
+				xmlhttp.open("GET", "../workers/addBDay.worker.php?tp="+tp+"&bday="+bday, true);//generating  get method link
+				xmlhttp.send();
+				////ajax part
+	}else{
+		document.getElementById("msg").innerHTML = "Enter valid details";
+	}
+}
+
+function enterAddBDay(e){
+	if (e.which == 13) {
+		addBDay(tp.value, bday.value);
+	}
+}
