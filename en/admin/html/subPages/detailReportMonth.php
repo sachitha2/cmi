@@ -1,4 +1,5 @@
 <?php
+date_default_timezone_set("Asia/Kolkata");
 
 require_once("../db.php");
 require_once("../../methods/DB.class.php");
@@ -7,20 +8,26 @@ $DB = new DB;
 $main = new Main;
 $DB->conn = $conn;
 
+if(isset($_GET['month'])){
+  $sql = "MONTH(date) = {$_GET['month']} AND YEAR(date) = YEAR(CURRENT_DATE());";
+  $head = date('F', mktime(0, 0, 0, $_GET['month'], 10));
+}else{
+  $sql = "MONTH(date) = MONTH(CURRENT_DATE()) AND YEAR(date) = YEAR(CURRENT_DATE())";
+  $head = "This Month (".date('F', mktime(0, 0, 0, date('m'), 10)).")";
+}
+
 include("../../workers/readSesson.worker.php");
 
 ?>
 
 
   <?php 
-    $main->menuBar();
-    $main->head("Detail Reports - This Month");
+    $main->head("Detail Reports - {$head}");
     echo ("<br>");
     $main->b("detailReport.php");
   ?>
 
   <?php
-    date_default_timezone_set("Asia/Kolkata");
     $month = date('m');
     switch($month){
         case 1:
@@ -47,12 +54,11 @@ include("../../workers/readSesson.worker.php");
   ?>
   
     
-    <div ui-view class="app-body" id="view">
-		<?php $main->modal() ?>
+    
+		
       	<!-- ############ PAGE START-->
     
-          <div class="container h-100" id="cStage">
-          <br>
+          
           <!-- Expences----------------------------------->
             <div class="card-header" style="margin-bottom: 5px;margin-top: 5px;">
               <center><h1 class="my-0 font-weight-normal text-info" >Expenses</h1></center>
@@ -61,8 +67,8 @@ include("../../workers/readSesson.worker.php");
             <div class="card-deck mb-3 text-center">  
           
               <div class="card mb-4 shadow-sm">
-
-                    <?php if($DB->nRow("cost","WHERE MONTH(date) = MONTH(CURRENT_DATE()) AND YEAR(date) = YEAR(CURRENT_DATE());") != 0){ ?>
+                    <!-- <?php echo($sql); ?> -->
+                    <?php if($DB->nRow("cost","WHERE {$sql}") != 0){ ?>
                     
                     <table class="table table-hover table-bordered table-striped table-dark">
                     <thead class="thead-dark">
@@ -76,15 +82,16 @@ include("../../workers/readSesson.worker.php");
                         
                             <?php
                                 $totExpenses = 0;
+                                
                                 for($i=1; $i<=$days; $i++){
-                                    $arr = $DB->select("cost"," WHERE DAY(date) = {$i} AND MONTH(date) = MONTH(CURRENT_DATE()) AND YEAR(date) = YEAR(CURRENT_DATE());", "SUM(cost), date");
+                                    $arr = $DB->select("cost"," WHERE DAY(date) = {$i} AND {$sql}", "SUM(cost), date");
                                     foreach($arr as $data){
                                         $dash = "";
                                         if(!empty($data['SUM(cost)'])){
                                             $dash = "  -  ";
                                         ?>
                                           <tr>
-                                          <td width="10px"><button onClick="ajaxCommonGetFromNet('subPages/detailReportToday.php?date=<?php echo($data['date']) ?>', 'content');"  class="btn btn-primary btn-sm">More..</button></td>
+                                          <td width="10px"><button onClick="ajaxCommonGetFromNet('subPages/detailReportToday.php?date=<?php echo($data['date']) ?>', 'cStage');"  class="btn btn-primary btn-sm">More..</button></td>
                                         <?php
                                         }else{
                                         ?>
@@ -136,7 +143,7 @@ include("../../workers/readSesson.worker.php");
           
               <div class="card mb-4 shadow-sm">
 
-              <?php if($DB->nRow("purchaseditems", "WHERE MONTH(date) = MONTH(CURRENT_DATE()) AND YEAR(date) = YEAR(CURRENT_DATE());") != 0){ ?>
+              <?php if($DB->nRow("purchaseditems", "WHERE {$sql};") != 0){ ?>
                     
                     <table class="table table-hover table-bordered table-striped table-dark">
                     <thead class="thead-dark">
@@ -151,14 +158,14 @@ include("../../workers/readSesson.worker.php");
                         <?php
                             $totIncome = 0;
                             for($i=1; $i<=$days; $i++){
-                                $arr = $DB->select("purchaseditems"," WHERE DAY(date) = {$i} AND MONTH(date) = MONTH(CURRENT_DATE()) AND YEAR(date) = YEAR(CURRENT_DATE());", "SUM(amount*uprice), date");
+                                $arr = $DB->select("purchaseditems"," WHERE DAY(date) = {$i} AND {$sql};", "SUM(amount*uprice), date");
                                 foreach($arr as $data){
                                     $dash = "";
                                     if(!empty($data['SUM(amount*uprice)'])){
                                         $dash = "  -  ";
                                     ?>
                                       <tr>
-                                      <td width="10px"><button onClick="ajaxCommonGetFromNet('subPages/detailReportToday.php?date=<?php echo($data['date']) ?>', 'content');"  class="btn btn-primary btn-sm">More..</button></td>
+                                      <td width="10px"><button onClick="ajaxCommonGetFromNet('subPages/detailReportToday.php?date=<?php echo($data['date']) ?>', 'cStage');"  class="btn btn-primary btn-sm">More..</button></td>
                                     <?php
                                     }else{
                                     ?>
@@ -211,7 +218,7 @@ include("../../workers/readSesson.worker.php");
           
               <div class="card mb-4 shadow-sm">
 
-                    <?php if($DB->nRow("purchaseditems", "WHERE MONTH(date) = MONTH(CURRENT_DATE()) AND YEAR(date) = YEAR(CURRENT_DATE());") != 0){ ?>
+                    <?php if($DB->nRow("purchaseditems", "WHERE {$sql};") != 0){ ?>
                     
                     <table class="table table-hover table-bordered table-striped table-dark">
                     <thead class="thead-dark">
@@ -226,7 +233,7 @@ include("../../workers/readSesson.worker.php");
                             <?php
                                 $totCost = 0;
                                 for($i=1; $i<=$days; $i++){
-                                    $arr = $DB->select("purchaseditems", " WHERE DAY(date) = {$i} AND MONTH(date) = MONTH(CURRENT_DATE()) AND YEAR(date) = YEAR(CURRENT_DATE());");
+                                    $arr = $DB->select("purchaseditems", " WHERE DAY(date) = {$i} AND {$sql};");
                                     if(empty($arr)){
                             ?>
                                         <tr>
@@ -243,7 +250,7 @@ include("../../workers/readSesson.worker.php");
                                       }
                             ?>
                                       <tr>
-                                      <td width="10px"><button onClick="ajaxCommonGetFromNet('subPages/detailReportToday.php?date=<?php echo($data['date']) ?>', 'content');"  class="btn btn-primary btn-sm">More..</button></td>
+                                      <td width="10px"><button onClick="ajaxCommonGetFromNet('subPages/detailReportToday.php?date=<?php echo($data['date']) ?>', 'cStage');"  class="btn btn-primary btn-sm">More..</button></td>
                                           <td align="left"><?php echo("Day ".$i." - ".$data['date']) ?></td>
                                           <td align="right"><?php echo($tempCost) ?></td>
                                       </tr>
@@ -285,7 +292,7 @@ include("../../workers/readSesson.worker.php");
           
               <div class="card mb-4 shadow-sm">
 
-                    <?php if($DB->nRow("purchaseditems", "WHERE MONTH(date) = MONTH(CURRENT_DATE()) AND YEAR(date) = YEAR(CURRENT_DATE());") != 0){ ?>
+                    <?php if($DB->nRow("purchaseditems", "WHERE {$sql};") != 0){ ?>
                     
                         <table class="table table-hover table-bordered table-striped table-dark">
                         <thead class="thead-dark">
@@ -300,7 +307,7 @@ include("../../workers/readSesson.worker.php");
                             <?php
                                 $totProfit = 0;
                                 for($i=1; $i<=$days; $i++){
-                                    $arr = $DB->select("purchaseditems", " WHERE DAY(date) = {$i} AND MONTH(date) = MONTH(CURRENT_DATE()) AND YEAR(date) = YEAR(CURRENT_DATE());");
+                                    $arr = $DB->select("purchaseditems", " WHERE DAY(date) = {$i} AND {$sql};");
                                     if(empty($arr)){
                             ?>
                                         <tr>
@@ -317,7 +324,7 @@ include("../../workers/readSesson.worker.php");
                                       }
                             ?>
                                       <tr>
-                                          <td width="10px"><button onClick="ajaxCommonGetFromNet('subPages/detailReportToday.php?date=<?php echo($data['date']) ?>', 'content');"  class="btn btn-primary btn-sm">More..</button></td>
+                                          <td width="10px"><button onClick="ajaxCommonGetFromNet('subPages/detailReportToday.php?date=<?php echo($data['date']) ?>', 'cStage');"  class="btn btn-primary btn-sm">More..</button></td>
                                           <td align="left"><?php echo("Day ".$i." - ".$data['date']) ?></td>
                                           <td align="right"><?php echo($tempProfit) ?></td>
                                       </tr>
@@ -357,7 +364,7 @@ include("../../workers/readSesson.worker.php");
             <button type="button" class="btn btn-primary btn-lg" onClick="window.location.assign('PDF/detailReportMonthPDF.php')"  style="width: 40%;margin-bottom: 5px;">Get PDF Report</button>
           </center>
 
-          </div>
+          
       	<!-- ############ PAGE END-->
-    </div>
+    
   

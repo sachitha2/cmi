@@ -11,17 +11,12 @@ include("../../workers/readSesson.worker.php");
 
 ?>
 
-
-<!-- ############ LAYOUT START-->
-
-  <?php 
-    $main->head("Detail Reports - This week");
-    echo ("<br>");
-    $main->b("detailReport.php");
-  ?>
+<?php 
+  $main->head("Detail Reports - This week");
+  echo ("<br>");
+  $main->b("detailReport.php");
+?>
   
-    <div ui-view class="app-body" id="view">
-		<?php $main->modal() ?>
       	<!-- ############ PAGE START-->
     
           <div class="container h-100" id="cStage">
@@ -335,9 +330,5 @@ include("../../workers/readSesson.worker.php");
 
           </div>
       	<!-- ############ PAGE END-->
-    </div>
   
-  <!-- / -->
-
-<!-- ############ LAYOUT END-->
 

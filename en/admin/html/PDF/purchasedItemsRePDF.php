@@ -52,7 +52,7 @@ if($DB->nRow("purchaseditems","WHERE ".$logic.";") != 0){
 }else{
     $pdf->ln(15);
     $pdf->SetFont('Times','',12);
-    $pdf->Cell("",10,"No Data Found",'','',"L");
+    $pdf->Cell("",10,"No Data Found",'','',"C");
     $pdf->ln(6);
 }
 

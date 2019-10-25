@@ -29,11 +29,6 @@ include("../../workers/readSesson.worker.php");
     $main->b("detailReport.php");
   ?>
   
-  <!-- content -->
-  <div id="content" class="app-content box-shadow-z0" role="main">
-    
-    <div ui-view class="app-body" id="view">
-		<?php $main->modal() ?>
       	<!-- ############ PAGE START-->
     
           <div class="container h-100" id="cStage">
@@ -373,11 +368,6 @@ if(isset($_GET['date'])){
 
           </div>
       	<!-- ############ PAGE END-->
-    </div>
-  </div>
-  <!-- / -->
-
-<!-- ############ LAYOUT END-->
 
   
 
