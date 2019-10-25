@@ -1,6 +1,10 @@
 <?php
 require_once("../methods/Main.class.php");
+require_once("../methods/DB.class.php");
+require_once("db.php");
 $main = new Main;
+$DB = new DB;
+$DB->conn = $conn;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -84,8 +88,57 @@ $main = new Main;
 		<!--		modal here-->
      <?php $main->modal() ?>
       <!-- ############ PAGE START-->
-	 
-		<div id="chart_div" style="width: 100%; height: 500px;"></div>
+	 	
+	 	
+	 		
+		
+			
+	 	
+			<div class="card-deck mb-3 text-center" style="padding: 50px">  
+ 			
+				<div class="card mb-4 shadow-sm">
+				  <div class="card-header">
+					<h4 class="my-0 font-weight-normal text-primary">Customers</h4>
+				  </div>
+				  
+				  <div class="card-header">
+						<center><h4 class="my-0 font-weight-normal text-primary" id="TYTotal"><?php  echo($DB->nRow("customer",""));?></h4></center>
+				  </div>
+				</div>
+    			<div class="card mb-4 shadow-sm">
+				  <div class="card-header">
+					<h4 class="my-0 font-weight-normal text-primary">Main Areas</h4>
+				  </div>
+				  
+				  <div class="card-header">
+						<center><h4 class="my-0 font-weight-normal text-primary" id="TYTotal"><?php  echo($DB->nRow("area",""));?></h4></center>
+				  </div>
+				</div>
+    			<div class="card mb-4 shadow-sm">
+				  <div class="card-header">
+					<h4 class="my-0 font-weight-normal text-primary">Sub Areas</h4>
+				  </div>
+				  
+				  <div class="card-header">
+						<center><h4 class="my-0 font-weight-normal text-primary" id="TYTotal"><?php  echo($DB->nRow("subarea",""));?></h4></center>
+				  </div>
+				</div>
+				
+				<div class="card mb-4 shadow-sm">
+				  <div class="card-header">
+					<h4 class="my-0 font-weight-normal text-primary">Total Sales</h4>
+				  </div>
+				  
+				  <div class="card-header">
+						<center><h4 class="my-0 font-weight-normal text-primary" id="TYTotal"><?php  echo($DB->nRow("purchaseditems","","DISTINCT dealid"));?></h4></center>
+				  </div>
+				</div>
+    
+  			</div>
+  			
+  			<div id="chart_div" style="width: 100%; height: 500px;"></div>
+ 			
+		
   </div>
   <!-- / -->
 

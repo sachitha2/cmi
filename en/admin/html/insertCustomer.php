@@ -9,6 +9,10 @@ $DB->conn = $conn;
 //check user in table again
 if($DB->nRow("customer","WHERE nic = '{$_GET['nic']}'") == 0){
 	
+	
+	$arrNIC = $main->nicToDOB($_GET['nic']);
+	
+	
 
 ?>
 <!DOCTYPE html>
@@ -46,7 +50,7 @@ if($DB->nRow("customer","WHERE nic = '{$_GET['nic']}'") == 0){
 
 <!-- ############ LAYOUT START-->
 
-  <?php $main->menuBar(s) ?>
+  <?php $main->menuBar() ?>
   <!-- / -->
   
   <!-- content -->
@@ -59,7 +63,7 @@ if($DB->nRow("customer","WHERE nic = '{$_GET['nic']}'") == 0){
 			
 			
  			<h1>Insert a Customer</h1>
- 			
+<!-- 				<?php print_r($arrNIC); ?>-->
  			 	<?php
 //					echo($DB->nRow("area"," "));
 //					if(1 == 1){
@@ -71,7 +75,7 @@ if($DB->nRow("customer","WHERE nic = '{$_GET['nic']}'") == 0){
 					}else{
 						$x++;
 					}
-	  				if($DB->nRow('user',' WHERE type = 2') == 0){
+	  				if($DB->nRow('user',' ') == 0){
 						$main->Msgwarning("No data Found in User Table");
 					}else{
 						$x++;
@@ -79,29 +83,29 @@ if($DB->nRow("customer","WHERE nic = '{$_GET['nic']}'") == 0){
 	  
 	  				if($x == 2){
 						?>
-						<form>
+						<form autocomplete="off">
 		<div>Select Designation</div>
 		<select  class="form-control" id="desi">
 			<option value="0">Select Designation</option>
-			<option value="Mr.">Mr.</option>
+			<option value="Mr." <?php if($arrNIC['s'] == 1 && $arrNIC['g'] == 1){echo("selected");} ?> >Mr.</option>
 			<option value="Mrs.">Mrs.</option>
-			<option value="Ms.">Ms.</option>
+			<option value="Ms." <?php if($arrNIC['s'] == 1 && $arrNIC['g'] == 0){echo("selected");} ?>>Ms.</option>
 			<option value="Miss.">Miss.</option>
 		</select>
 		<div>Full Name</div>
-		<div><input type="text" class="form-control" style="text-transform: uppercase" name="name" id="name" placeholder="Enter Name" onKeyPress="enterNext(event,'sName');"></div>
+		<div><input type="text" class="form-control" style="text-transform: uppercase" name="name" id="name" placeholder="Enter Name" onKeyPress="enterNext(event,'sName');" autocomplete="false" autofocus></div>
 		
 		<div>Short Name</div>
-		<div><input type="text" class="form-control" name="sName" id="sName" placeholder="Enter Short Name"  onKeyPress="enterNext(event,'address');"  style="text-transform: uppercase" ></div>
+		<div><input type="text" class="form-control" name="sName" id="sName" placeholder="Enter Short Name"  onKeyPress="enterNext(event,'address');"  style="text-transform: uppercase" onClick="getShortName('name','sName')" autocomplete="false"></div>
 		<div>Address</div>
-		<div><input type="text" class="form-control" name="address" id="address" placeholder="Enter Address"  onKeyPress="enterNext(event,'tp');"></div>
+		<div><input type="text" class="form-control" name="address" id="address" placeholder="Enter Address"  onKeyPress="enterNext(event,'tp');" autocomplete="false"></div>
 		<div>NIC</div>
 		<div><input type="text" class="form-control" name="nic" id="nic" value="<?php echo $_GET['nic']; ?>" readonly></div>
 		<div>Telephone</div>
 		<div><input type="text" class="form-control" name="tp" id="tp" placeholder="Enter Telephone Number"   onKeyPress="enterNext(event,'dob');"></div>
 		
 		<div>Date of Birth</div>
-		<div><input type="date" class="form-control" name="dob" id="dob" style="width: 200px"   onKeyPress="enterNext(event,'route');"></div>
+		<div><input type="date" class="form-control" name="dob" id="dob" style="width: 200px"   onKeyPress="enterNext(event,'route');" <?php if($arrNIC['s'] == 1){echo("value=\"{$arrNIC['dob']}\"");} ?>></div>
 		
 		
 		<div>Route</div>
@@ -112,7 +116,7 @@ if($DB->nRow("customer","WHERE nic = '{$_GET['nic']}'") == 0){
 		<select name="area" id="area" class="form-control"  style="width: 200px" onChange="loadSubAreas(this.value)">
 			<option class='form-control' value='0'>SELECT MAIN AREA</option>
 			<?php
-			$queryForSelection = $conn->query("SELECT * FROM area");
+			$queryForSelection = $conn->query("SELECT * FROM area ORDER BY area.name ASC");
 			while ($row = mysqli_fetch_assoc($queryForSelection)) {
 		 		echo "<option class='form-control' value='{$row['id']}'>".$row['name']."</option>";
 			} 
@@ -130,10 +134,14 @@ if($DB->nRow("customer","WHERE nic = '{$_GET['nic']}'") == 0){
 		<div>
 			<select class="form-control" name="agent" id="agent"  style="width: 200px">
 				<?php
-					$queryForAgentSelection = $conn->query("SELECT * FROM user WHERE type = 2 ;");
+					$queryForAgentSelection = $conn->query("SELECT * FROM user;");
 					while ($rowAgent = mysqli_fetch_assoc($queryForAgentSelection)) {
 
-						echo "<option value='{$rowAgent['id']}'>".$rowAgent['username']."</option>";
+						if($rowAgent['id'] == $_SESSION['login']['userId']){
+							echo "<option value='{$rowAgent['id']}' selected>".$rowAgent['username']."</option>";
+						}else{
+							echo "<option value='{$rowAgent['id']}'>".$rowAgent['username']."</option>";
+						}
 					}
 				?>
 			</select>
@@ -154,7 +162,7 @@ if($DB->nRow("customer","WHERE nic = '{$_GET['nic']}'") == 0){
 		</div>
 		<div>Enter Collection Date</div>
 		<div>
-			<input type="number" id="collectionDate" onKeyPress="enterAddCustomer(event)" class="form-control"  style="width: 200px">
+			<input type="number" value="25" id="collectionDate" onKeyPress="enterAddCustomer(event)" class="form-control"  style="width: 200px">
 		</div>
 		
 <!--

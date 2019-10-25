@@ -1,7 +1,9 @@
 <?php
 require_once('db.php');
 require_once('../methods/DB.class.php');
+require_once('../methods/Main.class.php');
 $DB = new DB;
+$main = new Main;
 
 $amount = $_GET['amount'];
 $id = $_GET['id'];
@@ -28,7 +30,9 @@ $sql = "INSERT INTO `cost` (`cost`, `purpose`, `date`, `id`, `costTypeId`) VALUE
 $conn->query($sql);
 
 
-$conn->close();
 
+
+$conn->close();
+$main->createSettionError("$amount $itemName items added to stock.");
 
 ?>

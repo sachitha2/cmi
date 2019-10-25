@@ -69,6 +69,7 @@ By sachitha hirushan
 			$_SESSION['login']['pass'] = 1;
 			$_SESSION['login']['status'] = 1;
 			$_SESSION['login']['user'] = $cookie_value;
+			$_SESSION['login']['userId'] =  $row2['id'];
 			
 			header("location:dashboard.php");
 			$_SESSION["error"] = array("s"=>1,"msg"=>"Logged in to the system as $UserName ");

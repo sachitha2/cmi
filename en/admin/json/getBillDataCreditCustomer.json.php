@@ -1,6 +1,7 @@
 <?php
 require_once("../html/db.php");
 require_once("../methods/DB.class.php");
+require_once("../methods/Main.class.php");
 if(isset($_POST['cash'])){
 	
 $cid = $_POST['cid'];
@@ -8,6 +9,7 @@ $cash = $_POST['cash'];
 $installments = $_POST['installments'];
 $DB = new DB;
 $DB->conn = $conn;
+$main = new Main;
 	
 $timezone  = +5.30; 
 $date =  "0000-01-01";//gmdate("Y-m-j", time() + 3600*($timezone+date("I")));
@@ -68,37 +70,54 @@ if(isset($_SESSION['credit']['bill'])){
 	
 	//make installments
 	//make first installment
-	
-		$sqlFirstI = "INSERT INTO installment (id, dealid, installmentid, payment, time, date, rdate, status, rpayment, cid) VALUES (NULL, '$billid', '1', '$cash', curtime(), '$date', '$date', '1', '$cash', '{$cid}');";
-		$conn->query($sqlFirstI);
+		if($cash >0){
 			
-	
+		
+			$sqlFirstI = "INSERT INTO installment (id, dealid, installmentid, payment, time, date, rdate, status, rpayment, cid) VALUES (NULL, '$billid', '1', '$cash', curtime(), '$date', '$date', '1', '$cash', '{$cid}');";
+			$conn->query($sqlFirstI);
+
+
+				$remain = $total[0]['SUM(amount * uprice)'] - $cash;
+
+			
+				$sqlCollection = "INSERT INTO collection (id, userId, installmentId, dealid, payment, date, time, dateTime) VALUES (NULL, '{$_SESSION['login']['userId']}', '1', '$billid', '$cash', curdate(), curtime(), CURRENT_TIMESTAMP);";
+
+				$conn->query($sqlCollection);
+			
+
+		///make installments
+			$installments -= 1;
+			$INum = 2;
+		}else if($cash == 0){
 			$remain = $total[0]['SUM(amount * uprice)'] - $cash;
+			$INum = 1;
+		}
 	
 		//update deal data
-				$sqlDealData = "UPDATE deals SET tprice = '{$total[0]['SUM(amount * uprice)']}', rprice = '{$remain}' ,discount = {$_POST['disc']} WHERE deals.id = $billid;";
-				$conn->query($sqlDealData);
+					$sqlDealData = "UPDATE deals SET tprice = '{$total[0]['SUM(amount * uprice)']}', rprice = '{$remain}' ,discount = {$_POST['disc']} WHERE deals.id = $billid;";
+					$conn->query($sqlDealData);
 		//update deal data
-		
-	///make installments
-		$installments -= 1;
-		
-		
-		$perOneI = round(($remain / $installments),2);
-		
+		if($installments != 0){
+			$perOneI = round(($remain / $installments),2);
+		}else{
+			$perOneI = 0;
+			$conn->query("UPDATE deals SET status = '1' WHERE deals.id = $billid;");
+		}
 		//get installment days limit
-			$arrDayLimit = $DB->select("masterdata"," where id = 1","installmentDaysLimit");
+//			$arrDayLimit = $DB->select("masterdata"," where id = 1","installmentDaysLimit");
+			$arrCustomerDate = $DB->select("customer","Where id = {$cid}","collectionDate");
 //			print_r($arrDayLimit);
-	
+			$arrIDate = $main->iDate($date,$installments,$arrCustomerDate[0]['collectionDate']);
+		
 		for($x = 0;$x < $installments;$x++){
 			
 			
 			
-			$days = (($x+1) * $arrDayLimit[0]['installmentDaysLimit']);
-			$iDate = 	date('Y-m-d', strtotime($date. ' + '.$days.'  days'));
+//			$days = (($x+1) * $arrDayLimit[0]['installmentDaysLimit']);
+//			$iDate = 	date('Y-m-d', strtotime($date. ' + '.$days.'  days'));
 			
 			
-			$sqlI = "INSERT INTO installment (id, dealid, installmentid, payment, time, date, rdate, status, rpayment, cid) VALUES (NULL, '$billid', '".($x + 2)."', '$perOneI', curtime(), '$iDate', '0000-00-00' , '0', '0', '{$cid}');";
+			$sqlI = "INSERT INTO installment (id, dealid, installmentid, payment, time, date, rdate, status, rpayment, cid) VALUES (NULL, '$billid', '".($x + $INum)."', '$perOneI', curtime(), '{$arrIDate[$x]}', '0000-00-00' , '0', '0', '{$cid}');";
 			$conn->query($sqlI);
 //			echo($sqlI);
 		}

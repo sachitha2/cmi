@@ -1252,6 +1252,26 @@ function addItem(){
 
 
 /////deleters
+
+function delAInstallment(id,cid){
+	var r = confirm("Are you sure want to delete this!");
+	if(r == true){
+		showModal();
+		var ajax = _ajax();
+		ajax.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+//	   	 		alert(this.responseText);
+				ajaxCommonGetFromNet("subPages/customerBilling.php?cid="+cid,"customerStage");
+				hideModal();
+			}
+	  }
+
+		ajax.open("POST", "../workers/aInstallment.del.php", true);
+		ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		ajax.send("cid="+cid+"&iId="+id);
+	}
+}
+
 function delADeal(cid,dealId,f = 0){
 	var r = confirm("Are you sure want to delete this!");
 	if(r == true){
@@ -1558,7 +1578,13 @@ function enterAddExpenses(e,costTypeid){
 		addExpenses(costTypeid);
 	}
 }
-
+function enterChangePricesLoader(e,itemId){
+	if(e.which == 13){
+		if(itemId != ""){
+			ajaxCommonGetFromNet('subPages/changePrices.php?id='+itemId,'cStage');
+		}
+	}	
+}
 function enterUpdateSystmeMC(e){
 	if (e.which == 13) {
 		updateSystmeMC();
@@ -1602,25 +1628,28 @@ function enterAddAgentInstallmentCollect(e,amount,inputId,ID,nRow,IID,dealId,FN 
 						data = { 'ID':ID, 'amount':amount,'IID':IID,'dealId':dealId};
 						console.log("Nr "+nRow+"input"+inputId);
 						if(nRow != inputId){
-							enterNext(event,"input"+(inputId+1));
+//							enterNext(event,"input"+(inputId+1));
 						}
 
 						var ajax = _ajax();
 						showModal();
-						msg("msg"+inputId,"Wait");
+//						msg("msg"+inputId,"Wait");
 						ajax.onreadystatechange = function() {
 							if (this.readyState == 4 && this.status == 200) {
 								hideModal();
 								console.log(this.responseText);
-								document.getElementById("input"+inputId).readOnly = true;
-								msg("msg"+inputId,"Done Saving");
-								if(p == 1){
+								
+								res = JSON.parse(this.responseText);
+								console.log("Customer id " +res.data.cid);
+								if(p == 3){
 									console.log("Bill needs to be printed");
 									sendInstallmentBill(this.responseText);
 								}else{
+									
 									console.log("Normal needed");
 									
 								}
+								ajaxCommonGetFromNet("subPages/customerBilling.php?cid="+res.data.cid,"customerStage");
 							}
 					  }
 
@@ -1651,6 +1680,14 @@ function enterCheckCustomerForMakeBill(e,idCard) {
 //  		console.log(idCard);
 	  	CheckCustomerForMakeBill(idCard);
   }
+}
+
+
+
+function enterCheckCustomerForMakeBillCID(e,cid){
+	if(e.which == 13){
+		CheckCustomerForMakeBillCID(cid);
+	}
 }
 
 function enterCheckCustomerForNewOrder(e,idCard) {
@@ -1749,6 +1786,57 @@ function enterAddPackitems(e,packId) {
 	  addPackItems(packId);
 	  }
 }
+
+
+//mysales
+function enterMySalesShortBydate(from,to) {
+//				console.log(readStockMenu());
+//		  		var menu = readStockMenu();
+		    	data = {'mode':'date','from':from,'to':to,'status':0,"day":""};
+		  		data.status = 0;
+//		  		data.day = menu.day;
+		  		console.log(data);
+	  			ajaxCommonGetFromNet('subPages/mySales.php?data='+JSON.stringify(data),'cStage');
+}
+
+function enterMySalesShortByDealId(e,id) {
+	if(e.which == 13){
+//				console.log(readStockMenu());
+//		  		var menu = readStockMenu();
+		    	data = {'mode':'dealId','dealId':id,'status':0,"day":""};
+		  		data.status = 0;
+//		  		data.day = menu.day;
+		  		console.log(data);
+	  			ajaxCommonGetFromNet('subPages/mySales.php?data='+JSON.stringify(data),'cStage');
+	}
+}
+
+function enterMySalesShortByCID(e,id){
+	if(e.which == 13){
+//				console.log(readStockMenu());
+//		  		var menu = readStockMenu();
+		    	data = {'mode':'cid','cid':id,'status':0,"day":""};
+		  		data.status = 0;
+//		  		data.day = menu.day;
+		  		console.log(data);
+	  			ajaxCommonGetFromNet('subPages/mySales.php?data='+JSON.stringify(data),'cStage');
+		
+	}
+}
+
+function enterMySalesShortByName(e,name){
+	if(e.which == 13){
+//				console.log(readStockMenu());
+//		  		var menu = readStockMenu();
+		    	data = {'mode':'name','name':name,'status':0,"day":""};
+		  		data.status = 0;
+//		  		data.day = menu.day;
+		  		console.log(data);
+	  			ajaxCommonGetFromNet('subPages/mySales.php?data='+JSON.stringify(data),'cStage');
+	}
+}
+//mysales
+
 function enterStockShortByItem(e,id) { //this is mode 
   if (e.which == 13) { 
 	  if(id == ""){
@@ -1960,6 +2048,18 @@ function stockDefaultMenu() { //this is mode
 		  	data.day = menu.day;
 		  	console.log(data);
 	  		ajaxCommonGetFromNet('subPages/viewStock.php?data='+JSON.stringify(data),'cStage');
+	  
+}
+
+
+function salesDefaultMenu() { //this is mode 
+		  	console.log(readSalesMenu());
+		  	var menu = readSalesMenu();
+		    data = {'mode':'default','status':0,"day":""};
+		  	data.status = menu.status;
+		  	data.day = menu.day;
+		  	console.log(data);
+	  		ajaxCommonGetFromNet('subPages/salesView.php?data='+JSON.stringify(data),'cStage');
 	  
 }
 ////menu bars
@@ -2428,6 +2528,46 @@ function readStockMenu(){
 	return data;
 	
 }
+
+function readSalesMenu(){
+	var data = {'status':'all','day':'today'};
+	////reading status radio btns
+	if(rChecked("cre") == 1){
+		data.status = "cre";
+	}else if(rChecked("cash") == 1){
+		data.status = "cash";
+	}else if(rChecked("all") == 1){
+		data.status = "all";
+	}
+	////reading day radio btns
+	if(rChecked("dayToday") == 1){
+		data.day = "dayToday";
+	}else if(rChecked("dayYester") == 1){
+		data.day = "dayYester";
+	}
+	else if(rChecked("dayWeek") == 1){
+		data.day = "dayWeek";
+	}else if(rChecked("dayLWeek") == 1){
+		data.day = "dayLWeek";
+	}
+	else if(rChecked("dayMonth") == 1){
+		data.day = "dayMonth";
+	}
+	else if(rChecked("dayLMonth") == 1){
+		data.day = "dayLMonth";
+	}
+	else if(rChecked("dayYear") == 1){
+		data.day = "dayYear";
+	}
+	else{
+		data.day = "dayCustom";
+	}
+	return data;
+	
+}
+
+
+
 var fastCustomerBillTotal ;
 function fastCustomerFinish(total){
 			fastCustomerBillTotal = total;
@@ -2504,6 +2644,64 @@ function finishBill(cash){
 			
 }
 
+function getShortName(name,output){
+//	var name = "S H P R M Sachitha Hirushan Premarathna";
+		var name = document.getElementById(name).value;
+
+
+		console.log("full name with . :"+name);
+
+
+		var  arr = name.split(".");
+
+		console.log("arr name . "+arr);
+
+
+		//name with . and spaces
+
+
+		var initials = "";
+
+		namelen = name.length;
+
+		console.log("name length"+namelen);
+
+
+		arrIni = name.split(".");
+
+		var nameLetters = 0;
+		for(i = 0;i<arrIni.length;i++){
+
+			console.log(arrIni[i]);
+			if(arrIni[i].length == 1){
+				initials +=arrIni[i]+" ";
+				nameLetters++;
+			}
+		}
+		console.log("this name contains initials "+nameLetters);
+		console.log("initials of this name is -" + initials);
+
+
+		var nextPart = arrIni[arr.length - 1];
+
+		console.log("last part to process "+nextPart);
+
+
+		arrLastPart = nextPart.split(" ");
+
+
+		lastPart = initials;
+		for(x = 0;x<arrLastPart.length-1;x++){
+			lastPart += arrLastPart[x][0]+" ";
+		}
+
+		lastPart += arrLastPart[arrLastPart.length-1];
+
+
+		console.log("processed name === "+lastPart);
+	
+		document.getElementById(output).value = lastPart;
+}
 
 function finishBillCreditCustomer(cash,installments,cid,disc = 0){
 //			alert("finish bill");
