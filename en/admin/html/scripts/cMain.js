@@ -3133,3 +3133,9 @@ function enterAddBDay(e){
 		addBDay(tp.value, bday.value);
 	}
 }
+
+function loadEditFormsBDayBook(value){
+	if(value != 0){
+		ajaxCommonGetFromNet("subPages/editBDayBook.php?id="+value,"cStage");
+	}
+}

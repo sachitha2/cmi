@@ -54,8 +54,8 @@ $main = new Main;
     
     		<center>
 				<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/addBDay.php','cStage')"  style="width: 40%;margin-bottom: 5px;">Add</button>
-				<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/area.STE.php','cStage')"  style="width: 40%;margin-bottom: 5px;">View</button>
-				<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/area.STE.php','cStage')"  style="width: 40%;margin-bottom: 5px;">Edit</button>
+				<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/viewBDayBook.php','cStage')"  style="width: 40%;margin-bottom: 5px;">View</button>
+				<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/BDayBook.STE.php','cStage')"  style="width: 40%;margin-bottom: 5px;">Edit</button>
 				<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/viewArea.php','cStage')"  style="width: 40%;margin-bottom: 5px;">Delete</button>
     		</center>
   			
