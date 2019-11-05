@@ -32,8 +32,8 @@ include("../../workers/readSesson.worker.php");
 			<td scope="row"><?php echo($data['id']) ?></td>
 			<td><?php echo($data['tp'])?></td>
 			<td><?php echo($data['dob'])?></td>
-			<td><button type="button" class="btn btn-md btn-primary" onClick="loadEditFormsArea(<?php echo($data['id']) ?>,81)">Edit</button></td>
-			<td><button onClick="delArea(<?php echo($data['id']) ?>)" type="button" class="btn btn-md btn-danger ">X</button></td>
+			<td><button type="button" class="btn btn-md btn-primary" onClick="loadEditFormsBDayBook(<?php echo($data['id']) ?>)">Edit</button></td>
+			<td><button onClick="delBDayBook(<?php echo($data['id']) ?>);" type="button" class="btn btn-md btn-danger ">X</button></td>
 					
 		</tr>
 <?php

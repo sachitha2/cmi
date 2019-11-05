@@ -114,7 +114,7 @@ include("../../workers/readSesson.worker.php");
 
           <br>
           <center> 
-            <button type="button" class="btn btn-primary btn-lg" onClick="window.location.assign('PDF/purchasedItemsRePDF.php?logic=<?php echo($logic) ?>&period=<?php echo($period) ?>')"  style="width: 40%;margin-bottom: 5px;">Get PDF Report</button>
+            <button type="button" class="btn btn-primary btn-lg" onClick="window.location.assign('PDF/purchasedItemsRePDF.php?logic=<?php echo($logic) ?>&period=<?php echo($period) ?>');"  style="width: 40%;margin-bottom: 5px;">Get PDF Report</button>
           </center>
 
           </div>

@@ -1333,7 +1333,7 @@ function delArea(id){
 		ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 		ajax.send("id="+id);
 	}
-		}
+}
 
 
 function delSubArea(id){	
@@ -3137,5 +3137,45 @@ function enterAddBDay(e){
 function loadEditFormsBDayBook(value){
 	if(value != 0){
 		ajaxCommonGetFromNet("subPages/editBDayBook.php?id="+value,"cStage");
+	}
+}
+
+function editSaveBDayBook(dob,id){
+	if(dob.length != 0){
+					///ajax part
+					loadingModal();
+					showModal();
+					var xmlhttp = new XMLHttpRequest();
+        			xmlhttp.onreadystatechange = function() {
+        			if (this.readyState === 4 && this.status == 200) {
+							document.getElementById("msg").innerHTML  =  this.responseText;
+							emt("dob");
+							hideModal();
+           				}
+        			};
+        			xmlhttp.open("GET", "../workers/bdayBook.edit.php?id="+id+"&dob="+dob, true);//generating  get method link
+        			xmlhttp.send();
+					////ajax part
+		}else{
+			document.getElementById("msg").innerHTML = "Enter valid Birthday";
+		}
+}
+
+function delBDayBook(id){	
+	var r = confirm("Are you sure want to delete this!");
+	if(r == true){
+		showModal();
+		var ajax = _ajax();
+		ajax.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+//	   	 		alert(this.responseText);
+				ajaxCommonGetFromNet('subPages/viewBDayBook.php','cStage');
+				hideModal();
+			}
+		}
+
+		ajax.open("POST", "../workers/bdayBook.del.php", true);
+		ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		ajax.send("id="+id);
 	}
 }
