@@ -146,6 +146,51 @@ if($DB->nRow("deals"," WHERE cid = $cid") != 0){
         						
         						<button class="btn btn-danger btn-sm" onClick="delADeal('<?php echo($cid)  ?>','<?php echo($data['id'])  ?>')">Delete</button>
         					</div>
+							<h2 class="my-0 font-weight-normal text-primary" id="totalToday">Collection History</h2>
+							
+							<table class="table table-hover table-bordered table-striped table-dark">
+											<thead class="thead-dark">
+												<tr>
+													<th scope="col" width="10">ID</th>
+													<th scope="col">User</th>
+													<th scope="col">Installments</th>
+													<th scope="col">Date</th>
+													<th scope="col">Payment</th>
+												</tr>
+											</thead>
+								<tbody>
+							
+							<?php
+									$logic = " WHERE dealid = {$data['id']}";
+									$arrCol = $DB->select("collection",$logic);
+									$total = 0;
+									foreach($arrCol as $data){
+										
+										$total += $data['payment'];
+									?>
+									<tr>
+										<td><?php echo($data['id']) ?></td>
+										<td><?php echo($data['userId']) ?></td>
+										<td><?php echo($data['installmentId']) ?></td>
+										<td><?php echo($data['date']) ?></td>
+										<td><?php echo($data['payment']) ?></td>
+										
+									</tr>
+								
+								
+									
+									<?php
+									}
+									?>
+									
+									<tr>
+										
+										<td colspan="4"></td>
+										<td><?php echo($total) ?></td>
+									</tr>
+								</tbody>
+							</table>
+							
 						</div>
 	
 	<?php
