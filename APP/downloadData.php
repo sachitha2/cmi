@@ -62,9 +62,21 @@ foreach($deals as $data){
 }
 //collection table end
 
+
+//Item data start
+$area = $DB->select("item","where status = 1");
+//print_r($area);
+$x=0;
+foreach($area as $data){
+	$arr['item']["item"][$x] = $DB->getItemNameByStockId($data['id'],0);
+	$arr['item']["id"][$x] = $data['id'];
+	$arr['item']["type"][$x] = $data['itemTypeId'];
+	$x++;
+}
+
+//Item data end
+
 //TODO
-//Collection table
-//Item data
 //Customer List
 //Area List
 //pack data
