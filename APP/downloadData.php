@@ -44,12 +44,92 @@ foreach($installment as $data){
 	$x++;
 }
 
-//TODO
-//Collection table
-//Item data
-//Customer List
-//Area List
-//pack data
+//collection table start
+//SELECT `collection`.`id`,`collection`.`userId`,`collection`.`installmentId`,`collection`.`dealid`,`collection`.`payment`,`collection`.`date`,`collection`.`time`,`collection`.`dateTime` FROM `collection`,`deals` WHERE `deals`.`status` = 0 AND `collection`.`dealid` = `deals`.`id`
+$deals = $DB->select("collection,deals","WHERE deals.status = 0 AND collection.dealid = deals.id","collection.id,collection.userId,collection.installmentId,collection.dealid,collection.payment,collection.date,collection.time,collection.dateTime");
+//print_r($deals);
+$x=0;
+foreach($deals as $data){
+	$arr['collection']["id"][$x] = $data['id'];
+	$arr['collection']["userId"][$x] = $data['userId'];
+	$arr['collection']["installmentId"][$x] = $data['installmentId'];
+	$arr['collection']["dealid"][$x] = $data['dealid'];
+	$arr['collection']["payment"][$x] = $data['payment'];
+	$arr['collection']["date"][$x] = $data['date'];
+	$arr['collection']["time"][$x] = $data['time'];
+	$arr['collection']["dateTime"][$x] = $data['dateTime'];
+	$x++;
+}
+//collection table end
+
+
+//Item data start
+$area = $DB->select("item","where status = 1");
+//print_r($area);
+$x=0;
+foreach($area as $data){
+	$arr['item']["item"][$x] = $DB->getItemNameByStockId($data['id'],0);
+	$arr['item']["id"][$x] = $data['id'];
+	$arr['item']["type"][$x] = $data['itemTypeId'];
+	$x++;
+}
+
+//Item data end
+
+
+//customer data start
+$area = $DB->select("customer","");
+//print_r($area);
+$x=0;
+foreach($area as $data){
+	$arr["customer"]["id"][$x] = $data['id'];
+	$arr["customer"]["name"][$x] = $data['name'];
+	$arr["customer"]["address"][$x] = $data['address'];
+	$arr["customer"]["tp"][$x] = $data['tp'];
+	$arr["customer"]["regdate"][$x] = $data['regdate'];
+	$arr["customer"]["areaid"][$x] = $data['areaid'];
+	$arr["customer"]["nic"][$x] = $data['nic'];
+	$arr["customer"]["status"][$x] = $data['status'];
+	$arr["customer"]["route"][$x] = $data['route'];
+	$arr["customer"]["dob"][$x] = $data['dob'];
+	$arr["customer"]["areaAgent"][$x] = $data['areaAgent'];
+	$x++;
+}
+//customer data end
+
+//area start
+
+$area = $DB->select("area","");
+//print_r($area);
+$x=0;
+foreach($area as $data){
+	$arr["area"]["area"][$x] = $data['name'];
+	$arr["area"]["id"][$x] = $data['id'];
+	$x++;
+}
+//area end
+
+
+//pack json start
+
+//TODO PACK
+//$area = $DB->select("pack","");
+//print_r($area);
+//$x=0;
+//foreach($area as $data){
+//	$arr["pack"]["item"][$x] = $data['name'];
+//	$arr["pack"]["id"][$x] = $data['id'];
+//	$arrPack = $DB->select("packitems","where pid = {$data['id']}");
+//	$y = 0;
+//	foreach($arrPack as $dataPack){
+//		$arr["pack"]["packItems"]['itemId'][$x][$y] = $dataPack['id'];
+//		$arr["pack"]["packItems"]['amount'][$x][$y] = $dataPack['amount'];
+//		$y++;
+//	}
+//	$x++;
+//}
+//pack json end
+
 
 $json = json_encode($arr);
 echo($json);
