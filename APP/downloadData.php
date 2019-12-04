@@ -76,10 +76,60 @@ foreach($area as $data){
 
 //Item data end
 
-//TODO
-//Customer List
-//Area List
-//pack data
+
+//customer data start
+$area = $DB->select("customer","");
+//print_r($area);
+$x=0;
+foreach($area as $data){
+	$arr["customer"]["id"][$x] = $data['id'];
+	$arr["customer"]["name"][$x] = $data['name'];
+	$arr["customer"]["address"][$x] = $data['address'];
+	$arr["customer"]["tp"][$x] = $data['tp'];
+	$arr["customer"]["regdate"][$x] = $data['regdate'];
+	$arr["customer"]["areaid"][$x] = $data['areaid'];
+	$arr["customer"]["nic"][$x] = $data['nic'];
+	$arr["customer"]["status"][$x] = $data['status'];
+	$arr["customer"]["route"][$x] = $data['route'];
+	$arr["customer"]["dob"][$x] = $data['dob'];
+	$arr["customer"]["areaAgent"][$x] = $data['areaAgent'];
+	$x++;
+}
+//customer data end
+
+//area start
+
+$area = $DB->select("area","");
+//print_r($area);
+$x=0;
+foreach($area as $data){
+	$arr["area"]["area"][$x] = $data['name'];
+	$arr["area"]["id"][$x] = $data['id'];
+	$x++;
+}
+//area end
+
+
+//pack json start
+
+//TODO PACK
+//$area = $DB->select("pack","");
+//print_r($area);
+//$x=0;
+//foreach($area as $data){
+//	$arr["pack"]["item"][$x] = $data['name'];
+//	$arr["pack"]["id"][$x] = $data['id'];
+//	$arrPack = $DB->select("packitems","where pid = {$data['id']}");
+//	$y = 0;
+//	foreach($arrPack as $dataPack){
+//		$arr["pack"]["packItems"]['itemId'][$x][$y] = $dataPack['id'];
+//		$arr["pack"]["packItems"]['amount'][$x][$y] = $dataPack['amount'];
+//		$y++;
+//	}
+//	$x++;
+//}
+//pack json end
+
 
 $json = json_encode($arr);
 echo($json);
