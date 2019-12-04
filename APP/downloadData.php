@@ -44,6 +44,24 @@ foreach($installment as $data){
 	$x++;
 }
 
+//collection table start
+//SELECT `collection`.`id`,`collection`.`userId`,`collection`.`installmentId`,`collection`.`dealid`,`collection`.`payment`,`collection`.`date`,`collection`.`time`,`collection`.`dateTime` FROM `collection`,`deals` WHERE `deals`.`status` = 0 AND `collection`.`dealid` = `deals`.`id`
+$deals = $DB->select("collection,deals","WHERE deals.status = 0 AND collection.dealid = deals.id","collection.id,collection.userId,collection.installmentId,collection.dealid,collection.payment,collection.date,collection.time,collection.dateTime");
+//print_r($deals);
+$x=0;
+foreach($deals as $data){
+	$arr['collection']["id"][$x] = $data['id'];
+	$arr['collection']["userId"][$x] = $data['userId'];
+	$arr['collection']["installmentId"][$x] = $data['installmentId'];
+	$arr['collection']["dealid"][$x] = $data['dealid'];
+	$arr['collection']["payment"][$x] = $data['payment'];
+	$arr['collection']["date"][$x] = $data['date'];
+	$arr['collection']["time"][$x] = $data['time'];
+	$arr['collection']["dateTime"][$x] = $data['dateTime'];
+	$x++;
+}
+//collection table end
+
 //TODO
 //Collection table
 //Item data
