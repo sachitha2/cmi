@@ -7,7 +7,7 @@ $DB = new DB;
 $DB->conn = $conn;
 
 
-$data = $_GET['data'];
+$data = $_POST['data'];
 
 $dataArr = json_decode($data,true);
 
