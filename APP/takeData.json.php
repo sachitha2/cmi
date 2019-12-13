@@ -41,7 +41,9 @@ foreach($collectionData as $tmpData){
 	$sql = "INSERT INTO collection (id, userId, installmentId, dealid, payment, date, time, dateTime) VALUES (NULL, '{$tmpData['userId']}', '{$tmpData['installmentId']}', '{$tmpData['dealid']}', '{$tmpData['payment']}', curdate(), curtime(), CURRENT_TIMESTAMP);";
 	$conn->query($sql);
 	
-	$arr['collection'][$x++] = $tmpData['id'];
+	$arr['collection'][$x] = $tmpData['id'];
+	$arr['collectionNewId'][$x] = $conn->insert_id;
+	$x++;
 }
 
 
