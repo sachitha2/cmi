@@ -169,6 +169,11 @@ class Main{
                         <span class="nav-text">Settings</span>
                       </a>
                     </li>
+                    <li>
+                      <a onClick="window.location.assign('bdayBook.php')">
+                        <span class="nav-text">Birthday Book</span>
+                      </a>
+                    </li>
                   </ul>
                 </li>
             
@@ -300,24 +305,34 @@ class Main{
                   </a>
                 </li>
                 <li>
-                  <a onClick="window.location.assign('report.php')">
+                  <a>
+                    <span class="nav-caret">
+                      <i class="fa fa-caret-down"></i>
+                    </span>
                     <span class="nav-icon">
-                      <i class="material-icons">&#xe870;
+                      <i class="material-icons">&#xe429;
                         <span ui-include="'../assets/images/i_7.svg'"></span>
                       </i>
                     </span>
                     <span class="nav-text">Reports</span>
                   </a>
-                </li>
-                <li>
-                  <a onClick="window.location.assign('detailReport.php')">
-                    <span class="nav-icon">
-                      <i class="material-icons">&#xe870;
-                        <span ui-include="'../assets/images/i_7.svg'"></span>
-                      </i>
-                    </span>
-                    <span class="nav-text">Detail Reports</span>
-                  </a>
+                  <ul class="nav-sub">
+                    <li>
+                      <a  onClick="window.location.assign('report.php')">
+                        <span class="nav-text">Summary</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a  onClick="window.location.assign('detailReport.php')">
+                        <span class="nav-text">Detail Reports</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a  onClick="window.location.assign('purchasedItemsReport.php')">
+                        <span class="nav-text">Purchased Items Report</span>
+                      </a>
+                    </li>
+                  </ul>
                 </li>
 				<!-- SMS               -->
                  <li>

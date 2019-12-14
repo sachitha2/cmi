@@ -252,7 +252,7 @@ $main = new Main;
     <div ui-view class="app-body" id="view">
 		<?php $main->modal() ?>
       	<!-- ############ PAGE START-->
-        <?php $main->head("Reports") ?>
+        <?php $main->head("Summary") ?>
           
           <div class="container h-100" id="cStage">
           <br>

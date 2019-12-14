@@ -130,6 +130,16 @@ foreach($area as $data){
 //}
 //pack json end
 
+//master table
+$masterdata = $DB->select("masterdata","");
+
+$arr['masterData']['id'] = $masterdata[0]['id'];
+$arr['masterData']['name'] = $masterdata[0]['name'];
+$arr['masterData']['logo'] = $masterdata[0]['logo'];
+$arr['masterData']['description'] = $masterdata[0]['description'];
+$arr['masterData']['installmentDaysLimit'] = $masterdata[0]['installmentDaysLimit'];
+$arr['masterData']['posPrinter'] = $masterdata[0]['posPrinter'];
+$arr['masterData']['sms'] = $masterdata[0]['sms'];
 
 $json = json_encode($arr);
 echo($json);

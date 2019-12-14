@@ -1,21 +1,35 @@
 <?php
-	session_start();
+	require_once("../db.php");
+	require_once("../../methods/DB.class.php");
+	$DB = new DB;
+	$DB->conn = $conn;
+
+	$dealId = $_GET['dealid'];
 ?>
 <!doctype html>
 <html>
 <head>
 <!--  PDF-->
-  <link rel="stylesheet" href="https://printjs-4de6.kxcdn.com/print.min.css" type="text/css" />
-  
-  <script src="https://printjs-4de6.kxcdn.com/print.min.js"></script>
+<link rel="stylesheet" href="https://printjs-4de6.kxcdn.com/print.min.css" type="text/css" />
+<script src="https://printjs-4de6.kxcdn.com/print.min.js"></script>
 <meta charset="utf-8">
-<title>print</title>
+<title>Print Invoice</title>
 <style>
-	.title{
-		
-	}	
+th.x {
+  height: 30px;
+  padding: 5px;
+}
+tr.x {
+  padding: 5px;
+}
+table.x {
+  border-collapse: collapse;
+}
+caption {
+	font-weight:bold;
+}
 </style>
-<script>
+<!-- <script>
 	var someJSONdata = [
     {
        Description: 'John Doe',
@@ -35,77 +49,150 @@
        Qty: '333-333-3333',
 	   Amount: '111-111-1111'
     }
- ];
+ 	];
 	var head = '<h3 style="font-size: 50px;margin:20px">TRANS LANKA</h3><P>Address - my bussiness address<br>Tel - 0715591137/0771466460<br>Email - youremail@mail.com</p>';
-</script>
+</script> -->
 </head>
 
 <body onLoad="">
-	<h1 align="left" style="font-size: 50px;margin: 20px">INVOICE</h1>
+	<h1 align="center" style="font-size: 50px;margin: 20px;margin-bottom: 35px;">INVOICE</h1>
 	
+	<?php
+		$arrDeal = $DB->select("deals","WHERE id = {$dealId}");
+	?>
 	
-	
-	<table border="0">
+	<table align="center" border="0" width="80%">
 		<tr>
-			<th><h1 align="left" style="font-size: 15px;padding-right: 20px">INVOICE NUMBER <br>1570115091252 </h1></th>
-			<td><h1 align="left" style="font-size: 15px;">Date of issue <br>2019-10-10 </h1></td>
+			<th valign="top" align="left" width="50%">Invoice Number</th>
+			<th valign="top" align="left" width="50%">Date of issue</th>
+		</tr>
+		<tr>
+			<td valign="top" align="left"><?php echo($arrDeal[0]['id']); ?></td>
+			<td valign="top" align="left"><?php echo($arrDeal[0]['date']); ?></td>
 		</tr>
 	</table>
-	<table border="0" width="100%">
+	<br><br>
+	<table align="center" border="0" width="80%">
+	 	<tr>
+		 	<th valign="top" align="left" width="50%">Billed To</th>
+			<th valign="top" align="left" width="50%">Company Details</th>
+		</tr>
+
+		 <?php
+			$arrCustomer = $DB->select("customer","WHERE id = {$arrDeal[0]['cid']}");
+			$arrMaster = $DB->select("masterdata","");
+		 ?>
+
 		<tr>
-			<td valign="top">
-				<br>
-				<b>Billed to</b>
-				<br>
-				Client name
-				<br>
-				Address
-			</td>
-			<td valign="top">
-				<b>Your Company name</b><br>
-				Address<br>
-				Tel1<br>
-				Tel2<br>
-				Mail<br>
-				web<br>
-			</td>
+			<td valign="top" align="left"><?php echo($arrCustomer[0]['name']); ?></td>
+			<td valign="top" align="left"><?php echo($arrMaster[0]['name']); ?></td>
+		</tr>
+		<tr>
+			<td valign="top" align="left"><?php echo($arrCustomer[0]['address']); ?></td>
+			<td valign="top" align="left"><?php echo($arrMaster[0]['address']); ?></td>
+		</tr>
+		<tr>
+			<td valign="top" align="left">&nbsp</td>
+			<td valign="top" align="left"><?php echo($arrMaster[0]['tel1']); ?></td>
+		</tr>
+		<tr>
+			<th valign="top" align="left">Customer ID</th>
+			<td valign="top" align="left"><?php echo($arrMaster[0]['tel2']); ?></td>
+		</tr>
+		<tr>
+			<td valign="top" align="left"><?php echo($arrDeal[0]['cid']); ?></td>
+			<td valign="top" align="left"><?php echo($arrMaster[0]['mail']); ?></td>
+		</tr>
+		<tr>
+			<td valign="top" align="left">&nbsp</td>
+			<td valign="top" align="left"><?php echo($arrMaster[0]['web']); ?></td>
 		</tr>
 	</table>
+
+	<br>
+	
+	<?php
+		$arrItems = $DB->select("purchaseditems","WHERE dealid = {$dealId}");
+	?>
 	
 	<center>
-	<table border="1" width="80%">
-		<tr>
-			<th>Description</th>
-			<th>Unit Cost</th>
-			<th>QTY</th>
-			<th>Amount</th>
+	<table border="1" class="x" width="80%">
+		<caption>Item Description</caption>
+		<tr class="x">
+			<th class="x">Item Description</th>
+			<th class="x">Unit Price</th>
+			<th class="x">Qty</th>
+			<th class="x">Total</th>
 		</tr>
-		<tr>
-			<td>Dresssing table</td>
-			<td>10</td>
-			<td>10</td>
-			<td>100</td>
+
+		<?php
+			$sum1 = 0;
+			foreach($arrItems as $dataItems){
+		?>
+			<tr class="x">
+				<?php $Item = $DB->select("item","WHERE id = {$dataItems['itemid']}"); ?>
+				<td><?php echo($Item[0]['name']); ?></td>
+				<td align="right"><?php echo($dataItems['uprice']); ?></td>
+				<td align="right"><?php echo($dataItems['amount']); ?></td>
+				<td align="right"><?php echo($dataItems['uprice']*$dataItems['amount']); ?></td>
+			</tr>
+		<?php
+				$sum1 += $dataItems['uprice']*$dataItems['amount'];
+			}
+		?>
+		<tr class="x">
+			<td align="left" colspan="3"><b>Total</b></td>
+			<td align="right"><b><?php echo($sum1); ?></b></td>
 		</tr>
-		<tr>
-			<td>Dresssing table</td>
-			<td>10</td>
-			<td>10</td>
-			<td>100</td>
+
+	</table>
+	</center>
+
+	<br><br>
+
+	<?php
+		$arrInstallments = $DB->select("installment","WHERE dealid = {$dealId}");
+	?>
+
+	<center>
+	<table border="1" class="x" width="80%">
+		<caption>Insallments</caption>
+		<tr class="x">
+			<th class="x">ID</th>
+			<th align="right" class="x">Installment</th>
+			<th class="x">Due Date</th>
+			<th class="x">Received Date</th>
+			<th align="right" class="x">Received Payment</th>
 		</tr>
-		<tr>
-			<td>Dresssing table</td>
-			<td>10</td>
-			<td>10</td>
-			<td>100</td>
+
+		<?php
+			$sum2 = 0;
+			foreach($arrInstallments as $dataInstallments){
+		?>
+			<tr class="x">
+				<td><?php echo($dataInstallments['installmentid']); ?></td>
+				<td align="right"><?php echo($dataInstallments['payment']); ?></td>
+				<td align="center"><?php echo($dataInstallments['date']); ?></td>
+				<td align="center"><?php echo($dataInstallments['rdate']); ?></td>
+				<td align="right"><?php echo($dataInstallments['rpayment']); ?></td>
+			</tr>
+		<?php
+				$sum2 += $dataInstallments['rpayment'];
+			}
+		?>
+		<tr class="x">
+			<td align="left" colspan="4"><b>Paid</b></td>
+			<td align="right"><b><?php echo($sum2); ?></b></td>
 		</tr>
-		<tr>
-			<td>Dresssing table</td>
-			<td>10</td>
-			<td>10</td>
-			<td>100</td>
+		<tr class="x">
+			<td align="left" colspan="4"><b>Balance</b></td>
+			<td align="right"><b><?php echo($sum1-$sum2); ?></b></td>
 		</tr>
 	</table>
 	</center>
+
+	 <br>
+
 	<?php
 //		print_r($_SESSION['login']);
 	
