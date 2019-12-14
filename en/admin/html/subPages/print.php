@@ -126,18 +126,25 @@ caption {
 		</tr>
 
 		<?php
+			$sum1 = 0;
 			foreach($arrItems as $dataItems){
 		?>
 			<tr class="x">
 				<?php $Item = $DB->select("item","WHERE id = {$dataItems['itemid']}"); ?>
 				<td><?php echo($Item[0]['name']); ?></td>
-				<td><?php echo($dataItems['uprice']); ?></td>
-				<td><?php echo($dataItems['amount']); ?></td>
-				<td><?php echo($dataItems['uprice']*$dataItems['amount']); ?></td>
+				<td align="right"><?php echo($dataItems['uprice']); ?></td>
+				<td align="right"><?php echo($dataItems['amount']); ?></td>
+				<td align="right"><?php echo($dataItems['uprice']*$dataItems['amount']); ?></td>
 			</tr>
 		<?php
+				$sum1 += $dataItems['uprice']*$dataItems['amount'];
 			}
 		?>
+		<tr class="x">
+			<td align="left" colspan="3"><b>Total</b></td>
+			<td align="right"><b><?php echo($sum1); ?></b></td>
+		</tr>
+
 	</table>
 	</center>
 
@@ -152,21 +159,35 @@ caption {
 		<caption>Insallments</caption>
 		<tr class="x">
 			<th class="x">ID</th>
-			<th class="x">Date</th>
-			<th class="x">Payment</th>
+			<th align="right" class="x">Installment</th>
+			<th class="x">Due Date</th>
+			<th class="x">Received Date</th>
+			<th align="right" class="x">Received Payment</th>
 		</tr>
 
 		<?php
+			$sum2 = 0;
 			foreach($arrInstallments as $dataInstallments){
 		?>
 			<tr class="x">
 				<td><?php echo($dataInstallments['installmentid']); ?></td>
-				<td><?php echo($dataInstallments['rdate']); ?></td>
-				<td><?php echo($dataInstallments['rpayment']); ?></td>
+				<td align="right"><?php echo($dataInstallments['payment']); ?></td>
+				<td align="center"><?php echo($dataInstallments['date']); ?></td>
+				<td align="center"><?php echo($dataInstallments['rdate']); ?></td>
+				<td align="right"><?php echo($dataInstallments['rpayment']); ?></td>
 			</tr>
 		<?php
+				$sum2 += $dataInstallments['rpayment'];
 			}
 		?>
+		<tr class="x">
+			<td align="left" colspan="4"><b>Paid</b></td>
+			<td align="right"><b><?php echo($sum2); ?></b></td>
+		</tr>
+		<tr class="x">
+			<td align="left" colspan="4"><b>Balance</b></td>
+			<td align="right"><b><?php echo($sum1-$sum2); ?></b></td>
+		</tr>
 	</table>
 	</center>
 
