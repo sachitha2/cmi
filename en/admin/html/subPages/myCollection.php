@@ -40,6 +40,7 @@ $logic = "WHERE userId = {$_SESSION['login']['userId']}";
       						<th scope="col" width="10">ID</th>
       						<th width="100" scope="col" id="dealId" onDblClick="ajaxCommonGetFromNet('subPages/menu.dealIdMySales.php','dealId');">Deal Id</th>
       						<th scope="col" id="cid" onDblClick="ajaxCommonGetFromNet('subPages/menu.CIDMySales.php','cid');" width="120" >CID</th>
+<!--      						<th scope="col" id="cid"  >User</th>-->
       						<th scope="col" id="name">C.Name</th>
       						
       						
@@ -53,6 +54,10 @@ $logic = "WHERE userId = {$_SESSION['login']['userId']}";
 		$x = 0;
 		$payment = 0;
 		foreach($arrDeals as $data){
+//			print_r($data);
+			echo("<br>");
+			$dealData = $DB->select("deals,customer"," WHERE deals.id = {$data['dealid']} AND customer.id = deals.cid");
+//			print_r($dealData);
 			?>
 			
 				
@@ -60,9 +65,10 @@ $logic = "WHERE userId = {$_SESSION['login']['userId']}";
 				<tr>
 					<td scope="row"><?php echo(++$x) ?></td>
 					<td><?php echo($data['dealid'])?></td>
-					<td></td>
-					<td></td>
-					<td></td>
+					<td><?php echo($dealData[0]['cid']) ?></td>
+<!--					<td><?php $DB->getUserById($data['userId']) ?></td>-->
+					<td><?php echo($dealData[0]['name']) ?></td>
+					<td><?php echo($data['date']) ?></td>
 					
 					<td><?php echo($data['payment']) ?></td>
 					

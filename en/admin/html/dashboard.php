@@ -69,6 +69,25 @@ $DB->conn = $conn;
       }
     </script>
 <!--  new theme-->
+
+
+<script>
+	function creditBalance(){
+		
+					var xmlhttp = new XMLHttpRequest();
+        			xmlhttp.onreadystatechange = function() {
+        			if (this.readyState === 4 && this.status == 200) {
+							let data  = this.responseText;
+							data = JSON.parse(data);
+							document.getElementById("sms").innerHTML  =  data.balance;
+							
+           				}
+        			};
+        			xmlhttp.open("GET","http://app.newsletters.lk/smsAPI?balance&apikey=fWU8bCDzTimMSqIm2qZJBRWMVN0QGqDr&apitoken=icBN1567943789" , true);//generating  get method link
+        			xmlhttp.send();
+	}
+	creditBalance();
+</script>
 </head>
 <body>
   <div class="app" id="app">
@@ -131,6 +150,17 @@ $DB->conn = $conn;
 				  
 				  <div class="card-header">
 						<center><h4 class="my-0 font-weight-normal text-primary" id="TYTotal"><?php  echo($DB->nRow("purchaseditems","","DISTINCT dealid"));?></h4></center>
+				  </div>
+				</div>
+				
+				
+				<div class="card mb-4 shadow-sm">
+				  <div class="card-header">
+					<h4 class="my-0 font-weight-normal text-primary">SMS Credit</h4>
+				  </div>
+				  
+				  <div class="card-header">
+						<center><h4 class="my-0 font-weight-normal text-primary" id="sms"></h4></center>
 				  </div>
 				</div>
     
