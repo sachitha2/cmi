@@ -1,5 +1,6 @@
 <?php
 session_start();
+header("Content-Type: application/json; charset=UTF-8");
 include("../en/admin/html/db.php");
 $_SESSION['login']['status'] = 1;
 require_once("../en/admin/methods/DB.class.php");

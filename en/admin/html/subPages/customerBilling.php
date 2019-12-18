@@ -120,7 +120,9 @@ if($DB->nRow("deals"," WHERE cid = $cid") != 0){
 															if($_SESSION['login']['type'] == 1){
 																?>
 																
-																	<td><button class="btn btn-danger btn-sm" onClick="delAInstallment(<?php echo($dataInstallment['id']) ?>,<?php echo($cid) ?>)">Delete</button></td>
+																	<td>
+<!--																	<button class="btn btn-danger btn-sm" onClick="delAInstallment(<?php echo($dataInstallment['id']) ?>,<?php echo($cid) ?>)">Delete</button>-->
+																	</td>
 																<?php
 															}
 														
@@ -151,7 +153,7 @@ if($DB->nRow("deals"," WHERE cid = $cid") != 0){
 							<table class="table table-hover table-bordered table-striped table-dark">
 											<thead class="thead-dark">
 												<tr>
-													<th scope="col" width="10">ID</th>
+													<th scope="col">ID</th>
 													<th scope="col">User</th>
 													<th scope="col">Installments</th>
 													<th scope="col">Date</th>

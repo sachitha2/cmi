@@ -1649,6 +1649,21 @@ function enterAddAgentInstallmentCollect(e,amount,inputId,ID,nRow,IID,dealId,FN 
 									console.log("Normal needed");
 									
 								}
+								//TODO START
+								//send sms part
+								if(res.data.master.sms == 1){
+									console.log("SENDING SMS");
+									let tel = res.data.tp;
+									tel = tel.slice(1, 10);
+									console.log("Telephone number is +94"+tel);
+								
+									sendSMS("+94"+tel,"Received your payment of  Rs. "+res.data.collection+".00 Thank you very much. Dont pay any payment without a Receipt Hot line 0716000061 TransLanka");
+								}else{
+									console.log("NO SMS");
+								}
+								
+								
+								//TODO END
 								ajaxCommonGetFromNet("subPages/customerBilling.php?cid="+res.data.cid,"customerStage");
 							}
 					  }
@@ -2723,6 +2738,8 @@ function finishBillCreditCustomer(cash,installments,cid,disc = 0){
 					
 					if(printer.SMS == 1){
 						//need to send a sms
+						
+						alert("sending sms");
 						sendSMS(printer.data.tp,printer.smsText);
 					}
 					
@@ -2766,7 +2783,8 @@ function sendSMS(tel,text){
 			var ajax = _ajax();
 			ajax.onreadystatechange = function() {
 				if (this.readyState == 4 && this.status == 200) {
-	    			alert(this.responseText);	
+//	    			alert(this.responseText);
+					console.log("SMS RESPONSE "+this.responseText);
 				}
 	  		}
 

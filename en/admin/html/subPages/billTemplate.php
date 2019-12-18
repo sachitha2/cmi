@@ -7,6 +7,8 @@ $DB = new DB;
 $DB->conn = $conn;
 $main = new Main;
 $tmpBillId = $_SESSION['bill']['id'];
+
+
 if($_SESSION['bill']['s']  == 1){ ?>
 	<h1 align="center">Bill - <?php echo($tmpBillId) ?></h1>
 	<h2 align="center">Date <?php echo(date("y-m-d")) ?></h2>

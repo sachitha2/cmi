@@ -167,9 +167,12 @@ if($installment[0]['rpayment'] == 0){
 $sqlDeal = "UPDATE deals SET rprice = rprice - {$data['amount']} WHERE deals.id = {$data['dealId']};";
 $conn->query($sqlDeal);
 	
-
+	$collectionId = $_SESSION['login']['userId']."-".round(microtime(true) * 1000);
 //Edited got a error
-$sqlCollection = "INSERT INTO collection (id, userId, installmentId, dealid, payment, date, time, dateTime) VALUES (NULL, '{$_SESSION['login']['userId']}', '$installmentNum', '{$data['dealId']}', '{$data['amount']}', curdate(), curtime(), CURRENT_TIMESTAMP);";
+//get curent millis time and bined with user id 
+
+
+$sqlCollection = "INSERT INTO collection (id, userId, installmentId, dealid, payment, date, time, dateTime) VALUES ('{$collectionId}', '{$_SESSION['login']['userId']}', '$installmentNum', '{$data['dealId']}', '{$data['amount']}', curdate(), curtime(), CURRENT_TIMESTAMP);";
 
 $conn->query($sqlCollection);
 
@@ -202,9 +205,21 @@ foreach($arrInstallment as $dataInstall){
 	$arrInstall['data']['mainData']['rAmount'] = $insRAmount;
 	$arrInstall['data']['mainData']['dueAmount'] = $insTotal - $insRAmount;
 	///TODO
-	$arrInstall['data']['customerName'] = "sachitha Hirushan";
+	
+	$arrCustomer = $DB->select("customer","WHERE id = {$deal[0]['cid']}");
+
+
+	$arrInstall['data']['customerName'] = $arrCustomer[0]['name'];
 	$arrInstall['data']['cid'] = $deal[0]['cid'];
-	$arrInstall['data']['tp'] =  "0715591137";
+	$arrInstall['data']['tp'] =  $arrCustomer[0]['tp'];
+	$arrInstall['data']['collection'] =  round($data['amount'],0);
+
+
+//master data
+$arrMasterData = $DB->select("masterdata"," ");
+$arrInstall['data']['master']['sms'] = $arrMasterData[0]['sms']; 
+
+
 $json = json_encode($arrInstall);
 echo($json);
 //echo("Deal".round($deal[0]['rprice'],0));

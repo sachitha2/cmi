@@ -1,11 +1,15 @@
 <?php
 session_start();
+header("Content-Type: application/json; charset=UTF-8");
 include("../en/admin/html/db.php");
 $_SESSION['login']['status'] = 1;
 require_once("../en/admin/methods/DB.class.php");
 $DB = new DB;
 $DB->conn = $conn;
-
+	$arr['s'][0] = 0;
+if(!isset($_POST['data'])){
+	$arr['error'] = "not defined"; 
+}else{
 
 $data = $_POST['data'];
 
@@ -18,7 +22,7 @@ $collectionData = $dataArr['collection'];
 
 $x = 0;
 
-$arr['s'][0] = 0;
+
 
 foreach($installmentData as $tmpData){
 	$sql = "UPDATE installment SET status = '{$tmpData['status']}', rpayment = '{$tmpData['rpayment']}',rdate = curdate() WHERE installment.id = {$tmpData['iid']};";
@@ -49,7 +53,7 @@ foreach($collectionData as $tmpData){
 
 
 //print_r($deals);
-
+}
 
 //print_r($arr);
 $json = json_encode($arr);

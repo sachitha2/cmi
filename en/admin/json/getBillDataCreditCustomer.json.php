@@ -13,7 +13,8 @@ $main = new Main;
 	
 $timezone  = +5.30; 
 $date =  "0000-01-01";//gmdate("Y-m-j", time() + 3600*($timezone+date("I")));
-	
+
+$collectionId = $_SESSION['login']['userId']."-".round(microtime(true) * 1000);
 	
 if(isset($_SESSION['credit']['bill'])){
 	
@@ -80,7 +81,7 @@ if(isset($_SESSION['credit']['bill'])){
 				$remain = $total[0]['SUM(amount * uprice)'] - $cash;
 
 			
-				$sqlCollection = "INSERT INTO collection (id, userId, installmentId, dealid, payment, date, time, dateTime) VALUES (NULL, '{$_SESSION['login']['userId']}', '1', '$billid', '$cash', curdate(), curtime(), CURRENT_TIMESTAMP);";
+				$sqlCollection = "INSERT INTO collection (id, userId, installmentId, dealid, payment, date, time, dateTime) VALUES ('{$collectionId}', '{$_SESSION['login']['userId']}', '1', '$billid', '$cash', curdate(), curtime(), CURRENT_TIMESTAMP);";
 
 				$conn->query($sqlCollection);
 			
@@ -165,13 +166,25 @@ if(isset($_SESSION['credit']['bill'])){
 			$tel .= $arrCus[0]['tp'][$i+1];
 		}
 	
+		$items = "";
+	
+		foreach($arr['data']['item'] as $dataItem){
+			$items .= $dataItem.",";
+		}
+	
+	
 		$arr['data']['tp'] = $tel;
 		$arr['data']['i'] = $perOneI;
 		$arr['data']['invoiceN'] = $billid;
 		$arrPOS = $DB->select("masterdata","where id = 1");
 		$arr['POS'] =  $arrPOS[0]['posPrinter'];
 		$arr['SMS'] =  $arrPOS[0]['sms'];
-		$arr['smsText'] =  "Your payment for <Item name here> has received.";//.$total[0]['SUM(amount * uprice)'];
+		$arr['smsText'] =  "Congratulations...!!! 
+							welcome to Trans Lanka. 
+							Your product = {$items} 
+							Costumer No= $cid 
+							Dont pay any payment without a Receipt 
+							Hotline: 0716000061";//.$total[0]['SUM(amount * uprice)'];
 		$arr['data']['disc'] = $_POST['disc'];
 	
 	$json = json_encode($arr);
