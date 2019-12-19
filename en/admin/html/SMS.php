@@ -1,6 +1,14 @@
 <?php
 require_once("../methods/Main.class.php");
+require_once("../methods/DB.class.php");
+require_once("db.php");
 $main = new Main;
+$DB = new DB;
+$DB->conn = $conn;
+//call save url
+$DB->saveURL();
+
+$arrIsSMS = $DB->select("masterdata"," WHERE id = 1"," sms");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -49,10 +57,94 @@ $main = new Main;
     <div ui-view class="app-body" id="view">
 		<?php $main->modal() ?>
       <!-- ############ PAGE START-->
-        <?php $main->head("SMS") ?>
-    <div class="container h-100" id="cStage">
+        <?php 
+			$main->head("SMS") ;
+			if($arrIsSMS[0]['sms'] == 1){
+				?>
+       			<center>
+       				<div class="card-deck mb-3 text-center" style="padding: 10%">  
+ 				
+				
+						<div class="card mb-4 shadow-sm" >
+						  <div class="card-header">
+							<h1 class="my-0 font-weight-normal text-primary" style="color: red !important">SMS Feature not Available !</h1>
+						  </div>
+
+						  <div class="card-header">
+								<center><h4 class="my-0 font-weight-normal text-primary" style="color: red !important">Contact System Admin</h4></center>
+						  </div>
+						  <div class="card-header">
+								<center><h4 class="my-0 font-weight-normal text-primary" style="color: red !important">Tel : 071-7191137</h4></center>
+						  </div>
+						  <div class="card-header">
+								<center><h4 class="my-0 font-weight-normal text-primary" style="color: red !important">FB : <a href="https://www.facebook.com/InfiniSolutions/">InfiniSolutions</a></h4></center>
+						  </div>
+						</div>
+   			
+  					</div>
+       			</center>
+       			<?php
+        	}else{
+				
+			
+		
+		?>
+        
+        <div class="card-deck mb-3 text-center" style="padding: 10px">  
+ 				
+				<div class="card mb-4 shadow-sm">
+				  <div class="card-header">
+					<h4 class="my-0 font-weight-normal text-primary">Credit</h4>
+				  </div>
+				  
+				  <div class="card-header">
+						<center><h4 class="my-0 font-weight-normal text-primary">1000</h4></center>
+				  </div>
+				</div>
+    			<div class="card mb-4 shadow-sm">
+				  <div class="card-header">
+					<h4 class="my-0 font-weight-normal text-primary">Sent Today</h4>
+				  </div>
+				  
+				  <div class="card-header">
+						<center><h4 class="my-0 font-weight-normal text-primary">100</h4></center>
+				  </div>
+				</div>
+   			
+   			<div class="card mb-4 shadow-sm">
+				  <div class="card-header">
+					<h4 class="my-0 font-weight-normal text-primary">Sent Month</h4>
+				  </div>
+				  
+				  <div class="card-header">
+						<center><h4 class="my-0 font-weight-normal text-primary">100</h4></center>
+				  </div>
+				</div>
+   			<div class="card mb-4 shadow-sm">
+				  <div class="card-header">
+					<h4 class="my-0 font-weight-normal text-primary">Sent Year</h4>
+				  </div>
+				  
+				  <div class="card-header">
+						<center><h4 class="my-0 font-weight-normal text-primary">100</h4></center>
+				  </div>
+				</div>
+   			<div class="card mb-4 shadow-sm">
+				  <div class="card-header">
+					<h4 class="my-0 font-weight-normal text-primary">Sent Total</h4>
+				  </div>
+				  
+				  <div class="card-header">
+						<center><h4 class="my-0 font-weight-normal text-primary">100</h4></center>
+				  </div>
+				</div>
+    			
     
+  	</div>
+    <div class="container h-100" id="cStage">
+    	
     		<center>
+    		
 <!--
 				<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/addArea.php','cStage')"  style="width: 40%;margin-bottom: 5px;">Add</button>
 				<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/area.STE.php','cStage')"  style="width: 40%;margin-bottom: 5px;">Edit</button>
@@ -63,7 +155,9 @@ $main = new Main;
   			
      	
 	</div>
-
+	<?php 
+		}		
+		?>
       <!-- ############ PAGE END-->
 
     </div>
