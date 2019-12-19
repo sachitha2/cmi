@@ -59,7 +59,7 @@ $arrIsSMS = $DB->select("masterdata"," WHERE id = 1"," sms");
       <!-- ############ PAGE START-->
         <?php 
 			$main->head("SMS") ;
-			if($arrIsSMS[0]['sms'] == 1){
+			if($arrIsSMS[0]['sms'] == 0){
 				?>
        			<center>
        				<div class="card-deck mb-3 text-center" style="padding: 10%">  

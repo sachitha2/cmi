@@ -5,6 +5,7 @@ require_once("../../methods/Main.class.php");
 $DB = new DB;
 $main = new Main;
 $DB->conn = $conn;
+$DB->saveURL();
 
 
 $cid = $_GET['cid'];

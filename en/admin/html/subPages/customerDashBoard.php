@@ -5,7 +5,7 @@
 	$DB = new DB;
 	$main = new Main;
 	$DB->conn = $conn;
-
+	$DB->saveURL();
 	$cid = $_GET['cid'];
 	$main->head("Dashboard");
 	
@@ -82,7 +82,7 @@
  				
 				<div class="card mb-4 shadow-sm">
 				  <div class="card-header">
-					<h4 class="my-0 font-weight-normal text-primary">#<?php echo($x++) ?></h4>
+					<h1 class="my-0 font-weight-normal text-primary">#<?php echo($x++) ?></h1>
 				  </div>
 				  
 				  <div class="card-header">
@@ -127,6 +127,12 @@
 								?>
 							</h4>
 					   </center>
+				  </div>
+				  <div class="card-header">
+						<center>
+							<a href="subPages/print.php?dealid=<?php echo($dataDeals['id']) ?>" target="_blank"><button class="btn btn-primary btn-lg">Print</button></a>
+							<button class="btn btn-info btn-lg">View</button>
+						</center>
 				  </div>
 				</div>
  		</div>
