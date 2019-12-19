@@ -55,7 +55,6 @@ $logic = "WHERE userId = {$_SESSION['login']['userId']}";
 		$payment = 0;
 		foreach($arrDeals as $data){
 //			print_r($data);
-			echo("<br>");
 			$dealData = $DB->select("deals,customer"," WHERE deals.id = {$data['dealid']} AND customer.id = deals.cid");
 //			print_r($dealData);
 			?>
@@ -65,7 +64,7 @@ $logic = "WHERE userId = {$_SESSION['login']['userId']}";
 				<tr>
 					<td scope="row"><?php echo(++$x) ?></td>
 					<td><?php echo($data['dealid'])?></td>
-					<td><?php echo($dealData[0]['cid']) ?></td>
+					<td><a href="viewCustomer.php?cid=<?php echo($dealData[0]['cid']) ?>"><button><?php echo($dealData[0]['cid']) ?></button></a></td>
 <!--					<td><?php $DB->getUserById($data['userId']) ?></td>-->
 					<td><?php echo($dealData[0]['name']) ?></td>
 					<td><?php echo($data['date']) ?></td>

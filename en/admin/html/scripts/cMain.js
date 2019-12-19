@@ -163,6 +163,15 @@ function updateSystmeMC(){
 	var bIcon = document.getElementById("bIcon").value;
 	var bSMS = document.getElementById("bSMS").value;
 	
+	var tel1 = document.getElementById("tel1").value;
+	var tel2 = document.getElementById("tel2").value;
+	var address = document.getElementById("address").value;
+	var web = document.getElementById("web").value;
+	var mail = document.getElementById("mail").value;
+	var SMSAPI = document.getElementById("SMSAPI").value;
+	var APIKey = document.getElementById("APIKey").value;
+	var APIToken = document.getElementById("APIToken").value;
+	
 	if(bName == ""){
 		msg("msg","Enter a Bussiness name");
 		
@@ -176,11 +185,17 @@ function updateSystmeMC(){
 						"bIR":bIR,
 						"bPos":bPos,
 						"bIcon":bIcon,
-						"bSMS":bSMS
+						"bSMS":bSMS,
+						"tel1":tel1,
+						"tel2":tel2,
+						"address":address,
+						"web":web,
+						"mail":mail,
+						"SMSAPI":SMSAPI,
+						"APIKey":APIKey,
+						"APIToken":APIToken
+						
 					};
-		
-			
-			
 					///ajax part
 					console.log(dataS);
 					loadingModal();
@@ -2739,7 +2754,7 @@ function finishBillCreditCustomer(cash,installments,cid,disc = 0){
 					if(printer.SMS == 1){
 						//need to send a sms
 						
-						alert("sending sms");
+//						alert("sending sms");
 						sendSMS(printer.data.tp,printer.smsText);
 					}
 					

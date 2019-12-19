@@ -5,6 +5,9 @@ require_once("db.php");
 $main = new Main;
 $DB = new DB;
 $DB->conn = $conn;
+//call save url
+$DB->saveURL();
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -118,6 +121,7 @@ $DB->conn = $conn;
 				<div class="card mb-4 shadow-sm">
 				  <div class="card-header">
 					<h4 class="my-0 font-weight-normal text-primary">Customers</h4>
+					
 				  </div>
 				  
 				  <div class="card-header">

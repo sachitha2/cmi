@@ -141,6 +141,14 @@ $arr['masterData']['description'] = $masterdata[0]['description'];
 $arr['masterData']['installmentDaysLimit'] = $masterdata[0]['installmentDaysLimit'];
 $arr['masterData']['posPrinter'] = $masterdata[0]['posPrinter'];
 $arr['masterData']['sms'] = $masterdata[0]['sms'];
+$arr['masterData']['tel1'] = $masterdata[0]['tel1'];
+$arr['masterData']['tel2'] = $masterdata[0]['tel2'];
+$arr['masterData']['address'] = $masterdata[0]['address'];
+$arr['masterData']['web'] = $masterdata[0]['web'];
+$arr['masterData']['mail'] = $masterdata[0]['mail'];
+$arr['masterData']['SMSAPI'] = $masterdata[0]['SMSAPI'];
+$arr['masterData']['APIKey'] = $masterdata[0]['APIKey'];
+$arr['masterData']['APIToken'] = $masterdata[0]['APIToken'];
 
 $json = json_encode($arr);
 echo($json);
