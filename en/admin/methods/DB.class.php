@@ -259,6 +259,34 @@ public	function itemList($DB,$onKey = "",$extra = ""){
 			echo("Not Active");
 		}
 	}
+	
+	//URL Functions Start
+	
+	
+	function getUserId(){
+		//<?php print_r($_SESSION['login']['userId']); 
+		if(isset($_SESSION['login']['userId'])){
+			return($_SESSION['login']['userId']);
+		}else{
+			return(0);
+		}
+		
+	}
+	
+	function getURL(){
+	$url =  "//{$_SERVER['HTTP_HOST']}{$_SERVER['REQUEST_URI']}";
+
+	$escaped_url = htmlspecialchars( $url, ENT_QUOTES, 'UTF-8' );
+	return($escaped_url);
+	
+	}
+	function saveURL(){
+		$sql = "INSERT INTO url (id, userId, url,dateTime) VALUES (NULL, '{$this->getUserId()}', '{$this->getURL()}', curtime());";
+		$result = $this->conn->query($sql);
+	}
+	//URL Functions END	
+
+
 }
 
 // function getItemById($id,$d = 1){

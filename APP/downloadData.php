@@ -25,6 +25,7 @@ foreach($deals as $data){
 	$arr['deal']["agentId"][$x] = $data['agentId'];
 	$x++;
 }
+$arr['deal']['total'] = $x;
 //print_r($arr);
 //installment sql
 //SELECT `installment`.`id`,`installment`.`dealid`,`installment`.`installmentid`,`installment`.`payment`,`installment`.`time`,`installment`.`date`,`installment`.`rdate`,`installment`.`status`,`installment`.`rpayment`,`installment`.`cid` FROM `installment`,`deals` WHERE `deals`.`status` = 0 AND `installment`.`dealid` = `deals`.`id`
@@ -44,7 +45,7 @@ foreach($installment as $data){
 	$arr['installmet']['cid'][$x] = $data['cid'];
 	$x++;
 }
-
+$arr['installmet']['total'] = $x;
 //collection table start
 //SELECT `collection`.`id`,`collection`.`userId`,`collection`.`installmentId`,`collection`.`dealid`,`collection`.`payment`,`collection`.`date`,`collection`.`time`,`collection`.`dateTime` FROM `collection`,`deals` WHERE `deals`.`status` = 0 AND `collection`.`dealid` = `deals`.`id`
 $deals = $DB->select("collection,deals","WHERE deals.status = 0 AND collection.dealid = deals.id","collection.id,collection.userId,collection.installmentId,collection.dealid,collection.payment,collection.date,collection.time,collection.dateTime");
@@ -61,6 +62,7 @@ foreach($deals as $data){
 	$arr['collection']["dateTime"][$x] = $data['dateTime'];
 	$x++;
 }
+$arr['collection']['total'] = $x;
 //collection table end
 
 
@@ -74,7 +76,7 @@ foreach($area as $data){
 	$arr['item']["type"][$x] = $data['itemTypeId'];
 	$x++;
 }
-
+$arr['item']['total'] = $x;
 //Item data end
 
 
@@ -96,6 +98,7 @@ foreach($area as $data){
 	$arr["customer"]["areaAgent"][$x] = $data['areaAgent'];
 	$x++;
 }
+$arr['customer']['total'] = $x;
 //customer data end
 
 //area start
@@ -108,6 +111,7 @@ foreach($area as $data){
 	$arr["area"]["id"][$x] = $data['id'];
 	$x++;
 }
+$arr['area']['total'] = $x;
 //area end
 
 
@@ -141,6 +145,14 @@ $arr['masterData']['description'] = $masterdata[0]['description'];
 $arr['masterData']['installmentDaysLimit'] = $masterdata[0]['installmentDaysLimit'];
 $arr['masterData']['posPrinter'] = $masterdata[0]['posPrinter'];
 $arr['masterData']['sms'] = $masterdata[0]['sms'];
+$arr['masterData']['tel1'] = $masterdata[0]['tel1'];
+$arr['masterData']['tel2'] = $masterdata[0]['tel2'];
+$arr['masterData']['address'] = $masterdata[0]['address'];
+$arr['masterData']['web'] = $masterdata[0]['web'];
+$arr['masterData']['mail'] = $masterdata[0]['mail'];
+$arr['masterData']['SMSAPI'] = $masterdata[0]['SMSAPI'];
+$arr['masterData']['APIKey'] = $masterdata[0]['APIKey'];
+$arr['masterData']['APIToken'] = $masterdata[0]['APIToken'];
 
 $json = json_encode($arr);
 echo($json);

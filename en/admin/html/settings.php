@@ -1,6 +1,12 @@
 <?php
 require_once("../methods/Main.class.php");
+require_once("../methods/DB.class.php");
+require_once("db.php");
 $main = new Main;
+$DB = new DB;
+$DB->conn = $conn;
+//call save url
+$DB->saveURL();
 ?>
 <!DOCTYPE html>
 <html lang="en">

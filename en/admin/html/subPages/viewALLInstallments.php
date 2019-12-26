@@ -6,6 +6,7 @@ require_once("../../methods/Main.class.php");
 $main = new Main;
 $DB = new DB;
 $DB->conn = $conn;
+$DB->saveURL();
 	$search = $_GET['search'];
 	$areaName = "";
 	$areaAgent = "";

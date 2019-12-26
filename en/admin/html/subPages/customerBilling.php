@@ -5,6 +5,7 @@ require_once("../../methods/Main.class.php");
 $DB = new DB;
 $main = new Main;
 $DB->conn = $conn;
+$DB->saveURL();
 
 
 $cid = $_GET['cid'];
@@ -12,7 +13,7 @@ $cid = $_GET['cid'];
 $main->head("Billing");
 if($DB->nRow("deals"," WHERE cid = $cid") != 0){
 	
-	$deals = $DB->select("deals"," WHERE cid = $cid  ORDER BY date DESC ");
+	$deals = $DB->select("deals"," WHERE cid = $cid  ORDER BY status ASC ");
 //	print_r($deals);
 	$dealIds = 1;
 	foreach($deals as $data){
