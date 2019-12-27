@@ -72,7 +72,7 @@ $DB->saveURL();
 	  				$tot = 0;
 	  				foreach($arrUser as $dataUser){
 						$arrCollection = $DB->select("collection,user"," WHERE user.id = {$dataUser['id']} AND collection.userId = {$dataUser['id']} AND date = curdate()","SUM(payment) as tot");
-						$tot = $arrCollection[0]["tot"];
+						$tot += $arrCollection[0]["tot"];
 						?>
   						<tr>
   							<td>
@@ -119,7 +119,7 @@ $DB->saveURL();
 	  				$tot = 0;
 	  				foreach($arrUser as $dataUser){
 						$arrCollection = $DB->select("collection,user"," WHERE user.id = {$dataUser['id']} AND collection.userId = {$dataUser['id']} AND MONTH(date) = MONTH(curdate()) AND YEAR(date) = YEAR(curdate())","SUM(payment) as tot");
-						$tot = $arrCollection[0]["tot"];
+						$tot += $arrCollection[0]["tot"];
 						?>
   						<tr>
   							<td>
