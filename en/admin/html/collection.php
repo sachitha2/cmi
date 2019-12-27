@@ -1,6 +1,11 @@
 <?php
+require_once("db.php");
 require_once("../methods/Main.class.php");
+require_once("../methods/DB.class.php");
 $main = new Main;
+$DB = new DB;
+$DB->conn = $conn;
+$DB->saveURL();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -53,12 +58,51 @@ $main = new Main;
     <div class="container h-100" id="cStage">
     
     		<center>
-<!--
-				<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/addArea.php','cStage')"  style="width: 40%;margin-bottom: 5px;">Add</button>
-				<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/area.STE.php','cStage')"  style="width: 40%;margin-bottom: 5px;">Edit</button>
-	     		<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/deleteArea.php','cStage')">Delete</button>
-				<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/viewArea.php','cStage')"  style="width: 40%;margin-bottom: 5px;">View</button>
--->
+    			Today
+    			<table  class="table table-hover table-bordered table-striped table-dark">
+    				<tr>
+    					<th>User</th>
+    					<th>Total</th>
+    				</tr>
+    			
+    			<?php
+					//SELECT SUM(`payment`) FROM `collection`,`user` WHERE `user`.`id` = 3 AND `collection`.`userId` = 3
+	
+					$arrUser = $DB->select("user","");
+	  				$tot = 0;
+	  				foreach($arrUser as $dataUser){
+						$arrCollection = $DB->select("collection,user"," WHERE user.id = {$dataUser['id']} AND collection.userId = {$dataUser['id']} AND date = curdate()","SUM(payment) as tot");
+						$tot = $arrCollection[0]["tot"];
+						?>
+  						<tr>
+  							<td>
+  								<?php 
+										$DB->getUserById($dataUser["id"]);
+								?>
+  							</td>
+  							<td>
+  								<?php 
+									
+									if(is_null($arrCollection[0]['tot'])){
+										echo(0);
+									}else{
+										echo($arrCollection[0]['tot']);
+									}
+//									echo(is_null($arrCollection[0]['tot']))
+								?>
+  							</td>
+  						</tr>
+  					
+  						<?php
+					}
+					
+					
+				?>
+  				<tr>
+  					<td>Total</td>
+  					<td><?php echo($tot) ?></td>
+  				</tr>
+   				</table>
     		</center>
   			
      	
