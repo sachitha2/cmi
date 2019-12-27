@@ -34,4 +34,42 @@
 				<br>
 				<input type="button" value="Next" style="width: 100%" class="btn btn-primary btn-lg" onClick="selectAreaToViewInstallments(areaId.value);">
 			</center>
-			
+			<br>
+			<br>
+		
+	<?php
+						foreach($area as $data){
+							?>
+							<div class="card-deck mb-3 text-center">  
+ 				
+								<div class="card mb-4 shadow-sm">
+								  <div class="card-header">
+									<h1 class="my-0 font-weight-normal text-primary"><?php print_r($data["name"]) ?></h1>
+								  </div>
+
+
+								  <div class="card-header">
+									<h2 class="my-0 font-weight-normal text-primary">TODAY</h2>
+									<h2 class="my-0 font-weight-normal text-primary">2500</h2>
+									<h4 class="my-0 font-weight-normal text-primary">WEEK</h4>
+									<h4 class="my-0 font-weight-normal text-primary">MONTH</h4>
+									<h4 class="my-0 font-weight-normal text-primary">ALL</h4>
+									<h4 class="my-0 font-weight-normal text-primary">PASSED</h4>
+								  </div>
+								  
+								  
+								</div>
+							</div>
+
+							<?php
+						}
+
+	?>
+	
+
+
+
+
+		
+ 		
+ 	
