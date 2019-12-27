@@ -703,7 +703,7 @@ body{
                            	<li onClick='ajaxCommonGetFromNet("subPages/customerDashBoard.php?cid=<?php echo($customer[0]['id']) ?>","customerStage");'><a href="#"><span class="fa fa-user"></span> Dashboard</a></li>
                             <li onClick='ajaxCommonGetFromNet("subPages/customerProfile.php?cid=<?php echo($customer[0]['id']) ?>","customerStage");'><a href="#"><span class="fa fa-user"></span> Profile</a></li>
 <!--                            <li><a href="#"><span class="fa fa-cog"></span> Settings</a></li>-->
-                            <li onClick='ajaxCommonGetFromNet("subPages/customerBilling.php?cid=<?php echo($customer[0]['id']) ?>","customerStage");'><a href="#"><span class="fa fa-credit-card"></span> Billing</a></li>
+<!--                            <li onClick='ajaxCommonGetFromNet("subPages/customerBilling.php?cid=<?php echo($customer[0]['id']) ?>","customerStage");'><a href="#"><span class="fa fa-credit-card"></span> Billing</a></li>-->
 <!--                            <li class="active" ><a href="#" ><span class="fa fa-envelope"></span> Messages</a></li>-->
 
 <!--                            <li><a href="user-drive.html"><span class="fa fa-th"></span> Drive</a></li>-->

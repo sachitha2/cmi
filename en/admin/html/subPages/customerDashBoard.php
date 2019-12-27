@@ -127,11 +127,28 @@
 								?>
 							</h4>
 					   </center>
+					   
+				  </div>
+				  <div class="card-header">
+						<center>
+							<h4 class="my-0 font-weight-normal text-primary">
+								Purchased Items<br>
+								<?php
+		
+									$arrItems = $DB->select("purchaseditems","where dealid = {$dataDeals['id']}","itemid");
+									
+									foreach($arrItems as $dataitems){
+										$DB->getItemNameByStockId($dataitems['itemid']);
+									}
+								?>
+							</h4>
+					   </center>
+					   
 				  </div>
 				  <div class="card-header">
 						<center>
 							<a href="subPages/print.php?dealid=<?php echo($dataDeals['id']) ?>" target="_blank"><button class="btn btn-primary btn-lg">Print</button></a>
-							<button class="btn btn-info btn-lg">View</button>
+							<button class="btn btn-info btn-lg" onClick='ajaxCommonGetFromNet("subPages/customerBilling.php?cid=<?php echo($cid) ?>&dealId=<?php echo($dataDeals['id']) ?>","customerStage");'>View</button>
 						</center>
 				  </div>
 				</div>

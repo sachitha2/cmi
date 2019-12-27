@@ -62,6 +62,45 @@ $main->b("settings.php");
 					?>
 				</select>
 				
+				
+				<label>Do You Have Expire Items </label>
+				<select id="expItems" class="form-control" style="width: 200px"> 
+					<?php
+						if($arrM[0]['expItems'] == 1){
+							?>
+							<option value="0" >No</option>
+							<option value="1" selected>Yes</option>
+							<?php
+						}
+						else{
+							?>
+							<option value="0" selected>No</option>
+							<option value="1">Yes</option>
+							<?php
+						}
+					?>
+				</select>
+				
+				
+				
+				<label>Market Price Compaire </label>
+				<select id="marketPriceCompair" class="form-control" style="width: 200px"> 
+					<?php
+						if($arrM[0]['marketPriceCompair'] == 1){
+							?>
+							<option value="0" >No</option>
+							<option value="1" selected>Yes</option>
+							<?php
+						}
+						else{
+							?>
+							<option value="0" selected>No</option>
+							<option value="1">Yes</option>
+							<?php
+						}
+					?>
+				</select>
+				
 				<label>Icon</label>
 				<input type="text" id="bIcon" class="form-control" placeholder="Icon URL" onKeyPress="enterUpdateSystmeMC(event)" value="<?php echo($arrM[0]['logo']) ?>">
 				<br>

@@ -9,11 +9,12 @@ $DB->saveURL();
 
 
 $cid = $_GET['cid'];
+$dealId = $_GET['dealId'];
 //Select Customers deals
 $main->head("Billing");
 if($DB->nRow("deals"," WHERE cid = $cid") != 0){
 	
-	$deals = $DB->select("deals"," WHERE cid = $cid  ORDER BY status ASC ");
+	$deals = $DB->select("deals"," WHERE id = $dealId  ORDER BY status ASC ");
 //	print_r($deals);
 	$dealIds = 1;
 	foreach($deals as $data){

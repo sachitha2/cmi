@@ -172,6 +172,10 @@ function updateSystmeMC(){
 	var APIKey = document.getElementById("APIKey").value;
 	var APIToken = document.getElementById("APIToken").value;
 	
+	var expItems = document.getElementById("expItems").value;
+	
+	var marketPriceCompair = document.getElementById("marketPriceCompair").value;
+	
 	if(bName == ""){
 		msg("msg","Enter a Bussiness name");
 		
@@ -193,7 +197,9 @@ function updateSystmeMC(){
 						"mail":mail,
 						"SMSAPI":SMSAPI,
 						"APIKey":APIKey,
-						"APIToken":APIToken
+						"APIToken":APIToken,
+						"expItems":expItems,
+						"marketPriceCompair":marketPriceCompair
 						
 					};
 					///ajax part
