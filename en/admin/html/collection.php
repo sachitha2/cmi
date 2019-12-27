@@ -88,7 +88,6 @@ $DB->saveURL();
 									}else{
 										echo($arrCollection[0]['tot']);
 									}
-//									echo(is_null($arrCollection[0]['tot']))
 								?>
   							</td>
   						</tr>
