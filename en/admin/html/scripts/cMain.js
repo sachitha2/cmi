@@ -2947,14 +2947,23 @@ function creditsCustomerFinish(cid){
 function selectAreaToViewInstallments(value){
 		if(value != ""){
 			
-			ajaxCommonGetFromNet("subPages/viewAllInstallments.php?search=area&id="+value,"cStage");
+			ajaxCommonGetFromNet("subPages/selectSubAreaToViewInstallments.php?area="+value,"cStage");
 		}else{
 			msg("msg","Enter a area");
 		}
 		
 		
 	}
-
+function selectSubAreaToViewInstallments(value){
+		if(value != ""){
+			
+			ajaxCommonGetFromNet("subPages/subAreaInstallments.php?subArea="+value,"cStage");
+		}else{
+			msg("msg","Enter a area");
+		}
+		
+		
+	}
 function selectAreaAgentToViewInstallments(value){
 		if(value != ""){
 			

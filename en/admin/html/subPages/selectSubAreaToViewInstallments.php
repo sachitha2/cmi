@@ -6,13 +6,16 @@
 	$main = new Main;
 	$DB = new DB;
 	$DB->conn = $conn;
-	$area = $DB->select("area","");
+
+	$area = $_GET['area'];
+
+	$area = $DB->select("subarea"," WHERE areaId = {$area}");
 //	print_r($area);
 ?>
     
 
   <div class="card-header" style="padding-bottom: 10px;padding-top: 10px;margin-bottom: 5px;margin-top: 20px;text-transform: uppercase">
-     <center><h2 class="my-0 font-weight-normal text-info">SELECT A AREA</h2></center>
+     <center><h2 class="my-0 font-weight-normal text-info">AREA NAME <BR>SELECT A SUB AREA</h2></center>
 </div>
 
 			<center>
@@ -32,7 +35,7 @@
 				</datalist>
 				<div id="msg"></div>
 				<br>
-				<input type="button" value="Next" style="width: 100%" class="btn btn-primary btn-lg" onClick="selectAreaToViewInstallments(areaId.value);">
+				<input type="button" value="Next" style="width: 100%" class="btn btn-primary btn-lg" onClick="selectSubAreaToViewInstallments(areaId.value);">
 			</center>
 			<br>
 			<br>
@@ -41,17 +44,17 @@
 
 						//SELECT SUM(`installment`.`payment` - `installment`.`rpayment`) as `remain` FROM `customer`,`installment` WHERE `customer`.`areaid` = 3 AND `installment`.`cid` = `customer`.`id`
 						foreach($area as $data){
-							$arrTmpTot = $DB->select("customer,installment"," WHERE customer.areaid = {$data['id']} AND installment.cid = customer.id","SUM(installment.payment - installment.rpayment) as remain");
+							$arrTmpTot = $DB->select("customer,installment"," WHERE customer.subAreaId = {$data['id']} AND installment.cid = customer.id","SUM(installment.payment - installment.rpayment) as remain");
 								
 							
-							$arrTmpPassed = $DB->select("customer,installment"," WHERE customer.areaid = {$data['id']} AND installment.cid = customer.id AND installment.date <= curdate() ","SUM(installment.payment - installment.rpayment) as remain");
+							$arrTmpPassed = $DB->select("customer,installment"," WHERE customer.subAreaId = {$data['id']} AND installment.cid = customer.id AND installment.date <= curdate() ","SUM(installment.payment - installment.rpayment) as remain");
 							
 							
-							$arrTmpToday = $DB->select("customer,installment"," WHERE customer.areaid = {$data['id']} AND installment.cid = customer.id AND installment.date = curdate() ","SUM(installment.payment - installment.rpayment) as remain");
+							$arrTmpToday = $DB->select("customer,installment"," WHERE customer.subAreaId = {$data['id']} AND installment.cid = customer.id AND installment.date = curdate() ","SUM(installment.payment - installment.rpayment) as remain");
 							
-							$arrTmpMonth = $DB->select("customer,installment"," WHERE customer.areaid = {$data['id']} AND installment.cid = customer.id AND MONTH(installment.date) = MONTH(curdate()) AND YEAR(installment.date) = YEAR(curdate()) ","SUM(installment.payment - installment.rpayment) as remain");
+							$arrTmpMonth = $DB->select("customer,installment"," WHERE customer.subAreaId = {$data['id']} AND installment.cid = customer.id AND MONTH(installment.date) = MONTH(curdate()) AND YEAR(installment.date) = YEAR(curdate()) ","SUM(installment.payment - installment.rpayment) as remain");
 							
-							$arrTmpWeek = $DB->select("customer,installment"," WHERE customer.areaid = {$data['id']} AND installment.cid = customer.id AND MONTH(installment.date) = MONTH(curdate()) AND YEAR(installment.date) = YEAR(curdate()) AND WEEK(installment.date) = WEEK(curdate()) ","SUM(installment.payment - installment.rpayment) as remain");
+							$arrTmpWeek = $DB->select("customer,installment"," WHERE customer.subAreaId = {$data['id']} AND installment.cid = customer.id AND MONTH(installment.date) = MONTH(curdate()) AND YEAR(installment.date) = YEAR(curdate()) AND WEEK(installment.date) = WEEK(curdate()) ","SUM(installment.payment - installment.rpayment) as remain");
 							?>
 							<div class="card-deck mb-3 text-center">  
  				
