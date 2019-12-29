@@ -12,6 +12,8 @@
 	$arr = $DB->select("customer,installment"," WHERE customer.subAreaId = {$subArea} AND installment.cid = customer.id AND installment.status = 0  ORDER BY installment.date ASC");
 	$jx = 0;
 	
+	$areaName = $DB->getSubAreaById($subArea,0);
+
 	foreach($arr as $dataJson){
 		
 		$arrDeal = $DB->select("deals"," WHERE id = {$dataJson['dealid']}");
@@ -31,7 +33,7 @@
 
 	$json = json_encode($arrrr);
 	?>
-	<button type="button" onclick='printJS({printable: <?php echo($json) ?>, properties: ["ID","CID", "C_NAME","ADDRESS", "PHONE","ITEM","TOTAL","BALANCE","INSTALLMENT","DUE_DATE"], type: "json",header: "<?php echo("TRANSLANKA") ?>"})'>
+	<button type="button" onclick='printJS({printable: <?php echo($json) ?>, properties: ["ID","CID", "C_NAME","ADDRESS", "PHONE","ITEM","TOTAL","BALANCE","INSTALLMENT","DUE_DATE"], type: "json",header: "<?php echo("TRANSLANKA - $areaName") ?>"})'>
     				Print
  	</button>
 		<table  class="table table-hover table-bordered table-striped table-dark">
