@@ -10,8 +10,30 @@
 	$subArea = $_GET['subArea'];
 
 	$arr = $DB->select("customer,installment"," WHERE customer.subAreaId = {$subArea} AND installment.cid = customer.id AND installment.status = 0  ORDER BY installment.date ASC");
+	$jx = 0;
+	
+	foreach($arr as $dataJson){
+		
+		$arrDeal = $DB->select("deals"," WHERE id = {$dataJson['dealid']}");
+		$arrrr[$jx]['ID'] = $jx+1;
+			$arrrr[$jx]['C_NAME'] =$dataJson['name'];
+			$arrrr[$jx]['ADDRESS'] = $dataJson['address'];
+			$arrrr[$jx]['CID'] = $dataJson['cid'];
+			$arrrr[$jx]['PHONE'] = $dataJson['tp'];
+			$arrrr[$jx]['TOTAL'] = $arrDeal[0]['tprice'];
+			$arrrr[$jx]['BALANCE'] = $arrDeal[0]['rprice'];
+			$arrrr[$jx]['ITEM'] = "-";
+			$arrrr[$jx]['INSTALLMENT'] = $dataJson['payment'] - $dataJson['rpayment'];
+			$arrrr[$jx]['DUE_DATE'] = $dataJson['date'];
+		
+		$jx++;
+	}
 
+	$json = json_encode($arrrr);
 	?>
+	<button type="button" onclick='printJS({printable: <?php echo($json) ?>, properties: ["ID","CID", "C_NAME","ADDRESS", "PHONE","ITEM","TOTAL","BALANCE","INSTALLMENT","DUE_DATE"], type: "json",header: "<?php echo("TRANSLANKA") ?>"})'>
+    				Print
+ 	</button>
 		<table  class="table table-hover table-bordered table-striped table-dark">
     				<tr>
     					<th>ID</th>
