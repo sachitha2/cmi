@@ -71,7 +71,7 @@
 										if(is_null($arrTmpToday[0]['remain'])){
 											echo(0);
 										}else{
-											echo($arrTmpToday[0]['remain']);
+											echo(round($arrTmpToday[0]['remain'],2));
 										}
 										
 										?>
@@ -85,7 +85,7 @@
 											if(is_null($arrTmpWeek[0]['remain'])){
 											echo(0);
 											}else{
-												echo($arrTmpWeek[0]['remain']);
+												echo(round($arrTmpWeek[0]['remain'],2));
 											}
 											
 							
@@ -98,7 +98,7 @@
 											if(is_null($arrTmpMonth[0]['remain'])){
 											echo(0);
 											}else{
-												echo($arrTmpMonth[0]['remain']);
+												echo(round($arrTmpMonth[0]['remain'],2));
 											}
 											
 							
@@ -109,7 +109,7 @@
 										if(is_null($arrTmpTot[0]['remain'])){
 											echo(0);
 										}else{
-											echo($arrTmpTot[0]['remain']);
+											echo(round($arrTmpTot[0]['remain'],2));
 										}
 										
 										?></h2>
@@ -119,7 +119,7 @@
 											if(is_null($arrTmpPassed[0]['remain'])){
 												echo(0);
 											}else{
-												echo($arrTmpPassed[0]['remain']);
+												echo(round($arrTmpPassed[0]['remain'],2));
 											}
 											
 										?>
