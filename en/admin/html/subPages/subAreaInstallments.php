@@ -15,6 +15,7 @@
 		<table  class="table table-hover table-bordered table-striped table-dark">
     				<tr>
     					<th>ID</th>
+    					<th>CID</th>
     					<th>Name</th>
     					<th>Address</th>
     					<th>Tel</th>
@@ -34,6 +35,7 @@
 		?>
 		<tr>
 			<td><?php echo($x++); ?></td>
+			<td><?php echo($data['cid']) ?></td>
 			<td><?php echo($data['name']) ?></td>
 			<td><?php echo($data['address']) ?></td>
 			<td><?php echo($data['tp']) ?></td>
