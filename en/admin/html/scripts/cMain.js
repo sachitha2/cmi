@@ -1685,7 +1685,7 @@ function enterAddAgentInstallmentCollect(e,amount,inputId,ID,nRow,IID,dealId,FN 
 								
 								
 								//TODO END
-								ajaxCommonGetFromNet("subPages/customerBilling.php?cid="+res.data.cid,"customerStage");
+								ajaxCommonGetFromNet("subPages/customerBilling.php?cid="+res.data.cid+"&dealId="+dealId,"customerStage");
 							}
 					  }
 
