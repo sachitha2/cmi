@@ -6,6 +6,10 @@ $_SESSION['login']['status'] = 1;
 require_once("../en/admin/methods/DB.class.php");
 $DB = new DB;
 $DB->conn = $conn;
+
+
+$date = new DateTime("now", new DateTimeZone('Asia/Colombo') );
+
 	$arr['s'][0] = 0;
 if(!isset($_POST['data'])){
 	$arr['error'] = "not defined"; 
@@ -44,7 +48,7 @@ $x = 0;
 foreach($collectionData as $tmpData){
 	
 	if(!$DB->isAvailable("collection"," WHERE id LIKE '{$tmpData['id']}'")){
-		$sql = "INSERT INTO collection (id, userId, installmentId, dealid, payment, date, time, dateTime) VALUES ('{$tmpData['id']}', '{$tmpData['userId']}', '{$tmpData['installmentId']}', '{$tmpData['dealid']}', '{$tmpData['payment']}', curdate(), curtime(), CURRENT_TIMESTAMP);";
+		$sql = "INSERT INTO collection (id, userId, installmentId, dealid, payment, date, time, dateTime) VALUES ('{$tmpData['id']}', '{$tmpData['userId']}', '{$tmpData['installmentId']}', '{$tmpData['dealid']}', '{$tmpData['payment']}', '{$date->format('Y-m-d')}', '{$date->format("H:i:s")}', '{$date->format('Y-m-d H:i:s')}');";
 		$conn->query($sql);
 	}
 	$arr['collection'][$x] = $tmpData['id'];

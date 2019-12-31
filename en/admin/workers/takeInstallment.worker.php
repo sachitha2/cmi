@@ -3,6 +3,8 @@ require_once("db.php");
 require_once("../methods/DB.class.php");
 $DB = new DB;
 $DB->conn = $conn;
+$date = new DateTime("now", new DateTimeZone('Asia/Colombo') );
+
 $data = $_POST['data'];
 $data = json_decode($data,true);
 //print_r($data);
@@ -22,7 +24,7 @@ if($installment[0]['rpayment'] == 0){
 	if($installment[0]['payment'] == $data['amount']){
 //		echo("Equal amount");
 		//Equal Amount Start
-		$sql = "UPDATE installment SET rdate = curdate(), status = '1', rpayment =rpayment + {$data['amount']} WHERE installment.id = {$data['ID']};";
+		$sql = "UPDATE installment SET rdate = '{$date->format('Y-m-d')}', status = '1', rpayment =rpayment + {$data['amount']} WHERE installment.id = {$data['ID']};";
 		$conn->query($sql);
 		
 		//update collection table
@@ -33,7 +35,7 @@ if($installment[0]['rpayment'] == 0){
 	}else if($installment[0]['payment'] > $data['amount']){
 //		echo("Less amount");
 		//Less amount Start
-		$sql = "UPDATE installment SET rdate = curdate(), status = '0', rpayment = rpayment + {$data['amount']} WHERE installment.id = {$data['ID']};";
+		$sql = "UPDATE installment SET rdate = '{$date->format('Y-m-d')}', status = '0', rpayment = rpayment + {$data['amount']} WHERE installment.id = {$data['ID']};";
 		$conn->query($sql);
 		
 		
@@ -59,7 +61,7 @@ if($installment[0]['rpayment'] == 0){
 		while($money > 0){
 			if($money >= $arrNext[0]['payment']){
 				
-				$sql = "UPDATE installment SET rdate = curdate(), status = '1', rpayment = payment WHERE id = {$arrNext[0]['id']};";
+				$sql = "UPDATE installment SET rdate = '{$date->format('Y-m-d')}', status = '1', rpayment = payment WHERE id = {$arrNext[0]['id']};";
 				$conn->query($sql);
 				$money -= $arrNext[0]['payment'];
 				
@@ -70,7 +72,7 @@ if($installment[0]['rpayment'] == 0){
 		
 				
 			}else{
-				$sql = "UPDATE installment SET rdate = curdate(), status = '0', rpayment = '$money' WHERE id = {$arrNext[0]['id']};";
+				$sql = "UPDATE installment SET rdate = '{$date->format('Y-m-d')}', status = '0', rpayment = '$money' WHERE id = {$arrNext[0]['id']};";
 				$conn->query($sql);
 				
 				
@@ -98,7 +100,7 @@ if($installment[0]['rpayment'] == 0){
 	if(($installment[0]['payment'] - $installment[0]['rpayment']) == $data['amount']){
 //		echo("Rpayment Equal amount");
 		//Equal Amount Start
-		$sql = "UPDATE installment SET rdate = curdate(), status = '1', rpayment =rpayment + {$data['amount']} WHERE installment.id = {$data['ID']};";
+		$sql = "UPDATE installment SET rdate = '{$date->format('Y-m-d')}', status = '1', rpayment =rpayment + {$data['amount']} WHERE installment.id = {$data['ID']};";
 		$conn->query($sql);
 
 		
@@ -110,7 +112,7 @@ if($installment[0]['rpayment'] == 0){
 	}else if(($installment[0]['payment'] - $installment[0]['rpayment']) > $data['amount']){
 //		echo("Rpayment Less amount");
 		//Less amount Start
-		$sql = "UPDATE installment SET rdate = curdate(), status = '0', rpayment = rpayment + {$data['amount']} WHERE installment.id = {$data['ID']};";
+		$sql = "UPDATE installment SET rdate = '{$date->format('Y-m-d')}', status = '0', rpayment = rpayment + {$data['amount']} WHERE installment.id = {$data['ID']};";
 		$conn->query($sql);
 		
 		
@@ -138,14 +140,14 @@ if($installment[0]['rpayment'] == 0){
 		while($money > 0){
 			if($money >= ($arrNext[0]['payment'] - $arrNext[0]['rpayment'])){
 				
-				$sql = "UPDATE installment SET rdate = curdate(), status = '1', rpayment = payment WHERE id = {$arrNext[0]['id']};";
+				$sql = "UPDATE installment SET rdate = '{$date->format('Y-m-d')}', status = '1', rpayment = payment WHERE id = {$arrNext[0]['id']};";
 				$conn->query($sql);
 				
 				
 				
 				$money -= $arrNext[0]['payment'] - $arrNext[0]['rpayment'];
 			}else{
-				$sql = "UPDATE installment SET rdate = curdate(), status = '0', rpayment = '$money' WHERE id = {$arrNext[0]['id']};";
+				$sql = "UPDATE installment SET rdate = '{$date->format('Y-m-d')}', status = '0', rpayment = '$money' WHERE id = {$arrNext[0]['id']};";
 				$conn->query($sql);
 				
 //				$DB->insertCollection($data['dealId'],round($money,2),$installmentNum,'20');
@@ -172,7 +174,7 @@ $conn->query($sqlDeal);
 //get curent millis time and bined with user id 
 
 
-$sqlCollection = "INSERT INTO collection (id, userId, installmentId, dealid, payment, date, time, dateTime) VALUES ('{$collectionId}', '{$_SESSION['login']['userId']}', '$installmentNum', '{$data['dealId']}', '{$data['amount']}', curdate(), curtime(), CURRENT_TIMESTAMP);";
+$sqlCollection = "INSERT INTO collection (id, userId, installmentId, dealid, payment, date, time, dateTime) VALUES ('{$collectionId}', '{$_SESSION['login']['userId']}', '$installmentNum', '{$data['dealId']}', '{$data['amount']}', '{$date->format('Y-m-d')}', '{$date->format("H:i:s")}', CURRENT_TIMESTAMP);";
 
 $conn->query($sqlCollection);
 

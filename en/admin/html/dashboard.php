@@ -178,7 +178,7 @@ $date = new DateTime("now", new DateTimeZone('Asia/Colombo') );
 				  </div>
 				  
 				  <div class="card-header">
-						<center><h4 class="my-0 font-weight-normal text-primary" id="sms"><?php echo $date->format('Y-m-d H:i:s'); ?></h4></center>
+						<center><h4 class="my-0 font-weight-normal text-primary" id="sms"><?php echo $date->format('Y-m-d');echo("<br>");echo($date->format("H:i:s")) ?></h4></center>
 				  </div>
 				</div>
     			
