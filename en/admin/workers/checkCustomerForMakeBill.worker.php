@@ -3,6 +3,7 @@ require_once("db.php");
 require_once("../methods/DB.class.php");
 $DB = new DB;
 $DB->conn = $conn;
+$DB->saveURL();
 $postData = json_decode($_POST['data'], true);
 
 

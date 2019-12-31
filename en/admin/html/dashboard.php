@@ -8,6 +8,9 @@ $DB->conn = $conn;
 //call save url
 $DB->saveURL();
 
+$date = new DateTime("now", new DateTimeZone('Asia/Colombo') );
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -158,7 +161,9 @@ $DB->saveURL();
 				</div>
 				
 				
-				<div class="card mb-4 shadow-sm">
+				
+   			
+   				<div class="card mb-4 shadow-sm">
 				  <div class="card-header">
 					<h4 class="my-0 font-weight-normal text-primary">SMS Credit</h4>
 				  </div>
@@ -167,7 +172,16 @@ $DB->saveURL();
 						<center><h4 class="my-0 font-weight-normal text-primary" id="sms"></h4></center>
 				  </div>
 				</div>
-    
+   				<div class="card mb-4 shadow-sm">
+				  <div class="card-header">
+					<h4 class="my-0 font-weight-normal text-primary">TIME</h4>
+				  </div>
+				  
+				  <div class="card-header">
+						<center><h4 class="my-0 font-weight-normal text-primary" id="sms"><?php echo $date->format('Y-m-d H:i:s'); ?></h4></center>
+				  </div>
+				</div>
+    			
   			</div>
   			
   			<div id="chart_div" style="width: 100%; height: 500px;"></div>

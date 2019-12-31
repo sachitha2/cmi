@@ -6,6 +6,7 @@
 	$main = new Main;
 	$DB = new DB;
 	$DB->conn = $conn;
+	$DB->saveURL();
 	$area = $DB->select("area","");
 //	print_r($area);
 ?>
