@@ -6,7 +6,7 @@
 	$main = new Main;
 	$DB = new DB;
 	$DB->conn = $conn;
-	
+	$DB->saveURL();
 	$subArea = $_GET['subArea'];
 
 	$arr = $DB->select("customer,installment"," WHERE customer.subAreaId = {$subArea} AND installment.cid = customer.id AND installment.status = 0  ORDER BY installment.date ASC");

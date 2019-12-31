@@ -6,7 +6,7 @@
 	$main = new Main;
 	$DB = new DB;
 	$DB->conn = $conn;
-
+	$DB->saveURL();
 	$area = $_GET['area'];
 
 	$area = $DB->select("subarea"," WHERE areaId = {$area}");

@@ -3,6 +3,7 @@ require_once("db.php");
 require_once("../methods/DB.class.php");
 $DB = new DB;
 $DB->conn = $conn;
+$DB->saveURL();
 $postData = json_decode($_POST['data'], true);
 
 
@@ -29,7 +30,8 @@ if($DB->nRow("customer",$sql) == 1){
 	$nR = $DB->nRow("deals","WHERE cid = $cId AND status = 0");
 	if($nR > 0){
 		$arr['msg'] = "Unfinished  deals available";
-		$arr['s'] = 0;
+		$arr['cid'] = $cId;
+		$arr['s'] = 1;
 	}
 	else{
 		$arr['msg'] = " No deals";
