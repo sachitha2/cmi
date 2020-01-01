@@ -1,6 +1,11 @@
 <?php
-require_once("../methods/Main.class.php");
-$main = new Main;
+	require_once("db.php");
+	require_once("../methods/DB.class.php");
+	require_once("../methods/Main.class.php");
+	$main = new Main;
+	$DB = new DB;
+	$DB->conn = $conn;
+	$DB->saveURL();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -283,7 +288,16 @@ $main = new Main;
      		<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/newStock.php','cStage')">New Stock</button>
      		
      		<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/newStock.php','cStage')">Transfer GRN</button>
-     		<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/selectItemToChangePrices.php','cStage')">Change prices</button>
+     		
+     		<?php
+				if($DB->isAdmin()){
+					?>
+					<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/selectItemToChangePrices.php','cStage')">Change prices</button>
+					<?php
+				}
+	
+			?>
+     		
      		<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/priceTable.php','cStage')">Price Table</button>
      		
    			<div class="card-header" style="padding-bottom: 10px;padding-top: 10px;margin-bottom: 5px;margin-top: 20px;">

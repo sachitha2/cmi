@@ -263,6 +263,18 @@ public	function itemList($DB,$onKey = "",$extra = ""){
 	//URL Functions Start
 	
 	
+	function isAdmin(){
+		if(isset($_SESSION['login']['type'])){
+			if($_SESSION['login']['type'] == 1){
+				return(true);
+			}else{
+				return(false);
+			}
+		}else{
+			return(FALSE);
+		}
+	}
+	
 	function getUserId(){
 		//<?php print_r($_SESSION['login']['userId']); 
 		if(isset($_SESSION['login']['userId'])){
