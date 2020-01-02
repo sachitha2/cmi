@@ -61,7 +61,7 @@ $date = new DateTime("now", new DateTimeZone('Asia/Colombo') );
     
     		<center>
     			<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/collectionAgents.php?type=month','cStage')"  style="width: 40%;margin-bottom: 5px;">Agent</button>
-    			<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/customers.STE.php','cStage')"  style="width: 40%;margin-bottom: 5px;">Area</button>
+    			<button type="button" class="btn btn-primary btn-lg" onClick="console.log('helooo')"  style="width: 40%;margin-bottom: 5px;">Area</button>
     			
     			
     			<?php $main->head("Collection By Agent Summary") ?>
