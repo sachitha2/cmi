@@ -209,49 +209,75 @@ class Main{
                 </li>
             
             
-                <li>
-                  <a  onClick="window.location.assign('expenses.php')">
-                    <span class="nav-icon">
-                      <i class="material-icons">&#xe01d;
-                        <span ui-include="'../assets/images/i_4.svg'"></span>
-                      </i>
-                    </span>
-                    <span class="nav-text">Expenses</span>
-                  </a>
-                </li>
+                <?php
+					if($_SESSION['login']['type'] == 1 || $_SESSION['login']['type'] == 1000){
+						?>
+						<li>
+							  <a  onClick="window.location.assign('expenses.php')">
+								<span class="nav-icon">
+								  <i class="material-icons">&#xe01d;
+									<span ui-include="'../assets/images/i_4.svg'"></span>
+								  </i>
+								</span>
+								<span class="nav-text">Expenses</span>
+							  </a>
+                		</li>
+                		
+                		
+                		<li>
+						  <a onClick="window.location.assign('profit.php')">
+							<span class="nav-icon">
+							  <i class="material-icons">&#xe227;
+								<span ui-include="'../assets/images/i_5.svg'"></span>
+							  </i>
+							</span>
+							<span class="nav-text">Profit</span>
+						  </a>
+                		</li>
+                		
+                		<li>
+						  <a  onClick="window.location.assign('income.php')">
+							<span class="nav-icon">
+							  <i class="material-icons">&#xe39e;
+								<span ui-include="'../assets/images/i_6.svg'"></span>
+							  </i>
+							</span>
+							<span class="nav-text">Income</span>
+						  </a>
+                		</li>
+                		
+                		<li>
+						  <a onClick="window.location.assign('credits.php')">
+							<span class="nav-icon">
+							  <i class="material-icons">&#xe870;
+								<span ui-include="'../assets/images/i_7.svg'"></span>
+							  </i>
+							</span>
+							<span class="nav-text">Credits</span>
+						  </a>
+						</li>
+						
+						
+						<li>
+						  <a onClick="window.location.assign('salary.php')">
+							<span class="nav-icon">
+							  <i class="material-icons">&#xe870;
+								<span ui-include="'../assets/images/i_7.svg'"></span>
+							  </i>
+							</span>
+							<span class="nav-text">Salary</span>
+						  </a>
+						</li>
+						<?php
+					}
+				
+				?>
             
-                <li>
-                  <a onClick="window.location.assign('profit.php')">
-                    <span class="nav-icon">
-                      <i class="material-icons">&#xe227;
-                        <span ui-include="'../assets/images/i_5.svg'"></span>
-                      </i>
-                    </span>
-                    <span class="nav-text">Profit</span>
-                  </a>
-                </li>
+                
             
-                <li>
-                  <a  onClick="window.location.assign('income.php')">
-                    <span class="nav-icon">
-                      <i class="material-icons">&#xe39e;
-                        <span ui-include="'../assets/images/i_6.svg'"></span>
-                      </i>
-                    </span>
-                    <span class="nav-text">Income</span>
-                  </a>
-                </li>
+                
             
-                <li>
-                  <a onClick="window.location.assign('credits.php')">
-                    <span class="nav-icon">
-                      <i class="material-icons">&#xe870;
-                        <span ui-include="'../assets/images/i_7.svg'"></span>
-                      </i>
-                    </span>
-                    <span class="nav-text">Credits</span>
-                  </a>
-                </li>
+                
                 <li>
                   <a onClick="window.location.assign('installments.php')">
                     <span class="nav-icon">
@@ -284,16 +310,7 @@ class Main{
                   </a>
                 </li>
                 
-                <li>
-                  <a onClick="window.location.assign('salary.php')">
-                    <span class="nav-icon">
-                      <i class="material-icons">&#xe870;
-                        <span ui-include="'../assets/images/i_7.svg'"></span>
-                      </i>
-                    </span>
-                    <span class="nav-text">Salary</span>
-                  </a>
-                </li>
+                
                 <li>
                   <a onClick="window.location.assign('collection.php')">
                     <span class="nav-icon">
@@ -304,64 +321,76 @@ class Main{
                     <span class="nav-text">Collection</span>
                   </a>
                 </li>
-                <li>
-                  <a>
-                    <span class="nav-caret">
-                      <i class="fa fa-caret-down"></i>
-                    </span>
-                    <span class="nav-icon">
-                      <i class="material-icons">&#xe429;
-                        <span ui-include="'../assets/images/i_7.svg'"></span>
-                      </i>
-                    </span>
-                    <span class="nav-text">Reports</span>
-                  </a>
-                  <ul class="nav-sub">
-                    <li>
-                      <a  onClick="window.location.assign('report.php')">
-                        <span class="nav-text">Summary</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a  onClick="window.location.assign('detailReport.php')">
-                        <span class="nav-text">Detail Reports</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a  onClick="window.location.assign('purchasedItemsReport.php')">
-                        <span class="nav-text">Purchased Items Report</span>
-                      </a>
-                    </li>
-                  </ul>
-                </li>
-				<!-- SMS               -->
-                 <li>
-                  <a>
-                    <span class="nav-caret">
-                      <i class="fa fa-caret-down"></i>
-                    </span>
-                    <span class="nav-icon">
-                      <i class="material-icons">&#xe429;
-                        <span ui-include="'../assets/images/i_1.svg'"></span>
-                      </i>
-                    </span>
-                    <span class="nav-text">SMS</span>
-                  </a>
-                  <ul class="nav-sub">
-                    
-                    <li>
-                      <a onClick="window.location.assign('SMS.php')">
-                        <span class="nav-text">Dashboard</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a onClick="window.location.assign('compose.sms.php')">
-                        <span class="nav-text">compose</span>
-                      </a>
-                    </li>
-                  </ul>
-                </li>
-                <!-- SMS               -->
+                
+				<?php
+		
+		
+		
+				if($_SESSION['login']['type'] == 1 || $_SESSION['login']['type'] == 1000){
+					?>
+						
+						
+						<li>
+						  <a>
+							<span class="nav-caret">
+							  <i class="fa fa-caret-down"></i>
+							</span>
+							<span class="nav-icon">
+							  <i class="material-icons">&#xe429;
+								<span ui-include="'../assets/images/i_7.svg'"></span>
+							  </i>
+							</span>
+							<span class="nav-text">Reports</span>
+						  </a>
+						  <ul class="nav-sub">
+							<li>
+							  <a  onClick="window.location.assign('report.php')">
+								<span class="nav-text">Summary</span>
+							  </a>
+							</li>
+							<li>
+							  <a  onClick="window.location.assign('detailReport.php')">
+								<span class="nav-text">Detail Reports</span>
+							  </a>
+							</li>
+							<li>
+							  <a  onClick="window.location.assign('purchasedItemsReport.php')">
+								<span class="nav-text">Purchased Items Report</span>
+							  </a>
+							</li>
+						  </ul>
+						</li>
+							<!-- SMS               -->
+						 <li>
+						  <a>
+							<span class="nav-caret">
+							  <i class="fa fa-caret-down"></i>
+							</span>
+							<span class="nav-icon">
+							  <i class="material-icons">&#xe429;
+								<span ui-include="'../assets/images/i_1.svg'"></span>
+							  </i>
+							</span>
+							<span class="nav-text">SMS</span>
+						  </a>
+						  <ul class="nav-sub">
+
+							<li>
+							  <a onClick="window.location.assign('SMS.php')">
+								<span class="nav-text">Dashboard</span>
+							  </a>
+							</li>
+							<li>
+							  <a onClick="window.location.assign('compose.sms.php')">
+								<span class="nav-text">compose</span>
+							  </a>
+							</li>
+						  </ul>
+						</li>
+						<!-- SMS               -->
+					<?php
+				}
+				?>
                 
             
               </ul>

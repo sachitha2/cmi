@@ -147,8 +147,18 @@ if($DB->nRow("deals"," WHERE cid = $cid") != 0){
         						<h2 class="my-0 font-weight-normal text-primary" id="totalToday">Received Price - <?php echo(round(($data['tprice']-$data['rprice']),0)."<br>Balance - ".round($data['rprice'])."<br>Total - ".$data['tprice']) ?></h2>
         							<a href="subPages/print.php?dealid=<?php echo($data['id'])   ?>" target="_blank" class="link"><button class="btn btn-primary btn-sm">Print</button></a>
         						
+        						<?php
+									
+									if($DB->isSuper()){
+										?>
+										<button class="btn btn-danger btn-sm" onClick="delADeal('<?php echo($cid)  ?>','<?php echo($data['id'])  ?>')">Delete</button>
+										<?php
+									}
+									
+									
+									?>
         						
-        						<button class="btn btn-danger btn-sm" onClick="delADeal('<?php echo($cid)  ?>','<?php echo($data['id'])  ?>')">Delete</button>
+        						
         					</div>
 							<h2 class="my-0 font-weight-normal text-primary" id="totalToday">Collection History</h2>
 							
