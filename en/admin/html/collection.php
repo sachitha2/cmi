@@ -66,7 +66,7 @@ $date = new DateTime("now", new DateTimeZone('Asia/Colombo') );
     			
     			<?php $main->head("Collection By Agent Summary") ?>
     		
-    			<?php $main->cardHeader("Today") ?>
+    			<?php $main->cardHeader("Today - {$date->format('Y-m-d')}") ?>
     			<table  class="table table-hover table-bordered table-striped table-dark">
     				<tr>
     					<th>User</th>
