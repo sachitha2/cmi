@@ -123,8 +123,9 @@ $date = new DateTime("now", new DateTimeZone('Asia/Colombo') );
 					  <div class="card-header">
 					  		<?php 
 						  			$arrTotalRecei = $DB->select("deals"," ","SUM(rprice) as remain");
+	  								
 						  	?>
-							<center><h4 class="my-0 font-weight-normal text-primary" id="TYTotal"><?php  echo(round($arrTotalRecei[0]['remain']));?></h4></center>
+							<center><h4 class="my-0 font-weight-normal text-primary" id="TYTotal"><?php  echo(number_format(round($arrTotalRecei[0]['remain'])));?></h4></center>
 					  </div>
 				</div>
 				
@@ -137,7 +138,7 @@ $date = new DateTime("now", new DateTimeZone('Asia/Colombo') );
 					  		<?php 
 						  			$arrTotalRecei = $DB->select("deals"," ","SUM(tprice-rprice) as remain");
 						  	?>
-							<center><h4 class="my-0 font-weight-normal text-primary" id="TYTotal"><?php  echo(round($arrTotalRecei[0]['remain']));?></h4></center>
+							<center><h4 class="my-0 font-weight-normal text-primary" id="TYTotal"><?php  echo(number_format(round($arrTotalRecei[0]['remain'])));?></h4></center>
 					  </div>
 				</div>
 	 		
