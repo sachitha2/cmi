@@ -6,6 +6,8 @@ $main = new Main;
 $DB = new DB;
 $DB->conn = $conn;
 $DB->saveURL();
+
+$date = new DateTime("now", new DateTimeZone('Asia/Colombo') );
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -77,7 +79,7 @@ $DB->saveURL();
 					$arrUser = $DB->select("user","");
 	  				$tot = 0;
 	  				foreach($arrUser as $dataUser){
-						$arrCollection = $DB->select("collection,user"," WHERE user.id = {$dataUser['id']} AND collection.userId = {$dataUser['id']} AND date = curdate()","SUM(payment) as tot");
+						$arrCollection = $DB->select("collection,user"," WHERE user.id = {$dataUser['id']} AND collection.userId = {$dataUser['id']} AND date = '{$date->format('Y-m-d')}'","SUM(payment) as tot");
 						$tot += $arrCollection[0]["tot"];
 						
 						
@@ -98,7 +100,7 @@ $DB->saveURL();
 									if(is_null($arrCollection[0]['tot'])){
 										echo(0);
 									}else{
-										echo($arrCollection[0]['tot']);
+										echo(number_format(round($arrCollection[0]['tot'])));
 									}
 								?>
   							</td>
@@ -113,7 +115,7 @@ $DB->saveURL();
 				?>
   				<tr>
   					<td>Total</td>
-  					<td><?php echo($tot) ?></td>
+  					<td><?php echo(number_format(round($tot))) ?></td>
   				</tr>
    				</table>
    				
@@ -132,7 +134,7 @@ $DB->saveURL();
 					$arrUser = $DB->select("user","");
 	  				$tot = 0;
 	  				foreach($arrUser as $dataUser){
-						$arrCollection = $DB->select("collection,user"," WHERE user.id = {$dataUser['id']} AND collection.userId = {$dataUser['id']} AND MONTH(date) = MONTH(curdate()) AND YEAR(date) = YEAR(curdate())","SUM(payment) as tot");
+						$arrCollection = $DB->select("collection,user"," WHERE user.id = {$dataUser['id']} AND collection.userId = {$dataUser['id']} AND MONTH(date) = MONTH('{$date->format('Y-m-d')}') AND YEAR(date) = YEAR('{$date->format('Y-m-d')}')","SUM(payment) as tot");
 						$tot += $arrCollection[0]["tot"];
 						
 						if(!is_null($arrCollection[0]['tot'])){
@@ -151,7 +153,7 @@ $DB->saveURL();
 									if(is_null($arrCollection[0]['tot'])){
 										echo(0);
 									}else{
-										echo($arrCollection[0]['tot']);
+										echo(number_format(round($arrCollection[0]['tot'])));
 									}
 								?>
   							</td>
@@ -165,7 +167,7 @@ $DB->saveURL();
 				?>
   				<tr>
   					<td>Total</td>
-  					<td><?php echo($tot) ?></td>
+  					<td><?php echo(number_format(round($tot))) ?></td>
   				</tr>
    				</table>
    				
@@ -183,7 +185,7 @@ $DB->saveURL();
 					$arrUser = $DB->select("user","");
 	  				$tot = 0;
 	  				foreach($arrUser as $dataUser){
-						$arrCollection = $DB->select("collection,user"," WHERE user.id = {$dataUser['id']} AND collection.userId = {$dataUser['id']} AND  YEAR(date) = YEAR(curdate())","SUM(payment) as tot");
+						$arrCollection = $DB->select("collection,user"," WHERE user.id = {$dataUser['id']} AND collection.userId = {$dataUser['id']} AND  YEAR(date) = YEAR('{$date->format('Y-m-d')}')","SUM(payment) as tot");
 						$tot += $arrCollection[0]["tot"];
 						
 						if(!is_null($arrCollection[0]['tot'])){
@@ -202,7 +204,7 @@ $DB->saveURL();
 									if(is_null($arrCollection[0]['tot'])){
 										echo(0);
 									}else{
-										echo($arrCollection[0]['tot']);
+										echo(number_format(round($arrCollection[0]['tot'])));
 									}
 								?>
   							</td>
@@ -216,7 +218,7 @@ $DB->saveURL();
 				?>
   				<tr>
   					<td>Total</td>
-  					<td><?php echo($tot) ?></td>
+  					<td><?php echo(number_format(round($tot))) ?></td>
   				</tr>
    				</table>
     		</center>

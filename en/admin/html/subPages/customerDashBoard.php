@@ -45,7 +45,7 @@
 				  </div>
 				  
 				  <div class="card-header">
-						<center><h4 class="my-0 font-weight-normal text-primary"><?php echo($deals[0]['SUM(tprice)']) ?></h4></center>
+						<center><h4 class="my-0 font-weight-normal text-primary"><?php echo(number_format(round($deals[0]['SUM(tprice)']))) ?></h4></center>
 				  </div>
 				</div>
     			<div class="card mb-4 shadow-sm">
@@ -54,7 +54,7 @@
 				  </div>
 				  
 				  <div class="card-header">
-						<center><h4 class="my-0 font-weight-normal text-primary"><?php echo($deals[0]['SUM(tprice)'] - $deals[0]['SUM(rprice)']) ?></h4></center>
+						<center><h4 class="my-0 font-weight-normal text-primary"><?php echo(number_format(round($deals[0]['SUM(tprice)'] - $deals[0]['SUM(rprice)']))) ?></h4></center>
 				  </div>
 				</div>
     			<div class="card mb-4 shadow-sm">
@@ -63,7 +63,7 @@
 				  </div>
 				  
 				  <div class="card-header">
-						<center><h4 class="my-0 font-weight-normal text-primary"><?php echo($deals[0]['SUM(rprice)']) ?></h4></center>
+						<center><h4 class="my-0 font-weight-normal text-primary"><?php echo(number_format(round($deals[0]['SUM(rprice)']))) ?></h4></center>
 				  </div>
 				</div>		
     
@@ -90,15 +90,15 @@
 				  </div>
 				  
 				  <div class="card-header">
-						<center><h4 class="my-0 font-weight-normal text-primary">Total : <b><?php echo($dataDeals['tprice']) ?></b></h4></center>
+						<center><h4 class="my-0 font-weight-normal text-primary">Total : <b><?php echo(number_format(round($dataDeals['tprice']))) ?></b></h4></center>
 				  </div>
 				  <div class="card-header">
-						<center><h4 class="my-0 font-weight-normal text-primary">Received Price : <b><?php echo($dataDeals['tprice'] - $dataDeals['rprice']) ?></b></h4></center>
+						<center><h4 class="my-0 font-weight-normal text-primary">Received Price : <b><?php echo(number_format(round($dataDeals['tprice'] - $dataDeals['rprice']))) ?></b></h4></center>
 				  </div>
 				  
 				  
 				  <div class="card-header">
-						<center><h4 class="my-0 font-weight-normal text-primary">Balance : <b><?php echo($dataDeals['rprice']) ?></b></h4></center>
+						<center><h4 class="my-0 font-weight-normal text-primary">Balance : <b><?php echo(number_format(round($dataDeals['rprice']))) ?></b></h4></center>
 				  </div>
 				  
 				  
