@@ -114,7 +114,7 @@ $date = new DateTime("now", new DateTimeZone('Asia/Colombo') );
      <?php $main->modal() ?>
       <!-- ############ PAGE START-->
 	 	
-	 		<div class="card-deck mb-3 text-center" style="padding: 50px">  
+	 		<div class="card-deck mb-3 text-center" style="padding-left: 50px;padding-right: 50px;padding-top: 50px;">  
 	 			<div class="card mb-4 shadow-sm">
 					  <div class="card-header">
 						<h4 class="my-0 font-weight-normal text-primary">Total Receivable</h4>
@@ -122,9 +122,22 @@ $date = new DateTime("now", new DateTimeZone('Asia/Colombo') );
 
 					  <div class="card-header">
 					  		<?php 
-						  			$arrTotalRecei = $DB->select("deals"," WHERE status = 0","SUM(tprice-rprice) as remain");
+						  			$arrTotalRecei = $DB->select("deals"," ","SUM(rprice) as remain");
 						  	?>
-							<center><h4 class="my-0 font-weight-normal text-primary" id="TYTotal"><?php  echo($arrTotalRecei[0]['remain']);?></h4></center>
+							<center><h4 class="my-0 font-weight-normal text-primary" id="TYTotal"><?php  echo(round($arrTotalRecei[0]['remain']));?></h4></center>
+					  </div>
+				</div>
+				
+				<div class="card mb-4 shadow-sm">
+					  <div class="card-header">
+						<h4 class="my-0 font-weight-normal text-primary">Total Received</h4>
+					  </div>
+
+					  <div class="card-header">
+					  		<?php 
+						  			$arrTotalRecei = $DB->select("deals"," ","SUM(tprice-rprice) as remain");
+						  	?>
+							<center><h4 class="my-0 font-weight-normal text-primary" id="TYTotal"><?php  echo(round($arrTotalRecei[0]['remain']));?></h4></center>
 					  </div>
 				</div>
 	 		
@@ -133,7 +146,7 @@ $date = new DateTime("now", new DateTimeZone('Asia/Colombo') );
 			
 			
 	 	
-			<div class="card-deck mb-3 text-center" style="padding: 50px">  
+			<div class="card-deck mb-3 text-center" style="padding-left: 50px;padding-right: 50px">  
  			
 				<div class="card mb-4 shadow-sm">
 				  <div class="card-header">

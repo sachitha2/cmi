@@ -3,6 +3,8 @@ require_once("db.php");
 require_once("../methods/DB.class.php");
 $DB = new DB;
 $DB->conn = $conn;
+$DB->saveURL();
+
 $date = new DateTime("now", new DateTimeZone('Asia/Colombo') );
 
 $data = $_POST['data'];
