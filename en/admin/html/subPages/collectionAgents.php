@@ -41,13 +41,8 @@ $DB->saveURL();
 <?php
 	$arrUser = $DB->select("user","");
 
-	foreach($arrUser as $dataUser){
-		echo("<br>");
-		
+	foreach($arrUser as $dataUser){		
 		$arrCollection = $DB->select("collection",$sql."{$dataUser['id']}","SUM(payment) as pay ");
-		
-		
-		
 		if(!is_null($arrCollection[0]['pay'])){
 			$main->cardHeader("<center>{$dataUser['username']}<br>{$arrCollection[0]['pay']}<br><button class='btn btn-primary btn-sm'>More</button></center>") ;
 			
