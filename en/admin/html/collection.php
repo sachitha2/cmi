@@ -58,6 +58,12 @@ $DB->saveURL();
     <div class="container h-100" id="cStage">
     
     		<center>
+    			<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/collectionAgents.php?type=month','cStage')"  style="width: 40%;margin-bottom: 5px;">Agent</button>
+    			<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/customers.STE.php','cStage')"  style="width: 40%;margin-bottom: 5px;">Area</button>
+    			
+    			
+    			<?php $main->head("Collection By Agent Summary") ?>
+    		
     			<?php $main->cardHeader("Today") ?>
     			<table  class="table table-hover table-bordered table-striped table-dark">
     				<tr>
@@ -128,6 +134,10 @@ $DB->saveURL();
 	  				foreach($arrUser as $dataUser){
 						$arrCollection = $DB->select("collection,user"," WHERE user.id = {$dataUser['id']} AND collection.userId = {$dataUser['id']} AND MONTH(date) = MONTH(curdate()) AND YEAR(date) = YEAR(curdate())","SUM(payment) as tot");
 						$tot += $arrCollection[0]["tot"];
+						
+						if(!is_null($arrCollection[0]['tot'])){
+							
+						
 						?>
   						<tr>
   							<td>
@@ -148,6 +158,58 @@ $DB->saveURL();
   						</tr>
   					
   						<?php
+						}
+					}
+					
+					
+				?>
+  				<tr>
+  					<td>Total</td>
+  					<td><?php echo($tot) ?></td>
+  				</tr>
+   				</table>
+   				
+   				
+   				<?php $main->cardHeader("Year") ?>
+    			<table  class="table table-hover table-bordered table-striped table-dark">
+    				<tr>
+    					<th>User</th>
+    					<th>Total</th>
+    				</tr>
+    			
+    			<?php
+					//SELECT SUM(`payment`) FROM `collection`,`user` WHERE `user`.`id` = 3 AND `collection`.`userId` = 3
+	
+					$arrUser = $DB->select("user","");
+	  				$tot = 0;
+	  				foreach($arrUser as $dataUser){
+						$arrCollection = $DB->select("collection,user"," WHERE user.id = {$dataUser['id']} AND collection.userId = {$dataUser['id']} AND  YEAR(date) = YEAR(curdate())","SUM(payment) as tot");
+						$tot += $arrCollection[0]["tot"];
+						
+						if(!is_null($arrCollection[0]['tot'])){
+							
+						
+						?>
+  						<tr>
+  							<td>
+  								<?php 
+										$DB->getUserById($dataUser["id"]);
+								?>
+  							</td>
+  							<td>
+  								<?php 
+									
+									if(is_null($arrCollection[0]['tot'])){
+										echo(0);
+									}else{
+										echo($arrCollection[0]['tot']);
+									}
+								?>
+  							</td>
+  						</tr>
+  					
+  						<?php
+						}
 					}
 					
 					

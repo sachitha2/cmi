@@ -21,6 +21,8 @@ if(isset($_SESSION['login']['status'])){
 /////log out
 class DB{
 	
+	
+	
 	public $conn;
     function dataConn($x){
 	  $this->conn = $x;
@@ -263,6 +265,31 @@ public	function itemList($DB,$onKey = "",$extra = ""){
 	//URL Functions Start
 	
 	
+	function isAdmin(){
+		//super admin and admin
+		if(isset($_SESSION['login']['type'])){
+			if($_SESSION['login']['type'] == 1 || $_SESSION['login']['type'] == 1000){
+				return(true);
+			}else{
+				return(false);
+			}
+		}else{
+			return(FALSE);
+		}
+	}
+	function isSuper(){
+		//super admin and admin
+		if(isset($_SESSION['login']['type'])){
+			if($_SESSION['login']['type'] == 1000){
+				return(true);
+			}else{
+				return(false);
+			}
+		}else{
+			return(FALSE);
+		}
+	}
+	
 	function getUserId(){
 		//<?php print_r($_SESSION['login']['userId']); 
 		if(isset($_SESSION['login']['userId'])){
@@ -284,7 +311,20 @@ public	function itemList($DB,$onKey = "",$extra = ""){
 		$sql = "INSERT INTO url (id, userId, url,dateTime) VALUES (NULL, '{$this->getUserId()}', '{$this->getURL()}', curtime());";
 		$result = $this->conn->query($sql);
 	}
+	
+	
+	function history($task){
+		
+		$sql = "INSERT INTO histry (id, date, time, task, userId) VALUES (NULL, '{$this->dateTime()->format('Y-m-d')}', '{$this->dateTime()->format('H:m:i')}', '$task', '{$this->getUserId()}');";
+		$result = $this->conn->query($sql);
+	}
 	//URL Functions END	
+	
+	
+	function dateTime(){
+		$date = new DateTime("now", new DateTimeZone('Asia/Colombo') );
+		return($date);
+	}
 
 
 }

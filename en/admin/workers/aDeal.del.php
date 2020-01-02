@@ -5,6 +5,7 @@ require_once("../methods/Main.class.php");
 $DB = new DB;
 $main = new Main;
 $DB->conn = $conn;
+$DB->saveURL();
 
 //
 //print_r($_POST);
@@ -43,6 +44,7 @@ $DB->delete("collection"," WHERE dealid = {$_POST['dealId']}");
 
 $main->createSettionError("Deleted a Deal -> {$_POST['dealId']} ");
 
+$DB->history("Deleted a deal of customer {$_POST['dealId']}");	
 
 $_SESSION['credit']['bill']['s'] = 0;
 ?>
