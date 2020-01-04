@@ -9,11 +9,11 @@
 	$DB->saveURL();
 	$subArea = $_GET['subArea'];
 	//SELECT * FROM `deals`,`customer` WHERE `customer`.`subAreaId` = 1 AND `deals`.`cid` = `customer`.`id` AND `deals`.`status` = 0
-	$arr = $DB->select("customer,deals"," WHERE customer.subAreaId = 1 AND deals.cid = customer.id AND deals.status = 0 ");
+	$arr = $DB->select("customer,deals"," WHERE customer.subAreaId = $subArea AND deals.cid = customer.id AND deals.status = 0 ");
 	$jx = 0;
 	
 	$areaName = $DB->getSubAreaById($subArea,0);
-
+		
 	foreach($arr as $dataJson){
 		
 //		print_r($dataJson);
