@@ -132,13 +132,16 @@
 				  <div class="card-header">
 						<center>
 							<h4 class="my-0 font-weight-normal text-primary">
-								Purchased Items<br>
+								<b>Purchased Items</b><br>
 								<?php
 		
-									$arrItems = $DB->select("purchaseditems","where dealid = {$dataDeals['id']}","itemid");
+									$arrItems = $DB->select("purchaseditems","where dealid = {$dataDeals['id']}","itemid,amount");
 									
 									foreach($arrItems as $dataitems){
 										$DB->getItemNameByStockId($dataitems['itemid']);
+										echo(" X ");
+										echo($dataitems['amount']);
+										echo("<br>");
 									}
 								?>
 							</h4>
