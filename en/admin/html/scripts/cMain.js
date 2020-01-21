@@ -3228,9 +3228,12 @@ function delBDayBook(id){
 	}
 }
 
-function redirectCollectionPeriod(){
+function redirectCollectionPeriod(a){
     if(from.value != "" && to.value!=""){
-        ajaxCommonGetFromNet('subPages/collectionAgents.php?type=period&from='+from.value+'&to='+to.value, 'cStage');
+		if(a==1)
+			ajaxCommonGetFromNet('subPages/collectionAgents.php?type=period&from='+from.value+'&to='+to.value, 'cStage');
+		else if (a==2)
+			ajaxCommonGetFromNet('subPages/collectionAreas.php?type=period&from='+from.value+'&to='+to.value, 'cStage');
 	}else{
 		alert("Select period properly");
 	}

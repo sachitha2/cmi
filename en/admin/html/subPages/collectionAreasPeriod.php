@@ -48,7 +48,7 @@ $DB->saveURL();
 
 	
         <!-- <button class="btn btn-default btn-lg"   onClick="ajaxCommonGetFromNet('subPages/collectionAgents.php?type=period&from='+from.value+'&to='+to.value, 'cStage');">Search</button> -->
-        <button class="btn btn-default btn-lg"   onClick="redirectCollectionPeriod(1);">Search</button>
+        <button class="btn btn-default btn-lg"   onClick="redirectCollectionPeriod(2);">Search</button>
 
 </center>
 
