@@ -3227,3 +3227,11 @@ function delBDayBook(id){
 		ajax.send("id="+id);
 	}
 }
+
+function redirectCollectionPeriod(){
+    if(from.value != "" && to.value!=""){
+        ajaxCommonGetFromNet('subPages/collectionAgents.php?type=period&from='+from.value+'&to='+to.value, 'cStage');
+	}else{
+		alert("Select period properly");
+	}
+ }

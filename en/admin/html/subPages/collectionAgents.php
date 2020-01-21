@@ -23,34 +23,67 @@ $DB->saveURL();
 			$sql = " WHERE YEAR(date) = YEAR(curdate()) AND userId =";
 		}else if($_GET['type'] == 'last_year'){
 			$sql = " WHERE YEAR(date) = YEAR(curdate()) AND userId =";
+		}else if($_GET['type'] == 'period'){
+			$sql = " WHERE DATE(date) >= DATE('{$_GET['from']}') AND DATE(date) <= DATE('{$_GET['to']}') AND userId =";
 		}
 	}else{
 		$sql = "";
 	}
 ?>
-<?php $main->head("{$_GET['type']}") ?>
+<?php 
+	if($_GET['type'] != 'period')
+		$main->head("{$_GET['type']}");
+	else
+	$main->head("{$_GET['from']} to {$_GET['to']}");
+
+?>
 <center>
 	
 	<button class="btn btn-default btn-lg"  onClick="ajaxCommonGetFromNet('subPages/collectionAgents.php?type=today','cStage')">Today</button>
 	<button class="btn btn-default btn-lg"   onClick="ajaxCommonGetFromNet('subPages/collectionAgents.php?type=week','cStage')">Week</button>
 	<button class="btn btn-default btn-lg"   onClick="ajaxCommonGetFromNet('subPages/collectionAgents.php?type=month','cStage')">Month</button>
 	<button class="btn btn-default btn-lg"   onClick="ajaxCommonGetFromNet('subPages/collectionAgents.php?type=year','cStage')">Year</button>
+	<button class="btn btn-default btn-lg"   onClick="ajaxCommonGetFromNet('subPages/collectionAgentsPeriod.php?type=period','cStage')">Period</button>
 </center>
 <!--<button class="btn btn-default btn-lg"   onClick="ajaxCommonGetFromNet('subPages/collectionAgents.php?type=last_year','cStage')">Last year</button>-->
+
+<center>
+<table class="table table-hover table-bordered table-striped table-dark">
+	<tr>
+		<th>Agent</th>
+		<th>Collection</th>
+	</tr>
 
 <?php
 	$arrUser = $DB->select("user","");
 
+	$tot = 0;
 	foreach($arrUser as $dataUser){		
 		$arrCollection = $DB->select("collection",$sql."{$dataUser['id']}","SUM(payment) as pay ");
 		if(!is_null($arrCollection[0]['pay'])){
-			$main->cardHeader("<center>{$dataUser['username']}<br>{$arrCollection[0]['pay']}<br><button class='btn btn-primary btn-sm'>More</button></center>") ;
+			$tot += $arrCollection[0]['pay'];
+			//$main->cardHeader("<center>{$dataUser['username']}<br>{$arrCollection[0]['pay']}<br><button class='btn btn-primary btn-sm'>More</button></center>") ;
+?>
+		
 			
+				<tr>
+					<td><?php echo("{$dataUser['username']}"); ?></td>
+					<td><?php echo("{$arrCollection[0]['pay']}"); ?></td>
+				</tr>
+			
+		
+
+<?php
 		}
-		?>
-		
-		
-		<?php
+
 	}
 
 ?>
+
+	<tr>
+		<th>Total</th>
+		<th><?php echo("{$tot}"); ?></th>
+	</tr>
+
+</table>
+</center>	

@@ -63,162 +63,157 @@ $date = new DateTime("now", new DateTimeZone('Asia/Colombo') );
     			<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/collectionAgents.php?type=month','cStage')"  style="width: 40%;margin-bottom: 5px;">Agent</button>
     			<button type="button" class="btn btn-primary btn-lg" onClick="console.log('helooo')"  style="width: 40%;margin-bottom: 5px;">Area</button>
     			
-    			
-    			<?php $main->head("Collection By Agent Summary") ?>
     		
     			<?php $main->cardHeader("Today - {$date->format('Y-m-d')}") ?>
-    			<table  class="table table-hover table-bordered table-striped table-dark">
+    			<table width="50%" class="table table-hover table-bordered table-striped table-dark">
     				<tr>
-    					<th>User</th>
     					<th>Total</th>
-    				</tr>
+    				
     			
     			<?php
 					//SELECT SUM(`payment`) FROM `collection`,`user` WHERE `user`.`id` = 3 AND `collection`.`userId` = 3
 	
-					$arrUser = $DB->select("user","");
-	  				$tot = 0;
-	  				foreach($arrUser as $dataUser){
-						$arrCollection = $DB->select("collection,user"," WHERE user.id = {$dataUser['id']} AND collection.userId = {$dataUser['id']} AND date = '{$date->format('Y-m-d')}'","SUM(payment) as tot");
-						$tot += $arrCollection[0]["tot"];
+					//$arrUser = $DB->select("user","");
+	  				//$tot = 0;
+	  				//foreach($arrUser as $dataUser){
+						//$arrCollection = $DB->select("collection,user"," WHERE user.id = {$dataUser['id']} AND collection.userId = {$dataUser['id']} AND date = '{$date->format('Y-m-d')}'","SUM(payment) as tot");
+						//$tot += $arrCollection[0]["tot"];
 						
 						
 						
-						if(!is_null($arrCollection[0]['tot'])){
+						//if(!is_null($arrCollection[0]['tot'])){
 							
 						
 						?>
-  						<tr>
+  						<!-- <tr>
   							<td>
   								<?php 
-										$DB->getUserById($dataUser["id"]);
+										//$DB->getUserById($dataUser["id"]);
 								?>
   							</td>
   							<td>
   								<?php 
 									
-									if(is_null($arrCollection[0]['tot'])){
-										echo(0);
-									}else{
-										echo(number_format(round($arrCollection[0]['tot'])));
-									}
+									//if(is_null($arrCollection[0]['tot'])){
+										//echo(0);
+									//}else{
+										//echo(number_format(round($arrCollection[0]['tot'])));
+									//}
 								?>
   							</td>
-  						</tr>
+  						</tr> -->
   					
   						<?php
 							
-							}
-					}
+							//}
+					//}
 					
+					$todayCollection = $DB->select("collection"," WHERE date = '{$date->format('Y-m-d')}'","SUM(payment) as tot");
 					
 				?>
-  				<tr>
-  					<td>Total</td>
-  					<td><?php echo(number_format(round($tot))) ?></td>
-  				</tr>
+  				
+  						<th><?php echo($todayCollection[0]['tot']); ?></th>
+  					</tr>
    				</table>
    				
    				
    				
-   				<?php $main->cardHeader("Month") ?>
+   				<?php $main->cardHeader("This Month - ".date('F', mktime(0, 0, 0, date('m'), 10))) ?>
     			<table  class="table table-hover table-bordered table-striped table-dark">
     				<tr>
-    					<th>User</th>
     					<th>Total</th>
-    				</tr>
+    			
     			
     			<?php
 					//SELECT SUM(`payment`) FROM `collection`,`user` WHERE `user`.`id` = 3 AND `collection`.`userId` = 3
 	
-					$arrUser = $DB->select("user","");
-	  				$tot = 0;
-	  				foreach($arrUser as $dataUser){
-						$arrCollection = $DB->select("collection,user"," WHERE user.id = {$dataUser['id']} AND collection.userId = {$dataUser['id']} AND MONTH(date) = MONTH('{$date->format('Y-m-d')}') AND YEAR(date) = YEAR('{$date->format('Y-m-d')}')","SUM(payment) as tot");
-						$tot += $arrCollection[0]["tot"];
+					// $arrUser = $DB->select("user","");
+	  				// $tot = 0;
+	  				// foreach($arrUser as $dataUser){
+					// 	$arrCollection = $DB->select("collection,user"," WHERE user.id = {$dataUser['id']} AND collection.userId = {$dataUser['id']} AND MONTH(date) = MONTH('{$date->format('Y-m-d')}') AND YEAR(date) = YEAR('{$date->format('Y-m-d')}')","SUM(payment) as tot");
+					// 	$tot += $arrCollection[0]["tot"];
 						
-						if(!is_null($arrCollection[0]['tot'])){
+					// 	if(!is_null($arrCollection[0]['tot'])){
 							
 						
 						?>
-  						<tr>
+  						<!-- <tr>
   							<td>
   								<?php 
-										$DB->getUserById($dataUser["id"]);
+										//$DB->getUserById($dataUser["id"]);
 								?>
   							</td>
   							<td>
   								<?php 
 									
-									if(is_null($arrCollection[0]['tot'])){
-										echo(0);
-									}else{
-										echo(number_format(round($arrCollection[0]['tot'])));
-									}
+									// if(is_null($arrCollection[0]['tot'])){
+									// 	echo(0);
+									// }else{
+									// 	echo(number_format(round($arrCollection[0]['tot'])));
+									// }
 								?>
   							</td>
-  						</tr>
+  						</tr> -->
   					
   						<?php
-						}
-					}
+					// 	}
+					// }
 					
-					
+					$monthCollection = $DB->select("collection"," WHERE MONTH(date) = MONTH('{$date->format('Y-m-d')}') AND YEAR(date) = YEAR('{$date->format('Y-m-d')}')","SUM(payment) as tot");
+				
 				?>
-  				<tr>
-  					<td>Total</td>
-  					<td><?php echo(number_format(round($tot))) ?></td>
+  					<th><?php echo($monthCollection[0]['tot']); ?></th>
   				</tr>
    				</table>
    				
    				
-   				<?php $main->cardHeader("Year") ?>
+   				<?php $main->cardHeader("This Year - 20".date('y')) ?>
     			<table  class="table table-hover table-bordered table-striped table-dark">
     				<tr>
-    					<th>User</th>
     					<th>Total</th>
-    				</tr>
-    			
+    				
+					
     			<?php
 					//SELECT SUM(`payment`) FROM `collection`,`user` WHERE `user`.`id` = 3 AND `collection`.`userId` = 3
 	
-					$arrUser = $DB->select("user","");
-	  				$tot = 0;
-	  				foreach($arrUser as $dataUser){
-						$arrCollection = $DB->select("collection,user"," WHERE user.id = {$dataUser['id']} AND collection.userId = {$dataUser['id']} AND  YEAR(date) = YEAR('{$date->format('Y-m-d')}')","SUM(payment) as tot");
-						$tot += $arrCollection[0]["tot"];
+					// $arrUser = $DB->select("user","");
+	  				// $tot = 0;
+	  				// foreach($arrUser as $dataUser){
+					// 	$arrCollection = $DB->select("collection,user"," WHERE user.id = {$dataUser['id']} AND collection.userId = {$dataUser['id']} AND  YEAR(date) = YEAR('{$date->format('Y-m-d')}')","SUM(payment) as tot");
+					// 	$tot += $arrCollection[0]["tot"];
 						
-						if(!is_null($arrCollection[0]['tot'])){
+					// 	if(!is_null($arrCollection[0]['tot'])){
 							
 						
 						?>
-  						<tr>
+  						<!-- <tr>
   							<td>
   								<?php 
-										$DB->getUserById($dataUser["id"]);
+										// $DB->getUserById($dataUser["id"]);
 								?>
   							</td>
   							<td>
   								<?php 
 									
-									if(is_null($arrCollection[0]['tot'])){
-										echo(0);
-									}else{
-										echo(number_format(round($arrCollection[0]['tot'])));
-									}
+									// if(is_null($arrCollection[0]['tot'])){
+									// 	echo(0);
+									// }else{
+									// 	echo(number_format(round($arrCollection[0]['tot'])));
+									// }
 								?>
   							</td>
-  						</tr>
+  						</tr> -->
   					
   						<?php
-						}
-					}
+					// 	}
+					// }
 					
+					$yearCollection = $DB->select("collection"," WHERE YEAR(date) = YEAR('{$date->format('Y-m-d')}')","SUM(payment) as tot");
 					
 				?>
-  				<tr>
-  					<td>Total</td>
-  					<td><?php echo(number_format(round($tot))) ?></td>
+				
+
+  					<th><?php echo($yearCollection[0]['tot']); ?></th>
   				</tr>
    				</table>
     		</center>
