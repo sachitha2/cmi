@@ -50,8 +50,10 @@ $DB->saveURL();
 <center>
 <table class="table table-hover table-bordered table-striped table-dark">
 	<tr>
+		
 		<th>Agent</th>
-		<th>Collection</th>
+		<td align="right"><b>Collection</b></td>
+		<th scope="col" width="50"></th>
 	</tr>
 
 <?php
@@ -67,8 +69,10 @@ $DB->saveURL();
 		
 			
 				<tr>
+					
 					<td><?php echo("{$dataUser['username']}"); ?></td>
-					<td><?php echo("{$arrCollection[0]['pay']}"); ?></td>
+					<td align="right"><?php echo("{$arrCollection[0]['pay']}"); ?></td>
+					<td><button type="button" class="btn btn-md btn-primary" onClick="collectionByAgentMoreDay(<?php echo("'".$dataUser['id']."','".$sql."','".$_GET['type']."','".$dataUser['username']."'"); ?>)">More..</button></td>
 				</tr>
 			
 		
@@ -81,8 +85,10 @@ $DB->saveURL();
 ?>
 
 	<tr>
+		
 		<th>Total</th>
-		<th><?php echo("{$tot}"); ?></th>
+		<td align="right"><b><?php echo("{$tot}"); ?></b></td>
+		<th scope="col" width="50"></th>
 	</tr>
 
 </table>
