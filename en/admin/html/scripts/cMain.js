@@ -3273,5 +3273,22 @@ function redirectCollectionPeriod(a){
 
  }
 
+ function collectionByAgentMoreYear(userId, date, type, userName){
+
+	loadingModal();
+	showModal();
+					
+	var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+    if (this.readyState === 4 && this.status == 200) {
+			document.getElementById("cStage").innerHTML  =  this.responseText;
+			hideModal();							
+    }
+    };
+	xmlhttp.open("GET", "subPages/collectionByAgentMoreYear.php?userId="+userId+"&date="+date+"&type="+type+"&userName="+userName, true);//generating  get method link
+    xmlhttp.send();
+
+ }
+
 
 

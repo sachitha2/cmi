@@ -12,14 +12,20 @@ $DB->saveURL();
     $date = $_GET['date'];
     $type = $_GET['type'];
     $userName = $_GET['userName'];
-    $main->head("{$type} by {$userName}");
+    
+    if($type=="monthO"){
+        $main->head(date("F", strtotime($date))." by {$userName}");
+    }else{
+        $main->head("{$type} by {$userName}");
+    }
+
     $main->b("collection.php");
 
     if($type == "week"){
         $days = 7;
         $sql = "WHERE WEEK(date) = WEEK('{$date}') AND DAYOFWEEK(date) = ";
     }
-    elseif($type == "month"){
+    elseif($type == "month" || $type == "monthO"){
         $month = date('m');
         switch($month){
             case 1:

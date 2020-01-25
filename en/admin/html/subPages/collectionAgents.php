@@ -88,7 +88,7 @@ $DB->saveURL();
 					<?php
 					}else if($_GET['type'] == 'year'){
 					?>
-						<!-- <td><button type="button" class="btn btn-md btn-primary" onClick="collectionByAgentMoreDay(<?php echo("{$dataUser['id']},'".date("Y-m-d")."','{$_GET['type']}','{$dataUser['username']}'"); ?>)">More..</button></td> -->
+						<td><button type="button" class="btn btn-md btn-primary" onClick="collectionByAgentMoreYear(<?php echo("{$dataUser['id']},'".date("Y-m-d")."','{$_GET['type']}','{$dataUser['username']}'"); ?>)">More..</button></td>
 					<?php
 					}else if($_GET['type'] == 'last_year'){
 					?>
