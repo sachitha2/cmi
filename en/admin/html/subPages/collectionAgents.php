@@ -72,7 +72,36 @@ $DB->saveURL();
 					
 					<td><?php echo("{$dataUser['username']}"); ?></td>
 					<td align="right"><?php echo("{$arrCollection[0]['pay']}"); ?></td>
-					<td><button type="button" class="btn btn-md btn-primary" onClick="collectionByAgentMoreDay(<?php echo("'".$dataUser['id']."','".$sql."','".$_GET['type']."','".$dataUser['username']."'"); ?>)">More..</button></td>
+
+				<?php
+					if($_GET['type'] == 'today'){
+					?>
+						<td><button type="button" class="btn btn-md btn-primary" onClick="collectionByAgentMoreDay(<?php echo("{$dataUser['id']},'".date("Y-m-d")."','{$_GET['type']}','{$dataUser['username']}'"); ?>)">More..</button></td>
+					<?php
+					}else if($_GET['type'] == 'month'){
+					?>
+						<td><button type="button" class="btn btn-md btn-primary" onClick="collectionByAgentMoreWeek(<?php echo("{$dataUser['id']},'".date("Y-m-d")."','{$_GET['type']}','{$dataUser['username']}'"); ?>)">More..</button></td>
+					<?php
+					}else if($_GET['type'] == 'week'){
+					?>
+						<td><button type="button" class="btn btn-md btn-primary" onClick="collectionByAgentMoreWeek(<?php echo("{$dataUser['id']},'".date("Y-m-d")."','{$_GET['type']}','{$dataUser['username']}'"); ?>)">More..</button></td>
+					<?php
+					}else if($_GET['type'] == 'year'){
+					?>
+						<!-- <td><button type="button" class="btn btn-md btn-primary" onClick="collectionByAgentMoreDay(<?php echo("{$dataUser['id']},'".date("Y-m-d")."','{$_GET['type']}','{$dataUser['username']}'"); ?>)">More..</button></td> -->
+					<?php
+					}else if($_GET['type'] == 'last_year'){
+					?>
+						<!-- <td><button type="button" class="btn btn-md btn-primary" onClick="collectionByAgentMoreDay(<?php echo("{$dataUser['id']},'".date("Y-m-d")."','{$_GET['type']}','{$dataUser['username']}'"); ?>)">More..</button></td> -->
+					<?php
+					}else if($_GET['type'] == 'period'){
+					?>
+						<!-- <td><button type="button" class="btn btn-md btn-primary" onClick="collectionByAgentMoreDay(<?php echo("{$dataUser['id']},'".date("Y-m-d")."','{$_GET['type']}','{$dataUser['username']}'"); ?>)">More..</button></td> -->
+					<?php
+					}
+				?>
+				
+				
 				</tr>
 			
 		

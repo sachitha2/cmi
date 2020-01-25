@@ -3239,7 +3239,7 @@ function redirectCollectionPeriod(a){
 	}
  }
 
- function collectionByAgentMoreDay(userId, sql, type, userName){
+ function collectionByAgentMoreDay(userId, date, type, userName){
 
 	loadingModal();
 	showModal();
@@ -3251,7 +3251,27 @@ function redirectCollectionPeriod(a){
 			hideModal();							
     }
     };
-	xmlhttp.open("GET", "subPages/collectionByAgentMoreDay.php?userId="+userId+"&sql="+sql+"&type="+type+"&userName="+userName, true);//generating  get method link
+	xmlhttp.open("GET", "subPages/collectionByAgentMoreDay.php?userId="+userId+"&date="+date+"&type="+type+"&userName="+userName, true);//generating  get method link
     xmlhttp.send();
 
  }
+
+ function collectionByAgentMoreWeek(userId, date, type, userName){
+
+	loadingModal();
+	showModal();
+					
+	var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+    if (this.readyState === 4 && this.status == 200) {
+			document.getElementById("cStage").innerHTML  =  this.responseText;
+			hideModal();							
+    }
+    };
+	xmlhttp.open("GET", "subPages/collectionByAgentMoreWeek.php?userId="+userId+"&date="+date+"&type="+type+"&userName="+userName, true);//generating  get method link
+    xmlhttp.send();
+
+ }
+
+
+

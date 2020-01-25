@@ -9,11 +9,14 @@ $main = new Main;
 $DB->conn = $conn;
 $DB->saveURL();
     $userId = $_GET['userId'];
-    $sql = $_GET['sql'];
+    $date = $_GET['date'];
     $type = $_GET['type'];
     $userName = $_GET['userName'];
     $main->head("{$type} by {$userName}");
-    $main->b("collection.php");
+	$main->b("collection.php");
+	
+	$sql = " WHERE DATE(date) = DATE('{$date}') AND userId =";
+
 ?>
 
 <center>
