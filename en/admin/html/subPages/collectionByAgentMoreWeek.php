@@ -24,8 +24,7 @@ $DB->saveURL();
     if($type == "week"){
         $days = 7;
         $sql = "WHERE WEEK(date) = WEEK('{$date}') AND DAYOFWEEK(date) = ";
-    }
-    elseif($type == "month" || $type == "monthO"){
+    }elseif($type == "month" || $type == "monthO"){
         $month = date('m');
         switch($month){
             case 1:
@@ -65,7 +64,7 @@ $DB->saveURL();
 <?php
 
     $tot = 0;
-    for($i=1; $i<=$days; $i++){
+    for($i=1; $i<=$days+1; $i++){
         $arr = $DB->select("collection",$sql."{$i} AND MONTH(date) = MONTH('{$date}') AND YEAR(date) = YEAR('{$date}') AND userId = {$userId}", "SUM(payment) as pay , date");
         if($arr[0]['pay'] != 0){
             $tot += $arr[0]['pay'];

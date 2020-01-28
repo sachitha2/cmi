@@ -9,8 +9,6 @@ $main = new Main;
 $DB->conn = $conn;
 $DB->saveURL();
 	if(isset($_GET['type'])){
-		
-		
 		$sql = " ";
 		if($_GET['type'] == 'today'){
 			//SELECT SUM(`payment`) as `pay` FROM `collection` WHERE MONTH(`date`) = MONTH(curdate()) AND YEAR(`date`) = YEAR(curdate()) AND `userId` = 7
@@ -31,10 +29,13 @@ $DB->saveURL();
 	}
 ?>
 <?php 
-	if($_GET['type'] != 'period')
+	if($_GET['type'] != 'period'){
 		$main->head("{$_GET['type']}");
-	else
-	$main->head("{$_GET['from']} to {$_GET['to']}");
+	}
+	else{
+		$main->head("{$_GET['from']} to {$_GET['to']}");
+	}
+	
 
 ?>
 <center>
@@ -90,13 +91,9 @@ $DB->saveURL();
 					?>
 						<td><button type="button" class="btn btn-md btn-primary" onClick="collectionByAgentMoreYear(<?php echo("{$dataUser['id']},'".date("Y-m-d")."','{$_GET['type']}','{$dataUser['username']}'"); ?>)">More..</button></td>
 					<?php
-					}else if($_GET['type'] == 'last_year'){
-					?>
-						<!-- <td><button type="button" class="btn btn-md btn-primary" onClick="collectionByAgentMoreDay(<?php echo("{$dataUser['id']},'".date("Y-m-d")."','{$_GET['type']}','{$dataUser['username']}'"); ?>)">More..</button></td> -->
-					<?php
 					}else if($_GET['type'] == 'period'){
 					?>
-						<!-- <td><button type="button" class="btn btn-md btn-primary" onClick="collectionByAgentMoreDay(<?php echo("{$dataUser['id']},'".date("Y-m-d")."','{$_GET['type']}','{$dataUser['username']}'"); ?>)">More..</button></td> -->
+						<td><button type="button" class="btn btn-md btn-primary" onClick="collectionByAgentMorePeriod(<?php echo("{$dataUser['id']},'{$_GET['from']}','{$_GET['to']}','{$_GET['type']}','{$dataUser['username']}'"); ?>)">More..</button></td>
 					<?php
 					}
 				?>
