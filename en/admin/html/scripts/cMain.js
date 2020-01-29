@@ -3292,6 +3292,74 @@ function redirectCollectionPeriod(a){
 
  function collectionByAgentMorePeriod(userId, from, to, type, userName){
 
+	loadingModal();
+	showModal();
+					
+	var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+    if (this.readyState === 4 && this.status == 200) {
+			document.getElementById("cStage").innerHTML  =  this.responseText;
+			hideModal();							
+    }
+    };
+	xmlhttp.open("GET", "subPages/collectionByAgentMorePeriod.php?userId="+userId+"&from="+from+"&to="+to+"&type="+type+"&userName="+userName, true);//generating  get method link
+    xmlhttp.send();
+
+ }
+
+ function collectionByAreaMoreDay(userId, date, type, userName){
+
+	loadingModal();
+	showModal();
+					
+	var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+    if (this.readyState === 4 && this.status == 200) {
+			document.getElementById("cStage").innerHTML  =  this.responseText;
+			hideModal();							
+    }
+    };
+	xmlhttp.open("GET", "subPages/collectionByAreaMoreDay.php?userId="+userId+"&date="+date+"&type="+type+"&userName="+userName, true);//generating  get method link
+    xmlhttp.send();
+
+ }
+
+ function collectionByAreaMoreWeek(userId, date, type, userName){
+
+	loadingModal();
+	showModal();
+					
+	var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+    if (this.readyState === 4 && this.status == 200) {
+			document.getElementById("cStage").innerHTML  =  this.responseText;
+			hideModal();							
+    }
+    };
+	xmlhttp.open("GET", "subPages/collectionByAreaMoreWeek.php?userId="+userId+"&date="+date+"&type="+type+"&userName="+userName, true);//generating  get method link
+    xmlhttp.send();
+
+ }
+
+ function collectionByAreaMoreYear(userId, date, type, userName){
+
+	loadingModal();
+	showModal();
+					
+	var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+    if (this.readyState === 4 && this.status == 200) {
+			document.getElementById("cStage").innerHTML  =  this.responseText;
+			hideModal();							
+    }
+    };
+	xmlhttp.open("GET", "subPages/collectionByAreaMoreYear.php?userId="+userId+"&date="+date+"&type="+type+"&userName="+userName, true);//generating  get method link
+    xmlhttp.send();
+
+ }
+
+ function collectionByAreaMorePeriod(userId, from, to, type, userName){
+
 	//console.log(userId + from + to+ type+userName+" ");
 
 	loadingModal();
@@ -3304,7 +3372,7 @@ function redirectCollectionPeriod(a){
 			hideModal();							
     }
     };
-	xmlhttp.open("GET", "subPages/collectionByAgentMorePeriod.php?userId="+userId+"&from="+from+"&to="+to+"&type="+type+"&userName="+userName, true);//generating  get method link
+	xmlhttp.open("GET", "subPages/collectionByAreaMorePeriod.php?userId="+userId+"&from="+from+"&to="+to+"&type="+type+"&userName="+userName, true);//generating  get method link
     xmlhttp.send();
 
  }

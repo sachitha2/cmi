@@ -69,6 +69,31 @@ $DB->saveURL();
 				<tr>
 					<td><?php echo("{$dataArea['name']}"); ?></td>
 					<td><?php echo("{$arrCollection[0]['pay']}"); ?></td>
+
+				<?php
+					if($_GET['type'] == 'today'){
+					?>
+						<td><button type="button" class="btn btn-md btn-primary" onClick="collectionByAreaMoreDay(<?php echo("{$dataArea['id']},'".date("Y-m-d")."','{$_GET['type']}','{$dataArea['name']}'"); ?>)">More..</button></td>
+					<?php
+					}else if($_GET['type'] == 'month'){
+					?>
+						<td><button type="button" class="btn btn-md btn-primary" onClick="collectionByAreaMoreWeek(<?php echo("{$dataArea['id']},'".date("Y-m-d")."','{$_GET['type']}','{$dataArea['name']}'"); ?>)">More..</button></td>
+					<?php
+					}else if($_GET['type'] == 'week'){
+					?>
+						<td><button type="button" class="btn btn-md btn-primary" onClick="collectionByAreaMoreWeek(<?php echo("{$dataArea['id']},'".date("Y-m-d")."','{$_GET['type']}','{$dataArea['name']}'"); ?>)">More..</button></td>
+					<?php
+					}else if($_GET['type'] == 'year'){
+					?>
+						<td><button type="button" class="btn btn-md btn-primary" onClick="collectionByAreaMoreYear(<?php echo("{$dataArea['id']},'".date("Y-m-d")."','{$_GET['type']}','{$dataArea['name']}'"); ?>)">More..</button></td>
+					<?php
+					}else if($_GET['type'] == 'period'){
+					?>
+						<td><button type="button" class="btn btn-md btn-primary" onClick="collectionByAreaMorePeriod(<?php echo("{$dataArea['id']},'{$_GET['from']}','{$_GET['to']}','{$_GET['type']}','{$dataArea['name']}'"); ?>)">More..</button></td>
+					<?php
+					}
+				?>
+
 				</tr>
 			
 		
