@@ -8,13 +8,13 @@ $DB = new DB;
 $main = new Main;
 $DB->conn = $conn;
 $DB->saveURL();
-    $userId = $_GET['userId'];
+    $areaId = $_GET['areaId'];
     $from = $_GET['from'];
     $to = $_GET['to'];
     $type = $_GET['type'];
-    $userName = $_GET['userName'];
+    $areaName = $_GET['areaName'];
     
-    $main->head("{$from} to {$to} by {$userName}");
+    $main->head("{$from} to {$to} in {$areaName}");
    
     $main->b("collection.php");
         
@@ -31,7 +31,7 @@ $DB->saveURL();
 <?php
 
     $tot = 0;
-    $arr = $DB->select("collection","WHERE DATE(date) >= DATE('{$from}') AND DATE(date) <= DATE('{$to}') AND userId = {$userId} GROUP BY date", "SUM(payment) as payment, date");
+    $arr = $DB->select("collection","WHERE DATE(date) >= DATE('{$from}') AND DATE(date) <= DATE('{$to}') AND dealid IN (SELECT id FROM deals WHERE cid IN (SELECT id FROM customer WHERE areaid = {$areaId})) GROUP BY date", "SUM(payment) as payment, date");
     //print_r($arr);
     for($i=0; $i<sizeof($arr); $i++){
         if($arr[$i]['payment'] != 0){
@@ -40,7 +40,7 @@ $DB->saveURL();
             <tr>
                 <td><?php echo("{$arr[$i]['date']}"); ?></td>
 				<td align="right"><?php echo("{$arr[$i]['payment']}"); ?></td>
-                <td><button type="button" class="btn btn-md btn-primary" onClick="collectionByAgentMoreDay(<?php echo("{$userId},'{$arr[$i]['date']}','{$arr[$i]['date']}','{$userName}'"); ?>)">More..</button></td>
+                <td><button type="button" class="btn btn-md btn-primary" onClick="collectionByAreaMoreDay(<?php echo("{$areaId},'{$arr[$i]['date']}','{$arr[$i]['date']}','{$areaName}'"); ?>)">More..</button></td>
 			</tr>
 
 
