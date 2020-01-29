@@ -3307,7 +3307,7 @@ function redirectCollectionPeriod(a){
 
  }
 
- function collectionByAreaMoreDay(userId, date, type, userName){
+ function collectionByAreaMoreDay(areaId, date, type, areaName){
 
 	loadingModal();
 	showModal();
@@ -3319,12 +3319,12 @@ function redirectCollectionPeriod(a){
 			hideModal();							
     }
     };
-	xmlhttp.open("GET", "subPages/collectionByAreaMoreDay.php?userId="+userId+"&date="+date+"&type="+type+"&userName="+userName, true);//generating  get method link
+	xmlhttp.open("GET", "subPages/collectionByAreaMoreDay.php?areaId="+areaId+"&date="+date+"&type="+type+"&areaName="+areaName, true);//generating  get method link
     xmlhttp.send();
 
  }
 
- function collectionByAreaMoreWeek(userId, date, type, userName){
+ function collectionByAreaMoreWeek(areaId, date, type, areaName){
 
 	loadingModal();
 	showModal();
@@ -3336,12 +3336,12 @@ function redirectCollectionPeriod(a){
 			hideModal();							
     }
     };
-	xmlhttp.open("GET", "subPages/collectionByAreaMoreWeek.php?userId="+userId+"&date="+date+"&type="+type+"&userName="+userName, true);//generating  get method link
+	xmlhttp.open("GET", "subPages/collectionByAreaMoreWeek.php?areaId="+areaId+"&date="+date+"&type="+type+"&areaName="+areaName, true);//generating  get method link
     xmlhttp.send();
 
  }
 
- function collectionByAreaMoreYear(userId, date, type, userName){
+ function collectionByAreaMoreYear(areaId, date, type, areaName){
 
 	loadingModal();
 	showModal();
@@ -3353,12 +3353,12 @@ function redirectCollectionPeriod(a){
 			hideModal();							
     }
     };
-	xmlhttp.open("GET", "subPages/collectionByAreaMoreYear.php?userId="+userId+"&date="+date+"&type="+type+"&userName="+userName, true);//generating  get method link
+	xmlhttp.open("GET", "subPages/collectionByAreaMoreYear.php?areaId="+areaId+"&date="+date+"&type="+type+"&areaName="+areaName, true);//generating  get method link
     xmlhttp.send();
 
  }
 
- function collectionByAreaMorePeriod(userId, from, to, type, userName){
+ function collectionByAreaMorePeriod(areaId, from, to, type, areaName){
 
 	//console.log(userId + from + to+ type+userName+" ");
 
@@ -3372,7 +3372,7 @@ function redirectCollectionPeriod(a){
 			hideModal();							
     }
     };
-	xmlhttp.open("GET", "subPages/collectionByAreaMorePeriod.php?userId="+userId+"&from="+from+"&to="+to+"&type="+type+"&userName="+userName, true);//generating  get method link
+	xmlhttp.open("GET", "subPages/collectionByAreaMorePeriod.php?areaId="+areaId+"&from="+from+"&to="+to+"&type="+type+"&areaName="+areaName, true);//generating  get method link
     xmlhttp.send();
 
  }

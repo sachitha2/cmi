@@ -52,6 +52,7 @@ $DB->saveURL();
 	<tr>
 		<th>Area</th>
 		<th>Collection</th>
+		<th scope="col" width="50"></th>
 	</tr>
 
 <?php
