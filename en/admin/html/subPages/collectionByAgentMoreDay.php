@@ -24,6 +24,8 @@ $DB->saveURL();
 	<tr>
 		<th>ID</th>
 		<th>Deal ID</th>
+		<th>Customer ID</th>
+		<th>Customer Name</th>
         <th >Date</th>
 		<td align="right"><b>Collection</b></td>
 	</tr>
@@ -41,6 +43,12 @@ $DB->saveURL();
 				<tr>
 					<td><?php echo("{$dataCollection['id']}"); ?></td>
 					<td><?php echo("{$dataCollection['dealid']}"); ?></td>
+					<?php
+						$arr = $DB->select("customer","WHERE id IN (SELECT cid FROM deals WHERE id = {$dataCollection['dealid']})", "id, name");
+						//print_r($arr);
+					?>
+					<td><?php echo("{$arr[0]['id']}"); ?></td>
+					<td><?php echo("{$arr[0]['name']}"); ?></td>
                     <td><?php echo("{$dataCollection['date']}"); ?></td>
 					<td align="right"><?php echo("{$dataCollection['payment']}"); ?></td>
 				</tr>
@@ -55,7 +63,7 @@ $DB->saveURL();
 
 	<tr>
 		
-		<th colspan="3">Total</th>
+		<th colspan="5">Total</th>
 		<td align="right"><b><?php echo("{$tot}"); ?></b></td>
 	</tr>
 
