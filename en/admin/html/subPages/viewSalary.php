@@ -4,8 +4,36 @@ require_once("../../methods/DB.class.php");
 require_once("../../methods/Main.class.php");
 $DB = new DB;
 $main = new Main;
-$DB->conn = $conn;?>
-<script>$('#myModal').modal('show')</script>
+$DB->conn = $conn;
+$DB->saveURL();
+
+
+	if(isset($_GET['type'])){
+		
+		
+		$sql = " ";
+		if($_GET['type'] == 'today'){
+			//SELECT SUM(`payment`) as `pay` FROM `collection` WHERE MONTH(`date`) = MONTH(curdate()) AND YEAR(`date`) = YEAR(curdate()) AND `userId` = 7
+			$sql = " WHERE date = curdate()";
+		}else if($_GET['type'] == 'month'){
+			$sql = " WHERE MONTH(date) = MONTH(curdate()) AND YEAR(date) = YEAR(curdate())";
+		}else if($_GET['type'] == 'week'){
+			$sql = " WHERE WEEK(date) = WEEK(curdate()) AND MONTH(date) = MONTH(curdate()) AND YEAR(date) = YEAR(curdate())";
+		}else if($_GET['type'] == 'year'){
+			$sql = " WHERE YEAR(date) = YEAR(curdate())";
+		}else if($_GET['type'] == 'last_year'){
+			$sql = " WHERE YEAR(date) = YEAR(curdate())";
+		}else if($_GET['type'] == 'period'){
+			$sql = " WHERE DATE(date) >= DATE('{$_GET['from']}') AND DATE(date) <= DATE('{$_GET['to']}')";
+		}
+	}else{
+		$sql = "";
+	}
+
+$main->head("View Salary - {$_GET['type']}");
+
+?>
+
 <?php $main->b("salary.php") ?>
 <?php
 	include("../../workers/readSesson.worker.php");
@@ -15,7 +43,7 @@ $DB->conn = $conn;?>
 <div class="container h-100" id="cStage">
 		
 	<?php
-	if($DB->nRow("salary","") != 0){
+	if($DB->nRow("salary",$sql) != 0){
 	?>
 	
 	
@@ -126,6 +154,68 @@ $DB->conn = $conn;?>
 				</center>
 				<br>
 			<?php
+			}else{
+				
+				
+				?>
+				<center>
+	
+					<button class="btn btn-default btn-lg"   onClick="ajaxCommonGetFromNet('subPages/viewSalary.php?type=today','cStage')">Today</button>
+					<button class="btn btn-default btn-lg"   onClick="ajaxCommonGetFromNet('subPages/viewSalary.php?type=week','cStage')">Week</button>
+					<button class="btn btn-default btn-lg"   onClick="ajaxCommonGetFromNet('subPages/viewSalary.php?type=month','cStage')">Month</button>
+					<button class="btn btn-default btn-lg"   onClick="ajaxCommonGetFromNet('subPages/viewSalary.php?type=year','cStage')">Year</button>
+					<button class="btn btn-default btn-lg"   onClick="ajaxCommonGetFromNet('subPages/collectionAreasPeriod.php?type=period','cStage')">Period</button>
+				</center>
+				<table  class="table table-hover table-bordered table-striped table-dark">
+					<thead class="thead-dark">
+						<tr>
+							<th>ID</th>
+							<th>User Id</th>
+							<th>Date</th>
+							<th>Name</th>
+							<th>Amount</th>
+						</tr>
+					</thead>
+					<tbody>	
+					
+					<?php
+						$numRows = $DB->select("salary",$sql);
+				
+						$x = 1;
+						foreach($numRows as $data){
+//							print_r($data);
+							
+							?>
+								
+									<tr>
+										
+										<td><?php echo($x++) ?></td>
+										<td><?php echo($data['userId']) ?></td>
+										<td><?php echo($data['date']) ?></td>
+										<td><?php echo($DB->getUserById($data['userId'])) ?></td>
+										<td><?php echo($data['cost']) ?></td>
+									</tr>
+
+								
+							
+							<?php
+							
+							echo("<br>");
+						}
+				
+							$total = $DB->select("salary","","SUM(cost) as tot");
+					
+						
+						?>
+					
+					
+					<tr>
+						<td colspan="4">Total</td>
+						<td ><?php echo(round($total[0]['tot'],2)) ?></td>
+					</tr>
+					</tbody>
+				</table>
+				<?php
 			}
 			?>
 
