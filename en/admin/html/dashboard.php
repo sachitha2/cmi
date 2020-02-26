@@ -143,7 +143,43 @@ $date = new DateTime("now", new DateTimeZone('Asia/Colombo') );
 				</div>
 	 		
 			</div>
+<!--			Collecttion start-->
+			<div class="card-deck mb-3 text-center" style="padding-left: 50px;padding-right: 50px;padding-top: 10px;">  
+	 			<div class="card mb-4 shadow-sm">
+					  <div class="card-header">
+						<h4 class="my-0 font-weight-normal text-primary">Today</h4>
+					  </div>
+
+					  <div class="card-header">
+				  			<center><h4 class="my-0 font-weight-normal text-primary" ><?php 
+						  		$arrCollToday = $DB->select("collection","WHERE date = '".$date->format('Y-m-d')."'","SUM(payment) as payment");
+//						  		print_r($arrCollToday);
+						  		echo(number_format(round($arrCollToday[0]['payment'])));
+								?></h4></center>
+					  </div>
+				</div>
+				
+				<div class="card mb-4 shadow-sm">
+					  <div class="card-header">
+						<h4 class="my-0 font-weight-normal text-primary">Month</h4>
+					  </div>
+
+					  <div class="card-header">
+						  <center><h4 class="my-0 font-weight-normal text-primary" >2500</h4></center>
+					  </div>
+				</div>
+				<div class="card mb-4 shadow-sm">
+					  <div class="card-header">
+						<h4 class="my-0 font-weight-normal text-primary">Year</h4>
+					  </div>
+
+					  <div class="card-header">
+					  		<center><h4 class="my-0 font-weight-normal text-primary" >2500</h4></center>
+					  </div>
+				</div>
 	 		
+			</div>
+<!--	 		Collection end-->
 			
 			
 	 	

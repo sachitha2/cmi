@@ -6,7 +6,6 @@ $DB = new DB;
 $main = new Main;
 //$main->head("Salary");
 $DB->conn = $conn;?>
-<script>$('#myModal').modal('show')</script>
 <?php $main->b("salary.php"); ?>
 
 <?php
@@ -15,7 +14,8 @@ $DB->conn = $conn;?>
 
     <?php
     $logic = $_GET['logic'];
-	if($DB->nRow("salary",$logic) != 0){
+	echo($logic);
+	if($DB->nRow("cost",$logic) != 0){
 	?>
 	
 	<table class="table table-hover table-bordered table-striped table-dark">
@@ -35,7 +35,7 @@ $DB->conn = $conn;?>
 			<?php
 			
 					if($_SESSION["login"]['type'] == 1){//admin
-						$arr = $DB->select("salary",$logic);
+						$arr = $DB->select("cost",$logic);
 					}else if($_SESSION["login"]['type'] == 2){//agent
 
 						$user = $_SESSION["login"]['user'];
@@ -43,7 +43,7 @@ $DB->conn = $conn;?>
 						foreach($arrTemp1 as $dataTemp1){
 							$id = $dataTemp1['id'];	
 						} 
-						$arr = $DB->select("salary",$logic);
+						$arr = $DB->select("cost",$logic);
 
 					}
 
