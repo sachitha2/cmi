@@ -47,7 +47,11 @@ $DB->saveURL();
 						$arr = $DB->select("customer","WHERE id IN (SELECT cid FROM deals WHERE id = {$dataCollection['dealid']})", "id, name");
 						//print_r($arr);
 					?>
-					<td><?php echo("{$arr[0]['id']}"); ?></td>
+					<td>
+						<a href="viewCustomer.php?cid=<?php echo("{$arr[0]['id']}"); ?>">
+							<button class="btn btn-info btn-sm" style="cursor: pointer"><?php echo("{$arr[0]['id']}"); ?></button>
+						</a>
+					</td>
 					<td><?php echo("{$arr[0]['name']}"); ?></td>
                     <td><?php echo("{$dataCollection['date']}"); ?></td>
 					<td align="right"><?php echo("{$dataCollection['payment']}"); ?></td>
