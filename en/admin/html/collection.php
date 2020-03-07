@@ -67,7 +67,9 @@ $date = new DateTime("now", new DateTimeZone('Asia/Colombo') );
     			<?php $main->cardHeader("Today - {$date->format('Y-m-d')}") ?>
     			<table width="50%" class="table table-hover table-bordered table-striped table-dark">
     				<tr>
+
     					<th width="200">Total</th>
+
     				
     			
     			<?php
@@ -121,7 +123,9 @@ $date = new DateTime("now", new DateTimeZone('Asia/Colombo') );
    				<?php $main->cardHeader("This Month - ".date('F', mktime(0, 0, 0, date('m'), 10))) ?>
     			<table  class="table table-hover table-bordered table-striped table-dark">
     				<tr>
+
     					<th width="200">Total</th>
+
     			
     			
     			<?php
@@ -170,7 +174,9 @@ $date = new DateTime("now", new DateTimeZone('Asia/Colombo') );
    				<?php $main->cardHeader("This Year - 20".date('y')) ?>
     			<table  class="table table-hover table-bordered table-striped table-dark">
     				<tr>
+
     					<th width="200">Total</th>
+
     				
 					
     			<?php
