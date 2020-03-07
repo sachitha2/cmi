@@ -67,7 +67,7 @@ $date = new DateTime("now", new DateTimeZone('Asia/Colombo') );
     			<?php $main->cardHeader("Today - {$date->format('Y-m-d')}") ?>
     			<table width="50%" class="table table-hover table-bordered table-striped table-dark">
     				<tr>
-    					<th>Total</th>
+    					<th width="200">Total</th>
     				
     			
     			<?php
@@ -112,7 +112,7 @@ $date = new DateTime("now", new DateTimeZone('Asia/Colombo') );
 					
 				?>
   				
-  						<th><?php echo($todayCollection[0]['tot']); ?></th>
+  						<th><center><?php echo(round($todayCollection[0]['tot'])); ?></center></th>
   					</tr>
    				</table>
    				
@@ -121,7 +121,7 @@ $date = new DateTime("now", new DateTimeZone('Asia/Colombo') );
    				<?php $main->cardHeader("This Month - ".date('F', mktime(0, 0, 0, date('m'), 10))) ?>
     			<table  class="table table-hover table-bordered table-striped table-dark">
     				<tr>
-    					<th>Total</th>
+    					<th width="200">Total</th>
     			
     			
     			<?php
@@ -162,7 +162,7 @@ $date = new DateTime("now", new DateTimeZone('Asia/Colombo') );
 					$monthCollection = $DB->select("collection"," WHERE MONTH(date) = MONTH('{$date->format('Y-m-d')}') AND YEAR(date) = YEAR('{$date->format('Y-m-d')}')","SUM(payment) as tot");
 				
 				?>
-  					<th><?php echo($monthCollection[0]['tot']); ?></th>
+  					<th><center><?php echo(round($monthCollection[0]['tot'])); ?></center></th>
   				</tr>
    				</table>
    				
@@ -170,7 +170,7 @@ $date = new DateTime("now", new DateTimeZone('Asia/Colombo') );
    				<?php $main->cardHeader("This Year - 20".date('y')) ?>
     			<table  class="table table-hover table-bordered table-striped table-dark">
     				<tr>
-    					<th>Total</th>
+    					<th width="200">Total</th>
     				
 					
     			<?php
@@ -213,7 +213,7 @@ $date = new DateTime("now", new DateTimeZone('Asia/Colombo') );
 				?>
 				
 
-  					<th><?php echo($yearCollection[0]['tot']); ?></th>
+  					<th><center><b><?php echo(round($yearCollection[0]['tot'],2)); ?></b></center></th>
   				</tr>
    				</table>
     		</center>
