@@ -24,9 +24,11 @@ $DB->saveURL();
 	<tr>
 		<th>ID</th>
 		<th>Deal ID</th>
-		<th>Customer ID</th>
-		<th>Customer Name</th>
-        <th >Date</th>
+
+		<th>CID</th>
+		<th>C.Name</th>
+<!--        <th >Date</th>-->
+
 		<td align="right"><b>Collection</b></td>
 	</tr>
 
@@ -43,18 +45,17 @@ $DB->saveURL();
 				<tr>
 					<td><?php echo("{$dataCollection['id']}"); ?></td>
 					<td><?php echo("{$dataCollection['dealid']}"); ?></td>
-					<?php
-						$arr = $DB->select("customer","WHERE id IN (SELECT cid FROM deals WHERE id = {$dataCollection['dealid']})", "id, name");
-						//print_r($arr);
+
+					<?php 
+		
+						$cData  = $DB->select("deals","WHERE id = {$dataCollection['dealid']}");
+//						print_r($cData);
+		
 					?>
-					<td>
-						<a href="viewCustomer.php?cid=<?php echo("{$arr[0]['id']}"); ?>">
-							<button class="btn btn-info btn-sm" style="cursor: pointer"><?php echo("{$arr[0]['id']}"); ?></button>
-						</a>
-					</td>
-					
-					<td><?php echo("{$arr[0]['name']}"); ?></td>
-                    <td><?php echo("{$dataCollection['date']}"); ?></td>
+					<td><?php echo("{$cData[0]['cid']}"); ?></td>
+					<td><?php $DB->getCustomerById($cData[0]['cid']); ?></td>
+<!--                    <td><?php echo("{$dataCollection['date']}"); ?></td>-->
+
 					<td align="right"><?php echo("{$dataCollection['payment']}"); ?></td>
 				</tr>
 			
@@ -68,7 +69,8 @@ $DB->saveURL();
 
 	<tr>
 		
-		<th colspan="5">Total</th>
+		<th colspan="4">Total</th>
+
 		<td align="right"><b><?php echo("{$tot}"); ?></b></td>
 	</tr>
 
