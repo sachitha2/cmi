@@ -101,11 +101,11 @@ $main = new Main;
     <div class="container h-100" id="cStage">
     		
     		<center> 
-				<a href="createCustomer.php"><button type="button" class="btn btn-primary btn-lg"  style="width: 40%;margin-bottom: 5px;background-image: url(http://localhost/shop/en/admin/assets/icons/findUser.svg);background-repeat: no-repeat;width: 200px;height: 200px;background-size: 190px 190px;color: white;">Find | ADD </button></a>
+				<a href="createCustomer.php"><button type="button" class="btn btn-primary btn-lg"  style="width: 40%;margin-bottom: 5px;background-image: url(../assets/icons/findUser.svg);background-repeat: no-repeat;width: 200px;height: 200px;background-size: 190px 190px;color: white;">Find | ADD </button></a>
 <!--				<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/addACustomer.php','cStage')"  style="width: 40%;margin-bottom: 5px;">ADD | Without NIC</button>-->
-				<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/customers.STE.php','cStage')"  style="width: 40%;margin-bottom: 5px;background-image: url(http://localhost/shop/en/admin/assets/icons/editUser.svg);background-repeat: no-repeat;width: 200px;height: 200px;background-size: 190px 190px;">Edit</button>
+				<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/customers.STE.php','cStage')"  style="width: 40%;margin-bottom: 5px;background-image: url(../assets/icons/editUser.svg);background-repeat: no-repeat;width: 200px;height: 200px;background-size: 190px 190px;">Edit</button>
 <!--				<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/deleteArea.php','cStage')"  style="width: 40%;margin-bottom: 5px;">Delete</button>-->
-				<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/viewCustomers.php','cStage')"  style="width: 40%;margin-bottom: 5px;background-image: url(http://localhost/shop/en/admin/assets/icons/add.png);background-repeat: no-repeat;width: 200px;height: 200px;background-size: 200px 200px;">View</button>
+				<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/viewCustomers.php','cStage')"  style="width: 40%;margin-bottom: 5px;background-image: url(../assets/icons/add.png);background-repeat: no-repeat;width: 200px;height: 200px;background-size: 200px 200px;">View</button>
 <!--				<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/searchCustomers.php','cStage')"  style="width: 40%;margin-bottom: 5px;">Advance Search</button>-->
     		</center>
     		
