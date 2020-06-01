@@ -58,7 +58,22 @@ $DB->conn = $conn;?>
 		
 		<div>Date of Birth</div>
 		<div><input type="date" class="form-control" name="dob" id="dob" style="width: 200px"></div>
-		
+
+		<div>Job</div>
+		<div><select name="job" id="job" class="form-control"  style="width: 200px">
+			<option class='form-control' value='0'>SELECT JOB</option>
+			<?php
+				$jobs = $DB->select("job","");
+				foreach($jobs as $data){
+					echo "<option class='form-control' value='{$data['id']}'>{$data['name']}</option>";
+				}
+			// $queryForSelection = $conn->query("SELECT * FROM job");
+			// while ($row = mysqli_fetch_assoc($queryForSelection)) {
+			//  	
+			//  	print_r($row);
+			// } 
+			?>
+		</select></div>
 		
 		<div>Route</div>
 		<div><textarea id="route" placeholder="Enter Route" class="form-control"></textarea></div>
@@ -74,6 +89,7 @@ $DB->conn = $conn;?>
 
 		?>
 		</select></div>
+
 		<div>Staf Agent name</div>
 		<div>
 			<select class="form-control" name="agent" id="agent"  style="width: 200px">
