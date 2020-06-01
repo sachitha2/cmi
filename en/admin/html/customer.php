@@ -105,9 +105,7 @@ $main = new Main;
 <!--				<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/addACustomer.php','cStage')"  style="width: 40%;margin-bottom: 5px;">ADD | Without NIC</button>-->
 				<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/customers.STE.php','cStage')"  style="width: 40%;margin-bottom: 5px;background-image: url(../assets/icons/editUser.svg);background-repeat: no-repeat;width: 200px;height: 200px;background-size: 190px 190px;">Edit</button>
 <!--				<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/deleteArea.php','cStage')"  style="width: 40%;margin-bottom: 5px;">Delete</button>-->
-				<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/viewCustomers.php','cStage')"  style="width: 40%;margin-bottom: 5px;background-image: url(../assets/icons/add.png);background-repeat: no-repeat;width: 200px;height: 200px;background-size: 200px 200px;">View</button>
-<!--				<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/searchCustomers.php','cStage')"  style="width: 40%;margin-bottom: 5px;">Advance Search</button>-->
-    		</center>
+				</center>
     		
      		<div class="card-header" style="padding-bottom: 10px;padding-top: 10px;margin-top: 20px;">
         			<center><h1 class="my-0 font-weight-normal text-info">Customers - Area </h1></center>
