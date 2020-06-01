@@ -141,6 +141,9 @@
 										$DB->getItemNameByStockId($dataitems['itemid']);
 										echo(" X ");
 										echo($dataitems['amount']);
+										?>
+										<button type="button" class="btn btn-danger" onClick="returnItem('<?php $DB->getItemNameByStockId($dataitems['itemid']) ?>',<?php echo($dataitems['amount']) ?>)">Return</button>
+										<?php
 										echo("<br>");
 									}
 								?>
