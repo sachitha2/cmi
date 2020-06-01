@@ -72,7 +72,7 @@ $DB->saveURL();
 			
 				<tr>
 					<td><?php echo("{$dataArea['name']}"); ?></td>
-					<td><?php echo("{$arrCollection[0]['pay']}"); ?></td>
+					<td><?php echo(round($arrCollection[0]['pay'])); ?></td>
 
 				<?php
 					if($_GET['type'] == 'today'){
@@ -111,7 +111,7 @@ $DB->saveURL();
 
 	<tr>
 		<th>Total</th>
-		<th><?php echo("{$tot}"); ?></th>
+		<th><?php echo(round($tot)); ?></th>
 	</tr>
 
 </table>

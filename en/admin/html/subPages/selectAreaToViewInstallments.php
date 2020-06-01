@@ -122,6 +122,10 @@
 											
 										?>
 									</h2>
+									
+									
+									<button onClick="selectAreaToViewInstallments(<?php echo($data['id']) ?>);">Go to Sub Areas</button>
+									<button onClick="selectAreaToViewInstallments();">View</button>
 								  </div>
 								  
 								  
