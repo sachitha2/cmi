@@ -3379,5 +3379,50 @@ function redirectCollectionPeriod(a){
 
  }
 
+function returnItem(itemName,amount){
+			showModal();
+			stage = document.getElementById("mainModal");
+			stage.style.opacity = 0.9;
+			stage.style.color = "white";
+			stage.style.background = "black";
+//			
+			var ajax = _ajax();
+			ajax.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+//	    		alert(this.responseText);
+					stage.innerHTML = ""
+					stage.innerHTML += this.responseText;
+					
+				}
+	  		}
+
+			ajax.open("GET", "subPages/returnItemsUI.php?itemName="+itemName+"&amount="+amount, true);
+			ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+			ajax.send();
+
+}
+
+
+function returnItemFinal(){
+	reason = document.getElementById('reason').value;
+	amount = document.getElementById('amount').value;
+	condition = document.getElementById('state').value;
+	
+	
+	if(reason == ""){
+		alert("Please enter a return reason");
+		
+	}else{
+		var data = {"reason":reason
+			   ,"amount":amount,
+				"condition":condition
+			   };
+	
+		console.log(data);
+	}
+	
+	
+}
+
 
 
