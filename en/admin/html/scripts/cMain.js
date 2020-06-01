@@ -479,6 +479,7 @@ function addCustomer(){
 	var address = document.getElementById('address').value;
 	
 	var dob = document.getElementById('dob').value;
+	var job = document.getElementById('job').value;
 	var route = document.getElementById('route').value;
 	
 	var sName = document.getElementById('sName').value;
@@ -506,7 +507,7 @@ function addCustomer(){
 	
 	
 
-	data = {'name':name , 'address':address, 'nic':nic, 'tp':tp, 'area':area, 'date':date, 'agent':agent ,'dob':dob,'route':route,'image':image,'areaAgent':areaAgent,'sName':sName,'desi':desi,'collectionDate':collectionDate,'subAreaId':subAreaId};
+	data = {'name':name , 'address':address, 'nic':nic, 'tp':tp, 'area':area, 'date':date, 'agent':agent ,'dob':dob,'job':job,'route':route,'image':image,'areaAgent':areaAgent,'sName':sName,'desi':desi,'collectionDate':collectionDate,'subAreaId':subAreaId};
 		////Valida ting data 
 		
 		if(desi == 0){
@@ -566,6 +567,7 @@ function addCustomerWithoutAIdCardN(){
 	var desi = document.getElementById('desi').value;
 	
 	var dob = document.getElementById('dob').value;
+	var job = document.getElementById('job').value;
 	var route = document.getElementById('route').value;
 	
 	var tp = document.getElementById('tp').value;
@@ -585,7 +587,7 @@ function addCustomerWithoutAIdCardN(){
 	
 	
 
-	data = {'name':name , 'address':address,  'tp':tp, 'area':area, 'date':date, 'agent':agent ,'dob':dob,'route':route,'image':image,'areaAgent':areaAgent, 'sName':sName,'desi':desi};
+	data = {'name':name , 'address':address,  'tp':tp, 'area':area, 'date':date, 'agent':agent ,'dob':dob,'job':job,'route':route,'image':image,'areaAgent':areaAgent, 'sName':sName,'desi':desi};
 		////Valida ting data 
 		msg = document.getElementById("msg");
 		if(desi == "0"){

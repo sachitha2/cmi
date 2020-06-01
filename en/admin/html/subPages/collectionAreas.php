@@ -31,10 +31,13 @@ $DB->saveURL();
 	}
 ?>
 <?php 
+
+	$main->b("collection.php");
+
 	if($_GET['type'] != 'period')
-		$main->head("{$_GET['type']}");
+		$main->head("{$_GET['type']} Areawise");
 	else
-	$main->head("{$_GET['from']} to {$_GET['to']}");
+	$main->head("{$_GET['from']} to {$_GET['to']} Areawise");
 
 ?>
 <center>
