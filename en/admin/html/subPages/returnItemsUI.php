@@ -1,6 +1,11 @@
 <?php
 	$itemName = $_GET['itemName'];
 	$amount = $_GET['amount'];
+	$cid = $_GET['cid'];
+	$dealId = $_GET['dealId'];
+	$uprice = $_GET['uprice'];
+	$stockid = $_GET['stockId'];
+	$pId = $_GET['pId'];
 
 ?>
 <h1>Enter  reason for the return <strong style='color:red'> <?php echo($itemName) ?></strong>.</h1>
@@ -35,6 +40,6 @@
 		
 	</select>
 </div>
-<button onclick='returnItemFinal()' class='btn btn-primary btn-lg'>Return</button>
+<button onclick='returnItemFinal(<?php echo($cid) ?>,<?php echo($dealId) ?>,<?php echo($uprice) ?>,<?php echo($stockid) ?>,<?php echo($pId) ?>)' class='btn btn-primary btn-lg'>Return</button>
 <br>
 <button onclick='hideModal()' class='btn btn-danger btn-lg'>CLOSE</button>

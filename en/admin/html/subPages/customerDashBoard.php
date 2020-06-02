@@ -82,7 +82,19 @@
  				
 				<div class="card mb-4 shadow-sm">
 				  <div class="card-header">
-					<h1 class="my-0 font-weight-normal text-primary">#<?php echo($x++) ?></h1>
+					<h1 class="my-0 font-weight-normal text-primary">#<?php echo($x++) ?>
+						<?php 
+							//looking for returns
+							$nReturn = $DB->nRow("itemreturn","WHERE dealId = {$dataDeals['id']}");
+							if($nReturn != 0){
+								?>
+									<strong style="color: red">RETURN</strong>
+									
+								<?php	
+							}
+						?>
+					
+					</h1>
 				  </div>
 				  
 				  <div class="card-header">
@@ -135,14 +147,14 @@
 								<b>Purchased Items</b><br>
 								<?php
 		
-									$arrItems = $DB->select("purchaseditems","where dealid = {$dataDeals['id']}","itemid,amount");
-									
+									$arrItems = $DB->select("purchaseditems","where dealid = {$dataDeals['id']}","itemid,amount,uprice,stockid,id");
+//									print_r($arrItems);
 									foreach($arrItems as $dataitems){
 										$DB->getItemNameByStockId($dataitems['itemid']);
 										echo(" X ");
 										echo($dataitems['amount']);
 										?>
-										<button type="button" class="btn btn-danger" onClick="returnItem('<?php $DB->getItemNameByStockId($dataitems['itemid']) ?>',<?php echo($dataitems['amount']) ?>)">Return</button>
+										<button type="button" class="btn btn-danger" onClick="returnItem('<?php $DB->getItemNameByStockId($dataitems['itemid']) ?>',<?php echo($dataitems['amount']) ?>,<?php echo($cid) ?>,<?php echo($dataDeals['id'])  ?>,<?php echo($dataitems['uprice']) ?>,<?php echo($dataitems['stockid']) ?>,<?php echo($dataitems['id']) ?>)">Return</button>
 										<?php
 										echo("<br>");
 									}
@@ -151,6 +163,32 @@
 					   </center>
 					   
 				  </div>
+				  
+				   <div class="card-header">
+						<center>
+							<h3 class="my-0 font-weight-normal text-primary"><b>RETURNS</b><br>
+							<?php
+		
+									$arrItems = $DB->select("itemreturn","where dealId = {$dataDeals['id']}");
+//									print_r($arrItems);
+									foreach($arrItems as $dataitems){
+										
+										$arrGetItemId = $DB->select("stock","where id = {$dataitems['stockId']}");
+										
+										$DB->getItemNameByStockId($arrGetItemId[0]['itemid']);
+										echo(" X ");
+										echo($dataitems['amount']);
+										?>
+										
+										<?php
+										echo("<br>");
+									}
+								?>
+								</h3>
+						</center>
+				  </div>
+				  
+				  
 				  <div class="card-header">
 						<center>
 							<a href="subPages/print.php?dealid=<?php echo($dataDeals['id']) ?>" target="_blank"><button class="btn btn-primary btn-lg">Print</button></a>

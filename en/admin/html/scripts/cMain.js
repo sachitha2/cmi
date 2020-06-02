@@ -3379,7 +3379,7 @@ function redirectCollectionPeriod(a){
 
  }
 
-function returnItem(itemName,amount){
+function returnItem(itemName,amount,cid,dealId,uprice,stockId,pId){
 			showModal();
 			stage = document.getElementById("mainModal");
 			stage.style.opacity = 0.9;
@@ -3389,21 +3389,21 @@ function returnItem(itemName,amount){
 			var ajax = _ajax();
 			ajax.onreadystatechange = function() {
 				if (this.readyState == 4 && this.status == 200) {
-//	    		alert(this.responseText);
+//	    			alert(this.responseText);
 					stage.innerHTML = ""
 					stage.innerHTML += this.responseText;
 					
 				}
 	  		}
 
-			ajax.open("GET", "subPages/returnItemsUI.php?itemName="+itemName+"&amount="+amount, true);
+			ajax.open("GET", "subPages/returnItemsUI.php?itemName="+itemName+"&amount="+amount+"&cid="+cid+"&dealId="+dealId+"&uprice="+uprice+"&stockId="+stockId+"&pId="+pId, true);
 			ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 			ajax.send();
 
 }
 
 
-function returnItemFinal(){
+function returnItemFinal(cid,dealId,uprice,stockId,pId){
 	reason = document.getElementById('reason').value;
 	amount = document.getElementById('amount').value;
 	condition = document.getElementById('state').value;
@@ -3415,10 +3415,30 @@ function returnItemFinal(){
 	}else{
 		var data = {"reason":reason
 			   ,"amount":amount,
-				"condition":condition
+				"condition":condition,
+				"cid":cid,
+				"dealId":dealId,
+				"uprice":uprice,
+				"stockId":stockId,
+				"pId":pId
 			   };
 	
 		console.log(data);
+		
+		var ajax = _ajax();
+		ajax.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+//	   	 		alert(this.responseText);
+				hideModal();
+				ajaxCommonGetFromNet("subPages/customerDashBoard.php?cid="+cid,"customerStage")
+			}
+		}
+
+		ajax.open("POST", "../workers/return.worker.php", true);
+		ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		ajax.send("data="+JSON.stringify(data));
+		
+		
 	}
 	
 	
