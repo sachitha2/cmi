@@ -31,6 +31,25 @@ $main = new Main;
   <link rel="stylesheet" href="../assets/styles/app.css" type="text/css" />
   <!-- endbuild -->
   <link rel="stylesheet" href="../assets/styles/font.css" type="text/css" />
+
+  <style>
+  
+  .btnBack{
+    width: 40%;
+    margin-bottom: 5px;
+    background-repeat: no-repeat;
+    width: 200px;height: 200px;
+    background-size: 150px 150px;
+    background-position: center;
+    background-color: white;
+    color: Black;
+  }
+
+  .btnBack:hover{
+    background-color: white;
+  }
+  
+  </style>
   
   <script src="scripts/cMain.js"></script>
 </head>
@@ -53,11 +72,11 @@ $main = new Main;
 	 	<?php $main->head("Cost Type") ?>
     <div class="container h-100" id="cStage">
     	<center>
-    		<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/addCostType.php','cStage')" style="width: 40%;margin-bottom: 5px;">Create</button>
-     		<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/costType.STE.php','cStage')" style="width: 40%;margin-bottom: 5px;">Edit</button>
+    		<button type="button" class="btn btn-primary btn-lg btnBack" onClick="ajaxCommonGetFromNet('subPages/addCostType.php','cStage')" style="background-image: url(../assets/icons/CostAdd.svg);">Create</button>
+     		<button type="button" class="btn btn-primary btn-lg btnBack" onClick="ajaxCommonGetFromNet('subPages/costType.STE.php','cStage')" style="background-image: url(../assets/icons/CostEdit.svg);">Edit</button>
 <!--     		<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/deleteArea.php','cStage')">Delete</button>-->
-     		<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/viewCostTypes.php','cStage')" style="width: 40%;margin-bottom: 5px;">View</button>
-     		<a href="PDF/viewCostTypesPDF.php" target="_blank"><button type="button" class="btn btn-primary btn-lg" style="width: 40%;margin-bottom: 5px;">PDF</button></a>
+     		<button type="button" class="btn btn-primary btn-lg btnBack" onClick="ajaxCommonGetFromNet('subPages/viewCostTypes.php','cStage')" style="background-image: url(../assets/icons/CostView.svg);">View</button>
+     		<a href="PDF/viewCostTypesPDF.php" target="_blank"><button type="button" class="btn btn-primary btn-lg btnBack" style="background-image: url(../assets/icons/CostPdf.svg);">PDF</button></a>
     	</center>
   			
 	</div>

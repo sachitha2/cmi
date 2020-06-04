@@ -31,7 +31,27 @@ $main = new Main;
   <link rel="stylesheet" href="../assets/styles/app.css" type="text/css" />
   <!-- endbuild -->
   <link rel="stylesheet" href="../assets/styles/font.css" type="text/css" />
-   <script src="scripts/cMain.js"></script> 
+
+  <style>
+  
+  .btnBack{
+    width: 40%;
+    margin-bottom: 5px;
+    background-repeat: no-repeat;
+    width: 200px;height: 200px;
+    background-size: 150px 150px;
+    background-position: center;
+    background-color: white;
+    color: Black;
+  }
+
+  .btnBack:hover{
+    background-color: white;
+  }
+  
+  </style>
+
+  <script src="scripts/cMain.js"></script> 
 </head>
 <body>
 
@@ -53,10 +73,10 @@ $main = new Main;
     <div class="container h-100" id="cStage">
     
     		<center>
-				<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/addSubArea.php','cStage')"  style="width: 40%;margin-bottom: 5px;">Add</button>
+				<button type="button" class="btn btn-primary btn-lg btnBack" onClick="ajaxCommonGetFromNet('subPages/addSubArea.php','cStage')"  style="background-image: url(../assets/icons/AreaAdd.svg);">Add</button>
 <!--				<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/area.STE.php','cStage')"  style="width: 40%;margin-bottom: 5px;">Edit</button>-->
 	<!--     		<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/deleteArea.php','cStage')">Delete</button>-->
-				<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/viewSubArea.php','cStage')"  style="width: 40%;margin-bottom: 5px;">View</button>
+				<button type="button" class="btn btn-primary btn-lg btnBack" onClick="ajaxCommonGetFromNet('subPages/viewSubArea.php','cStage')"  style="background-image: url(../assets/icons/AreaView.svg);">View</button>
     		</center>
   			
      	

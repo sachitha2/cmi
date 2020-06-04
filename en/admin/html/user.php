@@ -32,6 +32,26 @@ $main = new Main;
   <link rel="stylesheet" href="../assets/styles/app.css" type="text/css" />
   <!-- endbuild -->
   <link rel="stylesheet" href="../assets/styles/font.css" type="text/css" />
+
+  <style>
+  
+  .btnBack{
+    width: 40%;
+    margin-bottom: 5px;
+    background-repeat: no-repeat;
+    width: 200px;height: 200px;
+    background-size: 150px 150px;
+    background-position: center;
+    background-color: white;
+    color: Black;
+  }
+
+  .btnBack:hover{
+    background-color: white;
+  }
+  
+  </style>
+
   <script src="scripts/cMain.js"></script>s
 </head>
 <body>
@@ -54,10 +74,10 @@ $main = new Main;
       	<?php $main->head("User") ?>
     <div class="container h-100" id="cStage">
     		<center>
-				<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/createUser.php','cStage')"  style="width: 40%;margin-bottom: 5px;">Add</button>
-				<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/user.STE.php','cStage')"  style="width: 40%;margin-bottom: 5px;">Edit</button>
+				<button type="button" class="btn btn-primary btn-lg btnBack" onClick="ajaxCommonGetFromNet('subPages/createUser.php','cStage')"  style="background-image: url(../assets/icons/UserAdd.svg);">Add</button>
+				<button type="button" class="btn btn-primary btn-lg btnBack" onClick="ajaxCommonGetFromNet('subPages/user.STE.php','cStage')"  style="background-image: url(../assets/icons/UserEdit.svg);">Edit</button>
 	<!--     		<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/deleteArea.php','cStage')">Delete</button>-->
-				<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/viewUsers.php','cStage')"  style="width: 40%;margin-bottom: 5px;">View</button>
+				<button type="button" class="btn btn-primary btn-lg btnBack" onClick="ajaxCommonGetFromNet('subPages/viewUsers.php','cStage')"  style="background-image: url(../assets/icons/UserView.svg);">View</button>
     		</center>
   			
      		

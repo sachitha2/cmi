@@ -31,7 +31,27 @@ $main = new Main;
   <link rel="stylesheet" href="../assets/styles/app.css" type="text/css" />
   <!-- endbuild -->
   <link rel="stylesheet" href="../assets/styles/font.css" type="text/css" />
-   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+  <style>
+  
+  .btnBack{
+    width: 40%;
+    margin-bottom: 5px;
+    background-repeat: no-repeat;
+    width: 200px;height: 200px;
+    background-size: 150px 150px;
+    background-position: center;
+    background-color: white;
+    color: Black;
+  }
+
+  .btnBack:hover{
+    background-color: white;
+  }
+  
+  </style>
+
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
    <script type="text/javascript">
 	   	function nOfCustomersInAreas(){
 		  msg("columnchart_material","<center><h1><img src='load.gif'><br>Loading Charts.....</h1></center>");
@@ -101,11 +121,13 @@ $main = new Main;
     <div class="container h-100" id="cStage">
     		
     		<center> 
-				<a href="createCustomer.php"><button type="button" class="btn btn-primary btn-lg"  style="width: 40%;margin-bottom: 5px;background-image: url(../assets/icons/findUser.svg);background-repeat: no-repeat;width: 200px;height: 200px;background-size: 190px 190px;color: white;">Find | ADD </button></a>
+				<a href="createCustomer.php"><button type="button" class="btn btn-primary btn-lg btnBack" style="background-image: url(../assets/icons/UserAdd.svg);">Find | ADD</button></a>
 <!--				<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/addACustomer.php','cStage')"  style="width: 40%;margin-bottom: 5px;">ADD | Without NIC</button>-->
-				<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/customers.STE.php','cStage')"  style="width: 40%;margin-bottom: 5px;background-image: url(../assets/icons/editUser.svg);background-repeat: no-repeat;width: 200px;height: 200px;background-size: 190px 190px;">Edit</button>
+				<button type="button" class="btn btn-primary btn-lg btnBack" onClick="ajaxCommonGetFromNet('subPages/customers.STE.php','cStage')"  style="background-image: url(../assets/icons/UserEdit.svg);">Edit</button>
 <!--				<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/deleteArea.php','cStage')"  style="width: 40%;margin-bottom: 5px;">Delete</button>-->
-				</center>
+				<button type="button" class="btn btn-primary btn-lg btnBack" onClick="ajaxCommonGetFromNet('subPages/viewCustomers.php','cStage')"  style="background-image: url(../assets/icons/UserView.svg);">View</button>
+<!--				<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/searchCustomers.php','cStage')"  style="width: 40%;margin-bottom: 5px;">Advance Search</button>-->
+    		</center>
     		
      		<div class="card-header" style="padding-bottom: 10px;padding-top: 10px;margin-top: 20px;">
         			<center><h1 class="my-0 font-weight-normal text-info">Customers - Area </h1></center>
