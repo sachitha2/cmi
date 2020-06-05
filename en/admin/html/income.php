@@ -31,6 +31,26 @@ $main = new Main;
   <link rel="stylesheet" href="../assets/styles/app.css" type="text/css" />
   <!-- endbuild -->
   <link rel="stylesheet" href="../assets/styles/font.css" type="text/css" />
+
+  <style>
+  
+  .btnBack{
+    width: 40%;
+    margin-bottom: 5px;
+    background-repeat: no-repeat;
+    width: 200px;height: 200px;
+    background-size: 150px 150px;
+    background-position: center;
+    background-color: white;
+    color: Black;
+  }
+
+  .btnBack:hover{
+    background-color: white;
+  }
+
+  </style>
+
 </head>
 <body>
   <div class="app" id="app">
@@ -52,12 +72,12 @@ $main = new Main;
 	 	<?php $main->head("Income") ?>
 		<div class="container h-100" id="cStage">
     		<center>
-				<button type="button" class="btn btn-primary btn-lg" onclick="ajaxCommonGetFromNet('subPages/incomTodayView.php','cStage')"  style="width: 40%;margin-bottom: 5px;"> Today </button>
-				<button type="button" class="btn btn-primary btn-lg" onclick=""  style="width: 40%;margin-bottom: 5px;"> Week </button>
-				<button type="button" class="btn btn-primary btn-lg" onclick=""  style="width: 40%;margin-bottom: 5px;"> Month</button>
-				<button type="button" class="btn btn-primary btn-lg" onclick=""  style="width: 40%;margin-bottom: 5px;"> Year</button>
-				<button type="button" class="btn btn-primary btn-lg" onclick=""  style="width: 40%;margin-bottom: 5px;"> Custom</button>
-				<button type="button" class="btn btn-primary btn-lg" onclick=""  style="width: 40%;margin-bottom: 5px;"> Search</button>
+				<button type="button" class="btn btn-primary btn-lg btnBack" onclick="ajaxCommonGetFromNet('subPages/incomTodayView.php','cStage')"  style="background-image: url(../assets/icons/CostView.svg);"> Today </button>
+				<button type="button" class="btn btn-primary btn-lg btnBack" onclick=""  style="background-image: url(../assets/icons/CostView.svg);"> Week </button>
+				<button type="button" class="btn btn-primary btn-lg btnBack" onclick=""  style="background-image: url(../assets/icons/CostView.svg);"> Month</button>
+				<button type="button" class="btn btn-primary btn-lg btnBack" onclick=""  style="background-image: url(../assets/icons/CostView.svg);"> Year</button>
+				<button type="button" class="btn btn-primary btn-lg btnBack" onclick=""  style="background-image: url(../assets/icons/CostView.svg);"> Custom</button>
+				<button type="button" class="btn btn-primary btn-lg btnBack" onclick=""  style="background-image: url(../assets/icons/CostView.svg);"> Search</button>
     		</center>
 		</div>
      

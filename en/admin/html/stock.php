@@ -36,6 +36,26 @@
   <link rel="stylesheet" href="../assets/styles/app.css" type="text/css" />
   <!-- endbuild -->
   <link rel="stylesheet" href="../assets/styles/font.css" type="text/css" />
+
+  <style>
+  
+  .btnBack{
+    width: 40%;
+    margin-bottom: 5px;
+    background-repeat: no-repeat;
+    width: 200px;height: 200px;
+    background-size: 150px 150px;
+    background-position: center;
+    background-color: white;
+    color: Black;
+  }
+
+  .btnBack:hover{
+    background-color: white;
+  }
+  
+  </style>
+
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
   <script type="text/javascript">
 	  
@@ -273,33 +293,29 @@
       <!-- ############ PAGE START-->
         <?php $main->head("Stock") ?>
     <div class="container h-100" id="cStage">
-   		
-   		<button type="button" class="btn btn-primary btn-lg"  onClick="ajaxCommonGetFromNet('subPages/addStock.php','cStage')">Add</button>
-<!--
-    		
-    		<br>
-    		<br>
--->
+		<center>
+   			<button type="button" class="btn btn-primary btn-lg btnBack"  onClick="ajaxCommonGetFromNet('subPages/addStock.php','cStage')" style="background-image: url(../assets/icons/StockAdd.svg);">Add</button>
 <!--
      		<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/editArea.php','cStage')">Edit</button>
      		<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/deleteArea.php','cStage')">Delete</button>
 -->
-     		<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/viewStock.php','cStage')">View</button>
-     		<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/newStock.php','cStage')">New Stock</button>
+     		<button type="button" class="btn btn-primary btn-lg btnBack" onClick="ajaxCommonGetFromNet('subPages/viewStock.php','cStage')" style="background-image: url(../assets/icons/StockView.svg);">View</button>
+     		<button type="button" class="btn btn-primary btn-lg btnBack" onClick="ajaxCommonGetFromNet('subPages/newStock.php','cStage')" style="background-image: url(../assets/icons/StockAdd.svg);">New Stock</button>
      		
-     		<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/newStock.php','cStage')">Transfer GRN</button>
+     		<button type="button" class="btn btn-primary btn-lg btnBack" onClick="ajaxCommonGetFromNet('subPages/newStock.php','cStage')" style="background-image: url(../assets/icons/StockEdit.svg);">Transfer GRN</button>
      		
      		<?php
 				if($DB->isAdmin()){
 					?>
-					<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/selectItemToChangePrices.php','cStage')">Change prices</button>
+					<button type="button" class="btn btn-primary btn-lg btnBack" onClick="ajaxCommonGetFromNet('subPages/selectItemToChangePrices.php','cStage')" style="background-image: url(../assets/icons/StockEdit.svg);">Change prices</button>
 					<?php
 				}
 	
 			?>
      		
-     		<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/priceTable.php','cStage')">Price Table</button>
-     		
+     		<button type="button" class="btn btn-primary btn-lg btnBack" onClick="ajaxCommonGetFromNet('subPages/priceTable.php','cStage')" style="background-image: url(../assets/icons/StockView.svg);">Price Table</button>
+		</center>
+
    			<div class="card-header" style="padding-bottom: 10px;padding-top: 10px;margin-bottom: 5px;margin-top: 20px;">
         		<center><h1 class="my-0 font-weight-normal text-info">Stock Distribution - Item Type </h1></center>
       		</div>

@@ -31,7 +31,27 @@ $main = new Main;
   <link rel="stylesheet" href="../assets/styles/app.css" type="text/css" />
   <!-- endbuild -->
   <link rel="stylesheet" href="../assets/styles/font.css" type="text/css" />
-   <script src="scripts/cMain.js"></script> 
+
+  <style>
+  
+  .btnBack{
+    width: 40%;
+    margin-bottom: 5px;
+    background-repeat: no-repeat;
+    width: 200px;height: 200px;
+    background-size: 150px 150px;
+    background-position: center;
+    background-color: white;
+    color: Black;
+  }
+
+  .btnBack:hover{
+    background-color: white;
+  }
+
+  </style>
+
+  <script src="scripts/cMain.js"></script> 
 </head>
 <body>
 
@@ -53,8 +73,8 @@ $main = new Main;
     <div class="container h-100" id="cStage">
 		<!--  	This is sales stage		-->
       <center> 
-        <button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/addSalary.php','cStage')"  style="width: 40%;margin-bottom: 5px;">Add Salary</button>
-				<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/viewSalary.php?type=month','cStage')"  style="width: 40%;margin-bottom: 5px;">View Salary</button>
+        <button type="button" class="btn btn-primary btn-lg btnBack" onClick="ajaxCommonGetFromNet('subPages/addSalary.php','cStage')"  style="background-image: url(../assets/icons/CostAdd.svg);">Add Salary</button>
+				<button type="button" class="btn btn-primary btn-lg btnBack" onClick="ajaxCommonGetFromNet('subPages/viewSalary.php?type=month','cStage')"  style="background-image: url(../assets/icons/CostView.svg);">View Salary</button>
       </center>
 		<!--  	This is sales stage		-->
 	</div>

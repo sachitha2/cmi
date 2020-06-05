@@ -31,8 +31,28 @@ $main = new Main;
   <link rel="stylesheet" href="../assets/styles/app.css" type="text/css" />
   <!-- endbuild -->
   <link rel="stylesheet" href="../assets/styles/font.css" type="text/css" />
+
+  <style>
+  
+  .btnBack{
+    width: 40%;
+    margin-bottom: 5px;
+    background-repeat: no-repeat;
+    width: 200px;height: 200px;
+    background-size: 150px 150px;
+    background-position: center;
+    background-color: white;
+    color: Black;
+  }
+
+  .btnBack:hover{
+    background-color: white;
+  }
+
+  </style>
+
   <script src="scripts/cMain.js"></script>
-   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
   
     <script type="text/javascript">
 	function chartThisMandLMonth(){	
@@ -329,8 +349,8 @@ $main = new Main;
      	<div class="container h-100" id="cStage">
      		<br>
      		<center>
-     			<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/addExpenses.php','cStage')" style="width: 40%;margin-bottom: 5px;">Create</button>
-				<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/viewExpensesMain.php','cStage')" style="width: 40%;margin-bottom: 5px;">View</button>
+     			<button type="button" class="btn btn-primary btn-lg btnBack" onClick="ajaxCommonGetFromNet('subPages/addExpenses.php','cStage')" style="background-image: url(../assets/icons/CostAdd.svg);">Create</button>
+				<button type="button" class="btn btn-primary btn-lg btnBack" onClick="ajaxCommonGetFromNet('subPages/viewExpensesMain.php','cStage')" style="background-image: url(../assets/icons/CostView.svg);">View</button>
      		</center>
 			
 			<br>
