@@ -166,26 +166,68 @@
 				  
 				   <div class="card-header">
 						<center>
-							<h3 class="my-0 font-weight-normal text-primary"><b>RETURNS</b><br>
+							
 							<?php
+									if($nReturn != 0){
+										
+									
 		
 									$arrItems = $DB->select("itemreturn","where dealId = {$dataDeals['id']}");
 //									print_r($arrItems);
-									foreach($arrItems as $dataitems){
-										
-										$arrGetItemId = $DB->select("stock","where id = {$dataitems['stockId']}");
-										
-										$DB->getItemNameByStockId($arrGetItemId[0]['itemid']);
-										echo(" X ");
-										echo($dataitems['amount']);
-										?>
-										
-										<?php
-										echo("<br>");
-									}
+									
 								?>
-								</h3>
+								<h3 class="my-0 font-weight-normal text-primary"><b>RETURNS</b></h3>
+								<table class="table table-hover table-bordered table-striped table-dark">
+									<tr>
+										<th>Item</th>
+										<th>Amount</th>
+										<th>Rate</th>
+										<th>Total</th>
+									</tr>
+									<?php
+		
+										$total = 0;
+										foreach($arrItems as $dataitems){
+											?>
+											
+											<?php
+												$arrGetItemId = $DB->select("stock","where id = {$dataitems['stockId']}");
+
+												
+												
+												
+											?>
+											
+											<tr>
+												<td><?php $DB->getItemNameByStockId($arrGetItemId[0]['itemid']); ?></td>
+												<td><?php echo($dataitems['amount']); ?></td>
+												<td><?php echo($dataitems['uPrice']) ?></td>
+												<td><?php echo(round($dataitems['uPrice'] * $dataitems['amount'])) ?></td>
+											</tr>
+											
+
+											<?php
+												
+												$total += $dataitems['uPrice'] * $dataitems['amount'];
+											echo("<br>");
+											
+											
+									}
+		
+		
+									?>
+									<tr>
+										<td colspan="3">Total</td>
+										<td><?php echo(round($total)) ?></td>
+									</tr>
+<!--									
+									
+-->
+								</table>
 						</center>
+						<?php
+										}
+						?>
 				  </div>
 				  
 				  
