@@ -3445,4 +3445,24 @@ function returnItemFinal(cid,dealId,uprice,stockId,pId){
 }
 
 
+function ifBothEqualInGRNTransfer(from,to){
+	if(from == to){
+		alert("System can not send items to same wearhouse");
+	}else{
+		var ajax = _ajax();
+		ajax.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+	   	 		alert(this.responseText);
+			}
+		}
+
+		ajax.open("GET", "subPages/grnUI.php", true);
+		ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		ajax.send();
+		
+	}
+
+}
+
+
 
