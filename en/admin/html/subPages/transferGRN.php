@@ -14,7 +14,7 @@ $DB->conn = $conn;?>
 
 
     <select  class="form-control" style="width: 200px;" id="from">
-        
+    <option value="0">Select Sending Stock</option>
         
     
     <?php
@@ -38,6 +38,7 @@ $DB->conn = $conn;?>
 
 
     <select   class="form-control" style="width: 200px" id="to" onchange="ifBothEqualInGRNTransfer(from.value,this.value)">
+        <option value="0">Select Receiving Stock</option>
     <?php
         $arr = $DB->select("whouse","");
         print_r($arr);
