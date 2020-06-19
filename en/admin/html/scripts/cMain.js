@@ -3452,7 +3452,10 @@ function ifBothEqualInGRNTransfer(from,to){
 		var ajax = _ajax();
 		ajax.onreadystatechange = function() {
 			if (this.readyState == 4 && this.status == 200) {
-	   	 		alert(this.responseText);
+					// alert(this.responseText);
+					ui = document.getElementById("grnUI").innerHTML = this.responseText;
+
+					
 			}
 		}
 
@@ -3463,6 +3466,15 @@ function ifBothEqualInGRNTransfer(from,to){
 	}
 
 }
+
+function appendDataToTable(item,amount) {
+	var table = document.getElementById("myTable");
+	var row = table.insertRow(1);
+	var cell1 = row.insertCell(0);
+	var cell2 = row.insertCell(1);
+	cell1.innerHTML = item;
+	cell2.innerHTML = amount;
+  }
 
 
 

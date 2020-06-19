@@ -9,7 +9,7 @@ $DB->conn = $conn;?>
 <?php
 	include("../../workers/readSesson.worker.php");
 ?> 
-    <h2>Select Sending WearHouse</h2>
+    <h4>Select Sending WearHouse</h4>
 
 
 
@@ -34,7 +34,7 @@ $DB->conn = $conn;?>
         
     ?>
     </select>
-    <h2>Select Receiving WearHouse</h2>
+    <h4>Select Receiving WearHouse</h4>
 
 
     <select   class="form-control" style="width: 200px" id="to" onchange="ifBothEqualInGRNTransfer(from.value,this.value)">
