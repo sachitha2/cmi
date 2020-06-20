@@ -13,9 +13,9 @@ $arr = $DB->select("item","");
     <h1 class="text-center">Shop -> Home</h1>
 
   <div class="row">
-    <div class="col-sm" style="background-color: #C4C3C3;">
+    <div class="col-sm" style="background-color: #C4C3C3;position:sticky;max-height: 500px;">
       <h1>Sending...</h1>
-      <input autofocus list="colors" name="color" id="itemId" class="form-control"  placeholder="Item Id"   onKeyPress="enterItemNameInCreditCustomer(event,this.value)">
+      <input autofocus list="colors" name="color" id="itemId" class="form-control"  placeholder="Item Id"   onKeyPress="enterItemNameInGRNTransfer(event,this.value)">
 			<datalist id="colors">
 				
     			<?php
@@ -42,14 +42,14 @@ $arr = $DB->select("item","");
 
       <input readonly="" id="itemName" type="text" class="form-control" value="">
 			
-  <div class="form-group">
-    <label for="exampleInputPassword1">Enter Amount</label>
-    <input type="number" class="form-control" id="exampleInputPassword1" placeholder="Password">
-  </div>
+    <div class="form-group">
+      <label for="amount">Enter Amount</label>
+      <input type="number" class="form-control" id="amount" placeholder="Enter Amount">
+    </div>
   
-  <button  class="btn btn-primary btn-lg btn-block" onclick="appendDataToTable('hellooo','2500')">ADD + </button>
-     <br>
-     <br>
+    <button  class="btn btn-primary btn-lg btn-block" onclick="sendDataToNewStock()">ADD + </button>
+      <br>
+      <br>
 
 
     </div>

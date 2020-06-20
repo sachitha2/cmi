@@ -87,13 +87,23 @@ function enterItemNameInFastCustomer(e,id){
 function enterItemNameInCreditCustomer(e,id){
 	if (e.which == 13) {
 		if(id != ""){
-			conte = document.getElementById("item"+id).innerText;
-			document.getElementById("itemName").value = conte;
+			document.getElementById("itemName").value = takeItemNameFromItemListSelection(id);
 			enterNext(event,"qty");
 		}
 		
 	}
 }
+function enterItemNameInGRNTransfer(e,id){
+	if (e.which == 13) {
+		if(id != ""){
+			document.getElementById("itemName").value = takeItemNameFromItemListSelection(id);
+			enterNext(event,"amount");
+		}
+		
+	}
+}
+
+
 function enterItemNameInAddOrder(e,id){
 	if (e.which == 13) {
 		conte = document.getElementById("item"+id).innerText;
@@ -3474,7 +3484,25 @@ function appendDataToTable(item,amount) {
 	var cell2 = row.insertCell(1);
 	cell1.innerHTML = item;
 	cell2.innerHTML = amount;
+
+	//clear code
+	emt("amount");
+	emt("itemId");
+	emt("itemName");
   }
 
 
+  function takeItemNameFromItemListSelection(id){
+		if(id != ""){
+			conte = document.getElementById("item"+id).innerText;
+			return conte;
+		}
+}
 
+
+function sendDataToNewStock(){
+	itemId = document.getElementById("itemId").value;
+	amount = document.getElementById("amount").value;
+
+	appendDataToTable(takeItemNameFromItemListSelection(itemId),amount);
+}
