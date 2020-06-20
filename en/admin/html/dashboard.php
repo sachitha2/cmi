@@ -145,37 +145,82 @@ $date = new DateTime("now", new DateTimeZone('Asia/Colombo') );
 			</div>
 <!--			Collecttion start-->
 			<div class="card-deck mb-3 text-center" style="padding-left: 50px;padding-right: 50px;padding-top: 10px;">  
-	 			<div class="card mb-4 shadow-sm">
-					  <div class="card-header">
-						<h4 class="my-0 font-weight-normal text-primary">Today</h4>
-					  </div>
+      <div class="card mb-4 shadow-sm">
+          <div class="card card-stats">
+              <div class="card-header">
+						    <h4 class="my-0 font-weight-normal text-primary">TODAY</h4>
+					    </div>
+                <!-- Card body -->
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col">
+                      <span class="h2 font-weight-bold mb-0">2,356</span>
+                    </div>
+                    <div class="col-auto">
+                      <div class="icon icon-shape bg-gradient-orange text-white rounded-circle shadow">
+                        <i class="ni ni-chart-pie-35"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <p class="mt-3 mb-0 text-sm">
+                    <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 3.48%</span>
+                    <span class="text-nowrap">Since yesterday</span>
+                  </p>
+                </div>
+              </div>
 
-					  <div class="card-header">
-				  			<center><h4 class="my-0 font-weight-normal text-primary" ><?php 
-						  		$arrCollToday = $DB->select("collection","WHERE date = '".$date->format('Y-m-d')."'","SUM(payment) as payment");
-//						  		print_r($arrCollToday);
-						  		echo(number_format(round($arrCollToday[0]['payment'])));
-								?></h4></center>
-					  </div>
 				</div>
 				
 				<div class="card mb-4 shadow-sm">
-					  <div class="card-header">
-						<h4 class="my-0 font-weight-normal text-primary">Month</h4>
-					  </div>
+        <div class="card card-stats">
+              <div class="card-header">
+						    <h4 class="my-0 font-weight-normal text-primary">MONTH</h4>
+					    </div>
+                <!-- Card body -->
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col">
+                      <span class="h2 font-weight-bold mb-0">2,356</span>
+                    </div>
+                    <div class="col-auto">
+                      <div class="icon icon-shape bg-gradient-orange text-white rounded-circle shadow">
+                        <i class="ni ni-chart-pie-35"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <p class="mt-3 mb-0 text-sm">
+                    <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 3.48%</span>
+                    <span class="text-nowrap">Since last month</span>
+                  </p>
+                </div>
+              </div>
 
-					  <div class="card-header">
-						  <center><h4 class="my-0 font-weight-normal text-primary" >2500</h4></center>
-					  </div>
+					  
 				</div>
 				<div class="card mb-4 shadow-sm">
-					  <div class="card-header">
-						<h4 class="my-0 font-weight-normal text-primary">Year</h4>
-					  </div>
+          <div class="card card-stats">
+              <div class="card-header">
+						    <h4 class="my-0 font-weight-normal text-primary">YEAR</h4>
+					    </div>
+                <!-- Card body -->
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col">
+                      <span class="h2 font-weight-bold mb-0">2,356</span>
+                    </div>
+                    <div class="col-auto">
+                      <div class="icon icon-shape bg-gradient-orange text-white rounded-circle shadow">
+                        <i class="ni ni-chart-pie-35"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <p class="mt-3 mb-0 text-sm">
+                    <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 3.48%</span>
+                    <span class="text-nowrap">Since last year</span>
+                  </p>
+                </div>
+              </div>
 
-					  <div class="card-header">
-					  		<center><h4 class="my-0 font-weight-normal text-primary" >2500</h4></center>
-					  </div>
 				</div>
 	 		
 			</div>
@@ -249,7 +294,8 @@ $date = new DateTime("now", new DateTimeZone('Asia/Colombo') );
     			
   			</div>
   			
-  			<div id="chart_div" style="width: 100%; height: 500px;"></div>
+			  <div id="chart_div" style="width: 100%; height: 500px;"></div>
+			  
  			
 		
   </div>

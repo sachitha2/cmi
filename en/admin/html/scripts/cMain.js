@@ -87,13 +87,23 @@ function enterItemNameInFastCustomer(e,id){
 function enterItemNameInCreditCustomer(e,id){
 	if (e.which == 13) {
 		if(id != ""){
-			conte = document.getElementById("item"+id).innerText;
-			document.getElementById("itemName").value = conte;
+			document.getElementById("itemName").value = takeItemNameFromItemListSelection(id);
 			enterNext(event,"qty");
 		}
 		
 	}
 }
+function enterItemNameInGRNTransfer(e,id){
+	if (e.which == 13) {
+		if(id != ""){
+			document.getElementById("itemName").value = takeItemNameFromItemListSelection(id);
+			enterNext(event,"amount");
+		}
+		
+	}
+}
+
+
 function enterItemNameInAddOrder(e,id){
 	if (e.which == 13) {
 		conte = document.getElementById("item"+id).innerText;
@@ -3379,7 +3389,7 @@ function redirectCollectionPeriod(a){
 
  }
 
-function returnItem(itemName,amount){
+function returnItem(itemName,amount,cid,dealId,uprice,stockId,pId){
 			showModal();
 			stage = document.getElementById("mainModal");
 			stage.style.opacity = 0.9;
@@ -3389,21 +3399,21 @@ function returnItem(itemName,amount){
 			var ajax = _ajax();
 			ajax.onreadystatechange = function() {
 				if (this.readyState == 4 && this.status == 200) {
-//	    		alert(this.responseText);
+//	    			alert(this.responseText);
 					stage.innerHTML = ""
 					stage.innerHTML += this.responseText;
 					
 				}
 	  		}
 
-			ajax.open("GET", "subPages/returnItemsUI.php?itemName="+itemName+"&amount="+amount, true);
+			ajax.open("GET", "subPages/returnItemsUI.php?itemName="+itemName+"&amount="+amount+"&cid="+cid+"&dealId="+dealId+"&uprice="+uprice+"&stockId="+stockId+"&pId="+pId, true);
 			ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 			ajax.send();
 
 }
 
 
-function returnItemFinal(){
+function returnItemFinal(cid,dealId,uprice,stockId,pId){
 	reason = document.getElementById('reason').value;
 	amount = document.getElementById('amount').value;
 	condition = document.getElementById('state').value;
@@ -3415,14 +3425,84 @@ function returnItemFinal(){
 	}else{
 		var data = {"reason":reason
 			   ,"amount":amount,
-				"condition":condition
+				"condition":condition,
+				"cid":cid,
+				"dealId":dealId,
+				"uprice":uprice,
+				"stockId":stockId,
+				"pId":pId
 			   };
 	
 		console.log(data);
+		
+		var ajax = _ajax();
+		ajax.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+//	   	 		alert(this.responseText);
+				hideModal();
+				ajaxCommonGetFromNet("subPages/customerDashBoard.php?cid="+cid,"customerStage")
+			}
+		}
+
+		ajax.open("POST", "../workers/return.worker.php", true);
+		ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		ajax.send("data="+JSON.stringify(data));
+		
+		
 	}
 	
 	
 }
 
 
+function ifBothEqualInGRNTransfer(from,to){
+	if(from == to){
+		alert("System can not send items to same wearhouse");
+	}else{
+		var ajax = _ajax();
+		ajax.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+					// alert(this.responseText);
+					ui = document.getElementById("grnUI").innerHTML = this.responseText;
 
+					
+			}
+		}
+
+		ajax.open("GET", "subPages/grnUI.php", true);
+		ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		ajax.send();
+		
+	}
+
+}
+
+function appendDataToTable(item,amount) {
+	var table = document.getElementById("myTable");
+	var row = table.insertRow(1);
+	var cell1 = row.insertCell(0);
+	var cell2 = row.insertCell(1);
+	cell1.innerHTML = item;
+	cell2.innerHTML = amount;
+
+	//clear code
+	emt("amount");
+	emt("itemId");
+	emt("itemName");
+  }
+
+
+  function takeItemNameFromItemListSelection(id){
+		if(id != ""){
+			conte = document.getElementById("item"+id).innerText;
+			return conte;
+		}
+}
+
+
+function sendDataToNewStock(){
+	itemId = document.getElementById("itemId").value;
+	amount = document.getElementById("amount").value;
+
+	appendDataToTable(takeItemNameFromItemListSelection(itemId),amount);
+}

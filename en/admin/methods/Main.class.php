@@ -212,6 +212,19 @@ class Main{
                 <?php
 					if($_SESSION['login']['type'] == 1 || $_SESSION['login']['type'] == 1000){
 						?>
+						
+                		
+                		<li>
+						  <a  onClick="window.location.assign('returns.php')">
+							<span class="nav-icon">
+							  <i class="material-icons">&#xe547;
+								<span ui-include="'../assets/images/i_3.svg'"></span>
+							  </i>
+							</span>
+							<span class="nav-text">Returns</span>
+						  </a>
+						</li>
+
 						<li>
 							  <a  onClick="window.location.assign('expenses.php')">
 								<span class="nav-icon">
@@ -222,8 +235,6 @@ class Main{
 								<span class="nav-text">Expenses</span>
 							  </a>
                 		</li>
-                		
-                		
                 		<li>
 						  <a onClick="window.location.assign('profit.php')">
 							<span class="nav-icon">
