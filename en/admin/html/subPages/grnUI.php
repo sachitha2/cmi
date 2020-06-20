@@ -12,41 +12,42 @@ $arr = $DB->select("item","");
 <div class="container">
     <h1 class="text-center">Shop -> Home</h1>
 
-  <div class="row">
-    <div class="col-sm" style="background-color: #C4C3C3;position:sticky;max-height: 500px;">
-      <h1>Sending...</h1>
-      <input autofocus list="colors" name="color" id="itemId" class="form-control"  placeholder="Item Id"   onKeyPress="enterItemNameInGRNTransfer(event,this.value)">
-			<datalist id="colors">
-				
-    			<?php
-					$arrPack = $DB->select("pack","");
-						
+    <div class="row">
+      <div class="col-sm" style="background-color: #C4C3C3;position:sticky;max-height: 500px;">
+        <h1>Sending...</h1>
+        <label>Select Item</label>
+        <input autofocus list="colors" name="color" id="itemId" class="form-control"  placeholder="Item Id"   onKeyPress="enterItemNameInGRNTransfer(event,this.value)">
+        <datalist id="colors">
+          
+            <?php
+            $arrPack = $DB->select("pack","");
+              
 
-					foreach($arrPack as $packdata){
-						?>
-						<option   id="itemP-<?php echo($packdata['id']) ?>"  value="P-<?php echo($packdata['id']) ?>"><?php echo($packdata['name']) ?></option>
-						<?php
-					}
-					
-					$arrItem = $DB->select("item","");
-					foreach($arrItem as $data){
-						?>
-						<option   id="itemI-<?php echo($data['id']) ?>" value="I-<?php echo($data['id']) ?>"><?php $DB->getItemNameByStockId($data['id']) ?></option>
-						
-						<?php
-					}
-	
-				?>
-				
-			</datalist>
+            foreach($arrPack as $packdata){
+              ?>
+              <option   id="itemP-<?php echo($packdata['id']) ?>"  value="P-<?php echo($packdata['id']) ?>"><?php echo($packdata['name']) ?></option>
+              <?php
+            }
+            
+            $arrItem = $DB->select("item","");
+            foreach($arrItem as $data){
+              ?>
+              <option   id="itemI-<?php echo($data['id']) ?>" value="I-<?php echo($data['id']) ?>"><?php $DB->getItemNameByStockId($data['id']) ?></option>
+              
+              <?php
+            }
+    
+          ?>
+          
+        </datalist>
 
-      <input readonly="" id="itemName" type="text" class="form-control" value="">
+        <input readonly="" id="itemName" type="text" class="form-control" value="">
 			
     <div class="form-group">
       <label for="amount">Enter Amount</label>
-      <input type="number" class="form-control" id="amount" placeholder="Enter Amount">
+      <input type="number" class="form-control" id="amount" placeholder="Enter Amount" onkeypress="enterKeySendDataToNewStock(event)">
     </div>
-  
+            <p id="err" style="color: red;text-align: center;"></p>
     <button  class="btn btn-primary btn-lg btn-block" onclick="sendDataToNewStock()">ADD + </button>
       <br>
       <br>

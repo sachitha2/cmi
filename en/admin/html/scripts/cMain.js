@@ -3504,5 +3504,27 @@ function sendDataToNewStock(){
 	itemId = document.getElementById("itemId").value;
 	amount = document.getElementById("amount").value;
 
-	appendDataToTable(takeItemNameFromItemListSelection(itemId),amount);
+	
+
+
+	if(itemId == ""){
+		msg("err","Please Select a Item");
+	}else if(amount == ""){
+		msg("err","Please add Amount");
+	}else{
+		msg("err","");
+
+		appendDataToTable(takeItemNameFromItemListSelection(itemId),amount);
+
+		enterNext(event,"itemId");
+	}
+
+}
+
+//enter key press case for stock transfer function
+
+function enterKeySendDataToNewStock(e){
+	if (e.which == 13) {
+		sendDataToNewStock();
+	}
 }
