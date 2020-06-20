@@ -3456,9 +3456,17 @@ function returnItemFinal(cid,dealId,uprice,stockId,pId){
 
 
 function ifBothEqualInGRNTransfer(from,to){
-	if(from == to){
-		alert("System can not send items to same wearhouse");
-	}else{
+
+	if(from == 0 && to != 0){
+		msg("grnUI","<p style='color:red'>Please Select Sending Stock</p>");
+	}
+
+	else if(from == to){
+		msg("grnUI","<p style='color:red'>Same Stock.</p>");
+	}else if(from != 0 && to == 0){
+		msg("grnUI","<p style='color:red'>Please Select Receiving Stock</p>");
+	}
+	else{
 		var ajax = _ajax();
 		ajax.onreadystatechange = function() {
 			if (this.readyState == 4 && this.status == 200) {
@@ -3469,7 +3477,7 @@ function ifBothEqualInGRNTransfer(from,to){
 			}
 		}
 
-		ajax.open("GET", "subPages/grnUI.php", true);
+		ajax.open("GET", "subPages/grnUI.php?from="+from+"&to="+to, true);
 		ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 		ajax.send();
 		

@@ -254,6 +254,19 @@ public	function itemList($DB,$onKey = "",$extra = ""){
  		echo($name);
  	}
  }
+
+ function getStockName($id,$d = 1){
+	$sql = "SELECT * FROM whouse WHERE id = $id";
+	  $result = $this->conn->query($sql);
+	  $row = mysqli_fetch_assoc($result);
+	  $name = $row['name'];	  	
+	if($d == 0){
+		return($name);
+	}else{
+		echo($name);
+	}
+}
+
 	function status($value){
 		if($value){
 			echo("Active");

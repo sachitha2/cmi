@@ -10,11 +10,13 @@ $arr = $DB->select("item","");
 ?>
 
 <div class="container">
-    <h1 class="text-center">Shop -> Home</h1>
+      
 
     <div class="row">
       <div class="col-sm" style="background-color: #C4C3C3;position:sticky;max-height: 500px;">
-        <h1>Sending...</h1>
+        <div class="card-header" style="margin-bottom: 5px;margin-top: 5px;position: sticky;top: 50px;z-index: 10;text-transform: uppercase">
+            <center><h1 class="my-0 font-weight-normal text-info"><?php echo($DB->getStockName($_GET['from']) ) ?></h1></center>
+        </div>
         <label>Select Item</label>
         <input autofocus list="colors" name="color" id="itemId" class="form-control"  placeholder="Item Id"   onKeyPress="enterItemNameInGRNTransfer(event,this.value)">
         <datalist id="colors">
@@ -55,7 +57,9 @@ $arr = $DB->select("item","");
 
     </div>
     <div class="col-sm">
-      <h1>Received</h1>
+        <div class="card-header" style="margin-bottom: 5px;margin-top: 5px;position: sticky;top: 50px;z-index: 10;text-transform: uppercase">
+            <center><h1 class="my-0 font-weight-normal text-info"><?php echo($DB->getStockName($_GET['to'])) ?></h1></center>
+        </div>
       <table id="myTable"  class="table table-hover table-bordered table-striped table-dark">
           <tr>
               <th>Item</th>
