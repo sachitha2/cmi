@@ -15,44 +15,39 @@ $arr = $DB->select("item","");
   <div class="row">
     <div class="col-sm" style="background-color: #C4C3C3;">
       <h1>Sending...</h1>
-      <?php 
-if( ($DB->nRow("item","") != 0 ) && ($DB->nRow("item_type","") != 0 )){
-	?>
-	
-	
-     	<input placeholder="Enter item" list="colors" autofocus name="color"  id="itemId" class="form-control" style="width: 200px" >
+      <input autofocus list="colors" name="color" id="itemId" class="form-control"  placeholder="Item Id"   onKeyPress="enterItemNameInCreditCustomer(event,this.value)">
 			<datalist id="colors">
 				
     			<?php
-					foreach($arr as $data){
+					$arrPack = $DB->select("pack","");
+						
+
+					foreach($arrPack as $packdata){
 						?>
-						<option value="<?php echo($data['id']) ?>">
-							<?php $DB->getItemNameByStockId($data['id']) ?>
-						</option>
+						<option   id="itemP-<?php echo($packdata['id']) ?>"  value="P-<?php echo($packdata['id']) ?>"><?php echo($packdata['name']) ?></option>
+						<?php
+					}
+					
+					$arrItem = $DB->select("item","");
+					foreach($arrItem as $data){
+						?>
+						<option   id="itemI-<?php echo($data['id']) ?>" value="I-<?php echo($data['id']) ?>"><?php $DB->getItemNameByStockId($data['id']) ?></option>
 						
 						<?php
 					}
 	
 				?>
+				
 			</datalist>
-      <label id="msg"></label><br>
-      <?php
-}else{
-	if($DB->nRow("item","") == 0 ){
-			$main->Msgwarning("No data found in Item");
-	}
-	if($DB->nRow("item_type","") == 0 ){
-		$main->Msgwarning("No data found in Item Type");
-	}
 
-}
-?>
+      <input readonly="" id="itemName" type="text" class="form-control" value="">
+			
   <div class="form-group">
     <label for="exampleInputPassword1">Enter Amount</label>
     <input type="number" class="form-control" id="exampleInputPassword1" placeholder="Password">
   </div>
   
-  <button  class="btn btn-primary btn-lg btn-block" onclick="appendDataToTable('cake','2500')">ADD + </button>
+  <button  class="btn btn-primary btn-lg btn-block" onclick="appendDataToTable('hellooo','2500')">ADD + </button>
      <br>
      <br>
 
