@@ -1809,6 +1809,7 @@ function enterEditCustomerByCustomerId(e,id) {
 function enteradditemsToFastCustomerBill(e,billId) {
   if (e.which == 13) { 
 	  document.getElementById("qty").disabled = true;
+	  emt("itemName");
 	  additemsToFastCustomerBill(billId);
 	  }
 }
@@ -1823,7 +1824,8 @@ function enterAdditemsToCreditCustomerBill(e,billId){
 		var qty = document.getElementById("qty").value;
 		if(qty != ""){
 			document.getElementById("qty").disabled = true;
-	  		additemsToCreditCustomerBill(billId);
+			  additemsToCreditCustomerBill(billId);
+			  emt("itemName");
 		}
 	  
 	  }
@@ -2618,6 +2620,7 @@ function readSalesMenu(){
 
 var fastCustomerBillTotal ;
 function fastCustomerFinish(total){
+			
 			fastCustomerBillTotal = total;
 			showModal();
 			stage = document.getElementById("mainModal");
@@ -2633,6 +2636,10 @@ function fastCustomerFinish(total){
 					
 					document.getElementById("cash").focus();
 					document.getElementById("cash").select();
+					
+
+
+
 				}
 	  		}
 
@@ -3542,7 +3549,7 @@ function enterKeySendDataToNewStock(e){
 
 function checkAvailabilityOfStock(itemId,amount){
 
-	
+
 	console.log("checking availability of stock "+itemId+" amount "+amount);
 
 
