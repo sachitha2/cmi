@@ -273,7 +273,7 @@ if($DB->nRow("stock",$logic) != 0){
 		?>
       
       <th id="profit" scope="col" onDblClick="/*ajaxCommonGetFromNet('subPages/menu.profitInStock.php','profit');*/">Profit</th>
-      
+      <th id="wHouse" scope="col">STOCK</th>
 <!--  <th scope="col" width="50"></th>
       <th scope="col" width="50"></th>-->
     </tr>
@@ -352,7 +352,7 @@ if($DB->nRow("stock",$logic) != 0){
 					<td><button type="button" class="btn btn-md btn-primary">Edit</button></td>
 					<td><button onClick="delArea()" type="button" class="btn btn-md btn-danger ">X</button></td>
 -->
-					
+					<td><?php $DB->getStockName($data['wId'],1); ?></td>
 				</tr>
 				<?php
 			}

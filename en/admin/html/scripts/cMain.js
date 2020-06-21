@@ -3525,6 +3525,8 @@ function sendDataToNewStock(){
 		appendDataToTable(takeItemNameFromItemListSelection(itemId),amount);
 
 		enterNext(event,"itemId");
+
+		checkAvailabilityOfStock(itemId,amount);
 	}
 
 }
@@ -3535,4 +3537,13 @@ function enterKeySendDataToNewStock(e){
 	if (e.which == 13) {
 		sendDataToNewStock();
 	}
+
+}
+
+function checkAvailabilityOfStock(itemId,amount){
+
+	
+	console.log("checking availability of stock "+itemId+" amount "+amount);
+
+
 }
