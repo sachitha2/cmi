@@ -15,9 +15,9 @@ $salaryThisYear= $DB ->select("salary","WHERE YEAR(date) = YEAR(curdate())","SUM
 $salaryLastYear= $DB ->select("salary","WHERE YEAR(date) = YEAR(CURRENT_DATE - INTERVAL 1 YEAR)","SUM(cost)");
 
 
-$monthchange=$salaryThisMonth[0]['SUM(cost)'] - $salaryLastMonth[0]['SUM(cost)'];
+$monthchange=(((int)$salaryThisMonth[0]['SUM(cost)'] - (int)$salaryLastMonth[0]['SUM(cost)'])/(int)$salaryLastMonth[0]['SUM(cost)'])*100;
 
-$yearchange=$salaryThisYear[0]['SUM(cost)'] - $salaryLastYear[0]['SUM(cost)'];
+$yearchange=(((int)$salaryThisYear[0]['SUM(cost)'] - (int)$salaryLastYear[0]['SUM(cost)'])/(int)$salaryLastYear[0]['SUM(cost)'])*100;
 
 
 $data['salaryThisM'] = (int)$salaryThisMonth[0]['SUM(cost)'];
@@ -26,8 +26,8 @@ $data['salaryLastM'] = (int)$salaryLastMonth[0]['SUM(cost)'];
 $data['salaryThisY'] = (int)$salaryThisYear[0]['SUM(cost)'];
 $data['salaryLastY'] = (int)$salaryLastYear[0]['SUM(cost)'];
 
-$data['salaryMChange'] = (int)$monthchange;
-$data['salaryYChanage'] = (int)$yearchange;
+$data['salaryMChange'] = $monthchange;
+$data['salaryYChanage'] = $yearchange;
 
 $json= json_encode($data);
 
