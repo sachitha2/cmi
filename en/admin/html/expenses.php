@@ -328,8 +328,11 @@ $main = new Main;
      	
      	<div class="container h-100" id="cStage">
      		<br>
-			<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/addExpenses.php','cStage')">Create</button>
-			<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/viewExpensesMain.php','cStage')">View</button>
+     		<center>
+     			<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/addExpenses.php','cStage')" style="width: 40%;margin-bottom: 5px;">Create</button>
+				<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/viewExpensesMain.php','cStage')" style="width: 40%;margin-bottom: 5px;">View</button>
+     		</center>
+			
 			<br>
 			<br>
 			<br>

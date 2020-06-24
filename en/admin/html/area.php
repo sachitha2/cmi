@@ -1,6 +1,12 @@
 <?php
 require_once("../methods/Main.class.php");
+require_once("../methods/DB.class.php");
+require_once("db.php");
 $main = new Main;
+$DB = new DB;
+$DB->conn = $conn;
+//call save url
+$DB->saveURL();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -51,10 +57,14 @@ $main = new Main;
       <!-- ############ PAGE START-->
         <?php $main->head("Area") ?>
     <div class="container h-100" id="cStage">
-  			<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/addArea.php','cStage')">Add</button>
-     		<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/area.STE.php','cStage')">Edit</button>
-<!--     		<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/deleteArea.php','cStage')">Delete</button>-->
-     		<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/viewArea.php','cStage')">View</button>
+    
+    		<center>
+				<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/addArea.php','cStage')"  style="width: 40%;margin-bottom: 5px;">Add</button>
+				<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/area.STE.php','cStage')"  style="width: 40%;margin-bottom: 5px;">Edit</button>
+	<!--     		<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/deleteArea.php','cStage')">Delete</button>-->
+				<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/viewArea.php','cStage')"  style="width: 40%;margin-bottom: 5px;">View</button>
+    		</center>
+  			
      	
 	</div>
 

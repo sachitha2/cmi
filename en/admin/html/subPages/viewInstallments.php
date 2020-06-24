@@ -2,9 +2,15 @@
 require_once("../db.php");
 require_once("../../methods/DB.class.php");
 $DB = new DB;
-$DB->conn = $conn;?>
+$DB->conn = $conn;
+	
+
+?>
 <div><a href="credits.php"><img src="../assets/images/back.png" width="30" height="30"></a></div><br>
 	
+	
+	
+
 <?php
 if($DB->nRow("installment","") != 0){ ?>
 

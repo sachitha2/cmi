@@ -6,6 +6,9 @@ if(session_id()== '')
    session_start();
 }
 
+
+
+
 $logOutUrl = "../../../L";
 if(!isset($_SESSION['login'])){
 	header("location:$logOutUrl");
@@ -78,7 +81,7 @@ class Main{
         <!-- brand -->
         <a class="navbar-brand" href="dashboard.php">
         	<img src="../assets/images/logo.png" alt="">
-        	<span class="hidden-folded inline" style="font-size: 22px">CMS</span>
+        	<span class="hidden-folded inline" style="font-size: 22px">INFI V2</span>
         </a>
         <!-- / brand -->
       </div>
@@ -117,6 +120,11 @@ class Main{
                       </a>
                     </li>
                     <li>
+                      <a  onClick="window.location.assign('subArea.php')">
+                        <span class="nav-text">Sub Area</span>
+                      </a>
+                    </li>
+                    <li>
                       <a onClick="window.location.assign('user.php')">
                         <span class="nav-text">User</span>
                       </a>
@@ -139,6 +147,31 @@ class Main{
                     <li>
                       <a onClick="window.location.assign('costType.php')">
                         <span class="nav-text">Cost Type</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a onClick="window.location.assign('agent.php')">
+                        <span class="nav-text">Agent</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a onClick="window.location.assign('vehicle.php')">
+                        <span class="nav-text">Vehicle</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a onClick="window.location.assign('seller.php')">
+                        <span class="nav-text">Seller</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a onClick="window.location.assign('settings.php')">
+                        <span class="nav-text">Settings</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a onClick="window.location.assign('bdayBook.php')">
+                        <span class="nav-text">Birthday Book</span>
                       </a>
                     </li>
                   </ul>
@@ -176,49 +209,86 @@ class Main{
                 </li>
             
             
-                <li>
-                  <a  onClick="window.location.assign('expenses.php')">
-                    <span class="nav-icon">
-                      <i class="material-icons">&#xe01d;
-                        <span ui-include="'../assets/images/i_4.svg'"></span>
-                      </i>
-                    </span>
-                    <span class="nav-text">Expenses</span>
-                  </a>
-                </li>
+                <?php
+					if($_SESSION['login']['type'] == 1 || $_SESSION['login']['type'] == 1000){
+						?>
+						
+                		
+                		<li>
+						  <a  onClick="window.location.assign('returns.php')">
+							<span class="nav-icon">
+							  <i class="material-icons">&#xe547;
+								<span ui-include="'../assets/images/i_3.svg'"></span>
+							  </i>
+							</span>
+							<span class="nav-text">Returns</span>
+						  </a>
+						</li>
+
+						<li>
+							  <a  onClick="window.location.assign('expenses.php')">
+								<span class="nav-icon">
+								  <i class="material-icons">&#xe01d;
+									<span ui-include="'../assets/images/i_4.svg'"></span>
+								  </i>
+								</span>
+								<span class="nav-text">Expenses</span>
+							  </a>
+                		</li>
+                		<li>
+						  <a onClick="window.location.assign('profit.php')">
+							<span class="nav-icon">
+							  <i class="material-icons">&#xe227;
+								<span ui-include="'../assets/images/i_5.svg'"></span>
+							  </i>
+							</span>
+							<span class="nav-text">Profit</span>
+						  </a>
+                		</li>
+                		
+                		<li>
+						  <a  onClick="window.location.assign('income.php')">
+							<span class="nav-icon">
+							  <i class="material-icons">&#xe39e;
+								<span ui-include="'../assets/images/i_6.svg'"></span>
+							  </i>
+							</span>
+							<span class="nav-text">Income</span>
+						  </a>
+                		</li>
+                		
+                		<li>
+						  <a onClick="window.location.assign('credits.php')">
+							<span class="nav-icon">
+							  <i class="material-icons">&#xe870;
+								<span ui-include="'../assets/images/i_7.svg'"></span>
+							  </i>
+							</span>
+							<span class="nav-text">Credits</span>
+						  </a>
+						</li>
+						
+						
+						<li>
+						  <a onClick="window.location.assign('salary.php')">
+							<span class="nav-icon">
+							  <i class="material-icons">&#xe870;
+								<span ui-include="'../assets/images/i_7.svg'"></span>
+							  </i>
+							</span>
+							<span class="nav-text">Salary</span>
+						  </a>
+						</li>
+						<?php
+					}
+				
+				?>
             
-                <li>
-                  <a onClick="window.location.assign('profit.php')">
-                    <span class="nav-icon">
-                      <i class="material-icons">&#xe227;
-                        <span ui-include="'../assets/images/i_5.svg'"></span>
-                      </i>
-                    </span>
-                    <span class="nav-text">Profit</span>
-                  </a>
-                </li>
+                
             
-                <li>
-                  <a  onClick="window.location.assign('income.php')">
-                    <span class="nav-icon">
-                      <i class="material-icons">&#xe39e;
-                        <span ui-include="'../assets/images/i_6.svg'"></span>
-                      </i>
-                    </span>
-                    <span class="nav-text">Income</span>
-                  </a>
-                </li>
+                
             
-                <li>
-                  <a onClick="window.location.assign('credits.php')">
-                    <span class="nav-icon">
-                      <i class="material-icons">&#xe870;
-                        <span ui-include="'../assets/images/i_7.svg'"></span>
-                      </i>
-                    </span>
-                    <span class="nav-text">Credits</span>
-                  </a>
-                </li>
+                
                 <li>
                   <a onClick="window.location.assign('installments.php')">
                     <span class="nav-icon">
@@ -229,6 +299,110 @@ class Main{
                     <span class="nav-text">Installments</span>
                   </a>
                 </li>
+                
+                <li>
+                  <a onClick="window.location.assign('sales.php')">
+                    <span class="nav-icon">
+                      <i class="material-icons">&#xe870;
+                        <span ui-include="'../assets/images/i_7.svg'"></span>
+                      </i>
+                    </span>
+                    <span class="nav-text">Sales</span>
+                  </a>
+                </li>
+                 <li>
+                  <a onClick="window.location.assign('order.php')">
+                    <span class="nav-icon">
+                      <i class="material-icons">&#xe870;
+                        <span ui-include="'../assets/images/i_7.svg'"></span>
+                      </i>
+                    </span>
+                    <span class="nav-text">Orders</span>
+                  </a>
+                </li>
+                
+                
+                <li>
+                  <a onClick="window.location.assign('collection.php')">
+                    <span class="nav-icon">
+                      <i class="material-icons">&#xe870;
+                        <span ui-include="'../assets/images/i_7.svg'"></span>
+                      </i>
+                    </span>
+                    <span class="nav-text">Collection</span>
+                  </a>
+                </li>
+                
+				<?php
+		
+		
+		
+				if($_SESSION['login']['type'] == 1 || $_SESSION['login']['type'] == 1000){
+					?>
+						
+						
+						<li>
+						  <a>
+							<span class="nav-caret">
+							  <i class="fa fa-caret-down"></i>
+							</span>
+							<span class="nav-icon">
+							  <i class="material-icons">&#xe429;
+								<span ui-include="'../assets/images/i_7.svg'"></span>
+							  </i>
+							</span>
+							<span class="nav-text">Reports</span>
+						  </a>
+						  <ul class="nav-sub">
+							<li>
+							  <a  onClick="window.location.assign('report.php')">
+								<span class="nav-text">Summary</span>
+							  </a>
+							</li>
+							<li>
+							  <a  onClick="window.location.assign('detailReport.php')">
+								<span class="nav-text">Detail Reports</span>
+							  </a>
+							</li>
+							<li>
+							  <a  onClick="window.location.assign('purchasedItemsReport.php')">
+								<span class="nav-text">Purchased Items Report</span>
+							  </a>
+							</li>
+						  </ul>
+						</li>
+							<!-- SMS               -->
+						 <li>
+						  <a>
+							<span class="nav-caret">
+							  <i class="fa fa-caret-down"></i>
+							</span>
+							<span class="nav-icon">
+							  <i class="material-icons">&#xe429;
+								<span ui-include="'../assets/images/i_1.svg'"></span>
+							  </i>
+							</span>
+							<span class="nav-text">SMS</span>
+						  </a>
+						  <ul class="nav-sub">
+
+							<li>
+							  <a onClick="window.location.assign('SMS.php')">
+								<span class="nav-text">Dashboard</span>
+							  </a>
+							</li>
+							<li>
+							  <a onClick="window.location.assign('compose.sms.php')">
+								<span class="nav-text">compose</span>
+							  </a>
+							</li>
+						  </ul>
+						</li>
+						<!-- SMS               -->
+					<?php
+				}
+				?>
+                
             
               </ul>
           </nav>
@@ -274,7 +448,7 @@ class Main{
 		
 			$pdf->ln(5);
 			$pdf->SetFont('Times','',10);
-			$pdf->Cell('',10,"Powered by Infini solutions - http://infinisolutionslk.com",'','',"C");
+			$pdf->Cell('',10,"Powered by Infini solutions - https://infinisolutionslk.com",'','',"C");
 			$pdf->ln(5);
 			$pdf->Cell('',10,"077-1466460",'','',"C");
 		
@@ -344,9 +518,40 @@ class Main{
 		}
 		return( $logic);
 	}
+	public function mySalesSqlLgc($x){
+		if($x == "dayToday"){
+			$logic = " AND date = curdate()";
+		}else if($x == "dayYester"){
+			$logic = " AND date = curdate()-1";
+		}
+		else if($x == "dayWeek"){
+			$logic = " AND WEEK(date) = WEEK(curdate()) AND MONTH(date) = MONTH(curdate()) AND YEAR(date) = YEAR(curdate())";
+		}else if($x == "dayLWeek"){
+			$logic = " AND WEEK(date) = WEEK(CURRENT_DATE - INTERVAL 1 WEEK) AND MONTH(date) = MONTH(CURRENT_DATE - INTERVAL 1 WEEK) AND YEAR(date) = YEAR(CURRENT_DATE - INTERVAL 1 WEEK)";
+		}
+		else if($x == "dayMonth"){
+			$logic = " AND MONTH(date) = MONTH(curdate()) AND YEAR(date) = YEAR(curdate())";
+		}
+		else if($x == "dayLMonth"){
+//			$logic = " AND MONTH(date) = MONTH(curdate()) AND YEAR(date) = YEAR(curdate())";
+			$logic = " AND MONTH(date) = MONTH(CURRENT_DATE - INTERVAL 1 MONTH) AND YEAR(date) = YEAR(CURRENT_DATE - INTERVAL 1 MONTH) ";
+		}
+		else if($x == "dayYear"){
+//			$logic = " AND MONTH(date) = MONTH(curdate()) AND YEAR(date) = YEAR(curdate())";
+			$logic = " AND  YEAR(date) = YEAR(CURRENT_DATE)";
+		}
+		else if($x == "dayCustom"){
+//			$logic = " AND MONTH(date) = MONTH(curdate()) AND YEAR(date) = YEAR(curdate())";
+			$logic = " ";
+		}
+		else{
+			$logic = " ";
+		}
+		return( $logic);
+	}
 	public function head($title){
 		?>
-		<div class="card-header" style="margin-bottom: 5px;margin-top: 5px;position: sticky;top: 50px;z-index: 10">
+		<div class="card-header" style="margin-bottom: 5px;margin-top: 5px;position: sticky;top: 50px;z-index: 10;text-transform: uppercase">
         	<center><h1 class="my-0 font-weight-normal text-info" ><?php echo($title) ?></h1></center>
       	</div>
 		<?php
@@ -371,5 +576,230 @@ class Main{
         </div>
 		<?php
 	}
+	
+	public function checkNic($nic){
+		if($nic != "0000000000"){
+			 if(strlen($nic) == 10){
+				if($nic[9] == "x" || $nic[9] == "X" || $nic[9] == "v" || $nic[9] == "V"){
+
+					return(true);	
+				}else{
+					return(false);
+				}
+			}else if(strlen($nic) == 12){
+					if(is_numeric($nic)){
+						return(true);
+					}
+					return(false);
+			 }else{
+				 return(false);
+			 }
+
+
+		}else{
+			return(false);
+		}
+}
+
+
+public function nicToDOB($nic){
+	 			 
+                 $dayText = 0;
+                 $year = "";
+                 $month = "";
+                 $day = "";
+                 $gender = "";
+				 $g;
+				 $dob = "";
+	
+				$arr['year'] = ""; 
+				$arr['s'] = 0;
+				$arr['msg'] = "";
+				$arr['month'] = "";
+				$arr['monthN'] = "";
+				$arr['day'] = 0;
+				$arr['gender'] = 0;
+		
+	
+                if (strlen($nic) != 10 && strlen($nic) != 12) {
+                    $arr['msg'] = "Invalid NIC NO 10 12";
+					$arr['s'] = 0;
+                } else if (strlen($nic) == 10 && !is_numeric(substr($nic,0,9))) {
+                    $arr['msg'] = "Invalid NIC NO numeric check";
+					$arr['s'] = 0;
+                }
+                else {
+                    $arr['msg'] = "NIC Correct";
+					$arr['s'] = 1;
+					
+// Year
+                    if (strlen($nic) == 10) {
+                        $year = "19" . substr($nic,0,2);//$nic.substr(0, 2);
+                        $dayText = (int)substr($nic,2,3);
+                    } else {
+                        $year = (int)substr($nic,0,4);
+                        $dayText = (int)substr($nic,4,3);
+                    }
+
+                    // Gender
+                    if ($dayText > 500) {
+                        $gender = "Female";
+						$g = 0;
+                        $dayText = $dayText - 500;
+                    } else {
+                        $gender = "Male";
+						$g = 1;
+                    }
+
+                    // Day Digit Validation
+                    if ($dayText < 1 && $dayText > 366) {
+                        $msg = "Invalid NIC NO";
+                    } else {
+
+                        //Month
+                        if ($dayText > 335) {
+                            $day = $dayText - 335;
+                            $month = "December";
+							$monthNumber = "12" ;
+                        }
+                        else if ($dayText > 305) {
+                            $day = $dayText - 305;
+                            $month = "November";
+							$monthNumber = "11" ;
+                        }
+                        else if ($dayText > 274) {
+                            $day = $dayText - 274;
+                            $month = "October";
+							$monthNumber = "10" ;
+                        }
+                        else if ($dayText > 244) {
+                            $day = $dayText - 244;
+                            $month = "September";
+							$monthNumber = "09" ;
+                        }
+                        else if ($dayText > 213) {
+                            $day = $dayText - 213;
+                            $month = "Auguest";
+							$monthNumber = "08" ;
+                        }
+                        else if ($dayText > 182) {
+                            $day = $dayText - 182;
+                            $month = "July";
+							$monthNumber = "07";
+                        }
+                        else if ($dayText > 152) {
+                            $day = $dayText - 152;
+                            $month = "June";
+							$monthNumber = "06" ;
+                        }
+                        else if ($dayText > 121) {
+                            $day = $dayText - 121;
+                            $month = "May";
+							$monthNumber = "05" ;
+                        }
+                        else if ($dayText > 91) {
+                            $day = $dayText - 91;
+                            $month = "April";
+							$monthNumber = "04" ;
+                        }
+                        else if ($dayText > 60) {
+                            $day = $dayText - 60;
+                            $month = "March";
+							$monthNumber = "03" ;
+                        }
+                        else if ($dayText < 32) {
+                            $month = "January";
+                            $day = $dayText;
+							$monthNumber = "01" ;
+                        }
+                        else if ($dayText > 31) {
+                            $day = $dayText - 31;
+                            $month = "Febuary";
+							$monthNumber = "02" ;
+                        }
+						
+						
+						
+											
+//						echo("<br>Year ".$year);
+//						echo("<br>".$month);
+//						echo("<br>".$day);
+//						echo("<br>Month Number".$monthNumber);
+//						echo("<br>");
+//						echo("<br>Gender ".$gender);
+//						echo("<br>Gender ".$g);
+//						echo("<br>$dob<br>");
+						$arr['year'] = $year; 
+						$arr['month'] = $month;
+						$arr['monthN'] = $monthNumber;
+						if($day > 9){
+							$arr['day'] = $day;
+						}else{
+							$arr['day'] = "0".$day;
+						}
+						
+						$dob = $year."-".$monthNumber."-".$arr['day'];	
+						$arr['g'] = $g;
+						$arr['gender'] = $gender;
+						$arr['dob'] = $dob;
+						
+						
+					}
+					
+					
+				}
+	return($arr);
+}
+	
+	
+	function iDate($x,$ni,$date){
+		
+	
+		
+	
+	if($date < 10){
+		$date = "0".$date; 
+	}
+
+	$year = date("Y", strtotime($x));
+	$month = (int)date("m", strtotime($x));
+	$d = date("d", strtotime($x));
+	if($d >= $date){
+		if($month == 12){
+			$month = 1;
+			$year++;
+		}else{
+			$month++;
+			
+		}
+	}
+
+
+	for($i = 0;$i < $ni;$i++){
+		
+		if($month < 10){
+			$arr[$i] = $year."-0".$month."-".$date;
+		}else{
+			$arr[$i] = $year."-".$month."-".$date;
+		}
+		
+		
+		
+		
+		if($month == 12){
+			$month = 1;
+			$year++;
+		}else{
+			$month++;
+			
+		}
+	}
+
+	return($arr);
+		
+		
+	}
+	
+	
 }
 ?>

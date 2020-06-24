@@ -1,12 +1,15 @@
 <?php
 require_once("../methods/Main.class.php");
 $main = new Main;
+if(isset($_GET['print'])){
+	echo($_GET['print']);
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>CMS - Sells</title>
+  <title>CMS - Make a Sale</title>
   <meta name="description" content="cms" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimal-ui" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -32,6 +35,13 @@ $main = new Main;
   <!-- endbuild -->
   <link rel="stylesheet" href="../assets/styles/font.css" type="text/css" />
    <script src="scripts/cMain.js"></script> 
+   
+   
+   
+   <!--  PDF-->
+  <link rel="stylesheet" href="https://printjs-4de6.kxcdn.com/print.min.css" type="text/css" />
+  
+  <script src="https://printjs-4de6.kxcdn.com/print.min.js"></script>
 </head>
 <body>
 
@@ -51,8 +61,10 @@ $main = new Main;
       <!-- ############ PAGE START-->
     	<h1>Sales</h1>
     <div class="container h-100" id="cStage">
-  			<button  type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/sellCustomer.php','cStage')">Customer</button>
-  			<button  type="button" class="btn btn-primary btn-lg" onClick="fastCustomer()">Fast Customer</button>
+  			<center>
+  				<button  type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/sellCustomer.php','cStage')" style="width: 40%;margin-bottom: 5px;">Credit</button>
+  				<button  type="button" class="btn btn-primary btn-lg" onClick="fastCustomer()" style="width: 40%;margin-bottom: 5px;">Cash</button>
+  			</center>
 	</div>
 
       <!-- ############ PAGE END-->

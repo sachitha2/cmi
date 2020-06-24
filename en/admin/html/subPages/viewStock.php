@@ -110,6 +110,38 @@ $Date = date("Y-m-d");
 			//SQL SELLING_PRICE LOGIC END
 			/////////////////////////////////////////////
 		}
+		else if($dataArr['mode'] == "CP"){
+			////////////////////////////////////////////
+			//SQL CASH_PRICE LOGIC START
+			////////////////////////////////////////////
+//				echo("\nSP\n");
+				$status = $dataArr['status'];
+				$day = $dataArr['day'];
+				$dayLogic = $main->stockSqlLgc($day);
+				$logic = "WHERE status  = $status ";
+				$logic .= "AND sprice".$dataArr['GL']." ".$dataArr['CP'];
+				$logic .= $dayLogic;
+			/////////////////////////////////////////////
+			//SQL CASH_PRICE LOGIC END
+			/////////////////////////////////////////////
+		}
+		
+		else if($dataArr['mode'] == "MP"){
+			////////////////////////////////////////////
+			//SQL CASH_PRICE LOGIC START
+			////////////////////////////////////////////
+//				echo("\nSP\n");
+				$status = $dataArr['status'];
+				$day = $dataArr['day'];
+				$dayLogic = $main->stockSqlLgc($day);
+				$logic = "WHERE status  = $status ";
+				$logic .= "AND sprice".$dataArr['GL']." ".$dataArr['MP'];
+				$logic .= $dayLogic;
+			/////////////////////////////////////////////
+			//SQL CASH_PRICE LOGIC END
+			/////////////////////////////////////////////
+		}
+		
 		else if($dataArr['mode'] == "MFD"){
 			////////////////////////////////////////////
 			//SQL MFD LOGIC START
@@ -157,7 +189,9 @@ $Date = date("Y-m-d");
 
 	$logic .= " ORDER BY stock.adate DESC";
 //	echo("<br>");
-	echo($logic);
+//	echo($logic);
+	
+	$arrMaster = $DB->select("masterdata","","expItems,marketPriceCompair");
 	
 ?>
 
@@ -167,6 +201,7 @@ $Date = date("Y-m-d");
      	<label><input type="radio" name="optradio" <?php $main->ckTACked(0,$status) ?> id="s0">Inactive</label>
     </form>
     <form>
+<!--    	<label><input type="radio" name="optradio"   id="all" <?php $main->ckTACked("all",$day) ?>>ALL</label>-->
     	<label><input type="radio" name="optradio"   id="dayToday" <?php $main->ckTACked("dayToday",$day) ?>>Today</label>
      	<label><input type="radio" name="optradio"  id="dayWeek"  <?php $main->ckTACked("dayWeek",$day) ?>>Week</label>
      	<label><input type="radio" name="optradio" id="dayMonth"  <?php $main->ckTACked("dayMonth",$day) ?>>Month</label>
@@ -198,12 +233,45 @@ if($DB->nRow("stock",$logic) != 0){
       <th id="item" scope="col" onDblClick="itemMenuInStock()">Item</th>
       <th id="amount" scope="col" onDblClick="ajaxCommonGetFromNet('subPages/menu.amountInStock.php','amount');">Amount</th>
       <th id="rAmount" scope="col"  onDblClick="ajaxCommonGetFromNet('subPages/menu.rAmountInStock.php','rAmount');">R.Amount</th>
+      
       <th id="bPrice" scope="col"  onDblClick="ajaxCommonGetFromNet('subPages/menu.BPInStock.php','bPrice');">BP</th>
       <th id="sPrice" scope="col"  onDblClick="ajaxCommonGetFromNet('subPages/menu.SPInStock.php','sPrice');">SP</th>
-      <th id="mfd" scope="col"   onDblClick="ajaxCommonGetFromNet('subPages/menu.MFDInStock.php','mfd');">MFD</th>
-      <th id="exDate" scope="col"    onDblClick="ajaxCommonGetFromNet('subPages/menu.EXDInStock.php','exDate');">ExDate</th>
+      <th id="cPrice" scope="col"  onDblClick="ajaxCommonGetFromNet('subPages/menu.CPInStock.php','cPrice');">CP</th>
+      <?php
+			if($arrMaster[0]['marketPriceCompair'] == 1){
+				?>
+				<th id="mPrice" scope="col"  onDblClick="ajaxCommonGetFromNet('subPages/menu.MPInStock.php','mPrice');">MP</th>
+				
+				<?php
+				
+			}
+		?>
+      
+      
+      <?php 
+		if($arrMaster[0]["expItems"] == 1)
+		{
+			?>
+			<th id="mfd" scope="col"   onDblClick="ajaxCommonGetFromNet('subPages/menu.MFDInStock.php','mfd');">MFD</th>
+      		<th id="exDate" scope="col"    onDblClick="ajaxCommonGetFromNet('subPages/menu.EXDInStock.php','exDate');">ExDate</th>
+			
+			<?php
+			
+		}		?>
+      
+      
       <th id="aDate" scope="col"    onDblClick="ajaxCommonGetFromNet('subPages/menu.ADateInStock.php','aDate');">ADate</th>
-      <th id="dTe" scope="col"    onDblClick="/*ajaxCommonGetFromNet('subPages/menu.DtEInStock.php','dTe');*/">DtE</th>
+      <?php
+		if($arrMaster[0]["expItems"] == 1)
+		{
+			?>
+			<th id="dTe" scope="col"    onDblClick="/*ajaxCommonGetFromNet('subPages/menu.DtEInStock.php','dTe');*/">DtE</th>
+			<?php
+		
+		}
+	
+		?>
+      
       <th id="profit" scope="col" onDblClick="/*ajaxCommonGetFromNet('subPages/menu.profitInStock.php','profit');*/">Profit</th>
       
 <!--  <th scope="col" width="50"></th>
@@ -230,24 +298,55 @@ if($DB->nRow("stock",$logic) != 0){
 					<td><?php echo($data['ramount']) ?></td>
 					<td><?php echo($data['bprice']) ?></td>
 					<td><?php echo($data['sprice']) ?></td>
-					<td><?php echo($data['mfd']) ?></td>
-					<td><?php echo($data['exdate']) ?></td>
+					<td><?php echo($data['cashPrice']) ?></td>
+					<?php
+						if($arrMaster[0]['marketPriceCompair'] == 1){
+							?>
+							<td><?php echo($data['marketPrice']) ?></td>
+							<?php
+
+						}
+					?>
+					
+					<?php
+						if($arrMaster[0]["expItems"] == 1){
+							?>
+							<td><?php echo($data['mfd']) ?></td>
+							<td><?php echo($data['exdate']) ?></td>
+							
+							<?php
+						}
+					
+					?>
+					
+					
 					<td><?php echo($data['adate']) ?></td>
-					<td>
+					
 						<?php
-							$expDate = date_create($data['exdate']);
-							$curDate=date_create($Date);
-							$diff=date_diff($expDate,$curDate);
-							$dte =  (array) $diff;
-							//print_r($diff);
-							if($curDate > $expDate){
-								echo("-".$dte['days']);
-							}else{
-								echo($dte['days']);
+							if($arrMaster[0]["expItems"] == 1){
+								
+								?>
+								<td>
+								<?php
+								
+								$expDate = date_create($data['exdate']);
+								$curDate=date_create($Date);
+								$diff=date_diff($expDate,$curDate);
+								$dte =  (array) $diff;
+								//print_r($diff);
+								if($curDate > $expDate){
+									echo("-".$dte['days']);
+								}else{
+									echo($dte['days']);
+								}
+								?>
+								</td>
+								<?php
 							}
+								
 						?>
 						
-					</td>
+					
 					<td><?php echo(($data['sprice'] - $data['bprice']) * $data['amount']  ) ?></td>
 <!--
 					<td><button type="button" class="btn btn-md btn-primary">Edit</button></td>

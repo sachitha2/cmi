@@ -5,6 +5,15 @@ require_once("../methods/DB.class.php");
 $main = new Main;
 $DB = new DB;
 $DB->conn = $conn;
+
+//check user in table again
+if($DB->nRow("customer","WHERE nic = '{$_GET['nic']}'") == 0){
+	
+	
+	$arrNIC = $main->nicToDOB($_GET['nic']);
+	
+	
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -41,7 +50,7 @@ $DB->conn = $conn;
 
 <!-- ############ LAYOUT START-->
 
-  <?php $main->menuBar(s) ?>
+  <?php $main->menuBar() ?>
   <!-- / -->
   
   <!-- content -->
@@ -54,7 +63,7 @@ $DB->conn = $conn;
 			
 			
  			<h1>Insert a Customer</h1>
- 			
+<!-- 				<?php print_r($arrNIC); ?>-->
  			 	<?php
 //					echo($DB->nRow("area"," "));
 //					if(1 == 1){
@@ -66,7 +75,7 @@ $DB->conn = $conn;
 					}else{
 						$x++;
 					}
-	  				if($DB->nRow('user',' WHERE type = 2') == 0){
+	  				if($DB->nRow('user',' ') == 0){
 						$main->Msgwarning("No data Found in User Table");
 					}else{
 						$x++;
@@ -74,41 +83,112 @@ $DB->conn = $conn;
 	  
 	  				if($x == 2){
 						?>
-						<form>
-		<div>Name</div>
-		<div><input type="text" class="form-control" name="name" id="name"></div>
+						<form autocomplete="off">
+		<div>Select Designation</div>
+		<select  class="form-control" id="desi">
+			<option value="0">Select Designation</option>
+			<option value="Mr." <?php if($arrNIC['s'] == 1 && $arrNIC['g'] == 1){echo("selected");} ?> >Mr.</option>
+			<option value="Mrs.">Mrs.</option>
+			<option value="Ms." <?php if($arrNIC['s'] == 1 && $arrNIC['g'] == 0){echo("selected");} ?>>Ms.</option>
+			<option value="Miss.">Miss.</option>
+		</select>
+		<div>Full Name</div>
+		<div><input type="text" class="form-control" style="text-transform: uppercase" name="name" id="name" placeholder="Enter Name" onKeyPress="enterNext(event,'sName');" autocomplete="false" autofocus></div>
+		
+		<div>Short Name</div>
+		<div><input type="text" class="form-control" name="sName" id="sName" placeholder="Enter Short Name"  onKeyPress="enterNext(event,'address');"  style="text-transform: uppercase" onClick="getShortName('name','sName')" autocomplete="false"></div>
 		<div>Address</div>
-		<div><input type="text" class="form-control" name="address" id="address"></div>
+		<div><input type="text" class="form-control" name="address" id="address" placeholder="Enter Address"  onKeyPress="enterNext(event,'tp');" autocomplete="false"></div>
 		<div>NIC</div>
-		<div><input type="text" class="form-control" name="nic" id="nic" value="<?php echo $_GET['id']; ?>" readonly></div>
+		<div><input type="text" class="form-control" name="nic" id="nic" value="<?php echo $_GET['nic']; ?>" readonly></div>
 		<div>Telephone</div>
-		<div><input type="text" class="form-control" name="tp" id="tp"></div>
-		<div>your area</div>
-		<div><select name="area" id="area" class="form-control" >
+		<div><input type="text" class="form-control" name="tp" id="tp" placeholder="Enter Telephone Number"   onKeyPress="enterNext(event,'dob');"></div>
+		
+		<div>Date of Birth</div>
+		<div><input type="date" class="form-control" name="dob" id="dob" style="width: 200px"   onKeyPress="enterNext(event,'route');" <?php if($arrNIC['s'] == 1){echo("value=\"{$arrNIC['dob']}\"");} ?>></div>
+		
+		<div>Job</div>
+		<div><select name="job" id="job" class="form-control"  style="width: 200px">
+			<option class='form-control' value='0'>SELECT JOB</option>
 			<?php
-		$queryForSelection = $conn->query("SELECT * FROM area");
-		while ($row = mysqli_fetch_assoc($queryForSelection)) {
-		 	echo "<option class='form-control' value='{$row['id']}'>".$row['name']."</option>";
-		 } 
+				$jobs = $DB->select("job","");
+				foreach($jobs as $data){
+					echo "<option class='form-control' value='{$data['id']}'>{$data['name']}</option>";
+				}
+			// $queryForSelection = $conn->query("SELECT * FROM job");
+			// while ($row = mysqli_fetch_assoc($queryForSelection)) {
+			//  	
+			//  	print_r($row);
+			// } 
+			?>
+		</select></div>
+		
+		<div>Route</div>
+		<div><textarea id="route" placeholder="Enter Route" class="form-control"></textarea></div>
+		
+		<div>SELECT MAIN AREA</div>
+		<div>
+		<select name="area" id="area" class="form-control"  style="width: 200px" onChange="loadSubAreas(this.value)">
+			<option class='form-control' value='0'>SELECT MAIN AREA</option>
+			<?php
+			$queryForSelection = $conn->query("SELECT * FROM area ORDER BY area.name ASC");
+			while ($row = mysqli_fetch_assoc($queryForSelection)) {
+		 		echo "<option class='form-control' value='{$row['id']}'>".$row['name']."</option>";
+			} 
 
 
 		?>
 		</select></div>
-		<div>Agent name</div>
+		<!--	SUB AREA	-->
+		<div id="subAreaDiv" style="display: none">
+			
+		</div>
+		
+		
+		<div>Staf Agent name</div>
 		<div>
-			<select class="form-control" name="agent" id="agent">
+			<select class="form-control" name="agent" id="agent"  style="width: 200px">
 				<?php
-					$queryForAgentSelection = $conn->query("SELECT * FROM user WHERE type = 2 ;");
+					$queryForAgentSelection = $conn->query("SELECT * FROM user;");
 					while ($rowAgent = mysqli_fetch_assoc($queryForAgentSelection)) {
 
-						echo "<option value='{$rowAgent['id']}'>".$rowAgent['username']."</option>";
+						if($rowAgent['id'] == $_SESSION['login']['userId']){
+							echo "<option value='{$rowAgent['id']}' selected>".$rowAgent['username']."</option>";
+						}else{
+							echo "<option value='{$rowAgent['id']}'>".$rowAgent['username']."</option>";
+						}
 					}
 				?>
 			</select>
 		</div>
+		
+		<div>Agent name</div>
+		<div>
+			<select class="form-control" name="areaAgent" id="areaAgent"  style="width: 200px">
+				<option value='0'>NO</option>
+				<?php
+					$queryForAgentSelection = $conn->query("SELECT * FROM agent");
+					while ($rowAgent = mysqli_fetch_assoc($queryForAgentSelection)) {
+
+						echo "<option value='{$rowAgent['id']}'>".$rowAgent['name']."</option>";
+					}
+				?>
+			</select>
+		</div>
+		<div>Enter Collection Date</div>
+		<div>
+			<input type="number" value="25" id="collectionDate" onKeyPress="enterAddCustomer(event)" class="form-control"  style="width: 200px">
+		</div>
+		
+<!--
+		<div>Select Image</div>
+		<input id="inputFileToLoad" type="file" onchange="encodeImageFileAsURL();" />
+		<div id="imgTest" style="width: 100px;height: auto"><img src="" id="img" width="100"></div>
+-->
+		
 		<div id="msg"> </div>
 		<br>
-		<div><button class="btn btn-primary btn-lg"s type="button" onclick="addCustomer();">Create my account</button></div>
+		<div><button class="btn btn-primary btn-lg" type="button" onclick="addCustomer();">Next</button></div>
 		
 	</form>
 						<?php
@@ -166,6 +246,15 @@ $DB->conn = $conn;
 </body>
 </html>
 
+<?php
+	}else{
+	?>
+		<script>
+				window.location.assign('viewCustomer.php?nic=<?php echo($_GET['nic']) ?>');
+		</script>
+	<?php
+}
+	?>
 
 
 

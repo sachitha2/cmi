@@ -21,6 +21,8 @@ if(isset($_SESSION['login']['status'])){
 /////log out
 class DB{
 	
+	
+	
 	public $conn;
     function dataConn($x){
 	  $this->conn = $x;
@@ -151,8 +153,29 @@ class DB{
 		}
 		
 	}
+	
+	
+	function insertCollection($dealId,$amount,$installmentId,$userId){
+		$sqlCollection = "INSERT INTO collection (id, userId, installmentId, dealid, payment, date, time, dateTime) VALUES (NULL, '$userId', '$installmentId', '$dealId', '$amount', curdate(), curtime(), CURRENT_TIMESTAMP);";
+		$this->conn->query($sqlCollection);
+	}
 	function Histry($msg){
 		
+	}
+	function getSubAreaById($id,$d = 1){
+		if($id != 0){
+			$sql = "SELECT * FROM subarea WHERE id = $id";
+			$result = $this->conn->query($sql);
+			$row = mysqli_fetch_assoc($result);
+			$name = $row['name'];	  	
+			if($d == 0){
+				return($name);
+			}else{
+				echo($name);
+			}
+		}else{
+			echo("<center>-</center>");
+		}
 	}
 	function getAreaById($id,$d = 1){
 		$sql = "SELECT * FROM area WHERE id = $id";
@@ -165,17 +188,30 @@ class DB{
 			echo($name);
 		}
 	}
+	
+	function getCustomerById($id,$d = 1){
+		$sql = "SELECT name FROM customer WHERE id = $id";
+	  	$result = $this->conn->query($sql);
+	  	$row = mysqli_fetch_assoc($result);
+		$name = $row['name'];	  	
+		if($d == 0){
+			return($name);
+		}else{
+			echo($name);
+		}
+	}
+	
 	function getAgentById($id,$d = 1){
-///TODO
-//		$sql = "SELECT * FROM area WHERE id = $id";
-//	  	$result = $this->conn->query($sql);
-//	  	$row = mysqli_fetch_assoc($result);
-//		$name = $row['name'];	  	
-//		if($d == 0){
-//			return($name);
-//		}else{
-//			echo($name);
-//		}
+
+		$sql = "SELECT username FROM user WHERE id = $id";
+	  	$result = $this->conn->query($sql);
+	  	$row = mysqli_fetch_assoc($result);
+		$name = $row['username'];	  	
+		if($d == 0){
+			return($name);
+		}else{
+			echo($name);
+		}
 	}
 public	function itemList($DB,$onKey = "",$extra = ""){
 	?>
@@ -204,5 +240,106 @@ public	function itemList($DB,$onKey = "",$extra = ""){
 	
 	<?php
 }
+	
+	//---------------SANDALI----------------------------------------------------------
+
+ function getUserById($id,$d = 1){
+ 	$sql = "SELECT * FROM user WHERE id = $id";
+ 	  $result = $this->conn->query($sql);
+ 	  $row = mysqli_fetch_assoc($result);
+ 	$name = $row['username'];	  	
+ 	if($d == 0){
+ 		return($name);
+ 	}else{
+ 		echo($name);
+ 	}
+ }
+	function status($value){
+		if($value){
+			echo("Active");
+		}else{
+			echo("Not Active");
+		}
+	}
+	
+	//URL Functions Start
+	
+	
+	function isAdmin(){
+		//super admin and admin
+		if(isset($_SESSION['login']['type'])){
+			if($_SESSION['login']['type'] == 1 || $_SESSION['login']['type'] == 1000){
+				return(true);
+			}else{
+				return(false);
+			}
+		}else{
+			return(FALSE);
+		}
+	}
+	function isSuper(){
+		//super admin and admin
+		if(isset($_SESSION['login']['type'])){
+			if($_SESSION['login']['type'] == 1000){
+				return(true);
+			}else{
+				return(false);
+			}
+		}else{
+			return(FALSE);
+		}
+	}
+	
+	function getUserId(){
+		//<?php print_r($_SESSION['login']['userId']); 
+		if(isset($_SESSION['login']['userId'])){
+			return($_SESSION['login']['userId']);
+		}else{
+			return(0);
+		}
+		
+	}
+	
+	function getURL(){
+	$url =  "//{$_SERVER['HTTP_HOST']}{$_SERVER['REQUEST_URI']}";
+
+	$escaped_url = htmlspecialchars( $url, ENT_QUOTES, 'UTF-8' );
+	return($escaped_url);
+	
+	}
+	function saveURL(){
+		$sql = "INSERT INTO url (id, userId, url,dateTime) VALUES (NULL, '{$this->getUserId()}', '{$this->getURL()}', curtime());";
+		$result = $this->conn->query($sql);
+	}
+	
+	
+	function history($task){
+		
+		$sql = "INSERT INTO histry (id, date, time, task, userId) VALUES (NULL, '{$this->dateTime()->format('Y-m-d')}', '{$this->dateTime()->format('H:m:i')}', '$task', '{$this->getUserId()}');";
+		$result = $this->conn->query($sql);
+	}
+	//URL Functions END	
+	
+	
+	function dateTime(){
+		$date = new DateTime("now", new DateTimeZone('Asia/Colombo') );
+		return($date);
+	}
+
+
 }
+
+// function getItemById($id,$d = 1){
+// 	$sql = "SELECT name FROM item WHERE id = $id";
+// 	  $result = $this->conn->query($sql);
+// 	  $row = mysqli_fetch_assoc($result);
+// 	$name = $row['name'];	  	
+// 	if($d == 0){
+// 		return($name);
+// 	}else{
+// 		echo($name);
+// 	}
+// }
+
+
 
