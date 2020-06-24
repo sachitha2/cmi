@@ -109,6 +109,7 @@ $main = new Main;
 <!--				<button type="button" class="btn btn-primary btn-lg" onClick="ajaxCommonGetFromNet('subPages/searchCustomers.php','cStage')"  style="width: 40%;margin-bottom: 5px;">Advance Search</button>-->
     		</center>
     		
+
      		<div class="card-header" style="padding-bottom: 10px;padding-top: 10px;margin-top: 20px;">
         			<center><h1 class="my-0 font-weight-normal text-info">Customers - Area </h1></center>
       		</div>
