@@ -5,8 +5,8 @@ $DB = new DB;
 $DB->conn = $conn;
 
 
-$empid=5;
-//$empid=$_GET['empid'];
+//$empid=5;
+$empid=$_GET['empid'];
 $monthchange=0;
 $yearchange=0;
 
